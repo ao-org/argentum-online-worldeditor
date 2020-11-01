@@ -1,0 +1,15 @@
+frmCargando = 110, 145, 922, 446, C, -96, 138, 716, 653, C
+frmMain = 110, 145, 938, 660, , 22, 29, 834, 544, C
+Mod_Declaraciones = 44, 58, 745, 577, C
+Mod_General = 154, 203, 966, 718, C
+Mod_TileEngine = 88, 116, 900, 631, C
+clsGuildDlg = 88, 116, 900, 631, C
+clsByteQueue = 88, 116, 789, 635, C
+clsTimer = 110, 145, 811, 664, C
+PrevInstance = 50, 50, 736, 657, C
+cDIBSection = 0, 0, 0, 0, C
+Resolution = 110, 145, 811, 664, C
+modDX8Requires = 0, 0, 703, 523, C
+clsDX8Engine = 66, 87, 878, 602, C
+clsTexManager = 22, 29, 674, 548, 
+ModLadder = 22, 29, 725, 552, C
