@@ -1,0 +1,10 @@
+Línea 18: la clase WorldEditor.lvButtons_H del control cmdOK no era una clase de control cargada.
+Línea 24: el nombre de la propiedad _ExtentX de cmdOK no es válido.
+Línea 25: el nombre de la propiedad _ExtentY de cmdOK no es válido.
+Línea 26: el nombre de la propiedad Caption de cmdOK no es válido.
+Línea 27: el nombre de la propiedad CapAlign de cmdOK no es válido.
+Línea 28: el nombre de la propiedad BackStyle de cmdOK no es válido.
+Línea 38: el nombre de la propiedad cGradient de cmdOK no es válido.
+Línea 39: el nombre de la propiedad Mode de cmdOK no es válido.
+Línea 40: el nombre de la propiedad Value de cmdOK no es válido.
+Línea 41: el nombre de la propiedad cBack de cmdOK no es válido.
