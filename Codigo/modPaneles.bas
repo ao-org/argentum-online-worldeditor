@@ -186,7 +186,7 @@ Public Sub VerFuncion(ByVal Numero As Byte, ByVal Ver As Boolean, Optional Norma
             FrmMain.insertarParticula.Visible = Ver
             FrmMain.numerodeparticula.Visible = Ver
             FrmMain.quitarparticula.Visible = Ver
-           FrmMain.ListaParticulas.Visible = Ver
+            FrmMain.ListaParticulas.Visible = Ver
         Case 8 ' Luces
             FrmMain.Label8.Visible = Ver
             FrmMain.insertarLuz.Visible = Ver
