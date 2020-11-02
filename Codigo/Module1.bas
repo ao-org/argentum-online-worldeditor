@@ -193,21 +193,22 @@ Public Sub CargarParticulasBinary()
 
   
 
-    Dim N As Integer
+    Dim n As Integer
     
-    N = FreeFile()
+    n = FreeFile()
 
-    Open StreamFile For Binary Access Read As #N
+    Open StreamFile For Binary Access Read As #n
     'num de cabezas
-    Get #N, , ParticulasTotales
+    Get #n, , ParticulasTotales
 
     ReDim StreamData(1 To ParticulasTotales) As Stream
     'fill StreamData array with info from Particles.ini
     For loopc = 1 To ParticulasTotales
-        Get #N, , StreamData(loopc)
+        Get #n, , StreamData(loopc)
+        FrmMain.ListaParticulas.AddItem loopc & "- " & StreamData(loopc).name
     Next loopc
     
-    Close #N
+    Close #n
 
 
 
