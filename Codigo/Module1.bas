@@ -244,6 +244,7 @@ Exit Sub
             StreamData(loopc).colortint(ColorSet - 1).b = General_Field_Read(3, TempSet, ",")
         Next ColorSet
         
+        FrmMain.ListaParticulas.AddItem loopc & "- " & StreamData(loopc).name
     Next loopc
     
     
@@ -342,6 +343,7 @@ Public Sub CargarParticulas()
             StreamData(loopc).colortint(ColorSet - 1).b = General_Field_Read(3, TempSet, ",")
         Next ColorSet
         
+        FrmMain.ListaParticulas.AddItem loopc & "- " & StreamData(loopc).name
     Next loopc
     
     
