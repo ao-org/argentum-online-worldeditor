@@ -18,6 +18,67 @@ Begin VB.Form FrmMain
    ScaleWidth      =   1622
    StartUpPosition =   1  'CenterOwner
    Visible         =   0   'False
+   Begin VB.Frame Frame1 
+      BackColor       =   &H80000000&
+      Caption         =   "Opción Grh"
+      Height          =   1095
+      Left            =   19320
+      TabIndex        =   175
+      Top             =   120
+      Width           =   2415
+      Begin WorldEditor.lvButtons_H LvBOpcion 
+         Height          =   375
+         Index           =   18
+         Left            =   240
+         TabIndex        =   176
+         Top             =   240
+         Width           =   1815
+         _ExtentX        =   3201
+         _ExtentY        =   661
+         Caption         =   "Grh Normal"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
+      End
+      Begin WorldEditor.lvButtons_H LvBOpcion 
+         Height          =   375
+         Index           =   19
+         Left            =   240
+         TabIndex        =   177
+         Top             =   600
+         Width           =   1815
+         _ExtentX        =   3201
+         _ExtentY        =   661
+         Caption         =   "Dia / Noche"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
+      End
+   End
    Begin VB.Frame FraOpciones 
       BackColor       =   &H80000000&
       Caption         =   "Opciones"
@@ -674,6 +735,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -1670,12 +1732,12 @@ Begin VB.Form FrmMain
          EndProperty
          ForeColor       =   &H00FFFFFF&
          Height          =   285
-         Left            =   600
+         Left            =   2280
          TabIndex        =   91
          Text            =   "0"
-         Top             =   720
+         Top             =   600
          Visible         =   0   'False
-         Width           =   2655
+         Width           =   1335
       End
       Begin VB.PictureBox Picture5 
          Height          =   0
@@ -4574,7 +4636,30 @@ End If
     
 End Sub
 
+Private Sub DiaNoche()
 
+mnuVerParticulas_Click
+
+If ColorAmb = &HFFFFFF Then
+    Picture3.Enabled = True
+    Call AddtoRichTextBox(FrmMain.RichTextBox1, "Luz del mapa segun climatologia desactivada", 255, 255, 255, False, True, False)
+    ColorAmb = &HFF8080AA 'Luz Base por defecto5
+    engine.Map_Base_Light_Set ColorAmb
+    LuzMapa.Text = &HFFFFFF
+    LightA.LightRenderAll
+
+Else
+    Picture3.Enabled = False
+    Picture3.BackColor = &HFFFFFF
+    engine.Map_Base_Light_Set &HFFFFFF 'Luz de trabajo.
+    ColorAmb = &HFFFFFF
+    Call AddtoRichTextBox(FrmMain.RichTextBox1, "La luz del mapa sera segun la climatologia.", 255, 255, 255, False, True, False)
+    LightA.LightRenderAll
+
+End If
+
+    
+End Sub
 
 
 
@@ -4943,6 +5028,10 @@ Private Sub LvBOpcion_Click(index As Integer)
         Case 17
             Call modEdicion.Bloquear_Bordes
             Call frmOptimizar.cOptimizar_Click
+        Case 18
+            mnuAutoCompletarSuperficies_Click
+        Case 19
+            Call DiaNoche
     End Select
 End Sub
 
@@ -5681,6 +5770,13 @@ Private Sub mnuAutoCompletarSuperficies_Click()
 '*************************************************
 mnuAutoCompletarSuperficies.Checked = (mnuAutoCompletarSuperficies.Checked = False)
 
+If mnuAutoCompletarSuperficies.Checked = False Then
+    FrmMain.LvBOpcion(18).Caption = "Grh Normal"
+Else
+    FrmMain.LvBOpcion(18).Caption = "AutoCompletar"
+End If
+
+
 End Sub
 
 Private Sub mnuAutoGuardarMapas_Click()
@@ -6354,7 +6450,7 @@ mnuVerObjetos.Checked = (mnuVerObjetos.Checked = False)
 
 End Sub
 
-Private Sub mnuVerParticulas_Click()
+Public Sub mnuVerParticulas_Click()
 
 mnuVerParticulas.Checked = (mnuVerParticulas.Checked = False)
 End Sub
