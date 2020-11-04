@@ -256,7 +256,7 @@ Begin VB.Form frmUnionAdyacente
       EndProperty
       Height          =   285
       Index           =   3
-      Left            =   1800
+      Left            =   1200
       TabIndex        =   16
       Text            =   "0"
       Top             =   1800
@@ -412,7 +412,7 @@ Begin VB.Form frmUnionAdyacente
       Left            =   2520
       TabIndex        =   0
       Text            =   "0"
-      Top             =   840
+      Top             =   1080
       Width           =   735
    End
    Begin WorldEditor.lvButtons_H cmdCancelar 
@@ -483,6 +483,33 @@ Begin VB.Form frmUnionAdyacente
       TabIndex        =   39
       Top             =   3000
       Visible         =   0   'False
+      Width           =   1095
+   End
+   Begin VB.Label lblMapaAct 
+      Alignment       =   2  'Center
+      Caption         =   "1"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   13.5
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   2400
+      TabIndex        =   43
+      Top             =   1920
+      Width           =   1215
+   End
+   Begin VB.Label lblMapaActual 
+      Caption         =   "Mapa Actual"
+      Height          =   255
+      Index           =   0
+      Left            =   2520
+      TabIndex        =   42
+      Top             =   1560
       Width           =   1095
    End
    Begin VB.Label Label18 
@@ -885,9 +912,9 @@ Begin VB.Form frmUnionAdyacente
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   3600
+      Left            =   4320
       TabIndex        =   5
-      Top             =   1800
+      Top             =   1560
       Width           =   495
    End
    Begin VB.Label Label3 
@@ -903,9 +930,9 @@ Begin VB.Form frmUnionAdyacente
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   1200
+      Left            =   1320
       TabIndex        =   4
-      Top             =   1800
+      Top             =   1560
       Width           =   495
    End
    Begin VB.Label Label2 
@@ -921,9 +948,9 @@ Begin VB.Form frmUnionAdyacente
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   1920
+      Left            =   2640
       TabIndex        =   3
-      Top             =   2880
+      Top             =   2640
       Width           =   495
    End
    Begin VB.Label Label1 
@@ -939,7 +966,7 @@ Begin VB.Form frmUnionAdyacente
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   1920
+      Left            =   2640
       TabIndex        =   2
       Top             =   840
       Width           =   495
@@ -1203,6 +1230,8 @@ Private Sub Form_Load()
 'Last modified: 20/05/06
 '*************************************************
 Call mnuBasica_Click
+frmUnionAdyacente.lblMapaAct.Caption = FrmMain.Label16.Caption
+
 End Sub
 
 Private Sub Mapa_Change(index As Integer)

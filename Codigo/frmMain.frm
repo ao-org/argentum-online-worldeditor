@@ -91,8 +91,8 @@ Begin VB.Form FrmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   5775
-      Left            =   21960
+      Height          =   6375
+      Left            =   22080
       TabIndex        =   151
       Top             =   120
       Width           =   2175
@@ -404,7 +404,7 @@ Begin VB.Form FrmMain
          Index           =   8
          Left            =   240
          TabIndex        =   165
-         Top             =   1920
+         Top             =   3960
          Width           =   1815
          _ExtentX        =   3201
          _ExtentY        =   661
@@ -430,7 +430,7 @@ Begin VB.Form FrmMain
          Index           =   9
          Left            =   240
          TabIndex        =   166
-         Top             =   2760
+         Top             =   3000
          Width           =   1815
          _ExtentX        =   3201
          _ExtentY        =   661
@@ -456,7 +456,7 @@ Begin VB.Form FrmMain
          Index           =   10
          Left            =   240
          TabIndex        =   167
-         Top             =   2280
+         Top             =   3480
          Visible         =   0   'False
          Width           =   1815
          _ExtentX        =   3201
@@ -509,7 +509,7 @@ Begin VB.Form FrmMain
          Index           =   12
          Left            =   240
          TabIndex        =   169
-         Top             =   3240
+         Top             =   1920
          Width           =   1815
          _ExtentX        =   3201
          _ExtentY        =   661
@@ -535,7 +535,7 @@ Begin VB.Form FrmMain
          Index           =   13
          Left            =   240
          TabIndex        =   170
-         Top             =   3720
+         Top             =   4440
          Width           =   1815
          _ExtentX        =   3201
          _ExtentY        =   661
@@ -561,7 +561,7 @@ Begin VB.Form FrmMain
          Index           =   14
          Left            =   240
          TabIndex        =   171
-         Top             =   4200
+         Top             =   4920
          Width           =   855
          _ExtentX        =   1508
          _ExtentY        =   1508
@@ -587,7 +587,7 @@ Begin VB.Form FrmMain
          Index           =   15
          Left            =   1200
          TabIndex        =   172
-         Top             =   4200
+         Top             =   4920
          Width           =   855
          _ExtentX        =   1508
          _ExtentY        =   1508
@@ -613,7 +613,7 @@ Begin VB.Form FrmMain
          Index           =   16
          Left            =   240
          TabIndex        =   173
-         Top             =   5160
+         Top             =   5880
          Width           =   1815
          _ExtentX        =   3201
          _ExtentY        =   661
@@ -644,6 +644,32 @@ Begin VB.Form FrmMain
          _ExtentX        =   1508
          _ExtentY        =   661
          Caption         =   "Bloq"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
+      End
+      Begin WorldEditor.lvButtons_H LvBOpcion 
+         Height          =   375
+         Index           =   20
+         Left            =   240
+         TabIndex        =   178
+         Top             =   2400
+         Width           =   1815
+         _ExtentX        =   3201
+         _ExtentY        =   661
+         Caption         =   "Sup x Bloques"
          CapAlign        =   2
          BackStyle       =   2
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -760,9 +786,9 @@ Begin VB.Form FrmMain
          Strikethrough   =   0   'False
       EndProperty
       Height          =   7455
-      Left            =   21960
+      Left            =   22080
       TabIndex        =   109
-      Top             =   5880
+      Top             =   6480
       Width           =   2175
       Begin VB.CheckBox Check4 
          BackColor       =   &H80000000&
@@ -4909,11 +4935,11 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 
 
 
-If KeyCode = vbKeySpace Then
-If FrmBloques.Visible = True Then
-    Call InsertarBloque
-End If
-End If
+'If KeyCode = vbKeySpace Then
+'If FrmBloques.Visible = True Then
+'    Call InsertarBloque
+'End If
+'End If
 
 
 End Sub
@@ -5032,6 +5058,8 @@ Private Sub LvBOpcion_Click(index As Integer)
             mnuAutoCompletarSuperficies_Click
         Case 19
             Call DiaNoche
+        Case 20
+            Call InsertarBloque
     End Select
 End Sub
 
@@ -6175,6 +6203,7 @@ Private Sub mnuQuitarFunciones_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
+
 ' Superficies
 cSeleccionarSuperficie.value = False
 Call cSeleccionarSuperficie_Click
@@ -6182,16 +6211,19 @@ cQuitarEnEstaCapa.value = False
 Call cQuitarEnEstaCapa_Click
 cQuitarEnTodasLasCapas.value = False
 Call cQuitarEnTodasLasCapas_Click
+
 ' Translados
 cQuitarTrans.value = False
 Call cQuitarTrans_Click
 cInsertarTrans.value = False
 Call cInsertarTrans_Click
+
 ' Bloqueos
 cQuitarBloqueo.value = False
 Call cQuitarBloqueo_Click
 cInsertarBloqueo.value = False
 Call cInsertarBloqueo_Click
+
 ' Otras funciones
 cInsertarFunc(0).value = False
 Call cInsertarFunc_Click(0)
@@ -6205,11 +6237,25 @@ cQuitarFunc(1).value = False
 Call cQuitarFunc_Click(1)
 cQuitarFunc(2).value = False
 Call cQuitarFunc_Click(2)
+
 ' Triggers
 cInsertarTrigger.value = False
 Call cInsertarTrigger_Click
 cQuitarTrigger.value = False
 Call cQuitarTrigger_Click
+
+' particulas
+insertarParticula.value = False
+Call insertarParticula_Click
+quitarparticula.value = False
+Call quitarparticula_Click
+
+' Luces
+insertarLuz.value = False
+Call insertarLuz_Click
+QuitarLuz.value = False
+Call QuitarLuz_Click
+
 End Sub
 
 Private Sub mnuQuitarNPCs_Click()
