@@ -575,7 +575,7 @@ Begin VB.Form AmbientacionesForm
       List            =   "Ambientaciones.frx":0010
       TabIndex        =   2
       TabStop         =   0   'False
-      Text            =   "1"
+      Text            =   "3"
       Top             =   4275
       Width           =   615
    End
@@ -680,7 +680,7 @@ Dim i As Long
 
 cantidad = Text1.Text
 If cantidad <= 0 Then Exit Sub
-bloquear = check1
+bloquear = Check1
 
 D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
 
@@ -706,20 +706,33 @@ End Sub
 
 Private Sub List1_Click()
 
+If FrmMain.cSeleccionarSuperficie.Enabled = False Then
+    Call FrmMain.SelectPanel_Click(0)
+    modPaneles.VerFuncion 0, True
+    FrmMain.cSeleccionarSuperficie.Enabled = True
+End If
+
 D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
 Dim index As Long
 index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
-Call Grh_Render_To_HdcPNG(AmbientacionesForm.picture1, Ambientaciones(index).grhindex, 0, 0, False)
+Call Grh_Render_To_HdcPNG(AmbientacionesForm.Picture1, Ambientaciones(index).grhindex, 0, 0, False)
     frmConfigSup.MOSAICO.value = vbUnchecked
     frmConfigSup.mAncho.Text = "0"
     frmConfigSup.mLargo.Text = "0"
     HotKeysAllow = False
+    index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
+    FrmMain.cGrh.Text = Ambientaciones(index).grhindex
 End Sub
 
 Private Sub List1_DblClick()
 Dim index As Long
-index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
-FrmMain.cGrh.Text = Ambientaciones(index).grhindex
+
+Call FrmMain.SelectPanel_Click(0)
+modPaneles.VerFuncion 0, True
+FrmMain.cSeleccionarSuperficie.Enabled = True
+
+'index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
+'FrmMain.cGrh.Text = Ambientaciones(index).grhindex
 End Sub
 
 Private Sub Option1_Click()
