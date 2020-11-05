@@ -1621,8 +1621,8 @@ Begin VB.Form FrmMain
          TabIndex        =   96
          Top             =   3840
          Visible         =   0   'False
-         Width           =   2175
-         _ExtentX        =   3836
+         Width           =   2055
+         _ExtentX        =   3625
          _ExtentY        =   661
          Caption         =   "&Insertar Particula"
          CapAlign        =   2
@@ -1679,12 +1679,12 @@ Begin VB.Form FrmMain
       End
       Begin WorldEditor.lvButtons_H quitarparticula 
          Height          =   375
-         Left            =   2040
+         Left            =   2280
          TabIndex        =   95
          Top             =   3840
          Visible         =   0   'False
-         Width           =   2175
-         _ExtentX        =   3836
+         Width           =   1935
+         _ExtentX        =   3413
          _ExtentY        =   661
          Caption         =   "&Quitar Particula"
          CapAlign        =   2
@@ -1849,7 +1849,7 @@ Begin VB.Form FrmMain
       Begin WorldEditor.lvButtons_H cQuitarFunc 
          Height          =   375
          Index           =   0
-         Left            =   0
+         Left            =   120
          TabIndex        =   53
          Top             =   3840
          Visible         =   0   'False
@@ -4004,6 +4004,7 @@ Begin VB.Form FrmMain
       End
       Begin VB.Menu mnuAutoCapturarSuperficie 
          Caption         =   "Auto-C&apturar información de la Superficie"
+         Checked         =   -1  'True
       End
       Begin VB.Menu mnuAutoCapturarTranslados 
          Caption         =   "Auto-&Capturar información de los Translados"
@@ -5031,6 +5032,10 @@ Private Sub LvBOpcion_Click(index As Integer)
             abrirmapn_Click
         Case 12
             AmbientacionesForm.Show , FrmMain
+            Call SelectPanel_Click(0)
+            modPaneles.VerFuncion 0, True
+            cSeleccionarSuperficie.Enabled = True
+            
         Case 13 'Norte
             Form2.Command1_Click
             Form2.Command5_Click
@@ -6817,7 +6822,7 @@ Timer4.Enabled = True
 End If
 
 End Sub
-Private Sub SelectPanel_Click(index As Integer)
+Public Sub SelectPanel_Click(index As Integer)
 
  '*************************************************
 'Author: ^[GS]^
