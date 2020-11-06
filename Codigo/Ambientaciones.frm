@@ -722,6 +722,9 @@ Call Grh_Render_To_HdcPNG(AmbientacionesForm.Picture1, Ambientaciones(index).grh
     HotKeysAllow = False
     index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
     FrmMain.cGrh.Text = Ambientaciones(index).grhindex
+    modPaneles.VerFuncion 0, True
+    FrmMain.cSeleccionarSuperficie.value = True
+    Call FrmMain.cSeleccionarSuperficie_Click
 End Sub
 
 Private Sub List1_DblClick()

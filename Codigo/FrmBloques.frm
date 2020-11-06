@@ -103,7 +103,7 @@ On Error Resume Next
                         aux = Val(Grh(List1.ListIndex + 1)) + desptile
                         If tYY > 100 Then Exit Sub
                         If tXX > 100 Then Exit Sub
-                        MapData(tXX, tYY).Graphic(CInt(Val(LAYER(TIPOOK(List1.ListIndex + 1))))).GrhIndex = aux
+                        MapData(tXX, tYY).Graphic(CInt(Val(LAYER(TIPOOK(List1.ListIndex + 1))))).grhindex = aux
                         InitGrh MapData(tXX, tYY).Graphic(CInt(Val(LAYER(TIPOOK(List1.ListIndex + 1))))), aux
                         tXX = tXX + 1
                         desptile = desptile + 1
@@ -111,7 +111,7 @@ On Error Resume Next
                     tXX = UltimoClickX
                     tYY = tYY + 1
                 Next i
-                tYY = Y
+                tYY = y
 End Sub
 
 Private Sub Form_Load()
@@ -142,7 +142,7 @@ If grafico = 0 Then Exit Sub
 
 RenderX = Val(TILESX(TIPOOK(List1.ListIndex + 1)))
 RenderY = Val(TILESY(TIPOOK(List1.ListIndex + 1)))
-        Dim X As Integer, Y As Integer, j As Integer, i As Integer
+        Dim X As Integer, y As Integer, j As Integer, i As Integer
         Dim Cont As Integer
         
         For i = 1 To CInt(Val(TILESY(TIPOOK(List1.ListIndex + 1))))
@@ -163,9 +163,12 @@ RenderY = Val(TILESY(TIPOOK(List1.ListIndex + 1)))
 'Next x
 End Sub
 
-Private Sub Picture1_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Picture1_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
 DesdeBloq = True
 RenderGrh = Grh(List1.ListIndex + 1)
+
+If List1.ListIndex = -1 Then Exit Sub
+
 RenderX = Val(TILESX(TIPOOK(List1.ListIndex + 1)))
 RenderY = Val(TILESY(TIPOOK(List1.ListIndex + 1)))
 RenderLayer = Val(LAYER(TIPOOK(List1.ListIndex + 1)))
