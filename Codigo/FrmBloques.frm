@@ -111,7 +111,8 @@ On Error Resume Next
                     tXX = UltimoClickX
                     tYY = tYY + 1
                 Next i
-                tYY = y
+                tYY = Y
+MapInfo.Changed = 1
 End Sub
 
 Private Sub Form_Load()
@@ -142,7 +143,7 @@ If grafico = 0 Then Exit Sub
 
 RenderX = Val(TILESX(TIPOOK(List1.ListIndex + 1)))
 RenderY = Val(TILESY(TIPOOK(List1.ListIndex + 1)))
-        Dim X As Integer, y As Integer, j As Integer, i As Integer
+        Dim X As Integer, Y As Integer, j As Integer, i As Integer
         Dim Cont As Integer
         
         For i = 1 To CInt(Val(TILESY(TIPOOK(List1.ListIndex + 1))))
@@ -155,20 +156,15 @@ RenderY = Val(TILESY(TIPOOK(List1.ListIndex + 1)))
             Next
         Next
 
-
-
-
-
-
 'Next x
 End Sub
 
-Private Sub Picture1_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
-DesdeBloq = True
-RenderGrh = Grh(List1.ListIndex + 1)
+Private Sub Picture1_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
 If List1.ListIndex = -1 Then Exit Sub
 
+DesdeBloq = True
+RenderGrh = Grh(List1.ListIndex + 1)
 RenderX = Val(TILESX(TIPOOK(List1.ListIndex + 1)))
 RenderY = Val(TILESY(TIPOOK(List1.ListIndex + 1)))
 RenderLayer = Val(LAYER(TIPOOK(List1.ListIndex + 1)))
