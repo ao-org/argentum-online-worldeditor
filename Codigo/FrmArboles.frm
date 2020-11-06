@@ -136,7 +136,7 @@ Option Explicit
 
 Private Sub Form_Load()
       Dim lR As Long
-         lR = SetTopMostWindow(FrmArboles.hwnd, True)
+         lR = SetTopMostWindow(FrmArboles.hWnd, True)
 End Sub
 
 Private Sub Insertar_Click()
@@ -144,7 +144,7 @@ Dim cantidad As Long
 Dim bloquear As Byte
 Dim objeto As Long
 Dim X As Byte
-Dim Y As Byte
+Dim y As Byte
 Dim i As Long
 
 Dim BuscarX As Byte
@@ -172,11 +172,11 @@ If Text2 > 0 Then
 objeto = Text2
 For i = 1 To cantidad
             X = RandomNumber(14, 86)
-            Y = RandomNumber(12, 89)
-            If MapData(X, Y).Graphic(1).grhindex < 1505 Or MapData(X, Y).Graphic(1).grhindex > 1520 Then
+            y = RandomNumber(12, 89)
+            If MapData(X, y).Graphic(1).grhindex < 1505 Or MapData(X, y).Graphic(1).grhindex > 1520 Then
             poner = True
             For BuscarX = X - minx To X + maxx
-                For BuscarY = Y - miny To Y + maxy
+                For BuscarY = y - miny To y + maxy
                 If MapData(BuscarX, BuscarY).OBJInfo.objindex <> 0 Then
                     If ObjData(MapData(BuscarX, BuscarY).OBJInfo.objindex).ObjType = 4 Then
                         poner = False
@@ -185,14 +185,14 @@ For i = 1 To cantidad
                 Next BuscarY
             Next BuscarX
             If poner Then
-                    MapData(X, Y).Blocked = bloquear
-                    InitGrh MapData(X, Y).ObjGrh, ObjData(objeto).grhindex
-                    MapData(X, Y).OBJInfo.objindex = Text2
-                    MapData(X, Y).OBJInfo.Amount = 1
+                    MapData(X, y).Blocked = bloquear
+                    InitGrh MapData(X, y).ObjGrh, ObjData(objeto).grhindex
+                    MapData(X, y).OBJInfo.objindex = Text2
+                    MapData(X, y).OBJInfo.Amount = 1
                     End If
 
         
-            If MapData(X, Y).Graphic(3).grhindex <> MapData(X, Y).ObjGrh.grhindex Then MapData(X, Y).Graphic(3) = MapData(X, Y).ObjGrh
+            If MapData(X, y).Graphic(3).grhindex <> MapData(X, y).ObjGrh.grhindex Then MapData(X, y).Graphic(3) = MapData(X, y).ObjGrh
             Else
                 i = i - 1
             End If
@@ -204,11 +204,11 @@ If Text3 > 0 Then
 objeto = Text3
 For i = 1 To cantidad
             X = RandomNumber(14, 86)
-            Y = RandomNumber(12, 89)
-            If MapData(X, Y).Graphic(1).grhindex < 1505 Or MapData(X, Y).Graphic(1).grhindex > 1520 Then
+            y = RandomNumber(12, 89)
+            If MapData(X, y).Graphic(1).grhindex < 1505 Or MapData(X, y).Graphic(1).grhindex > 1520 Then
             poner = True
             For BuscarX = X - minx To X + maxx
-                For BuscarY = Y - miny To Y + maxy
+                For BuscarY = y - miny To y + maxy
                 If MapData(BuscarX, BuscarY).OBJInfo.objindex <> 0 Then
                     If ObjData(MapData(BuscarX, BuscarY).OBJInfo.objindex).ObjType = 4 Then
                         poner = False
@@ -217,14 +217,14 @@ For i = 1 To cantidad
                 Next BuscarY
             Next BuscarX
             If poner Then
-                    MapData(X, Y).Blocked = bloquear
-                    InitGrh MapData(X, Y).ObjGrh, ObjData(objeto).grhindex
-                    MapData(X, Y).OBJInfo.objindex = Text3
-                    MapData(X, Y).OBJInfo.Amount = 1
+                    MapData(X, y).Blocked = bloquear
+                    InitGrh MapData(X, y).ObjGrh, ObjData(objeto).grhindex
+                    MapData(X, y).OBJInfo.objindex = Text3
+                    MapData(X, y).OBJInfo.Amount = 1
                     End If
 
         
-            If MapData(X, Y).Graphic(3).grhindex <> MapData(X, Y).ObjGrh.grhindex Then MapData(X, Y).Graphic(3) = MapData(X, Y).ObjGrh
+            If MapData(X, y).Graphic(3).grhindex <> MapData(X, y).ObjGrh.grhindex Then MapData(X, y).Graphic(3) = MapData(X, y).ObjGrh
             Else
                 i = i - 1
             End If
@@ -238,11 +238,11 @@ If Text4 > 0 Then
 objeto = Text4
 For i = 1 To cantidad
             X = RandomNumber(14, 86)
-            Y = RandomNumber(12, 89)
-            If MapData(X, Y).Graphic(1).grhindex < 1505 Or MapData(X, Y).Graphic(1).grhindex > 1520 Then
+            y = RandomNumber(12, 89)
+            If MapData(X, y).Graphic(1).grhindex < 1505 Or MapData(X, y).Graphic(1).grhindex > 1520 Then
             poner = True
             For BuscarX = X - minx To X + maxx
-                For BuscarY = Y - miny To Y + maxy
+                For BuscarY = y - miny To y + maxy
                 If MapData(BuscarX, BuscarY).OBJInfo.objindex <> 0 Then
                     If ObjData(MapData(BuscarX, BuscarY).OBJInfo.objindex).ObjType = 4 Then
                         poner = False
@@ -251,14 +251,14 @@ For i = 1 To cantidad
                 Next BuscarY
             Next BuscarX
             If poner Then
-                    MapData(X, Y).Blocked = bloquear
-                    InitGrh MapData(X, Y).ObjGrh, ObjData(objeto).grhindex
-                    MapData(X, Y).OBJInfo.objindex = Text4
-                    MapData(X, Y).OBJInfo.Amount = 1
+                    MapData(X, y).Blocked = bloquear
+                    InitGrh MapData(X, y).ObjGrh, ObjData(objeto).grhindex
+                    MapData(X, y).OBJInfo.objindex = Text4
+                    MapData(X, y).OBJInfo.Amount = 1
                     End If
 
         
-            If MapData(X, Y).Graphic(3).grhindex <> MapData(X, Y).ObjGrh.grhindex Then MapData(X, Y).Graphic(3) = MapData(X, Y).ObjGrh
+            If MapData(X, y).Graphic(3).grhindex <> MapData(X, y).ObjGrh.grhindex Then MapData(X, y).Graphic(3) = MapData(X, y).ObjGrh
             Else
                 i = i - 1
             End If
@@ -271,11 +271,11 @@ If Text5 > 0 Then
 objeto = Text5
 For i = 1 To cantidad
             X = RandomNumber(14, 86)
-            Y = RandomNumber(12, 89)
-            If MapData(X, Y).Graphic(1).grhindex < 1505 Or MapData(X, Y).Graphic(1).grhindex > 1520 Then
+            y = RandomNumber(12, 89)
+            If MapData(X, y).Graphic(1).grhindex < 1505 Or MapData(X, y).Graphic(1).grhindex > 1520 Then
             poner = True
             For BuscarX = X - minx To X + maxx
-                For BuscarY = Y - miny To Y + maxy
+                For BuscarY = y - miny To y + maxy
                 If MapData(BuscarX, BuscarY).OBJInfo.objindex <> 0 Then
                     If ObjData(MapData(BuscarX, BuscarY).OBJInfo.objindex).ObjType = 4 Then
                         poner = False
@@ -284,14 +284,14 @@ For i = 1 To cantidad
                 Next BuscarY
             Next BuscarX
             If poner Then
-                    MapData(X, Y).Blocked = bloquear
-                    InitGrh MapData(X, Y).ObjGrh, ObjData(objeto).grhindex
-                    MapData(X, Y).OBJInfo.objindex = Text5
-                    MapData(X, Y).OBJInfo.Amount = 1
+                    MapData(X, y).Blocked = bloquear
+                    InitGrh MapData(X, y).ObjGrh, ObjData(objeto).grhindex
+                    MapData(X, y).OBJInfo.objindex = Text5
+                    MapData(X, y).OBJInfo.Amount = 1
                     End If
 
         
-            If MapData(X, Y).Graphic(3).grhindex <> MapData(X, Y).ObjGrh.grhindex Then MapData(X, Y).Graphic(3) = MapData(X, Y).ObjGrh
+            If MapData(X, y).Graphic(3).grhindex <> MapData(X, y).ObjGrh.grhindex Then MapData(X, y).Graphic(3) = MapData(X, y).ObjGrh
             Else
                 i = i - 1
             End If
@@ -303,5 +303,6 @@ End If
  Call AddtoRichTextBox(FrmMain.RichTextBox1, "Se agregaron " & cantidad & " arboles al mapa.", 255, 255, 255, False, True, False)
 Call DibujarMiniMapa
 DibujarMiniMapaParaMAPA
+MapInfo.Changed = 1
 End Sub
 

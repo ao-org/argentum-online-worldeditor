@@ -575,7 +575,7 @@ Begin VB.Form AmbientacionesForm
       List            =   "Ambientaciones.frx":0010
       TabIndex        =   2
       TabStop         =   0   'False
-      Text            =   "3"
+      Text            =   "1"
       Top             =   4275
       Width           =   615
    End
@@ -680,7 +680,7 @@ Dim i As Long
 
 cantidad = Text1.Text
 If cantidad <= 0 Then Exit Sub
-bloquear = Check1
+bloquear = check1
 
 D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
 
@@ -715,7 +715,7 @@ End If
 D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
 Dim index As Long
 index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
-Call Grh_Render_To_HdcPNG(AmbientacionesForm.Picture1, Ambientaciones(index).grhindex, 0, 0, False)
+Call Grh_Render_To_HdcPNG(AmbientacionesForm.picture1, Ambientaciones(index).grhindex, 0, 0, False)
     frmConfigSup.MOSAICO.value = vbUnchecked
     frmConfigSup.mAncho.Text = "0"
     frmConfigSup.mLargo.Text = "0"
