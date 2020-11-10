@@ -750,6 +750,7 @@ Public Sub CopiarSeleccion()
             SeleccionMap(X, y) = MapData(X + SeleccionIX, y + SeleccionIY)
         Next
     Next
+    MapInfo.Changed = 1
 End Sub
 Public Sub GenerarVista()
 '*************************************************
