@@ -217,6 +217,11 @@ For y = 1 To 100
     Next X
 Next y
 
+    ' Bloqueo las 4 esquinitas ReyarB
+    MapData(13, 10).Blocked = 1
+    MapData(13, 91).Blocked = 1
+    MapData(88, 10).Blocked = 1
+    MapData(88, 91).Blocked = 1
 
 Call DibujarMiniMapa
 
