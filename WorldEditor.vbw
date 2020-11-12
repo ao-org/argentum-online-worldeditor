@@ -1,7 +1,7 @@
 FrmMain = 0, 0, 787, 901, , 359, 109, 1557, 772, C
 modGeneral = 52, 52, 1312, 593, 
 modDeclaraciones = 78, 78, 1338, 619, 
-modDirectDraw = 200, 200, 1540, 677, Z
+modDirectDraw = 200, 200, 1540, 677, 
 frmGrafico = 0, 0, 0, 0, C, 175, 175, 1373, 838, C
 frmCargando = 0, 0, 0, 0, C, 200, 200, 1398, 863, C
 modDirectSound = 0, 0, 0, 0, C
