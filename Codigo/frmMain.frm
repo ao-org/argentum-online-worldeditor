@@ -21,29 +21,31 @@ Begin VB.Form FrmMain
    Begin VB.CommandButton BloqAll 
       Caption         =   "X"
       Height          =   255
-      Left            =   2160
+      Left            =   2040
       TabIndex        =   185
       Top             =   5040
       Visible         =   0   'False
       Width           =   255
    End
    Begin VB.CheckBox chkBloqueo 
+      BackColor       =   &H80000000&
       Caption         =   "N"
       Height          =   255
       Index           =   2
-      Left            =   2160
+      Left            =   2040
       TabIndex        =   184
-      Top             =   4800
+      Top             =   4680
       Value           =   1  'Checked
       Visible         =   0   'False
       Width           =   495
    End
    Begin VB.CheckBox chkBloqueo 
       Alignment       =   1  'Right Justify
+      BackColor       =   &H80000000&
       Caption         =   "O"
       Height          =   255
       Index           =   1
-      Left            =   1680
+      Left            =   1440
       TabIndex        =   183
       Top             =   5040
       Value           =   1  'Checked
@@ -51,17 +53,19 @@ Begin VB.Form FrmMain
       Width           =   495
    End
    Begin VB.CheckBox chkBloqueo 
+      BackColor       =   &H80000000&
       Caption         =   "S"
       Height          =   255
       Index           =   0
-      Left            =   2160
+      Left            =   2040
       TabIndex        =   182
-      Top             =   5280
+      Top             =   5400
       Value           =   1  'Checked
       Visible         =   0   'False
       Width           =   495
    End
    Begin VB.CheckBox chkBloqueo 
+      BackColor       =   &H80000000&
       Caption         =   "E"
       Height          =   255
       Index           =   3
@@ -857,6 +861,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
