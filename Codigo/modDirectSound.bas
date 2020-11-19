@@ -28,12 +28,13 @@ Attribute VB_Name = "modDirectSound"
 ' @date 20060520
 
 Public Sub IniciarDirectSound()
-'*************************************************
-'Author: Unkwown
-'Last modified: 20/05/06
-'*************************************************
-Err.Clear
-On Error GoTo fin
+    '*************************************************
+    'Author: Unkwown
+    'Last modified: 20/05/06
+    '*************************************************
+    Err.Clear
+
+    On Error GoTo fin
     
     '<----------------Direct Music--------------->
     Set Perf = DirectX.DirectMusicPerformanceCreate()
@@ -43,17 +44,19 @@ On Error GoTo fin
     '<------------------------------------------->
     
     Set DirectSound = DirectX.DirectSoundCreate("")
+
     If Err Then
         MsgBox "Error iniciando DirectSound"
         End
+
     End If
     
     LastSoundBufferUsed = 1
     
-    
     Exit Sub
 fin:
-End
+    End
+
 End Sub
 
 Public Sub LiberarDirectSound()

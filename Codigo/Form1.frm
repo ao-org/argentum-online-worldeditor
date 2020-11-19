@@ -48,28 +48,31 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
-
 Private Sub Form_Load()
-      Dim lR As Long
-         lR = SetTopMostWindow(Form1.hWnd, True)
+    Dim lR As Long
+    lR = SetTopMostWindow(Form1.hWnd, True)
          
-         
-         Dim i As Long
-For i = 1 To MaxGrh
-Rem    If GrhData(i).NumFrames > 0 Then
-    Form1.ListGraficosind.AddItem i
-  Rem   End If
-Next i
+    Dim i As Long
+
+    For i = 1 To MaxGrh
+        Rem    If GrhData(i).NumFrames > 0 Then
+        Form1.ListGraficosind.AddItem i
+        Rem   End If
+    Next i
+
 End Sub
+
 Private Sub ListGraficosind_Click()
-picture1.Refresh
-Call Grh_Render_To_Hdc(Form1.picture1.hdc, str$(ListGraficosind.ListIndex And &HFFFF&) + 1, 0, 0, False)
+    picture1.Refresh
+    Call Grh_Render_To_Hdc(Form1.picture1.hdc, str$(ListGraficosind.ListIndex And &HFFFF&) + 1, 0, 0, False)
     frmConfigSup.MOSAICO.value = vbUnchecked
     frmConfigSup.mAncho.Text = "0"
     frmConfigSup.mLargo.Text = "0"
     HotKeysAllow = False
+
 End Sub
 
 Private Sub ListGraficosind_DblClick()
-FrmMain.cGrh.Text = str$(ListGraficosind.ListIndex And &HFFFF&) + 1
+    FrmMain.cGrh.Text = str$(ListGraficosind.ListIndex And &HFFFF&) + 1
+
 End Sub
