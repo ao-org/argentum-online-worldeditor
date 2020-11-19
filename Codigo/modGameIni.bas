@@ -62,10 +62,20 @@ Public Sub IniciarCabecera(ByRef Cabecera As tCabecera)
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo IniciarCabecera_Err
+    
     Cabecera.Desc = "Argentum Online by Noland Studios. Copyright Noland-Studios 2001, pablomarquez@noland-studios.com.ar"
     Cabecera.CRC = Rnd * 100
     Cabecera.MagicWord = Rnd * 10
 
+    
+    Exit Sub
+
+IniciarCabecera_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGameIni.IniciarCabecera", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function LeerGameIni() As tGameIni
@@ -73,6 +83,9 @@ Public Function LeerGameIni() As tGameIni
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo LeerGameIni_Err
+    
     Dim n       As Integer
     Dim GameIni As tGameIni
     n = FreeFile
@@ -84,6 +97,13 @@ Public Function LeerGameIni() As tGameIni
     Close #n
     LeerGameIni = GameIni
 
+    
+    Exit Function
+
+LeerGameIni_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGameIni.LeerGameIni", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub EscribirGameIni(ByRef GameIniConfiguration As tGameIni)
@@ -91,6 +111,9 @@ Public Sub EscribirGameIni(ByRef GameIniConfiguration As tGameIni)
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo EscribirGameIni_Err
+    
     Dim n As Integer
     n = FreeFile
     Open DirIndex & "Inicio.con" For Binary As #n
@@ -99,5 +122,12 @@ Public Sub EscribirGameIni(ByRef GameIniConfiguration As tGameIni)
     Put #n, , GameIniConfiguration
     Close #n
 
+    
+    Exit Sub
+
+EscribirGameIni_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGameIni.EscribirGameIni", Erl)
+    Resume Next
+    
 End Sub
 

@@ -18,6 +18,9 @@ Public RenderGrh   As Long
 Public RenderLayer As Byte
 
 Public Sub InsertarBloque()
+    
+    On Error GoTo InsertarBloque_Err
+    
 
     If FrmBloques.List1.ListIndex + 1 > 0 Then
         DesdeBloq = True
@@ -28,9 +31,19 @@ Public Sub InsertarBloque()
 
     End If
 
+    
+    Exit Sub
+
+InsertarBloque_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModBLoques.InsertarBloque", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub PonerGrh()
+    
+    On Error GoTo PonerGrh_Err
+    
 
     Dim j    As Integer, i As Integer, grafico As Integer
             
@@ -77,9 +90,19 @@ Public Sub PonerGrh()
         Next
     Next
 
+    
+    Exit Sub
+
+PonerGrh_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModBLoques.PonerGrh", Erl)
+    Resume Next
+    
 End Sub
  
 Public Sub CargarBloq()
+    
+    On Error GoTo CargarBloq_Err
+    
    
     FrmBloques.List1.Clear
     FrmBloques.Combo1.Clear
@@ -109,9 +132,19 @@ Public Sub CargarBloq()
 
     Exit Sub
 
+    
+    Exit Sub
+
+CargarBloq_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModBLoques.CargarBloq", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub CargarTipo(ByVal Indice As Byte)
+    
+    On Error GoTo CargarTipo_Err
+    
 
     Dim NITEMS As Byte
    
@@ -133,4 +166,11 @@ Public Sub CargarTipo(ByVal Indice As Byte)
 
     Exit Sub
 
+    
+    Exit Sub
+
+CargarTipo_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModBLoques.CargarTipo", Erl)
+    Resume Next
+    
 End Sub

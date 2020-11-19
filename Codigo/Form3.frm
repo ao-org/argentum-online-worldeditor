@@ -132,12 +132,22 @@ Option Explicit
 
 Public Sub Command1_Click()
     'FrmMain.Timer4.Enabled = True
+    
+    On Error GoTo Command1_Click_Err
+    
     FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
     FrmMain.mnuGuardarMapa_Click
     Label5.Caption = MapaActual
     Call HacerTranslados
     Label5.Caption = 0
 
+    
+    Exit Sub
+
+Command1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form3.Command1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub LogError(Desc As String)
@@ -157,6 +167,9 @@ ErrHandler:
 End Sub
 
 Public Sub HacerTranslados()
+    
+    On Error GoTo HacerTranslados_Err
+    
     Label5.Caption = MapaActual
 
     Dim X As Integer
@@ -573,9 +586,19 @@ Public Sub HacerTranslados()
     Debug.Print "TERMINADO"
     Unload Me
 
+    
+    Exit Sub
+
+HacerTranslados_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form3.HacerTranslados", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Load()
+    
+    On Error GoTo Form_Load_Err
+    
 
     Dim X           As Integer
     Dim y           As Integer
@@ -642,5 +665,12 @@ Private Sub Form_Load()
 
     Next
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form3.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 

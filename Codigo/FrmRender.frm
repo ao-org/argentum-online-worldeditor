@@ -98,8 +98,18 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, ByVal X As L
 Private Declare Function GetWindowDC Lib "user32" (ByVal hWnd As Long) As Long
 
 Private Sub cmdAceptar_Click()
+    
+    On Error GoTo cmdAceptar_Click_Err
+    
     Call engine.MapCapture(False, False)
 
+    
+    Exit Sub
+
+cmdAceptar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmRender.cmdAceptar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 '*************************************************************
@@ -164,7 +174,17 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
 End Sub
 
 Private Sub Command1_Click()
+    
+    On Error GoTo Command1_Click_Err
+    
     Unload Me
 
+    
+    Exit Sub
+
+Command1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmRender.Command1_Click", Erl)
+    Resume Next
+    
 End Sub
 

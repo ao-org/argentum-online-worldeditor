@@ -93,6 +93,9 @@ Private Sub Compress_Data(ByRef data() As Byte)
     'Last Modify Date: 10/13/2004
     'Compresses binary data avoiding data loses
     '*****************************************************************
+    
+    On Error GoTo Compress_Data_Err
+    
     Dim Dimensions As Long
     Dim DimBuffer  As Long
     Dim BufTemp()  As Byte
@@ -116,6 +119,13 @@ Private Sub Compress_Data(ByRef data() As Byte)
     
     Erase BufTemp
 
+    
+    Exit Sub
+
+Compress_Data_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.Compress_Data", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Decompress_Data(ByRef data() As Byte, ByVal OrigSize As Long)
@@ -124,6 +134,9 @@ Private Sub Decompress_Data(ByRef data() As Byte, ByVal OrigSize As Long)
     'Last Modify Date: 10/13/2004
     'Decompresses binary data
     '*****************************************************************
+    
+    On Error GoTo Decompress_Data_Err
+    
     Dim BufTemp() As Byte
     
     ReDim BufTemp(OrigSize - 1)
@@ -136,6 +149,13 @@ Private Sub Decompress_Data(ByRef data() As Byte, ByVal OrigSize As Long)
     
     Erase BufTemp
 
+    
+    Exit Sub
+
+Decompress_Data_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.Decompress_Data", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function Extract_All_Files(ByVal file_type As resource_file_type, ByVal resource_path As String, Optional ByVal UseOutputFolder As Boolean = False) As Boolean
@@ -144,6 +164,9 @@ Public Function Extract_All_Files(ByVal file_type As resource_file_type, ByVal r
     'Last Modify Date: 10/13/2004
     'Extracts all files from a resource file
     '*****************************************************************
+    
+    On Error GoTo Extract_All_Files_Err
+    
     Dim loopc          As Long
     Dim SourceFilePath As String
     Dim OutputFilePath As String
@@ -311,6 +334,13 @@ ErrHandler:
 
     'Display an error message if it didn't work
     'MsgBox "Unable to decode binary file. Reason: " & Err.Number & " : " & Err.Description, vbOKOnly, "Error"
+    
+    Exit Function
+
+Extract_All_Files_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.Extract_All_Files", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Extract_Patch(ByVal resource_path As String, ByVal file_name As String) As Boolean
@@ -319,6 +349,9 @@ Public Function Extract_Patch(ByVal resource_path As String, ByVal file_name As 
     'Last Modify Date: 10/13/2004
     'Comrpesses all files to a resource file
     '*****************************************************************
+    
+    On Error GoTo Extract_Patch_Err
+    
     Dim loopc           As Long
     Dim LoopC2          As Long
     Dim LoopC3          As Long
@@ -634,6 +667,13 @@ ErrHandler:
     Erase SourceData
     Erase InfoHead
 
+    
+    Exit Function
+
+Extract_Patch_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.Extract_Patch", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Compress_Files(ByVal file_type As resource_file_type, ByVal resource_path As String, ByVal dest_path As String) As Boolean
@@ -642,6 +682,9 @@ Public Function Compress_Files(ByVal file_type As resource_file_type, ByVal reso
     'Last Modify Date: 10/13/2004
     'Comrpesses all files to a resource file
     '*****************************************************************
+    
+    On Error GoTo Compress_Files_Err
+    
     Dim SourceFilePath      As String
     Dim SourceFileExtension As String
     Dim OutputFilePath      As String
@@ -817,6 +860,13 @@ ErrHandler:
     'Display an error message if it didn't work
     MsgBox "Unable to create binary file. Reason: " & Err.Number & " : " & Err.Description, vbOKOnly, "Error"
 
+    
+    Exit Function
+
+Compress_Files_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.Compress_Files", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Extract_File(ByVal file_type As resource_file_type, ByVal resource_path As String, ByVal file_name As String, ByVal OutputFilePath As String, Optional ByVal UseOutputFolder As Boolean = False) As Boolean
@@ -825,6 +875,9 @@ Public Function Extract_File(ByVal file_type As resource_file_type, ByVal resour
     'Last Modify Date: 10/13/2004
     'Extracts all files from a resource file
     '*****************************************************************
+    
+    On Error GoTo Extract_File_Err
+    
     Dim loopc          As Long
     Dim SourceFilePath As String
     Dim SourceData()   As Byte
@@ -962,6 +1015,13 @@ ErrHandler:
 
     'Display an error message if it didn't work
     ' MsgBox "Unable to decode binary file. Reason: " & Err.Number & " : " & Err.Description, vbOKOnly, "Error"
+    
+    Exit Function
+
+Extract_File_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.Extract_File", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Delete_File(ByVal file_path As String)
@@ -1074,6 +1134,9 @@ Public Function General_Drive_Get_Free_Bytes(ByVal DriveName As String) As Curre
     'Last Modify Date: 6/07/2004
     '
     '**************************************************************
+    
+    On Error GoTo General_Drive_Get_Free_Bytes_Err
+    
     Dim RetVal As Long
     Dim FB     As Currency
     Dim BT     As Currency
@@ -1083,6 +1146,13 @@ Public Function General_Drive_Get_Free_Bytes(ByVal DriveName As String) As Curre
     
     General_Drive_Get_Free_Bytes = FB * 10000 'convert result to actual size in bytes
 
+    
+    Exit Function
+
+General_Drive_Get_Free_Bytes_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.General_Drive_Get_Free_Bytes", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub General_Quick_Sort(ByRef SortArray As Variant, ByVal first As Long, ByVal last As Long)
@@ -1091,6 +1161,9 @@ Public Sub General_Quick_Sort(ByRef SortArray As Variant, ByVal first As Long, B
     'Last Modify Date: 3/03/2005
     'Good old QuickSort algorithm :)
     '**************************************************************
+    
+    On Error GoTo General_Quick_Sort_Err
+    
     Dim Low            As Long, High As Long
     Dim temp           As Variant
     Dim List_Separator As Variant
@@ -1122,6 +1195,13 @@ Public Sub General_Quick_Sort(ByRef SortArray As Variant, ByVal first As Long, B
     If first < High Then General_Quick_Sort SortArray, first, High
     If Low < last Then General_Quick_Sort SortArray, Low, last
 
+    
+    Exit Sub
+
+General_Quick_Sort_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.General_Quick_Sort", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function General_Load_Picture_From_Resource(ByVal picture_file_name As String) As IPicture
@@ -1130,6 +1210,9 @@ Public Function General_Load_Picture_From_Resource(ByVal picture_file_name As St
     'Last Modify Date: 6/11/2005
     'Loads a picture from a resource file and returns it
     '**************************************************************
+    
+    On Error GoTo General_Load_Picture_From_Resource_Err
+    
 
     'On Error GoTo ErrorHandler
 
@@ -1150,5 +1233,12 @@ ErrorHandler:
 
     End If
 
+    
+    Exit Function
+
+General_Load_Picture_From_Resource_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modCompression.General_Load_Picture_From_Resource", Erl)
+    Resume Next
+    
 End Function
 

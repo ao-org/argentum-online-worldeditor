@@ -248,8 +248,18 @@ Private Sub cmdOK_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdOK_Click_Err
+    
     Unload Me
 
+    
+    Exit Sub
+
+cmdOK_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmAbout.cmdOK_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Load()
@@ -257,9 +267,19 @@ Private Sub Form_Load()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Form_Load_Err
+    
     Me.Caption = "Acerca de " & App.Title
     lblVersion.Caption = "Versión " & App.Major & "." & App.Minor & "." & App.Revision
     lblTitle.Caption = App.Title
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmAbout.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 

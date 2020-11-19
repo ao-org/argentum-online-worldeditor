@@ -78,7 +78,17 @@ Private Sub Form_Deactivate()
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Form_Deactivate_Err
+    
     Me.Visible = False
 
+    
+    Exit Sub
+
+Form_Deactivate_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmGrafico.Form_Deactivate", Erl)
+    Resume Next
+    
 End Sub
 

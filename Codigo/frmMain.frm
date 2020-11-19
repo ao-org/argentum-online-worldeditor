@@ -857,7 +857,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -4403,6 +4402,9 @@ Private Sub PonerAlAzar(ByVal n As Integer, T As Byte)
     'Author: Unkwown
     'Last modified: 20/05/06 by GS
     '*************************************************
+    
+    On Error GoTo PonerAlAzar_Err
+    
     Dim objindex As Long
     Dim NPCIndex As Long
     Dim X, y, i
@@ -4488,9 +4490,19 @@ Private Sub PonerAlAzar(ByVal n As Integer, T As Byte)
         DoEvents
     Loop
 
+    
+    Exit Sub
+
+PonerAlAzar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.PonerAlAzar", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub bloqqq_Click()
+    
+    On Error GoTo bloqqq_Click_Err
+    
     Dim X As Byte
     Dim y As Byte
     Dim i As Long
@@ -4512,9 +4524,19 @@ Private Sub bloqqq_Click()
         Next y
     Next X
 
+    
+    Exit Sub
+
+bloqqq_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.bloqqq_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub abrirmapn_Click()
+    
+    On Error GoTo abrirmapn_Click_Err
+    
 
     Dim Mapa As Integer
     Mapa = Val(InputBox("Ingrese el numero de mapa qe desea abrir."))
@@ -4532,33 +4554,83 @@ Private Sub abrirmapn_Click()
 
     End If
 
+    
+    Exit Sub
+
+abrirmapn_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.abrirmapn_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub agua_Click()
+    
+    On Error GoTo agua_Click_Err
+    
     cGrh.Text = DameGrhIndex(137)
 
     Call modPaneles.VistaPreviaDeSup
 
+    
+    Exit Sub
+
+agua_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.agua_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Ambientacones_Click()
+    
+    On Error GoTo Ambientacones_Click_Err
+    
     AmbientacionesForm.Show , FrmMain
 
+    
+    Exit Sub
+
+Ambientacones_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Ambientacones_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub arbolazar_Click()
+    
+    On Error GoTo arbolazar_Click_Err
+    
     FrmArboles.Show
 
+    
+    Exit Sub
+
+arbolazar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.arbolazar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub arena_Click()
+    
+    On Error GoTo arena_Click_Err
+    
     cGrh.Text = DameGrhIndex(245)
 
     Call modPaneles.VistaPreviaDeSup
 
+    
+    Exit Sub
+
+arena_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.arena_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub BloqAll_Click()
+    
+    On Error GoTo BloqAll_Click_Err
+    
     Dim i As Integer
 
     For i = 0 To 3
@@ -4566,14 +4638,34 @@ Private Sub BloqAll_Click()
     Next
     maskBloqueo = &HF
 
+    
+    Exit Sub
+
+BloqAll_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.BloqAll_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub BloquesOpen_Click()
+    
+    On Error GoTo BloquesOpen_Click_Err
+    
     Call CargarBloq
 
+    
+    Exit Sub
+
+BloquesOpen_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.BloquesOpen_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub blqspaciosvacios_Click()
+    
+    On Error GoTo blqspaciosvacios_Click_Err
+    
     Dim X As Byte
     Dim y As Byte
     Dim i As Long
@@ -4591,9 +4683,19 @@ Private Sub blqspaciosvacios_Click()
 
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+blqspaciosvacios_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.blqspaciosvacios_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub borrarnegros_Click()
+    
+    On Error GoTo borrarnegros_Click_Err
+    
     Dim X As Byte
     Dim y As Byte
     Dim i As Long
@@ -4642,6 +4744,13 @@ Private Sub borrarnegros_Click()
     Call DibujarMiniMapa
     Call mnuGuardarMapa_Click
        
+    
+    Exit Sub
+
+borrarnegros_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.borrarnegros_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cAgregarFuncalAzar_Click(Index As Integer)
@@ -4649,6 +4758,9 @@ Private Sub cAgregarFuncalAzar_Click(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cAgregarFuncalAzar_Click_Err
+    
 
     If IsNumeric(cCantFunc(Index).Text) = False Or cCantFunc(Index).Text > 200 Then
         MsgBox "El Valor de Cantidad introducido no es soportado!" & vbCrLf & "El valor maximo es 200.", vbCritical
@@ -4660,6 +4772,13 @@ Private Sub cAgregarFuncalAzar_Click(Index As Integer)
     Call PonerAlAzar(CInt(cCantFunc(Index).Text), 1 + (IIf(Index = 2, -1, Index)))
     cAgregarFuncalAzar(Index).Enabled = True
 
+    
+    Exit Sub
+
+cAgregarFuncalAzar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cAgregarFuncalAzar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cCantFunc_Change(Index As Integer)
@@ -4667,6 +4786,9 @@ Private Sub cCantFunc_Change(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cCantFunc_Change_Err
+    
 
     If Val(cCantFunc(Index)) < 1 Then
         cCantFunc(Index).Text = 1
@@ -4678,9 +4800,19 @@ Private Sub cCantFunc_Change(Index As Integer)
 
     End If
 
+    
+    Exit Sub
+
+cCantFunc_Change_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cCantFunc_Change", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cCapas_Change()
+    
+    On Error GoTo cCapas_Change_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -4698,9 +4830,19 @@ Private Sub cCapas_Change()
 
     cCapas.Tag = vbNullString
 
+    
+    Exit Sub
+
+cCapas_Change_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cCapas_Change", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cCapas_KeyPress(KeyAscii As Integer)
+    
+    On Error GoTo cCapas_KeyPress_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -4708,6 +4850,13 @@ Private Sub cCapas_KeyPress(KeyAscii As Integer)
     '*************************************************
     If IsNumeric(Chr(KeyAscii)) = False Then KeyAscii = 0
 
+    
+    Exit Sub
+
+cCapas_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cCapas_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cFiltro_GotFocus(Index As Integer)
@@ -4715,11 +4864,24 @@ Private Sub cFiltro_GotFocus(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cFiltro_GotFocus_Err
+    
     HotKeysAllow = False
 
+    
+    Exit Sub
+
+cFiltro_GotFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cFiltro_GotFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cFiltro_KeyPress(Index As Integer, KeyAscii As Integer)
+    
+    On Error GoTo cFiltro_KeyPress_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -4730,6 +4892,13 @@ Private Sub cFiltro_KeyPress(Index As Integer, KeyAscii As Integer)
 
     End If
 
+    
+    Exit Sub
+
+cFiltro_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cFiltro_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cFiltro_LostFocus(Index As Integer)
@@ -4737,8 +4906,18 @@ Private Sub cFiltro_LostFocus(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cFiltro_LostFocus_Err
+    
     HotKeysAllow = True
 
+    
+    Exit Sub
+
+cFiltro_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cFiltro_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cGrh_KeyPress(KeyAscii As Integer)
@@ -4768,6 +4947,9 @@ Fallo:
 End Sub
 
 Private Sub Check1_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo Check1_MouseUp_Err
+    
 
     If MapDat.lluvia = 0 Then
 
@@ -4781,19 +4963,49 @@ Private Sub Check1_MouseUp(Button As Integer, Shift As Integer, X As Single, y A
 
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Check1_MouseUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check1_MouseUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check10_Click()
+    
+    On Error GoTo Check10_Click_Err
+    
     MiniMap_objetos = Not MiniMap_objetos
 
+    
+    Exit Sub
+
+Check10_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check10_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check11_Click()
+    
+    On Error GoTo Check11_Click_Err
+    
     MiniMap_Npcs = Not MiniMap_Npcs
 
+    
+    Exit Sub
+
+Check11_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check11_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check2_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo Check2_MouseUp_Err
+    
 
     If Nieba = 0 Then
         Nieba = 1
@@ -4806,9 +5018,19 @@ Private Sub Check2_MouseUp(Button As Integer, Shift As Integer, X As Single, y A
 
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Check2_MouseUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check2_MouseUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check3_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo Check3_MouseUp_Err
+    
 
     If ColorAmb = &HFFFFFF Then
         Picture3.Enabled = True
@@ -4828,9 +5050,19 @@ Private Sub Check3_MouseUp(Button As Integer, Shift As Integer, X As Single, y A
 
     End If
     
+    
+    Exit Sub
+
+Check3_MouseUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check3_MouseUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DiaNoche()
+    
+    On Error GoTo DiaNoche_Err
+    
 
     mnuVerParticulas_Click
 
@@ -4852,9 +5084,19 @@ Private Sub DiaNoche()
 
     End If
     
+    
+    Exit Sub
+
+DiaNoche_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.DiaNoche", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check4_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo Check4_MouseUp_Err
+    
 
     If MapDat.seguro = 1 Then
         MapDat.seguro = 0
@@ -4865,9 +5107,19 @@ Private Sub Check4_MouseUp(Button As Integer, Shift As Integer, X As Single, y A
 
     End If
 
+    
+    Exit Sub
+
+Check4_MouseUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check4_MouseUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check5_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo Check5_MouseUp_Err
+    
 
     If MapDat.backup_mode = 1 Then
         MapDat.backup_mode = 0
@@ -4878,30 +5130,80 @@ Private Sub Check5_MouseUp(Button As Integer, Shift As Integer, X As Single, y A
 
     End If
 
+    
+    Exit Sub
+
+Check5_MouseUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check5_MouseUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check6_Click()
+    
+    On Error GoTo Check6_Click_Err
+    
     AlphaTecho = Not AlphaTecho
 
+    
+    Exit Sub
+
+Check6_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check6_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check7_Click()
+    
+    On Error GoTo Check7_Click_Err
+    
     MiniMap_capa2 = Not MiniMap_capa2
 
+    
+    Exit Sub
+
+Check7_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check7_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check8_Click()
+    
+    On Error GoTo Check8_Click_Err
+    
     MiniMap_capa3 = Not MiniMap_capa3
 
+    
+    Exit Sub
+
+Check8_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check8_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Check9_Click()
+    
+    On Error GoTo Check9_Click_Err
+    
     MiniMap_capa4 = Not MiniMap_capa4
 
+    
+    Exit Sub
+
+Check9_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check9_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command11_Click()
     'txtnamemapa.Text = "Bosque"
+    
+    On Error GoTo Command11_Click_Err
+    
 
     txtMapZona.ListIndex = 1
     txtMapTerreno.ListIndex = 2
@@ -4912,18 +5214,38 @@ Private Sub Command11_Click()
 
     'Call mnuGuardarMapa_Click
     'Call MapPest_Click(5)
+    
+    Exit Sub
+
+Command11_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command11_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command12_Click()
+    
+    On Error GoTo Command12_Click_Err
+    
     txtMapZona.ListIndex = 1
     txtMapTerreno.ListIndex = 1
     txtMapRestringir.ListIndex = 1
     TxtWav.Text = "510"
     modMapIO.GuardarMapa Dialog.FileName
 
+    
+    Exit Sub
+
+Command12_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command12_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command13_Click()
+    
+    On Error GoTo Command13_Click_Err
+    
     txtMapZona.ListIndex = 1
     txtMapTerreno.ListIndex = 1
     txtMapRestringir.ListIndex = 1
@@ -4931,9 +5253,19 @@ Private Sub Command13_Click()
 
     modMapIO.GuardarMapa Dialog.FileName
 
+    
+    Exit Sub
+
+Command13_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command13_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command14_Click()
+    
+    On Error GoTo Command14_Click_Err
+    
     Dim y As Integer
     Dim X As Integer
 
@@ -4948,9 +5280,19 @@ Private Sub Command14_Click()
         Next X
     Next y
 
+    
+    Exit Sub
+
+Command14_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command14_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command15_Click()
+    
+    On Error GoTo Command15_Click_Err
+    
     Dim y As Long
     Dim X As Long
 
@@ -4964,16 +5306,36 @@ Private Sub Command15_Click()
 
     modMapIO.GuardarMapa Dialog.FileName
 
+    
+    Exit Sub
+
+Command15_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command15_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command4_Click()
+    
+    On Error GoTo Command4_Click_Err
+    
     SavePicture MiniMapas2.image, App.Path & "\recursos\minimapas\" & MapPest(4).Caption & ".png"
     Debug.Print Dialog.FileName
     modMapIO.GuardarMapa Dialog.FileName
 
+    
+    Exit Sub
+
+Command4_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command4_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command5_Click()
+    
+    On Error GoTo Command5_Click_Err
+    
     txtMapZona.ListIndex = 1
     txtMapTerreno.ListIndex = 1
     txtMapRestringir.ListIndex = 1
@@ -4981,14 +5343,34 @@ Private Sub Command5_Click()
 
     modMapIO.GuardarMapa Dialog.FileName
 
+    
+    Exit Sub
+
+Command5_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command5_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub chkBloqueo_Click(Index As Integer)
+    
+    On Error GoTo chkBloqueo_Click_Err
+    
     maskBloqueo = maskBloqueo Xor 2 ^ Index
 
+    
+    Exit Sub
+
+chkBloqueo_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.chkBloqueo_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdCovertitMap_Click()
+    
+    On Error GoTo cmdCovertitMap_Click_Err
+    
     FormatoIAO = True
     Dim i As Integer
 
@@ -5006,9 +5388,19 @@ Private Sub cmdCovertitMap_Click()
 
     Next i
 
+    
+    Exit Sub
+
+cmdCovertitMap_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cmdCovertitMap_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdDM_Click(Index As Integer)
+    
+    On Error GoTo cmdDM_Click_Err
+    
     frmConfigSup.DespMosaic.value = vbChecked
 
     Select Case Index
@@ -5032,9 +5424,19 @@ Private Sub cmdDM_Click(Index As Integer)
 
     End Select
 
+    
+    Exit Sub
+
+cmdDM_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cmdDM_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Remplazograficos()
+    
+    On Error GoTo Remplazograficos_Err
+    
 
     Dim y As Integer
     Dim X As Integer
@@ -5081,9 +5483,19 @@ Private Sub Remplazograficos()
         Next X
     Next y
 
+    
+    Exit Sub
+
+Remplazograficos_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Remplazograficos", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command6_Click()
+    
+    On Error GoTo Command6_Click_Err
+    
     txtMapZona.ListIndex = 1
     txtMapTerreno.ListIndex = 2
     txtMapRestringir.ListIndex = 1
@@ -5091,29 +5503,79 @@ Private Sub Command6_Click()
 
     modMapIO.GuardarMapa Dialog.FileName
 
+    
+    Exit Sub
+
+Command6_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command6_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub copyauto_Click()
+    
+    On Error GoTo copyauto_Click_Err
+    
     Form3.Show , FrmMain
 
+    
+    Exit Sub
+
+copyauto_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.copyauto_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub copyborder_Click()
+    
+    On Error GoTo copyborder_Click_Err
+    
     Form2.Show , FrmMain
 
+    
+    Exit Sub
+
+copyborder_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.copyborder_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub desptranslados_Click()
+    
+    On Error GoTo desptranslados_Click_Err
+    
     DesplazarTranslados.Show
 
+    
+    Exit Sub
+
+desptranslados_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.desptranslados_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Dibujarmini_Click()
+    
+    On Error GoTo Dibujarmini_Click_Err
+    
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+Dibujarmini_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Dibujarmini_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    
+    On Error GoTo Form_KeyDown_Err
+    
 
     If KeyCode = vbKeySpace Then
         If FrmBloques.Visible = True Then
@@ -5123,21 +5585,51 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 
     End If
 
+    
+    Exit Sub
+
+Form_KeyDown_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Form_KeyDown", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub hielo_Click()
+    
+    On Error GoTo hielo_Click_Err
+    
     cGrh.Text = DameGrhIndex(621)
 
     Call modPaneles.VistaPreviaDeSup
 
+    
+    Exit Sub
+
+hielo_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.hielo_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Label16_Click()
+    
+    On Error GoTo Label16_Click_Err
+    
     Timer4.Enabled = True
 
+    
+    Exit Sub
+
+Label16_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Label16_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub LvBOpcion_Click(Index As Integer)
+    
+    On Error GoTo LvBOpcion_Click_Err
+    
 
     Select Case Index
 
@@ -5272,69 +5764,166 @@ Private Sub LvBOpcion_Click(Index As Integer)
         
     End Select
 
+    
+    Exit Sub
+
+LvBOpcion_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.LvBOpcion_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_Bloqueos_Click()
+    
+    On Error GoTo MiniMap_Bloqueos_Click_Err
+    
     MiniMap_Bloqueos.Checked = (MiniMap_Bloqueos.Checked = False)
     MMiniMap_Bloqueos = Not MMiniMap_Bloqueos
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_Bloqueos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_Bloqueos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_capa1_Click()
+    
+    On Error GoTo MiniMap_capa1_Click_Err
+    
     MiniMap_capa1.Checked = (MiniMap_capa1.Checked = False)
     MMiniMap_capa1 = Not MMiniMap_capa1
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_capa1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_capa1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_capa2_Click()
+    
+    On Error GoTo MiniMap_capa2_Click_Err
+    
     MiniMap_capa2.Checked = (MiniMap_capa2.Checked = False)
     MMiniMap_capa2 = Not MMiniMap_capa2
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_capa2_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_capa2_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_capa3_Click()
+    
+    On Error GoTo MiniMap_capa3_Click_Err
+    
     MiniMap_capa3.Checked = (MiniMap_capa3.Checked = False)
     MMiniMap_capa3 = Not MMiniMap_capa3
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_capa3_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_capa3_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_capa4_Click()
+    
+    On Error GoTo MiniMap_capa4_Click_Err
+    
     MiniMap_capa4.Checked = (MiniMap_capa4.Checked = False)
     MMiniMap_capa4 = Not MMiniMap_capa4
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_capa4_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_capa4_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_ndemapa_Click()
+    
+    On Error GoTo MiniMap_ndemapa_Click_Err
+    
     MiniMap_ndemapa.Checked = (MiniMap_ndemapa.Checked = False)
     MMiniMap_Nombre = Not MMiniMap_Nombre
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_ndemapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_ndemapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_Npcs_Click()
+    
+    On Error GoTo MiniMap_Npcs_Click_Err
+    
     MiniMap_Npcs.Checked = (MiniMap_Npcs.Checked = False)
     MMiniMap_Npcs = Not MMiniMap_Npcs
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_Npcs_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_Npcs_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_objetos_Click()
+    
+    On Error GoTo MiniMap_objetos_Click_Err
+    
     MiniMap_objetos.Checked = (MiniMap_objetos.Checked = False)
     MMiniMap_objetos = Not MMiniMap_objetos
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_objetos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_objetos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_particulas_Click()
+    
+    On Error GoTo MiniMap_particulas_Click_Err
+    
     MiniMap_particulas.Checked = (MiniMap_particulas.Checked = False)
     MMiniMap_particulas = Not MMiniMap_particulas
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_particulas_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_particulas_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuAbrirMapaLong_Click()
@@ -5368,11 +5957,24 @@ ErrHandler:
 End Sub
 
 Private Sub mnuActualizarIndices_Click()
+    
+    On Error GoTo mnuActualizarIndices_Click_Err
+    
     frmActualizarIndices.Show , Me
 
+    
+    Exit Sub
+
+mnuActualizarIndices_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuActualizarIndices_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub niebla_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo niebla_MouseUp_Err
+    
 
     If nieblaV = 0 Then
         nieblaV = 1
@@ -5385,9 +5987,19 @@ Private Sub niebla_MouseUp(Button As Integer, Shift As Integer, X As Single, y A
 
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+niebla_MouseUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.niebla_MouseUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cInsertarFunc_Click(Index As Integer)
+    
+    On Error GoTo cInsertarFunc_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5408,9 +6020,19 @@ Private Sub cInsertarFunc_Click(Index As Integer)
 
     End If
 
+    
+    Exit Sub
+
+cInsertarFunc_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cInsertarFunc_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cInsertarTrans_Click()
+    
+    On Error GoTo cInsertarTrans_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5425,9 +6047,19 @@ Private Sub cInsertarTrans_Click()
 
     End If
 
+    
+    Exit Sub
+
+cInsertarTrans_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cInsertarTrans_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cInsertarTrigger_Click()
+    
+    On Error GoTo cInsertarTrigger_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5442,6 +6074,13 @@ Private Sub cInsertarTrigger_Click()
 
     End If
 
+    
+    Exit Sub
+
+cInsertarTrigger_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cInsertarTrigger_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdInformacionDelMapa_Click()
@@ -5449,9 +6088,19 @@ Private Sub cmdInformacionDelMapa_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdInformacionDelMapa_Click_Err
+    
     frmMapInfo.Show
     frmMapInfo.Visible = True
 
+    
+    Exit Sub
+
+cmdInformacionDelMapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cmdInformacionDelMapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdQuitarFunciones_Click()
@@ -5459,8 +6108,18 @@ Private Sub cmdQuitarFunciones_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdQuitarFunciones_Click_Err
+    
     Call mnuQuitarFunciones_Click
 
+    
+    Exit Sub
+
+cmdQuitarFunciones_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cmdQuitarFunciones_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command1_Click()
@@ -5494,12 +6153,22 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub Command3_Click()
+    
+    On Error GoTo Command3_Click_Err
+    
 
     Label1.Caption = MapData(90, 50).TileExit.Map ' & " Derecha" 'Derecha
     Label2.Caption = MapData(11, 50).TileExit.Map ' & " Izquierda" 'Izquierda
     Label3.Caption = MapData(50, 10).TileExit.Map '& " arriba" 'arriba
     Label4.Caption = MapData(50, 91).TileExit.Map ' & " Abajo" 'Abajo
 
+    
+    Exit Sub
+
+Command3_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command3_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cUnionManual_Click()
@@ -5507,9 +6176,19 @@ Private Sub cUnionManual_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cUnionManual_Click_Err
+    
     cInsertarTrans.value = (cUnionManual.value = True)
     Call cInsertarTrans_Click
 
+    
+    Exit Sub
+
+cUnionManual_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cUnionManual_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cverBloqueos_Click()
@@ -5517,8 +6196,18 @@ Private Sub cverBloqueos_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cverBloqueos_Click_Err
+    
     mnuVerBloqueos.Checked = cVerBloqueos.value
 
+    
+    Exit Sub
+
+cverBloqueos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cverBloqueos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cverTriggers_Click()
@@ -5526,8 +6215,18 @@ Private Sub cverTriggers_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cverTriggers_Click_Err
+    
     mnuVerTriggers.Checked = cVerTriggers.value
 
+    
+    Exit Sub
+
+cverTriggers_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cverTriggers_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cNumFunc_KeyPress(Index As Integer, KeyAscii As Integer)
@@ -5535,6 +6234,9 @@ Private Sub cNumFunc_KeyPress(Index As Integer, KeyAscii As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cNumFunc_KeyPress_Err
+    
 
     If KeyAscii = 13 Then
         Dim Cont As String
@@ -5557,6 +6259,13 @@ Private Sub cNumFunc_KeyPress(Index As Integer, KeyAscii As Integer)
 
     End If
 
+    
+    Exit Sub
+
+cNumFunc_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cNumFunc_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cNumFunc_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
@@ -5564,12 +6273,22 @@ Private Sub cNumFunc_KeyUp(Index As Integer, KeyCode As Integer, Shift As Intege
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cNumFunc_KeyUp_Err
+    
 
     If cNumFunc(Index).Text = vbNullString Then
         FrmMain.cNumFunc(Index).Text = IIf(Index = 1, 500, 1)
 
     End If
 
+    
+    Exit Sub
+
+cNumFunc_KeyUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cNumFunc_KeyUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cNumFunc_LostFocus(Index As Integer)
@@ -5577,6 +6296,9 @@ Private Sub cNumFunc_LostFocus(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cNumFunc_LostFocus_Err
+    
 
     If Index = 0 Then
         If FrmMain.cNumFunc(Index).Text > 499 Or FrmMain.cNumFunc(Index).Text < 1 Then
@@ -5600,6 +6322,13 @@ Private Sub cNumFunc_LostFocus(Index As Integer)
 
     End If
 
+    
+    Exit Sub
+
+cNumFunc_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cNumFunc_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cInsertarBloqueo_Click()
@@ -5607,6 +6336,9 @@ Private Sub cInsertarBloqueo_Click()
     'Author: ^[GS]^
     'Last modified: 29/05/06
     '*************************************************
+    
+    On Error GoTo cInsertarBloqueo_Click_Err
+    
     cInsertarBloqueo.Tag = vbNullString
 
     If cInsertarBloqueo.value = True Then
@@ -5618,6 +6350,13 @@ Private Sub cInsertarBloqueo_Click()
 
     End If
 
+    
+    Exit Sub
+
+cInsertarBloqueo_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cInsertarBloqueo_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cQuitarBloqueo_Click()
@@ -5625,6 +6364,9 @@ Private Sub cQuitarBloqueo_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cQuitarBloqueo_Click_Err
+    
     cInsertarBloqueo.Tag = vbNullString
 
     If cQuitarBloqueo.value = True Then
@@ -5636,9 +6378,19 @@ Private Sub cQuitarBloqueo_Click()
 
     End If
 
+    
+    Exit Sub
+
+cQuitarBloqueo_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cQuitarBloqueo_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cQuitarEnEstaCapa_Click()
+    
+    On Error GoTo cQuitarEnEstaCapa_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5661,9 +6413,19 @@ Private Sub cQuitarEnEstaCapa_Click()
 
     End If
 
+    
+    Exit Sub
+
+cQuitarEnEstaCapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cQuitarEnEstaCapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cQuitarEnTodasLasCapas_Click()
+    
+    On Error GoTo cQuitarEnTodasLasCapas_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5688,9 +6450,19 @@ Private Sub cQuitarEnTodasLasCapas_Click()
 
     End If
 
+    
+    Exit Sub
+
+cQuitarEnTodasLasCapas_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cQuitarEnTodasLasCapas_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cQuitarFunc_Click(Index As Integer)
+    
+    On Error GoTo cQuitarFunc_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5715,9 +6487,19 @@ Private Sub cQuitarFunc_Click(Index As Integer)
 
     End If
 
+    
+    Exit Sub
+
+cQuitarFunc_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cQuitarFunc_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cQuitarTrans_Click()
+    
+    On Error GoTo cQuitarTrans_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5746,9 +6528,19 @@ Private Sub cQuitarTrans_Click()
 
     End If
 
+    
+    Exit Sub
+
+cQuitarTrans_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cQuitarTrans_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cQuitarTrigger_Click()
+    
+    On Error GoTo cQuitarTrigger_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5765,9 +6557,19 @@ Private Sub cQuitarTrigger_Click()
 
     End If
 
+    
+    Exit Sub
+
+cQuitarTrigger_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cQuitarTrigger_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub cSeleccionarSuperficie_Click()
+    
+    On Error GoTo cSeleccionarSuperficie_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5784,6 +6586,13 @@ Public Sub cSeleccionarSuperficie_Click()
 
     End If
 
+    
+    Exit Sub
+
+cSeleccionarSuperficie_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cSeleccionarSuperficie_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cUnionAuto_Click()
@@ -5792,8 +6601,18 @@ Private Sub cUnionAuto_Click()
     'Last modified: 20/05/06
     '*************************************************
     'Call MapPest_Click(4)
+    
+    On Error GoTo cUnionAuto_Click_Err
+    
     frmUnionAdyacente.Show
 
+    
+    Exit Sub
+
+cUnionAuto_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.cUnionAuto_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Click()
@@ -5806,8 +6625,18 @@ Private Sub Form_Click()
 End Sub
 
 Private Sub Form_Load()
+    
+    On Error GoTo Form_Load_Err
+    
     Me.Caption = "WorldEditor DX8 por Ladder"
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
@@ -5821,6 +6650,9 @@ Private Sub Frame2_DragDrop(Source As Control, X As Single, y As Single)
 End Sub
 
 Private Sub insertarLuz_Click()
+    
+    On Error GoTo insertarLuz_Click_Err
+    
 
     If insertarLuz.value = True Then
         QuitarLuz.Enabled = False
@@ -5829,9 +6661,19 @@ Private Sub insertarLuz_Click()
 
     End If
 
+    
+    Exit Sub
+
+insertarLuz_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.insertarLuz_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub insertarParticula_Click()
+    
+    On Error GoTo insertarParticula_Click_Err
+    
 
     If insertarParticula.value = True Then
         quitarparticula.Enabled = False
@@ -5840,12 +6682,29 @@ Private Sub insertarParticula_Click()
 
     End If
 
+    
+    Exit Sub
+
+insertarParticula_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.insertarParticula_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub insnpcrandom_Click()
+    
+    On Error GoTo insnpcrandom_Click_Err
+    
     Dim cantidad As Byte
     cantidad = InputBox("Ingrese la cantidad de npcs ingresamos")
 
+    
+    Exit Sub
+
+insnpcrandom_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.insnpcrandom_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub lListado_Click(Index As Integer)
@@ -5853,6 +6712,9 @@ Private Sub lListado_Click(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 29/05/06
     '*************************************************
+    
+    On Error GoTo lListado_Click_Err
+    
 
     If HotKeysAllow = False Then
         lListado(Index).Tag = lListado(Index).ListIndex
@@ -5914,9 +6776,19 @@ Private Sub lListado_Click(Index As Integer)
 
     Call modPaneles.VistaPreviaDeSup
 
+    
+    Exit Sub
+
+lListado_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.lListado_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub lListado_MouseDown(Index As Integer, Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo lListado_MouseDown_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -5927,6 +6799,13 @@ Private Sub lListado_MouseDown(Index As Integer, Button As Integer, Shift As Int
 
     End If
 
+    
+    Exit Sub
+
+lListado_MouseDown_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.lListado_MouseDown", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub lListado_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, y As Single)
@@ -5934,14 +6813,34 @@ Private Sub lListado_MouseMove(Index As Integer, Button As Integer, Shift As Int
     'Author: ^[GS]^
     'Last modified: 22/05/06
     '*************************************************
+    
+    On Error GoTo lListado_MouseMove_Err
+    
 
     HotKeysAllow = False
 
+    
+    Exit Sub
+
+lListado_MouseMove_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.lListado_MouseMove", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub LuzColor_Click()
+    
+    On Error GoTo LuzColor_Click_Err
+    
     ColorLuz.Text = Selected_Color()
 
+    
+    Exit Sub
+
+LuzColor_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.LuzColor_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MapPest_Click(Index As Integer)
@@ -5949,6 +6848,9 @@ Private Sub MapPest_Click(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo MapPest_Click_Err
+    
 
     If Index = 5 And Timer4.Enabled = True Then
 
@@ -6000,19 +6902,46 @@ Private Sub MapPest_Click(Index As Integer)
 ErrHandler:
     MsgBox Err.Description
 
+    
+    Exit Sub
+
+MapPest_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MapPest_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MiniMap_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo MiniMap_MouseDown_Err
+    
     UserPos.X = CByte(X)
     UserPos.y = CByte(y)
     bRefreshRadar = True
 
+    
+    Exit Sub
+
+MiniMap_MouseDown_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_MouseDown", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub minimapSave_Click()
+    
+    On Error GoTo minimapSave_Click_Err
+    
 
     SavePicture MiniMapas2.image, App.Path & "\recursos\minimapas\" & MapPest(4).Caption & ".png"
 
+    
+    Exit Sub
+
+minimapSave_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.minimapSave_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuAbrirMapa_Click()
@@ -6051,8 +6980,18 @@ Private Sub mnuacercade_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuacercade_Click_Err
+    
     frmAbout.Show
 
+    
+    Exit Sub
+
+mnuacercade_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuacercade_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuAutoCapturarTranslados_Click()
@@ -6060,8 +6999,18 @@ Private Sub mnuAutoCapturarTranslados_Click()
     'Author: ^[GS]^
     'Last modified: 28/05/06
     '*************************************************
+    
+    On Error GoTo mnuAutoCapturarTranslados_Click_Err
+    
     mnuAutoCapturarTranslados.Checked = (mnuAutoCapturarTranslados.Checked = False)
 
+    
+    Exit Sub
+
+mnuAutoCapturarTranslados_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuAutoCapturarTranslados_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuAutoCapturarSuperficie_Click()
@@ -6069,8 +7018,18 @@ Private Sub mnuAutoCapturarSuperficie_Click()
     'Author: ^[GS]^
     'Last modified: 28/05/06
     '*************************************************
+    
+    On Error GoTo mnuAutoCapturarSuperficie_Click_Err
+    
     mnuAutoCapturarSuperficie.Checked = (mnuAutoCapturarSuperficie.Checked = False)
 
+    
+    Exit Sub
+
+mnuAutoCapturarSuperficie_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuAutoCapturarSuperficie_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuAutoCompletarSuperficies_Click()
@@ -6078,6 +7037,9 @@ Private Sub mnuAutoCompletarSuperficies_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuAutoCompletarSuperficies_Click_Err
+    
     mnuAutoCompletarSuperficies.Checked = (mnuAutoCompletarSuperficies.Checked = False)
 
     If mnuAutoCompletarSuperficies.Checked = False Then
@@ -6087,6 +7049,13 @@ Private Sub mnuAutoCompletarSuperficies_Click()
 
     End If
 
+    
+    Exit Sub
+
+mnuAutoCompletarSuperficies_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuAutoCompletarSuperficies_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuAutoGuardarMapas_Click()
@@ -6094,8 +7063,18 @@ Private Sub mnuAutoGuardarMapas_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuAutoGuardarMapas_Click_Err
+    
     frmAutoGuardarMapa.Show
 
+    
+    Exit Sub
+
+mnuAutoGuardarMapas_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuAutoGuardarMapas_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuAutoQuitarFunciones_Click()
@@ -6103,8 +7082,18 @@ Private Sub mnuAutoQuitarFunciones_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuAutoQuitarFunciones_Click_Err
+    
     mnuAutoQuitarFunciones.Checked = (mnuAutoQuitarFunciones.Checked = False)
 
+    
+    Exit Sub
+
+mnuAutoQuitarFunciones_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuAutoQuitarFunciones_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuBloquear_Click()
@@ -6112,6 +7101,9 @@ Private Sub mnuBloquear_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuBloquear_Click_Err
+    
     Dim i As Byte
 
     For i = 0 To 6
@@ -6126,6 +7118,13 @@ Private Sub mnuBloquear_Click()
 
     modPaneles.VerFuncion 2, True
 
+    
+    Exit Sub
+
+mnuBloquear_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuBloquear_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuBloquearBordes_Click()
@@ -6133,8 +7132,18 @@ Private Sub mnuBloquearBordes_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuBloquearBordes_Click_Err
+    
     Call modEdicion.Bloquear_Bordes
 
+    
+    Exit Sub
+
+mnuBloquearBordes_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuBloquearBordes_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuBloquearMapa_Click()
@@ -6142,8 +7151,18 @@ Private Sub mnuBloquearMapa_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuBloquearMapa_Click_Err
+    
     Call modEdicion.Bloqueo_Todo(&HF)
 
+    
+    Exit Sub
+
+mnuBloquearMapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuBloquearMapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuBloquearS_Click()
@@ -6151,9 +7170,19 @@ Private Sub mnuBloquearS_Click()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo mnuBloquearS_Click_Err
+    
     Call modEdicion.Deshacer_Add("Bloquear Selección")
     Call BlockearSeleccion
 
+    
+    Exit Sub
+
+mnuBloquearS_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuBloquearS_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuConfigAvanzada_Click()
@@ -6161,8 +7190,18 @@ Private Sub mnuConfigAvanzada_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuConfigAvanzada_Click_Err
+    
     frmConfigSup.Show
 
+    
+    Exit Sub
+
+mnuConfigAvanzada_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuConfigAvanzada_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuConfigObjTrans_Click()
@@ -6170,8 +7209,18 @@ Private Sub mnuConfigObjTrans_Click()
     'Author: ^[GS]^
     'Last modified: 29/05/06
     '*************************************************
+    
+    On Error GoTo mnuConfigObjTrans_Click_Err
+    
     Cfg_TrOBJ = cNumFunc(2).Text
 
+    
+    Exit Sub
+
+mnuConfigObjTrans_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuConfigObjTrans_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuCopiar_Click()
@@ -6179,8 +7228,18 @@ Private Sub mnuCopiar_Click()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo mnuCopiar_Click_Err
+    
     Call CopiarSeleccion
 
+    
+    Exit Sub
+
+mnuCopiar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuCopiar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuCortar_Click()
@@ -6188,9 +7247,19 @@ Private Sub mnuCortar_Click()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo mnuCortar_Click_Err
+    
     Call modEdicion.Deshacer_Add("Cortar Selección")
     Call CortarSeleccion
 
+    
+    Exit Sub
+
+mnuCortar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuCortar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuDeshacer_Click()
@@ -6198,8 +7267,18 @@ Private Sub mnuDeshacer_Click()
     'Author: ^[GS]^
     'Last modified: 15/10/06
     '*************************************************
+    
+    On Error GoTo mnuDeshacer_Click_Err
+    
     Call modEdicion.Deshacer_Recover
 
+    
+    Exit Sub
+
+mnuDeshacer_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuDeshacer_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuDeshacerPegado_Click()
@@ -6207,9 +7286,19 @@ Private Sub mnuDeshacerPegado_Click()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo mnuDeshacerPegado_Click_Err
+    
     Call modEdicion.Deshacer_Add("Deshacer Pegado de Selección")
     Call DePegar
 
+    
+    Exit Sub
+
+mnuDeshacerPegado_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuDeshacerPegado_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuGRHaBMP_Click()
@@ -6217,8 +7306,18 @@ Private Sub mnuGRHaBMP_Click()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo mnuGRHaBMP_Click_Err
+    
     frmGRHaBMP.Show
 
+    
+    Exit Sub
+
+mnuGRHaBMP_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuGRHaBMP_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuGuardarcomoBMP_Click()
@@ -6226,6 +7325,9 @@ Private Sub mnuGuardarcomoBMP_Click()
     'Author: Salvito
     'Last modified: 01/05/2008 - ^[GS]^
     '*************************************************
+    
+    On Error GoTo mnuGuardarcomoBMP_Click_Err
+    
     Dim Ratio As Integer
     Ratio = CInt(Val(InputBox("En que escala queres Renderizar? Entre 1 y 20.", "Elegi Escala", "1")))
 
@@ -6234,6 +7336,13 @@ Private Sub mnuGuardarcomoBMP_Click()
 
     End If
 
+    
+    Exit Sub
+
+mnuGuardarcomoBMP_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuGuardarcomoBMP_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuGuardarcomoJPG_Click()
@@ -6241,6 +7350,9 @@ Private Sub mnuGuardarcomoJPG_Click()
     'Author: Salvito
     'Last modified: 01/05/2008 - ^[GS]^
     '*************************************************
+    
+    On Error GoTo mnuGuardarcomoJPG_Click_Err
+    
     Dim Ratio As Integer
     Ratio = CInt(Val(InputBox("En que escala queres Renderizar? Entre 1 y 20.", "Elegi Escala", "1")))
 
@@ -6249,6 +7361,13 @@ Private Sub mnuGuardarcomoJPG_Click()
   
     End If
 
+    
+    Exit Sub
+
+mnuGuardarcomoJPG_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuGuardarcomoJPG_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub mnuGuardarMapa_Click()
@@ -6256,9 +7375,19 @@ Public Sub mnuGuardarMapa_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuGuardarMapa_Click_Err
+    
     SavePicture MiniMapas2.image, App.Path & "\recursos\minimapas\" & MapPest(4).Caption & ".png"
     modMapIO.GuardarMapa Dialog.FileName
 
+    
+    Exit Sub
+
+mnuGuardarMapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuGuardarMapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuGuardarMapaComo_Click()
@@ -6266,8 +7395,18 @@ Private Sub mnuGuardarMapaComo_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuGuardarMapaComo_Click_Err
+    
     modMapIO.GuardarMapa
 
+    
+    Exit Sub
+
+mnuGuardarMapaComo_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuGuardarMapaComo_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuGuardarUltimaConfig_Click()
@@ -6284,9 +7423,19 @@ Private Sub mnuInfoMap_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuInfoMap_Click_Err
+    
     frmMapInfo.Show
     frmMapInfo.Visible = True
 
+    
+    Exit Sub
+
+mnuInfoMap_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuInfoMap_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuInformes_Click()
@@ -6294,8 +7443,18 @@ Private Sub mnuInformes_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuInformes_Click_Err
+    
     frmInformes.Show
 
+    
+    Exit Sub
+
+mnuInformes_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuInformes_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuInsertarSuperficieAlAzar_Click()
@@ -6303,8 +7462,18 @@ Private Sub mnuInsertarSuperficieAlAzar_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuInsertarSuperficieAlAzar_Click_Err
+    
     Call modEdicion.Superficie_Azar
 
+    
+    Exit Sub
+
+mnuInsertarSuperficieAlAzar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuInsertarSuperficieAlAzar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuInsertarSuperficieEnBordes_Click()
@@ -6312,8 +7481,18 @@ Private Sub mnuInsertarSuperficieEnBordes_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuInsertarSuperficieEnBordes_Click_Err
+    
     Call modEdicion.Superficie_Bordes
 
+    
+    Exit Sub
+
+mnuInsertarSuperficieEnBordes_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuInsertarSuperficieEnBordes_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuInsertarSuperficieEnTodo_Click()
@@ -6321,8 +7500,18 @@ Private Sub mnuInsertarSuperficieEnTodo_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuInsertarSuperficieEnTodo_Click_Err
+    
     Call modEdicion.Superficie_Todo
 
+    
+    Exit Sub
+
+mnuInsertarSuperficieEnTodo_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuInsertarSuperficieEnTodo_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuInsertarTransladosAdyasentes_Click()
@@ -6330,11 +7519,24 @@ Private Sub mnuInsertarTransladosAdyasentes_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuInsertarTransladosAdyasentes_Click_Err
+    
     frmUnionAdyacente.Show
 
+    
+    Exit Sub
+
+mnuInsertarTransladosAdyasentes_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuInsertarTransladosAdyasentes_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuManual_Click()
+    
+    On Error GoTo mnuManual_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -6346,6 +7548,13 @@ Private Sub mnuManual_Click()
 
     End If
 
+    
+    Exit Sub
+
+mnuManual_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuManual_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuModoCaminata_Click()
@@ -6353,8 +7562,18 @@ Private Sub mnuModoCaminata_Click()
     'Author: ^[GS]^
     'Last modified: 28/05/06
     '*************************************************
+    
+    On Error GoTo mnuModoCaminata_Click_Err
+    
     ToggleWalkMode
 
+    
+    Exit Sub
+
+mnuModoCaminata_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuModoCaminata_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuNPCs_Click()
@@ -6362,6 +7581,9 @@ Private Sub mnuNPCs_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuNPCs_Click_Err
+    
     Dim i As Byte
 
     For i = 0 To 6
@@ -6375,6 +7597,13 @@ Private Sub mnuNPCs_Click()
     Next
     modPaneles.VerFuncion 3, True
 
+    
+    Exit Sub
+
+mnuNPCs_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuNPCs_Click", Erl)
+    Resume Next
+    
 End Sub
 
 'Private Sub mnuNPCsHostiles_Click()
@@ -6397,6 +7626,9 @@ Private Sub mnuNuevoMapa_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuNuevoMapa_Click_Err
+    
 
     Dim loopc As Integer
 
@@ -6417,6 +7649,13 @@ Private Sub mnuNuevoMapa_Click()
 
     Call cmdInformacionDelMapa_Click
 
+    
+    Exit Sub
+
+mnuNuevoMapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuNuevoMapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuObjetos_Click()
@@ -6424,6 +7663,9 @@ Private Sub mnuObjetos_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuObjetos_Click_Err
+    
     Dim i As Byte
 
     For i = 0 To 6
@@ -6437,6 +7679,13 @@ Private Sub mnuObjetos_Click()
     Next
     modPaneles.VerFuncion 5, True
 
+    
+    Exit Sub
+
+mnuObjetos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuObjetos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuOptimizar_Click()
@@ -6444,8 +7693,18 @@ Private Sub mnuOptimizar_Click()
     'Author: ^[GS]^
     'Last modified: 22/09/06
     '*************************************************
+    
+    On Error GoTo mnuOptimizar_Click_Err
+    
     frmOptimizar.Show
 
+    
+    Exit Sub
+
+mnuOptimizar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuOptimizar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuPegar_Click()
@@ -6453,9 +7712,19 @@ Private Sub mnuPegar_Click()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo mnuPegar_Click_Err
+    
     Call modEdicion.Deshacer_Add("Pegar Selección")
     Call PegarSeleccion
 
+    
+    Exit Sub
+
+mnuPegar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuPegar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQBloquear_Click()
@@ -6463,8 +7732,18 @@ Private Sub mnuQBloquear_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQBloquear_Click_Err
+    
     modPaneles.VerFuncion 2, False
 
+    
+    Exit Sub
+
+mnuQBloquear_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQBloquear_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQNPCs_Click()
@@ -6472,8 +7751,18 @@ Private Sub mnuQNPCs_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQNPCs_Click_Err
+    
     modPaneles.VerFuncion 3, False
 
+    
+    Exit Sub
+
+mnuQNPCs_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQNPCs_Click", Erl)
+    Resume Next
+    
 End Sub
 
 'Private Sub mnuQNPCsHostiles_Click()
@@ -6489,8 +7778,18 @@ Private Sub mnuQObjetos_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQObjetos_Click_Err
+    
     modPaneles.VerFuncion 5, False
 
+    
+    Exit Sub
+
+mnuQObjetos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQObjetos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQSuperficie_Click()
@@ -6498,8 +7797,18 @@ Private Sub mnuQSuperficie_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQSuperficie_Click_Err
+    
     modPaneles.VerFuncion 0, False
 
+    
+    Exit Sub
+
+mnuQSuperficie_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQSuperficie_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQTranslados_Click()
@@ -6507,8 +7816,18 @@ Private Sub mnuQTranslados_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQTranslados_Click_Err
+    
     modPaneles.VerFuncion 1, False
 
+    
+    Exit Sub
+
+mnuQTranslados_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQTranslados_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQTriggers_Click()
@@ -6516,8 +7835,18 @@ Private Sub mnuQTriggers_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQTriggers_Click_Err
+    
     modPaneles.VerFuncion 6, False
 
+    
+    Exit Sub
+
+mnuQTriggers_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQTriggers_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQuitarBloqueos_Click()
@@ -6525,8 +7854,18 @@ Private Sub mnuQuitarBloqueos_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarBloqueos_Click_Err
+    
     Call modEdicion.Bloqueo_Todo(0)
 
+    
+    Exit Sub
+
+mnuQuitarBloqueos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarBloqueos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQuitarFunciones_Click()
@@ -6534,6 +7873,9 @@ Private Sub mnuQuitarFunciones_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarFunciones_Click_Err
+    
 
     ' Superficies
     cSeleccionarSuperficie.value = False
@@ -6587,6 +7929,13 @@ Private Sub mnuQuitarFunciones_Click()
     QuitarLuz.value = False
     Call QuitarLuz_Click
 
+    
+    Exit Sub
+
+mnuQuitarFunciones_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarFunciones_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQuitarNPCs_Click()
@@ -6594,8 +7943,18 @@ Private Sub mnuQuitarNPCs_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarNPCs_Click_Err
+    
     Call modEdicion.Quitar_NPCs(False)
 
+    
+    Exit Sub
+
+mnuQuitarNPCs_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarNPCs_Click", Erl)
+    Resume Next
+    
 End Sub
 
 'Private Sub mnuQuitarNPCsHostiles_Click()
@@ -6611,8 +7970,18 @@ Private Sub mnuQuitarObjetos_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarObjetos_Click_Err
+    
     Call modEdicion.Quitar_Objetos
 
+    
+    Exit Sub
+
+mnuQuitarObjetos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarObjetos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQuitarSuperficieBordes_Click()
@@ -6620,8 +7989,18 @@ Private Sub mnuQuitarSuperficieBordes_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarSuperficieBordes_Click_Err
+    
     Call modEdicion.Quitar_Bordes
 
+    
+    Exit Sub
+
+mnuQuitarSuperficieBordes_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarSuperficieBordes_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQuitarSuperficieDeCapa_Click()
@@ -6629,8 +8008,18 @@ Private Sub mnuQuitarSuperficieDeCapa_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarSuperficieDeCapa_Click_Err
+    
     Call modEdicion.Quitar_Capa(cCapas.Text)
 
+    
+    Exit Sub
+
+mnuQuitarSuperficieDeCapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarSuperficieDeCapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQuitarTODO_Click()
@@ -6638,8 +8027,18 @@ Private Sub mnuQuitarTODO_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarTODO_Click_Err
+    
     Call modEdicion.Borrar_Mapa
 
+    
+    Exit Sub
+
+mnuQuitarTODO_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarTODO_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQuitarTranslados_Click()
@@ -6647,8 +8046,18 @@ Private Sub mnuQuitarTranslados_Click()
     'Author: ^[GS]^
     'Last modified: 16/10/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarTranslados_Click_Err
+    
     Call modEdicion.Quitar_Translados
 
+    
+    Exit Sub
+
+mnuQuitarTranslados_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarTranslados_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuQuitarTriggers_Click()
@@ -6656,8 +8065,18 @@ Private Sub mnuQuitarTriggers_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuQuitarTriggers_Click_Err
+    
     Call modEdicion.Quitar_Triggers
 
+    
+    Exit Sub
+
+mnuQuitarTriggers_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuQuitarTriggers_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuReAbrirMapa_Click()
@@ -6692,12 +8111,22 @@ Private Sub mnuRealizarOperacion_Click()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo mnuRealizarOperacion_Click_Err
+    
 
     Call modEdicion.Deshacer_Add("Realizar Operación en Selección")
     mnuAutoCompletarSuperficies.Checked = False
 
     Call AccionSeleccion
 
+    
+    Exit Sub
+
+mnuRealizarOperacion_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuRealizarOperacion_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuSalir_Click()
@@ -6705,8 +8134,18 @@ Private Sub mnuSalir_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuSalir_Click_Err
+    
     Unload Me
 
+    
+    Exit Sub
+
+mnuSalir_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuSalir_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuSuperficie_Click()
@@ -6714,6 +8153,9 @@ Private Sub mnuSuperficie_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuSuperficie_Click_Err
+    
     Dim i As Byte
 
     For i = 0 To 6
@@ -6727,6 +8169,13 @@ Private Sub mnuSuperficie_Click()
     Next
     modPaneles.VerFuncion 0, True
 
+    
+    Exit Sub
+
+mnuSuperficie_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuSuperficie_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuTranslados_Click()
@@ -6734,6 +8183,9 @@ Private Sub mnuTranslados_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuTranslados_Click_Err
+    
     Dim i As Byte
 
     For i = 0 To 6
@@ -6747,6 +8199,13 @@ Private Sub mnuTranslados_Click()
     Next
     modPaneles.VerFuncion 1, True
 
+    
+    Exit Sub
+
+mnuTranslados_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuTranslados_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuTriggers_Click()
@@ -6754,6 +8213,9 @@ Private Sub mnuTriggers_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuTriggers_Click_Err
+    
     Dim i As Byte
 
     For i = 0 To 6
@@ -6767,6 +8229,13 @@ Private Sub mnuTriggers_Click()
     Next
     modPaneles.VerFuncion 6, True
 
+    
+    Exit Sub
+
+mnuTriggers_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuTriggers_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuUtilizarDeshacer_Click()
@@ -6774,8 +8243,18 @@ Private Sub mnuUtilizarDeshacer_Click()
     'Author: ^[GS]^
     'Last modified: 16/10/06
     '*************************************************
+    
+    On Error GoTo mnuUtilizarDeshacer_Click_Err
+    
     mnuUtilizarDeshacer.Checked = (mnuUtilizarDeshacer.Checked = False)
 
+    
+    Exit Sub
+
+mnuUtilizarDeshacer_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuUtilizarDeshacer_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerAutomatico_Click()
@@ -6783,8 +8262,18 @@ Private Sub mnuVerAutomatico_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerAutomatico_Click_Err
+    
     mnuVerAutomatico.Checked = (mnuVerAutomatico.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerAutomatico_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerAutomatico_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerBloqueos_Click()
@@ -6792,14 +8281,34 @@ Private Sub mnuVerBloqueos_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerBloqueos_Click_Err
+    
     cVerBloqueos.value = (cVerBloqueos.value = False)
     mnuVerBloqueos.Checked = cVerBloqueos.value
 
+    
+    Exit Sub
+
+mnuVerBloqueos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerBloqueos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerCapa1_Click()
+    
+    On Error GoTo mnuVerCapa1_Click_Err
+    
     mnuVerCapa1.Checked = (mnuVerCapa1.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerCapa1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerCapa1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerCapa2_Click()
@@ -6807,8 +8316,18 @@ Private Sub mnuVerCapa2_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerCapa2_Click_Err
+    
     mnuVerCapa2.Checked = (mnuVerCapa2.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerCapa2_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerCapa2_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerCapa3_Click()
@@ -6816,8 +8335,18 @@ Private Sub mnuVerCapa3_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerCapa3_Click_Err
+    
     mnuVerCapa3.Checked = (mnuVerCapa3.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerCapa3_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerCapa3_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerCapa4_Click()
@@ -6825,8 +8354,18 @@ Private Sub mnuVerCapa4_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerCapa4_Click_Err
+    
     mnuVerCapa4.Checked = (mnuVerCapa4.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerCapa4_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerCapa4_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerGrilla_Click()
@@ -6834,14 +8373,34 @@ Private Sub mnuVerGrilla_Click()
     'Author: ^[GS]^
     'Last modified: 24/11/08
     '*************************************************
+    
+    On Error GoTo mnuVerGrilla_Click_Err
+    
     VerGrilla = (VerGrilla = False)
     mnuVerGrilla.Checked = VerGrilla
 
+    
+    Exit Sub
+
+mnuVerGrilla_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerGrilla_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerLuces_Click()
+    
+    On Error GoTo mnuVerLuces_Click_Err
+    
     mnuVerLuces.Checked = (mnuVerLuces.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerLuces_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerLuces_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerNPCs_Click()
@@ -6849,8 +8408,18 @@ Private Sub mnuVerNPCs_Click()
     'Author: ^[GS]^
     'Last modified: 26/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerNPCs_Click_Err
+    
     mnuVerNPCs.Checked = (mnuVerNPCs.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerNPCs_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerNPCs_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerObjetos_Click()
@@ -6858,14 +8427,34 @@ Private Sub mnuVerObjetos_Click()
     'Author: ^[GS]^
     'Last modified: 26/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerObjetos_Click_Err
+    
     mnuVerObjetos.Checked = (mnuVerObjetos.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerObjetos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerObjetos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub mnuVerParticulas_Click()
+    
+    On Error GoTo mnuVerParticulas_Click_Err
+    
 
     mnuVerParticulas.Checked = (mnuVerParticulas.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerParticulas_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerParticulas_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerTranslados_Click()
@@ -6873,8 +8462,18 @@ Private Sub mnuVerTranslados_Click()
     'Author: ^[GS]^
     'Last modified: 26/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerTranslados_Click_Err
+    
     mnuVerTranslados.Checked = (mnuVerTranslados.Checked = False)
 
+    
+    Exit Sub
+
+mnuVerTranslados_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerTranslados_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuVerTriggers_Click()
@@ -6882,12 +8481,25 @@ Private Sub mnuVerTriggers_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuVerTriggers_Click_Err
+    
     cVerTriggers.value = (cVerTriggers.value = False)
     mnuVerTriggers.Checked = cVerTriggers.value
 
+    
+    Exit Sub
+
+mnuVerTriggers_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerTriggers_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo picRadar_MouseDown_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -6901,6 +8513,13 @@ Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, X As Single,
     UserPos.y = y
     bRefreshRadar = True
 
+    
+    Exit Sub
+
+picRadar_MouseDown_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.picRadar_MouseDown", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
@@ -6908,9 +8527,19 @@ Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, X As Single,
     'Author: ^[GS]^
     'Last modified: 28/05/06
     '*************************************************
+    
+    On Error GoTo picRadar_MouseMove_Err
+    
     MiRadarX = X
     MiRadarY = y
 
+    
+    Exit Sub
+
+picRadar_MouseMove_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.picRadar_MouseMove", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
@@ -6918,6 +8547,9 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     'Author: ^[GS]^
     'Last modified: 24/11/08
     '*************************************************
+    
+    On Error GoTo Form_QueryUnload_Err
+    
 
     ' Guardar configuración
     Rem WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "GuardarConfig", IIf(FrmMain.mnuGuardarUltimaConfig.Checked = True, "1", "0")
@@ -6946,9 +8578,19 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 
     End If
 
+    
+    Exit Sub
+
+Form_QueryUnload_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Form_QueryUnload", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Npcalazarpormapa_Click()
+    
+    On Error GoTo Npcalazarpormapa_Click_Err
+    
     Dim NPCIndex As Long
     Dim X        As Byte
     Dim tmp      As String
@@ -6980,9 +8622,19 @@ Private Sub Npcalazarpormapa_Click()
 
     Next i
 
+    
+    Exit Sub
+
+Npcalazarpormapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Npcalazarpormapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub objalazar_Click()
+    
+    On Error GoTo objalazar_Click_Err
+    
 
     Dim cantidad As Long
     Dim bloquear As Byte
@@ -7019,9 +8671,19 @@ Private Sub objalazar_Click()
 
     Call AddtoRichTextBox(FrmMain.RichTextBox1, "Se agregaron " & cantidad & " " & ObjData(objeto).name & " al mapa.", 255, 255, 255, False, True, False)
 
+    
+    Exit Sub
+
+objalazar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.objalazar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Objeto_Click()
+    
+    On Error GoTo Objeto_Click_Err
+    
     Dim y As Integer
     Dim X As Integer
 
@@ -7035,23 +8697,53 @@ Private Sub Objeto_Click()
         Next X
     Next y
 
+    
+    Exit Sub
+
+Objeto_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Objeto_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub openminimap_Click()
+    
+    On Error GoTo openminimap_Click_Err
+    
 
     Dim ret As Long
     ret = ShellExecute(Me.hWnd, "Open", App.Path & "\recursos\index.htm", "", "", 1)
 
+    
+    Exit Sub
+
+openminimap_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.openminimap_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub pasto_Click()
+    
+    On Error GoTo pasto_Click_Err
+    
     cGrh.Text = DameGrhIndex(0)
 
     Call modPaneles.VistaPreviaDeSup
 
+    
+    Exit Sub
+
+pasto_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.pasto_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Picture3_Click()
+    
+    On Error GoTo Picture3_Click_Err
+    
     ColorAmb = Selected_Color()
     LuzMapa = ColorAmb
     Picture3.BackColor = LuzMapa
@@ -7060,14 +8752,34 @@ Private Sub Picture3_Click()
     Call AddtoRichTextBox(FrmMain.RichTextBox1, "Luz de mapa aceptada. Luz: " & ColorAmb & ".", 255, 255, 255, False, True, False)
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Picture3_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Picture3_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub ProbarAmbiental_Click()
+    
+    On Error GoTo ProbarAmbiental_Click_Err
+    
     WavAmbiental.Show
 
+    
+    Exit Sub
+
+ProbarAmbiental_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.ProbarAmbiental_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub QuitarLuz_Click()
+    
+    On Error GoTo QuitarLuz_Click_Err
+    
 
     If QuitarLuz.value = True Then
         insertarLuz.Enabled = False
@@ -7076,9 +8788,19 @@ Private Sub QuitarLuz_Click()
 
     End If
 
+    
+    Exit Sub
+
+QuitarLuz_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.QuitarLuz_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub quitarparticula_Click()
+    
+    On Error GoTo quitarparticula_Click_Err
+    
 
     If quitarparticula.value = True Then
         insertarParticula.Enabled = False
@@ -7087,9 +8809,19 @@ Private Sub quitarparticula_Click()
 
     End If
 
+    
+    Exit Sub
+
+quitarparticula_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.quitarparticula_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub render_mapa_Click()
+    
+    On Error GoTo render_mapa_Click_Err
+    
     Radio = Val(InputBox("Escriba la escala de 1 a 5 en la que generemos su mapa", "la escala se multiplica x 32"))
 
     If Radio = 0 Then Radio = 1
@@ -7100,9 +8832,19 @@ Private Sub render_mapa_Click()
 
     FrmRender.Show
 
+    
+    Exit Sub
+
+render_mapa_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.render_mapa_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub renderer_Click()
+    
+    On Error GoTo renderer_Click_Err
+    
 
     Call ConvertCPtoTP(MouseX, MouseY, tX, tY)
     UltimoClickX = tX
@@ -7122,9 +8864,19 @@ Private Sub renderer_Click()
 
     End If
 
+    
+    Exit Sub
+
+renderer_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.renderer_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub renderer_DblClick()
+    
+    On Error GoTo renderer_DblClick_Err
+    
     Dim tX As Integer
     Dim tY As Integer
 
@@ -7135,9 +8887,19 @@ Private Sub renderer_DblClick()
 
     End If
 
+    
+    Exit Sub
+
+renderer_DblClick_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.renderer_DblClick", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub renderer_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo renderer_MouseDown_Err
+    
 
     If Not MapaCargado Then Exit Sub
 
@@ -7153,9 +8915,19 @@ Private Sub renderer_MouseDown(Button As Integer, Shift As Integer, X As Single,
 
     End If
 
+    
+    Exit Sub
+
+renderer_MouseDown_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.renderer_MouseDown", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub renderer_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo renderer_MouseMove_Err
+    
 
     MouseX = X
     MouseY = y
@@ -7192,18 +8964,38 @@ Private Sub renderer_MouseMove(Button As Integer, Shift As Integer, X As Single,
 
     End If
 
+    
+    Exit Sub
+
+renderer_MouseMove_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.renderer_MouseMove", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub SaveAllMiniMap_Click()
+    
+    On Error GoTo SaveAllMiniMap_Click_Err
+    
 
     If MsgBox("Esta funcion generara todos los minimap de nuevo. ¿Esta seguro que desea continuar?", vbExclamation + vbYesNo) = vbYes Then
         Timer4.Enabled = True
 
     End If
 
+    
+    Exit Sub
+
+SaveAllMiniMap_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.SaveAllMiniMap_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub SelectPanel_Click(Index As Integer)
+    
+    On Error GoTo SelectPanel_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -7224,11 +9016,28 @@ Public Sub SelectPanel_Click(Index As Integer)
     If mnuAutoQuitarFunciones.Checked = True Then Call mnuQuitarFunciones_Click
     Call VerFuncion(Index, SelectPanel(Index).value)
 
+    
+    Exit Sub
+
+SelectPanel_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.SelectPanel_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Stopminimap_Click()
+    
+    On Error GoTo Stopminimap_Click_Err
+    
     Timer4.Enabled = False
 
+    
+    Exit Sub
+
+Stopminimap_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Stopminimap_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Text3_Change()
@@ -7244,6 +9053,9 @@ Private Sub TiggerEspecial_Click()
 End Sub
 
 Private Sub TimAutoGuardarMapa_Timer()
+    
+    On Error GoTo TimAutoGuardarMapa_Timer_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -7264,6 +9076,13 @@ Private Sub TimAutoGuardarMapa_Timer()
 
     End If
 
+    
+    Exit Sub
+
+TimAutoGuardarMapa_Timer_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.TimAutoGuardarMapa_Timer", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub ObtenerNombreArchivo(ByVal Guardar As Boolean)
@@ -7302,18 +9121,41 @@ Public Sub ObtenerNombreArchivo(ByVal Guardar As Boolean)
 End Sub
 
 Private Sub Timer1_Timer()
+    
+    On Error GoTo Timer1_Timer_Err
+    
     Call MapPest_Click(5)
     modMapIO.GuardarMapa Dialog.FileName
 
+    
+    Exit Sub
+
+Timer1_Timer_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Timer1_Timer", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Timer2_Timer()
+    
+    On Error GoTo Timer2_Timer_Err
+    
 
     If engine.bRunning Then engine.Engine_ActFPS
 
+    
+    Exit Sub
+
+Timer2_Timer_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Timer2_Timer", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Timer4_Timer()
+    
+    On Error GoTo Timer4_Timer_Err
+    
 
     'Call Command2_Click
     'Call modEdicion.Quitar_NPCs(False)
@@ -7332,9 +9174,19 @@ Private Sub Timer4_Timer()
     Timer4.Interval = 1
     Call MapPest_Click(5)
 
+    
+    Exit Sub
+
+Timer4_Timer_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Timer4_Timer", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Todas_las_luces_Click()
+    
+    On Error GoTo Todas_las_luces_Click_Err
+    
     Dim X As Byte
     Dim y As Byte
     Dim i As Long
@@ -7349,9 +9201,19 @@ Private Sub Todas_las_luces_Click()
     engine.Light_Remove_All
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Todas_las_luces_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Todas_las_luces_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Todas_las_Particulas_Click()
+    
+    On Error GoTo Todas_las_Particulas_Click_Err
+    
     Dim X As Byte
     Dim y As Byte
     Dim i As Long
@@ -7365,60 +9227,147 @@ Private Sub Todas_las_Particulas_Click()
     engine.Particle_Group_Remove_All
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Todas_las_Particulas_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Todas_las_Particulas_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapRestringir_Click()
+    
+    On Error GoTo txtMapRestringir_Click_Err
+    
     MapDat.restrict_mode = txtMapRestringir
     Call AddtoRichTextBox(FrmMain.RichTextBox1, "Restriccion de mapa cambiada a: " & MapDat.restrict_mode, 255, 255, 255, False, True, False)
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapRestringir_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.txtMapRestringir_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapTerreno_Click()
+    
+    On Error GoTo txtMapTerreno_Click_Err
+    
     MapDat.terrain = txtMapTerreno
     Call AddtoRichTextBox(FrmMain.RichTextBox1, "Terreno de mapa cambiada a: " & MapDat.terrain, 255, 255, 255, False, True, False)
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapTerreno_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.txtMapTerreno_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapZona_Click()
+    
+    On Error GoTo txtMapZona_Click_Err
+    
     MapDat.zone = txtMapZona
     Call AddtoRichTextBox(FrmMain.RichTextBox1, "Zona de mapa cambiada a: " & MapDat.zone, 255, 255, 255, False, True, False)
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapZona_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.txtMapZona_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub TxtMidi_Change()
+    
+    On Error GoTo TxtMidi_Change_Err
+    
 
     If Not IsNumeric(TxtMidi) Then Exit Sub
     MidiMusic = CInt(TxtMidi)
     MapDat.music_numberLow = MidiMusic
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+TxtMidi_Change_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.TxtMidi_Change", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub TxtMp3_Change()
+    
+    On Error GoTo TxtMp3_Change_Err
+    
 
     If Not IsNumeric(TxtMp3) Then Exit Sub
     Mp3Music = CInt(TxtMp3)
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+TxtMp3_Change_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.TxtMp3_Change", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtnamemapa_Change()
+    
+    On Error GoTo txtnamemapa_Change_Err
+    
     MapDat.map_name = txtnamemapa
     Call AddtoRichTextBox(FrmMain.RichTextBox1, "Nombre de mapa cambiado a:  " & MapDat.map_name, 255, 255, 255, False, True, False)
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtnamemapa_Change_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.txtnamemapa_Change", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub TxtWav_Change()
+    
+    On Error GoTo TxtWav_Change_Err
+    
     Ambiente = TxtWav
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+TxtWav_Change_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.TxtWav_Change", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub vergraficoslistado_Click()
+    
+    On Error GoTo vergraficoslistado_Click_Err
+    
     Form1.Show , FrmMain
 
+    
+    Exit Sub
+
+vergraficoslistado_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.vergraficoslistado_Click", Erl)
+    Resume Next
+    
 End Sub

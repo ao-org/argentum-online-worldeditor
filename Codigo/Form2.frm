@@ -162,6 +162,9 @@ Option Explicit
 
 Public Sub Command1_Click()
     'Superior
+    
+    On Error GoTo Command1_Click_Err
+    
     Call VerMapaTraslado
 
     SeleccionIX = 1
@@ -180,10 +183,20 @@ Public Sub Command1_Click()
     MapInfo.Changed = 1
     FrmMain.mnuGuardarMapa_Click
 
+    
+    Exit Sub
+
+Command1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Command1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Command2_Click()
     'copiar izquierdo
+    
+    On Error GoTo Command2_Click_Err
+    
     SeleccionIX = 14
     SeleccionFX = 27
     SeleccionIY = 1
@@ -200,10 +213,20 @@ Public Sub Command2_Click()
     MapInfo.Changed = 1
     FrmMain.mnuGuardarMapa_Click
 
+    
+    Exit Sub
+
+Command2_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Command2_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Command3_Click()
     'copiar derecho
+    
+    On Error GoTo Command3_Click_Err
+    
     SeleccionIX = 75
     SeleccionFX = 87
     SeleccionIY = 1
@@ -220,10 +243,20 @@ Public Sub Command3_Click()
     MapInfo.Changed = 1
     FrmMain.mnuGuardarMapa_Click
 
+    
+    Exit Sub
+
+Command3_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Command3_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Command4_Click()
     'Copiar inferior ok!
+    
+    On Error GoTo Command4_Click_Err
+    
     SeleccionIX = 1
     SeleccionFX = 100
     SeleccionIY = 81
@@ -240,9 +273,19 @@ Public Sub Command4_Click()
     MapInfo.Changed = 1
     FrmMain.mnuGuardarMapa_Click
 
+    
+    Exit Sub
+
+Command4_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Command4_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Command5_Click()
+    
+    On Error GoTo Command5_Click_Err
+    
 
     'Pegar Inferior OK!
     If lblMapaNorte.Caption <> "Norte" Then
@@ -265,10 +308,20 @@ Public Sub Command5_Click()
 
     End If
 
+    
+    Exit Sub
+
+Command5_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Command5_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Command6_Click()
     'pegar superior
+    
+    On Error GoTo Command6_Click_Err
+    
 
     If lblMapaSur.Caption <> "Sur" Then
         If FileExist(PATH_Save & NameMap_Save & CLng(lblMapaSur.Caption) & ".csm", vbArchive) = True Then
@@ -290,9 +343,19 @@ Public Sub Command6_Click()
 
     End If
 
+    
+    Exit Sub
+
+Command6_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Command6_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Command7_Click()
+    
+    On Error GoTo Command7_Click_Err
+    
 
     'pegar derecho OK!
     If lblMapaOeste.Caption <> "Oeste" Then
@@ -315,9 +378,19 @@ Public Sub Command7_Click()
 
     End If
 
+    
+    Exit Sub
+
+Command7_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Command7_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Command8_Click()
+    
+    On Error GoTo Command8_Click_Err
+    
 
     'pegar izquierdo OK!
     If lblMapaEste.Caption <> "Este" Then
@@ -340,9 +413,19 @@ Public Sub Command8_Click()
 
     End If
 
+    
+    Exit Sub
+
+Command8_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Command8_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub VerMapaTraslado()
+    
+    On Error GoTo VerMapaTraslado_Err
+    
     Dim X As Integer
     Dim y As Integer
 
@@ -398,9 +481,19 @@ Private Sub VerMapaTraslado()
 
     Next
 
+    
+    Exit Sub
+
+VerMapaTraslado_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.VerMapaTraslado", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Load()
+    
+    On Error GoTo Form_Load_Err
+    
     Call VerMapaTraslado
 
     If lblMapaSur.Caption = "Sur" Then Form2.Command4.Visible = False
@@ -411,4 +504,11 @@ Private Sub Form_Load()
 
     If lblMapaOeste.Caption = "Norte" Then Form2.Command1.Visible = False
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form2.Form_Load", Erl)
+    Resume Next
+    
 End Sub

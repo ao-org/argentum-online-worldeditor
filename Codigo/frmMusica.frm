@@ -194,8 +194,18 @@ Private Sub cmdCerrar_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdCerrar_Click_Err
+    
     Me.Hide
 
+    
+    Exit Sub
+
+cmdCerrar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMusica.cmdCerrar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -207,11 +217,21 @@ Private Sub cmdDetener_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdDetener_Click_Err
+    
 
     cmdEscuchar.Enabled = True
     cmdDetener.Enabled = False
     Play = False
 
+    
+    Exit Sub
+
+cmdDetener_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMusica.cmdDetener_Click", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -223,11 +243,21 @@ Private Sub cmdEscuchar_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdEscuchar_Click_Err
+    
 
     cmdDetener.Enabled = True
     cmdEscuchar.Enabled = False
     Play = True
 
+    
+    Exit Sub
+
+cmdEscuchar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMusica.cmdEscuchar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -239,11 +269,21 @@ Private Sub fleMusicas_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo fleMusicas_Click_Err
+    
     MidiActual = fleMusicas.List(fleMusicas.ListIndex)
 
     cmdAplicarYCerrar.Enabled = True
 
     If Play = False Then cmdEscuchar.Enabled = True
 
+    
+    Exit Sub
+
+fleMusicas_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMusica.fleMusicas_Click", Erl)
+    Resume Next
+    
 End Sub
 

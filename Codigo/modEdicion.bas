@@ -31,22 +31,35 @@ Option Explicit
 
 Public maskBloqueo As Byte
 
-Public Sub General_Var_Write(ByVal file As String, ByVal Main As String, ByVal var As String, ByVal value As String)
+Public Sub General_Var_Write(ByVal File As String, ByVal Main As String, ByVal var As String, ByVal value As String)
     '*****************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 10/07/2002
     'Writes a var to a text file
     '*****************************************************************
-    writeprivateprofilestring Main, var, value, file
+    
+    On Error GoTo General_Var_Write_Err
+    
+    writeprivateprofilestring Main, var, value, File
 
+    
+    Exit Sub
+
+General_Var_Write_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.General_Var_Write", Erl)
+    Resume Next
+    
 End Sub
 
-Public Function General_Var_Get(ByVal file As String, ByVal Main As String, ByVal var As String) As String
+Public Function General_Var_Get(ByVal File As String, ByVal Main As String, ByVal var As String) As String
     '*****************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 10/07/2002
     'Get a var to from a text file
     '*****************************************************************
+    
+    On Error GoTo General_Var_Get_Err
+    
     Dim L        As Long
     Dim char     As String
     Dim sSpaces  As String 'Input that the program will retrieve
@@ -56,11 +69,18 @@ Public Function General_Var_Get(ByVal file As String, ByVal Main As String, ByVa
     
     sSpaces = Space$(5000)
     
-    GetPrivateProfileString Main, var, szReturn, sSpaces, Len(sSpaces), file
+    GetPrivateProfileString Main, var, szReturn, sSpaces, Len(sSpaces), File
     
     General_Var_Get = RTrim$(sSpaces)
     General_Var_Get = Left$(General_Var_Get, Len(General_Var_Get) - 1)
 
+    
+    Exit Function
+
+General_Var_Get_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.General_Var_Get", Erl)
+    Resume Next
+    
 End Function
 
 ''
@@ -71,6 +91,9 @@ Public Sub Deshacer_Clear()
     'Author: ^[GS]^
     'Last modified: 15/10/06
     '*************************************************
+    
+    On Error GoTo Deshacer_Clear_Err
+    
     Dim i As Integer
 
     ' Vacio todos los campos afectados
@@ -80,12 +103,22 @@ Public Sub Deshacer_Clear()
     ' no ahi que deshacer
     FrmMain.mnuDeshacer.Enabled = False
 
+    
+    Exit Sub
+
+Deshacer_Clear_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Deshacer_Clear", Erl)
+    Resume Next
+    
 End Sub
 
 ''
 ' Agrega un Deshacer
 '
 Public Sub Deshacer_Add(ByVal Desc As String)
+    
+    On Error GoTo Deshacer_Add_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -118,6 +151,13 @@ Public Sub Deshacer_Add(ByVal Desc As String)
     FrmMain.mnuDeshacer.Caption = "&Deshacer (Ultimo: " & MapData_Deshacer_Info(1).Desc & ")"
     FrmMain.mnuDeshacer.Enabled = True
 
+    
+    Exit Sub
+
+Deshacer_Add_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Deshacer_Add", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -128,6 +168,9 @@ Public Sub Deshacer_Recover()
     'Author: ^[GS]^
     'Last modified: 15/10/06
     '*************************************************
+    
+    On Error GoTo Deshacer_Recover_Err
+    
     Dim i       As Integer
     Dim F       As Integer
     Dim j       As Integer
@@ -193,6 +236,13 @@ Public Sub Deshacer_Recover()
 
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+Deshacer_Recover_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Deshacer_Recover", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -201,6 +251,9 @@ End Sub
 ' @return   Nos devuelve si acepta o no el cambio
 
 Private Function EditWarning() As Boolean
+    
+    On Error GoTo EditWarning_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -213,6 +266,13 @@ Private Function EditWarning() As Boolean
 
     End If
 
+    
+    Exit Function
+
+EditWarning_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.EditWarning", Erl)
+    Resume Next
+    
 End Function
 
 ''
@@ -224,6 +284,9 @@ Public Sub Bloquear_Bordes()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Bloquear_Bordes_Err
+    
     Dim y As Integer
     Dim X As Integer
 
@@ -272,6 +335,13 @@ Public Sub Bloquear_Bordes()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Bloquear_Bordes_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Bloquear_Bordes", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -381,6 +451,9 @@ Public Sub Superficie_Bordes()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Superficie_Bordes_Err
+    
 
     Dim y As Integer
     Dim X As Integer
@@ -454,6 +527,13 @@ Public Sub Superficie_Bordes()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Superficie_Bordes_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Superficie_Bordes", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -465,6 +545,9 @@ Public Sub Superficie_Todo()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Superficie_Todo_Err
+    
 
     Dim y As Integer
     Dim X As Integer
@@ -499,6 +582,13 @@ Public Sub Superficie_Todo()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Superficie_Todo_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Superficie_Todo", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -511,6 +601,9 @@ Public Sub Bloqueo_Todo(ByVal Valor As Byte)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Bloqueo_Todo_Err
+    
 
     Dim y As Integer
     Dim X As Integer
@@ -531,6 +624,13 @@ Public Sub Bloqueo_Todo(ByVal Valor As Byte)
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Bloqueo_Todo_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Bloqueo_Todo", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -542,6 +642,9 @@ Public Sub Borrar_Mapa()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Borrar_Mapa_Err
+    
 
     If EditWarning Then Exit Sub
 
@@ -591,6 +694,13 @@ Public Sub Borrar_Mapa()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Borrar_Mapa_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Borrar_Mapa", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -603,6 +713,9 @@ Public Sub Quitar_NPCs(ByVal Hostiles As Boolean)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Quitar_NPCs_Err
+    
 
     modEdicion.Deshacer_Add "Quitar todos los NPCs" & IIf(Hostiles = True, " Hostiles", "") ' Hago deshacer
 
@@ -626,6 +739,13 @@ Public Sub Quitar_NPCs(ByVal Hostiles As Boolean)
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Quitar_NPCs_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Quitar_NPCs", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -637,6 +757,9 @@ Public Sub Quitar_Objetos()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Quitar_Objetos_Err
+    
 
     If EditWarning Then Exit Sub
 
@@ -661,6 +784,13 @@ Public Sub Quitar_Objetos()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Quitar_Objetos_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Quitar_Objetos", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -672,6 +802,9 @@ Public Sub Quitar_Triggers()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Quitar_Triggers_Err
+    
 
     If EditWarning Then Exit Sub
 
@@ -694,6 +827,13 @@ Public Sub Quitar_Triggers()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Quitar_Triggers_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Quitar_Triggers", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -705,6 +845,9 @@ Public Sub Quitar_Translados()
     'Author: ^[GS]^
     'Last modified: 16/10/06
     '*************************************************
+    
+    On Error GoTo Quitar_Translados_Err
+    
 
     If EditWarning Then Exit Sub
 
@@ -729,6 +872,13 @@ Public Sub Quitar_Translados()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Quitar_Translados_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Quitar_Translados", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -740,6 +890,9 @@ Public Sub Quitar_Bordes()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Quitar_Bordes_Err
+    
 
     If EditWarning Then Exit Sub
 
@@ -794,6 +947,13 @@ Public Sub Quitar_Bordes()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Quitar_Bordes_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Quitar_Bordes", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -806,6 +966,9 @@ Public Sub Quitar_Capa(ByVal Capa As Byte)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Quitar_Capa_Err
+    
 
     If EditWarning Then Exit Sub
 
@@ -839,6 +1002,13 @@ Public Sub Quitar_Capa(ByVal Capa As Byte)
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Quitar_Capa_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Quitar_Capa", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -853,6 +1023,9 @@ Sub DobleClick(tX As Integer, tY As Integer)
     'Last modified: 01/11/08
     '*************************************************
     ' Selecciones
+    
+    On Error GoTo DobleClick_Err
+    
     Seleccionando = False ' GS
     SeleccionIX = 0
     SeleccionIY = 0
@@ -894,6 +1067,13 @@ Sub DobleClick(tX As Integer, tY As Integer)
 
     End If
 
+    
+    Exit Sub
+
+DobleClick_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.DobleClick", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -908,6 +1088,9 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo ClickEdit_Err
+    
 
     Dim loopc    As Integer
     Dim NPCIndex As Integer
@@ -1372,9 +1555,19 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
     End If
 
     Rem Call DibujarMiniMapa
+    
+    Exit Sub
+
+ClickEdit_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.ClickEdit", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function Selected_Color()
+    
+    On Error GoTo Selected_Color_Err
+    
 
     Dim c   As Long
   
@@ -1409,5 +1602,12 @@ Public Function Selected_Color()
 
     Selected_Color = Out
 
+    
+    Exit Function
+
+Selected_Color_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modEdicion.Selected_Color", Erl)
+    Resume Next
+    
 End Function
 
