@@ -414,9 +414,19 @@ Private Sub Form_Deactivate()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Form_Deactivate_Err
+    
 
     Me.Hide
 
+    
+    Exit Sub
+
+Form_Deactivate_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmConfigSup.Form_Deactivate", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
@@ -424,6 +434,9 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Form_QueryUnload_Err
+    
 
     If UnloadMode <> 0 Then
         Cancel = True
@@ -431,9 +444,19 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 
     End If
 
+    
+    Exit Sub
+
+Form_QueryUnload_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmConfigSup.Form_QueryUnload", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DespMosaic_Click()
+    
+    On Error GoTo DespMosaic_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -442,9 +465,19 @@ Private Sub DespMosaic_Click()
     If LenB(DMAncho.Text) = 0 Then DMAncho.Text = "0"
     If LenB(DMLargo.Text) = 0 Then DMLargo.Text = "0"
 
+    
+    Exit Sub
+
+DespMosaic_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmConfigSup.DespMosaic_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mAncho_KeyPress(KeyAscii As Integer)
+    
+    On Error GoTo mAncho_KeyPress_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -453,9 +486,19 @@ Private Sub mAncho_KeyPress(KeyAscii As Integer)
     ' Impedir que se ingrese un valor no numerico
     If KeyAscii <> 8 And IsNumeric(Chr(KeyAscii)) = False Then KeyAscii = 0
 
+    
+    Exit Sub
+
+mAncho_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmConfigSup.mAncho_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mLargo_KeyPress(KeyAscii As Integer)
+    
+    On Error GoTo mLargo_KeyPress_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -464,6 +507,13 @@ Private Sub mLargo_KeyPress(KeyAscii As Integer)
     ' Impedir que se ingrese un valor no numerico
     If KeyAscii <> 8 And IsNumeric(Chr(KeyAscii)) = False Then KeyAscii = 0
 
+    
+    Exit Sub
+
+mLargo_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmConfigSup.mLargo_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdAceptar_Click()
@@ -471,11 +521,24 @@ Private Sub cmdAceptar_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdAceptar_Click_Err
+    
     Me.Hide
 
+    
+    Exit Sub
+
+cmdAceptar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmConfigSup.cmdAceptar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub MOSAICO_Click()
+    
+    On Error GoTo MOSAICO_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -484,4 +547,11 @@ Private Sub MOSAICO_Click()
     If LenB(mAncho.Text) = 0 Then mAncho.Text = "0"
     If LenB(mLargo.Text) = 0 Then mLargo.Text = "0"
 
+    
+    Exit Sub
+
+MOSAICO_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmConfigSup.MOSAICO_Click", Erl)
+    Resume Next
+    
 End Sub

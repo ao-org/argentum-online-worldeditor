@@ -151,6 +151,9 @@ Public Function ConvertFileImage(ByVal SrcPath As String, ByVal DestPath As Stri
 End Function
 
 Public Function IsGdiPlusInstaled() As Boolean
+    
+    On Error GoTo IsGdiPlusInstaled_Err
+    
     Dim hLib As Long
     
     hLib = LoadLibrary("gdiplus.dll")
@@ -165,9 +168,19 @@ Public Function IsGdiPlusInstaled() As Boolean
 
     End If
     
+    
+    Exit Function
+
+IsGdiPlusInstaled_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module2.IsGdiPlusInstaled", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Engine_Convert_List(rgb_list() As Long, Long_Color As Long)
+    
+    On Error GoTo Engine_Convert_List_Err
+    
 
     ' / Author: Dunkansdk
     ' / Note: Convierte en array's los D3DColorArgb
@@ -177,9 +190,19 @@ Public Sub Engine_Convert_List(rgb_list() As Long, Long_Color As Long)
     rgb_list(2) = rgb_list(0)
     rgb_list(3) = rgb_list(0)
     
+    
+    Exit Sub
+
+Engine_Convert_List_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module2.Engine_Convert_List", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Engine_Draw_Box(ByVal X As Integer, ByVal y As Integer, ByVal Width As Integer, ByVal Height As Integer, color As Long)
+    
+    On Error GoTo Engine_Draw_Box_Err
+    
 
     ' / Author: Ezequiel Juárez (Standelf)
     ' / Note: Extract to Blisse AO, modified by Dunkansdk
@@ -203,9 +226,19 @@ Public Sub Engine_Draw_Box(ByVal X As Integer, ByVal y As Integer, ByVal Width A
     D3DDevice.SetTexture 0, Nothing
     D3DDevice.DrawPrimitiveUP D3DPT_TRIANGLESTRIP, 2, b_Vertex(0), Len(b_Vertex(0))
 
+    
+    Exit Sub
+
+Engine_Draw_Box_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module2.Engine_Draw_Box", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, ByRef src As RECT, ByRef rgb_list() As Long, Optional ByRef Textures_Width As Long, Optional ByRef Textures_Height As Long)
+    
+    On Error GoTo Geometry_Create_Box_Err
+    
 
     ' / Author: Dunkansdk
 
@@ -276,9 +309,19 @@ Public Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, By
 
     ' * - - - - - - - Vertice 3 -
 
+    
+    Exit Sub
+
+Geometry_Create_Box_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module2.Geometry_Create_Box", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function CreateVertex(ByVal X As Single, ByVal y As Single, ByVal Z As Single, ByVal rhw As Single, ByVal color As Long, ByVal Specular As Long, tu As Single, ByVal tv As Single) As TLVERTEX
+    
+    On Error GoTo CreateVertex_Err
+    
 
     ' / Author: Aaron Perkins
     ' / Last Modify Date: 10/07/2002
@@ -291,6 +334,13 @@ Public Function CreateVertex(ByVal X As Single, ByVal y As Single, ByVal Z As Si
     CreateVertex.Specular = Specular
     CreateVertex.tu = tu
     CreateVertex.tv = tv
+    
+    
+    Exit Function
+
+CreateVertex_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module2.CreateVertex", Erl)
+    Resume Next
     
 End Function
 

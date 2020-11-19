@@ -607,27 +607,30 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Check1_Click()
+    
+    On Error GoTo Check1_Click_Err
+    
 
-    If Check1.value = 0 Then
+    If check1.value = 0 Then
         r1.Enabled = True
         G1.Enabled = True
         b1.Enabled = True
         Text1.Enabled = True
         lvButtons_H1.Enabled = True
-        Picture1.Enabled = True
-        Check1.value = 0
+        picture1.Enabled = True
+        check1.value = 0
         Exit Sub
 
     End If
 
-    If Check1.value = 1 Then
+    If check1.value = 1 Then
         r1.Enabled = False
         G1.Enabled = False
         b1.Enabled = False
         Text1.Enabled = False
         lvButtons_H1.Enabled = False
-        Picture1.Enabled = False
-        Check1.value = 1
+        picture1.Enabled = False
+        check1.value = 1
         MapInfo.Light = 0
         MapInfo.Changed = 1
         engine.Map_Base_Light_Set (-1)
@@ -635,6 +638,13 @@ Private Sub Check1_Click()
 
     End If
 
+    
+    Exit Sub
+
+Check1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.Check1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub chkMapBackup_LostFocus()
@@ -642,9 +652,19 @@ Private Sub chkMapBackup_LostFocus()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo chkMapBackup_LostFocus_Err
+    
     MapInfo.BackUp = chkMapBackup.value
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+chkMapBackup_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.chkMapBackup_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub chkMapMagiaSinEfecto_LostFocus()
@@ -652,9 +672,19 @@ Private Sub chkMapMagiaSinEfecto_LostFocus()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo chkMapMagiaSinEfecto_LostFocus_Err
+    
     MapInfo.MagiaSinEfecto = chkMapMagiaSinEfecto.value
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+chkMapMagiaSinEfecto_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.chkMapMagiaSinEfecto_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub chkMapInviSinEfecto_LostFocus()
@@ -662,9 +692,19 @@ Private Sub chkMapInviSinEfecto_LostFocus()
     'Author:
     'Last modified:
     '*************************************************
+    
+    On Error GoTo chkMapInviSinEfecto_LostFocus_Err
+    
     MapInfo.InviSinEfecto = chkMapInviSinEfecto.value
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+chkMapInviSinEfecto_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.chkMapInviSinEfecto_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub chkMapResuSinEfecto_LostFocus()
@@ -672,9 +712,19 @@ Private Sub chkMapResuSinEfecto_LostFocus()
     'Author:
     'Last modified:
     '*************************************************
+    
+    On Error GoTo chkMapResuSinEfecto_LostFocus_Err
+    
     MapInfo.ResuSinEfecto = chkMapResuSinEfecto.value
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+chkMapResuSinEfecto_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.chkMapResuSinEfecto_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub chkMapNoEncriptarMP_LostFocus()
@@ -682,9 +732,19 @@ Private Sub chkMapNoEncriptarMP_LostFocus()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo chkMapNoEncriptarMP_LostFocus_Err
+    
     MapInfo.NoEncriptarMP = chkMapNoEncriptarMP.value
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+chkMapNoEncriptarMP_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.chkMapNoEncriptarMP_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub chkMapPK_LostFocus()
@@ -692,12 +752,25 @@ Private Sub chkMapPK_LostFocus()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo chkMapPK_LostFocus_Err
+    
     MapInfo.PK = chkMapPK.value
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+chkMapPK_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.chkMapPK_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdCerrar_Click()
+    
+    On Error GoTo cmdCerrar_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -713,6 +786,13 @@ Private Sub cmdCerrar_Click()
     Me.Hide
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+cmdCerrar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.cmdCerrar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdMusica_Click()
@@ -720,11 +800,24 @@ Private Sub cmdMusica_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdMusica_Click_Err
+    
     frmMusica.Show
 
+    
+    Exit Sub
+
+cmdMusica_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.cmdMusica_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+    
+    On Error GoTo Form_QueryUnload_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -736,10 +829,20 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 
     End If
 
+    
+    Exit Sub
+
+Form_QueryUnload_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.Form_QueryUnload", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub lvButtons_H1_Click()
-    Picture1.BackColor = RGB(r1, G1, b1)
+    
+    On Error GoTo lvButtons_H1_Click_Err
+    
+    picture1.BackColor = RGB(r1, G1, b1)
     Dim Out As String
     Out = "&H" & Format(Hex(r1), "0#") & Format(Hex(G1), "0#") & Format(Hex(b1), "0#")
 
@@ -747,9 +850,19 @@ Private Sub lvButtons_H1_Click()
 
     engine.Map_Base_Light_Set MapInfo.Light
 
+    
+    Exit Sub
+
+lvButtons_H1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.lvButtons_H1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function Selected_Color()
+    
+    On Error GoTo Selected_Color_Err
+    
 
     Dim c   As Long
   
@@ -784,13 +897,30 @@ Public Function Selected_Color()
 
     Selected_Color = Out
 
+    
+    Exit Function
+
+Selected_Color_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.Selected_Color", Erl)
+    Resume Next
+    
 End Function
 
 Private Sub Picture1_Click()
+    
+    On Error GoTo Picture1_Click_Err
+    
     Text1 = Selected_Color()
 
     MapInfo.Light = Text1
 
+    
+    Exit Sub
+
+Picture1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.Picture1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapMusica_LostFocus()
@@ -798,10 +928,20 @@ Private Sub txtMapMusica_LostFocus()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo txtMapMusica_LostFocus_Err
+    
     MapInfo.Music = txtMapMusica.Text
     'FrmMain.lblMapMusica.Caption = MapInfo.Music
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapMusica_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapMusica_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapVersion_LostFocus()
@@ -809,10 +949,20 @@ Private Sub txtMapVersion_LostFocus()
     'Author: ^[GS]^
     'Last modified: 29/05/06
     '*************************************************
+    
+    On Error GoTo txtMapVersion_LostFocus_Err
+    
     MapInfo.MapVersion = txtMapVersion.Text
     'FrmMain.lblMapVersion.Caption = MapInfo.MapVersion
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapVersion_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapVersion_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapNombre_LostFocus()
@@ -820,10 +970,20 @@ Private Sub txtMapNombre_LostFocus()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo txtMapNombre_LostFocus_Err
+    
     MapInfo.name = txtMapNombre.Text
     'FrmMain.lblMapNombre.Caption = MapInfo.name
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapNombre_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapNombre_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapRestringir_KeyPress(KeyAscii As Integer)
@@ -831,8 +991,18 @@ Private Sub txtMapRestringir_KeyPress(KeyAscii As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo txtMapRestringir_KeyPress_Err
+    
     KeyAscii = 0
 
+    
+    Exit Sub
+
+txtMapRestringir_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapRestringir_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapRestringir_LostFocus()
@@ -841,8 +1011,18 @@ Private Sub txtMapRestringir_LostFocus()
     'Last modified: 20/05/06
     '*************************************************
     'MapInfo.Restringir = txtMapRestringir.Text
+    
+    On Error GoTo txtMapRestringir_LostFocus_Err
+    
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapRestringir_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapRestringir_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapTerreno_KeyPress(KeyAscii As Integer)
@@ -850,8 +1030,18 @@ Private Sub txtMapTerreno_KeyPress(KeyAscii As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo txtMapTerreno_KeyPress_Err
+    
     KeyAscii = 0
 
+    
+    Exit Sub
+
+txtMapTerreno_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapTerreno_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapTerreno_LostFocus()
@@ -860,8 +1050,18 @@ Private Sub txtMapTerreno_LostFocus()
     'Last modified: 20/05/06
     '*************************************************
     'MapInfo.Terreno = txtMapTerreno.Text
+    
+    On Error GoTo txtMapTerreno_LostFocus_Err
+    
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapTerreno_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapTerreno_LostFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapZona_KeyPress(KeyAscii As Integer)
@@ -869,8 +1069,18 @@ Private Sub txtMapZona_KeyPress(KeyAscii As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo txtMapZona_KeyPress_Err
+    
     KeyAscii = 0
 
+    
+    Exit Sub
+
+txtMapZona_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapZona_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtMapZona_LostFocus()
@@ -878,7 +1088,17 @@ Private Sub txtMapZona_LostFocus()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo txtMapZona_LostFocus_Err
+    
     MapInfo.Zona = txtMapZona.Text
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+txtMapZona_LostFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmMapInfo.txtMapZona_LostFocus", Erl)
+    Resume Next
+    
 End Sub

@@ -27,6 +27,9 @@ Private light_list() As tLight
 Private NumLights    As Integer
 
 Public Function Create_Light_To_Map(ByVal map_x As Byte, ByVal map_y As Byte, Optional range As Byte = 3, Optional ByVal red As Byte = 255, Optional ByVal green = 255, Optional ByVal blue As Byte = 255)
+    
+    On Error GoTo Create_Light_To_Map_Err
+    
     NumLights = NumLights + 1
    
     ReDim Preserve light_list(1 To NumLights) As tLight
@@ -51,9 +54,19 @@ Public Function Create_Light_To_Map(ByVal map_x As Byte, ByVal map_y As Byte, Op
    
     LightA.LightRenderAll
 
+    
+    Exit Function
+
+Create_Light_To_Map_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsLight.Create_Light_To_Map", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Delete_Light_To_Map(ByVal X As Byte, ByVal y As Byte)
+    
+    On Error GoTo Delete_Light_To_Map_Err
+    
    
     Dim i As Long
    
@@ -67,6 +80,13 @@ Public Function Delete_Light_To_Map(ByVal X As Byte, ByVal y As Byte)
 
     Next i
  
+    
+    Exit Function
+
+Delete_Light_To_Map_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsLight.Delete_Light_To_Map", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Delete_Light_To_Index(ByVal light_index As Byte)
@@ -114,6 +134,9 @@ Public Function Delete_Light_To_Index(ByVal light_index As Byte)
 End Function
 
 Private Function LightCalculate(ByVal cRadio As Integer, ByVal LightX As Integer, ByVal LightY As Integer, ByVal XCoord As Integer, ByVal YCoord As Integer, TileLight As Long, LightColor As D3DCOLORVALUE, AmbientColor As D3DCOLORVALUE) As Long
+    
+    On Error GoTo LightCalculate_Err
+    
     Dim XDist        As Single
     Dim YDist        As Single
     Dim VertexDist   As Single
@@ -137,6 +160,13 @@ Private Function LightCalculate(ByVal cRadio As Integer, ByVal LightX As Integer
 
     End If
 
+    
+    Exit Function
+
+LightCalculate_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsLight.LightCalculate", Erl)
+    Resume Next
+    
 End Function
  
 Private Sub LightRender(ByVal light_index As Integer)
@@ -213,6 +243,9 @@ Private Sub LightRender(ByVal light_index As Integer)
 End Sub
 
 Public Sub LightRenderAll()
+    
+    On Error GoTo LightRenderAll_Err
+    
     Dim i As Long
    
     For i = 1 To NumLights
@@ -220,9 +253,19 @@ Public Sub LightRenderAll()
             
     Next i
 
+    
+    Exit Sub
+
+LightRenderAll_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsLight.LightRenderAll", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function Delete_All_LigthRound()
+    
+    On Error GoTo Delete_All_LigthRound_Err
+    
     Dim i As Long
    
     For i = 1 To NumLights
@@ -230,5 +273,12 @@ Public Function Delete_All_LigthRound()
             
     Next i
 
+    
+    Exit Function
+
+Delete_All_LigthRound_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsLight.Delete_All_LigthRound", Erl)
+    Resume Next
+    
 End Function
 

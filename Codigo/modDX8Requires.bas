@@ -89,28 +89,61 @@ End Type
 Private Declare Sub GlobalMemoryStatus Lib "kernel32" (lpBuffer As MEMORYSTATUS)
 
 Public Function General_Bytes_To_Megabytes(Bytes As Double) As Double
+    
+    On Error GoTo General_Bytes_To_Megabytes_Err
+    
     Dim dblAns As Double
     dblAns = (Bytes / 1024) / 1024
     General_Bytes_To_Megabytes = Format(dblAns, "###,###,##0.00")
 
+    
+    Exit Function
+
+General_Bytes_To_Megabytes_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDX8Requires.General_Bytes_To_Megabytes", Erl)
+    Resume Next
+    
 End Function
 
 Public Function General_Get_Free_Ram() As Double
     'Return Value in Megabytes
+    
+    On Error GoTo General_Get_Free_Ram_Err
+    
     Dim dblAns As Double
     GlobalMemoryStatus pUdtMemStatus
     dblAns = pUdtMemStatus.dwAvailPhys
     General_Get_Free_Ram = General_Bytes_To_Megabytes(dblAns)
 
+    
+    Exit Function
+
+General_Get_Free_Ram_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDX8Requires.General_Get_Free_Ram", Erl)
+    Resume Next
+    
 End Function
 
 Public Function General_Get_Free_Ram_Bytes() As Long
+    
+    On Error GoTo General_Get_Free_Ram_Bytes_Err
+    
     GlobalMemoryStatus pUdtMemStatus
     General_Get_Free_Ram_Bytes = pUdtMemStatus.dwAvailPhys
 
+    
+    Exit Function
+
+General_Get_Free_Ram_Bytes_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDX8Requires.General_Get_Free_Ram_Bytes", Erl)
+    Resume Next
+    
 End Function
 
 Public Function ARGB(ByVal r As Long, ByVal g As Long, ByVal b As Long, ByVal A As Long) As Long
+    
+    On Error GoTo ARGB_Err
+    
         
     Dim c As Long
         
@@ -130,5 +163,12 @@ Public Function ARGB(ByVal r As Long, ByVal g As Long, ByVal b As Long, ByVal A 
     
     ARGB = c
 
+    
+    Exit Function
+
+ARGB_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDX8Requires.ARGB", Erl)
+    Resume Next
+    
 End Function
 

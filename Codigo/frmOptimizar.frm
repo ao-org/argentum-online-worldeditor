@@ -126,6 +126,9 @@ Public Sub Optimizar()
     'Author: ^[GS]^
     'Last modified: 16/10/06
     '*************************************************
+    
+    On Error GoTo Optimizar_Err
+    
     Dim y As Integer
     Dim X As Integer
 
@@ -211,6 +214,13 @@ Public Sub Optimizar()
     'Set changed flag
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Optimizar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmOptimizar.Optimizar", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cCancelar_Click()
@@ -218,8 +228,18 @@ Private Sub cCancelar_Click()
     'Author: ^[GS]^
     'Last modified: 22/09/06
     '*************************************************
+    
+    On Error GoTo cCancelar_Click_Err
+    
     Unload Me
 
+    
+    Exit Sub
+
+cCancelar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmOptimizar.cCancelar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub cOptimizar_Click()
@@ -227,8 +247,18 @@ Public Sub cOptimizar_Click()
     'Author: ^[GS]^
     'Last modified: 22/09/06
     '*************************************************
+    
+    On Error GoTo cOptimizar_Click_Err
+    
     Call Optimizar
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+cOptimizar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmOptimizar.cOptimizar_Click", Erl)
+    Resume Next
+    
 End Sub
 

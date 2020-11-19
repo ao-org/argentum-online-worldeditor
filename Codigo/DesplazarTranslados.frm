@@ -201,6 +201,9 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 Public Sub Command1_Click()
+    
+    On Error GoTo Command1_Click_Err
+    
     Dim X As Byte
     Dim y As Byte
 
@@ -268,4 +271,11 @@ Public Sub Command1_Click()
         Next y
     Next X
         
+    
+    Exit Sub
+
+Command1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "DesplazarTranslados.Command1_Click", Erl)
+    Resume Next
+    
 End Sub

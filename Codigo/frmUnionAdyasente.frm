@@ -1040,6 +1040,9 @@ Private Sub Aplicar_Click(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Aplicar_Click_Err
+    
     Dim i As Byte
     cmdAplicar.Enabled = False
 
@@ -1048,6 +1051,13 @@ Private Sub Aplicar_Click(Index As Integer)
         If Aplicar(i).value = 1 Then cmdAplicar.Enabled = True
     Next
 
+    
+    Exit Sub
+
+Aplicar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.Aplicar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdAplicar_Click()
@@ -1179,8 +1189,18 @@ Private Sub cmdCancelar_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdCancelar_Click_Err
+    
     Unload Me
 
+    
+    Exit Sub
+
+cmdCancelar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.cmdCancelar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdDefault_Click()
@@ -1188,8 +1208,18 @@ Private Sub cmdDefault_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdDefault_Click_Err
+    
     Me.PopupMenu mnuDefault
 
+    
+    Exit Sub
+
+cmdDefault_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.cmdDefault_Click", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -1270,12 +1300,22 @@ Private Sub LeerMapaExit()
 End Sub
 
 Private Sub Command1_Click()
+    
+    On Error GoTo Command1_Click_Err
+    
 
     Mapa(0).Text = FrmMain.Label3 '- 10 'arriba
     Mapa(1).Text = FrmMain.Label1 '+ 1 'derecha
     Mapa(2).Text = FrmMain.Label4 '+ 10 'abajo
     Mapa(3).Text = FrmMain.Label2 '- 1 ' izquierda
 
+    
+    Exit Sub
+
+Command1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.Command1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Load()
@@ -1283,9 +1323,19 @@ Private Sub Form_Load()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Form_Load_Err
+    
     Call mnuBasica_Click
     frmUnionAdyacente.lblMapaAct.Caption = FrmMain.Label16.Caption
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Mapa_Change(Index As Integer)
@@ -1293,11 +1343,24 @@ Private Sub Mapa_Change(Index As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Mapa_Change_Err
+    
     Aplicar(Index).value = 1
 
+    
+    Exit Sub
+
+Mapa_Change_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.Mapa_Change", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Mapa_KeyPress(Index As Integer, KeyAscii As Integer)
+    
+    On Error GoTo Mapa_KeyPress_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -1309,9 +1372,19 @@ Private Sub Mapa_KeyPress(Index As Integer, KeyAscii As Integer)
 
     End If
 
+    
+    Exit Sub
+
+Mapa_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.Mapa_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Mapa_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+    
+    On Error GoTo Mapa_KeyUp_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -1320,6 +1393,13 @@ Private Sub Mapa_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
     If LenB(Mapa(Index).Text) = 0 Then Mapa(Index).Text = 0
     If Mapa(Index).Text > 1024 Then Mapa(Index).Text = 1024
 
+    
+    Exit Sub
+
+Mapa_KeyUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.Mapa_KeyUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuBasica_Click()
@@ -1327,9 +1407,19 @@ Private Sub mnuBasica_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuBasica_Click_Err
+    
 
     Call LeerMapaExit
 
+    
+    Exit Sub
+
+mnuBasica_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.mnuBasica_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuLegal_Click()
@@ -1337,6 +1427,9 @@ Private Sub mnuLegal_Click()
     'Author: ^[GS]^
     'Last modified: 02/10/06
     '*************************************************
+    
+    On Error GoTo mnuLegal_Click_Err
+    
     PosLim(0).Text = MaxYBorder
     PosLim(1).Text = MinYBorder
     PosLim(2).Text = MaxXBorder
@@ -1347,6 +1440,13 @@ Private Sub mnuLegal_Click()
     PosLim(7).Text = MaxXBorder - 1
     Call LeerMapaExit
 
+    
+    Exit Sub
+
+mnuLegal_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.mnuLegal_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub mnuUlla_Click()
@@ -1354,6 +1454,9 @@ Private Sub mnuUlla_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo mnuUlla_Click_Err
+    
     PosLim(0).Text = 94
     PosLim(1).Text = 7
     PosLim(2).Text = 92
@@ -1364,6 +1467,13 @@ Private Sub mnuUlla_Click()
     PosLim(7).Text = 91
     Call LeerMapaExit
 
+    
+    Exit Sub
+
+mnuUlla_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.mnuUlla_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub PosLim_KeyPress(Index As Integer, KeyAscii As Integer)
@@ -1371,6 +1481,9 @@ Private Sub PosLim_KeyPress(Index As Integer, KeyAscii As Integer)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo PosLim_KeyPress_Err
+    
 
     If IsNumeric(Chr(KeyAscii)) = False And KeyAscii <> 8 Then
         KeyAscii = 0
@@ -1378,6 +1491,13 @@ Private Sub PosLim_KeyPress(Index As Integer, KeyAscii As Integer)
 
     End If
 
+    
+    Exit Sub
+
+PosLim_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.PosLim_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub PosLim_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)

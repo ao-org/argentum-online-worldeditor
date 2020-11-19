@@ -39,7 +39,17 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 Private Sub List1_Click()
+    
+    On Error GoTo List1_Click_Err
+    
     FrmMain.TxtWav.Text = List1.ListIndex + 500
     Unload Me
 
+    
+    Exit Sub
+
+List1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "WavAmbiental.List1_Click", Erl)
+    Resume Next
+    
 End Sub

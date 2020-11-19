@@ -282,8 +282,18 @@ Private Sub cmdCerrar_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdCerrar_Click_Err
+    
     Unload Me
 
+    
+    Exit Sub
+
+cmdCerrar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmInformes.cmdCerrar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -535,8 +545,18 @@ Private Sub cmdNPCs_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdNPCs_Click_Err
+    
     Call ActalizarNPCs
 
+    
+    Exit Sub
+
+cmdNPCs_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmInformes.cmdNPCs_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdObjetos_Click()
@@ -544,8 +564,18 @@ Private Sub cmdObjetos_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdObjetos_Click_Err
+    
     Call ActalizarObjetos
 
+    
+    Exit Sub
+
+cmdObjetos_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmInformes.cmdObjetos_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdTranslados_Click()
@@ -553,26 +583,76 @@ Private Sub cmdTranslados_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdTranslados_Click_Err
+    
     Call ActalizarTranslados
 
+    
+    Exit Sub
+
+cmdTranslados_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmInformes.cmdTranslados_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub lvButtons_H1_Click()
+    
+    On Error GoTo lvButtons_H1_Click_Err
+    
     Call ActalizarCapa2
 
+    
+    Exit Sub
+
+lvButtons_H1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmInformes.lvButtons_H1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub lvButtons_H2_Click()
+    
+    On Error GoTo lvButtons_H2_Click_Err
+    
     Call ActalizarCapa1
 
+    
+    Exit Sub
+
+lvButtons_H2_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmInformes.lvButtons_H2_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub lvButtons_H3_Click()
+    
+    On Error GoTo lvButtons_H3_Click_Err
+    
     Call ActalizarCapa3
 
+    
+    Exit Sub
+
+lvButtons_H3_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmInformes.lvButtons_H3_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub lvButtons_H4_Click()
+    
+    On Error GoTo lvButtons_H4_Click_Err
+    
     Call ActalizarCapa4
 
+    
+    Exit Sub
+
+lvButtons_H4_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmInformes.lvButtons_H4_Click", Erl)
+    Resume Next
+    
 End Sub

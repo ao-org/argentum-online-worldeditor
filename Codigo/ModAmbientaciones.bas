@@ -13,6 +13,9 @@ End Type
 Public Ambientaciones(1 To 2000) As Ambientacion
 
 Sub LeerAmbientaciones()
+    
+    On Error GoTo LeerAmbientaciones_Err
+    
     Dim FilePath As String
     
     #If Compresion = 1 Then
@@ -42,6 +45,13 @@ Sub LeerAmbientaciones()
     #If Compresion = 1 Then
         Kill FilePath
     #End If
+    
+    
+    Exit Sub
+
+LeerAmbientaciones_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModAmbientaciones.LeerAmbientaciones", Erl)
+    Resume Next
     
 End Sub
 

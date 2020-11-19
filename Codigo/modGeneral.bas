@@ -85,6 +85,9 @@ Public Sub CheckKeys()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo CheckKeys_Err
+    
 
     If HotKeysAllow = False Then Exit Sub
 
@@ -125,6 +128,13 @@ Public Sub CheckKeys()
 
     End If
     
+    
+    Exit Sub
+
+CheckKeys_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.CheckKeys", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function ReadField(Pos As Integer, Text As String, SepASCII As Integer) As String
@@ -132,6 +142,9 @@ Public Function ReadField(Pos As Integer, Text As String, SepASCII As Integer) A
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo ReadField_Err
+    
     Dim i         As Integer
     Dim LastPos   As Integer
     Dim CurChar   As String * 1
@@ -167,6 +180,13 @@ Public Function ReadField(Pos As Integer, Text As String, SepASCII As Integer) A
 
     End If
 
+    
+    Exit Function
+
+ReadField_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.ReadField", Erl)
+    Resume Next
+    
 End Function
 
 ''
@@ -180,6 +200,9 @@ Private Function autoCompletaPath(ByVal Path As String) As String
     'Author: ^[GS]^
     'Last modified: 22/05/06
     '*************************************************
+    
+    On Error GoTo autoCompletaPath_Err
+    
     Path = Replace(Path, "/", "\")
 
     If Left(Path, 1) = "\" Then
@@ -196,6 +219,13 @@ Private Function autoCompletaPath(ByVal Path As String) As String
 
     autoCompletaPath = Path
 
+    
+    Exit Function
+
+autoCompletaPath_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.autoCompletaPath", Erl)
+    Resume Next
+    
 End Function
 
 ''
@@ -298,16 +328,29 @@ Fallo:
 End Sub
 
 Public Function TomarBPP() As Integer
+    
+    On Error GoTo TomarBPP_Err
+    
     Dim ModoDeVideo As typDevMODE
     Call EnumDisplaySettings(0, -1, ModoDeVideo)
     TomarBPP = CInt(ModoDeVideo.dmBitsPerPel)
 
+    
+    Exit Function
+
+TomarBPP_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.TomarBPP", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub CambioDeVideo()
     '*************************************************
     'Author: Loopzer
     '*************************************************
+    
+    On Error GoTo CambioDeVideo_Err
+    
     Exit Sub
     Dim ModoDeVideo As typDevMODE
     Dim r           As Long
@@ -336,6 +379,13 @@ Public Sub CambioDeVideo()
 
     End If
 
+    
+    Exit Sub
+
+CambioDeVideo_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.CambioDeVideo", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Main()
@@ -466,30 +516,50 @@ Public Sub Main()
 
 End Sub
 
-Public Function GetVar(file As String, Main As String, var As String) As String
+Public Function GetVar(File As String, Main As String, var As String) As String
     '*************************************************
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo GetVar_Err
+    
     Dim L        As Integer
     Dim char     As String
     Dim sSpaces  As String ' This will hold the input that the program will retrieve
     Dim szReturn As String ' This will be the defaul value if the string is not found
     szReturn = vbNullString
     sSpaces = Space(5000) ' This tells the computer how long the longest string can be. If you want, you can change the number 75 to any number you wish
-    GetPrivateProfileString Main, var, szReturn, sSpaces, Len(sSpaces), file
+    GetPrivateProfileString Main, var, szReturn, sSpaces, Len(sSpaces), File
     GetVar = RTrim(sSpaces)
     GetVar = Left(GetVar, Len(GetVar) - 1)
 
+    
+    Exit Function
+
+GetVar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.GetVar", Erl)
+    Resume Next
+    
 End Function
 
-Public Sub WriteVar(file As String, Main As String, var As String, value As String)
+Public Sub WriteVar(File As String, Main As String, var As String, value As String)
     '*************************************************
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
-    writeprivateprofilestring Main, var, value, file
+    
+    On Error GoTo WriteVar_Err
+    
+    writeprivateprofilestring Main, var, value, File
 
+    
+    Exit Sub
+
+WriteVar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.WriteVar", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub ToggleWalkMode()
@@ -536,9 +606,19 @@ Public Sub FixCoasts(ByVal grhindex As Long, ByVal X As Integer, ByVal y As Inte
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo FixCoasts_Err
+    
 
     If grhindex = 7284 Or grhindex = 7290 Or grhindex = 7291 Or grhindex = 7297 Or grhindex = 7300 Or grhindex = 7301 Or grhindex = 7302 Or grhindex = 7303 Or grhindex = 7304 Or grhindex = 7306 Or grhindex = 7308 Or grhindex = 7310 Or grhindex = 7311 Or grhindex = 7313 Or grhindex = 7314 Or grhindex = 7315 Or grhindex = 7316 Or grhindex = 7317 Or grhindex = 7319 Or grhindex = 7321 Or grhindex = 7325 Or grhindex = 7326 Or grhindex = 7327 Or grhindex = 7328 Or grhindex = 7332 Or grhindex = 7338 Or grhindex = 7339 Or grhindex = 7345 Or grhindex = 7348 Or grhindex = 7349 Or grhindex = 7350 Or grhindex = 7351 Or grhindex = 7352 Or grhindex = 7349 Or grhindex = 7350 Or grhindex = 7351 Or grhindex = 7354 Or grhindex = 7357 Or grhindex = 7358 Or grhindex = 7360 Or grhindex = 7362 Or grhindex = 7363 Or grhindex = 7365 Or grhindex = 7366 Or grhindex = 7367 Or grhindex = 7368 Or grhindex = 7369 Or grhindex = 7371 Or grhindex = 7373 Or grhindex = 7375 Or grhindex = 7376 Then MapData(X, y).Graphic(2).grhindex = 0
 
+    
+    Exit Sub
+
+FixCoasts_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.FixCoasts", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function RandomNumber(ByVal LowerBound As Variant, ByVal UpperBound As Variant) As Single
@@ -546,9 +626,19 @@ Public Function RandomNumber(ByVal LowerBound As Variant, ByVal UpperBound As Va
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo RandomNumber_Err
+    
     Randomize Timer
     RandomNumber = (UpperBound - LowerBound + 1) * Rnd + LowerBound
 
+    
+    Exit Function
+
+RandomNumber_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.RandomNumber", Erl)
+    Resume Next
+    
 End Function
 
 Public Function RandomNumber2(ByVal LowerBound As Variant, ByVal UpperBound As Variant) As Long
@@ -556,9 +646,19 @@ Public Function RandomNumber2(ByVal LowerBound As Variant, ByVal UpperBound As V
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo RandomNumber2_Err
+    
     Randomize Timer
     RandomNumber2 = (UpperBound - LowerBound + 1) * Rnd + LowerBound
 
+    
+    Exit Function
+
+RandomNumber2_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.RandomNumber2", Erl)
+    Resume Next
+    
 End Function
 
 ''
@@ -587,6 +687,9 @@ End Sub
 ' @param Editado Indica si el mapa esta editado
 
 Public Sub CaptionWorldEditor(ByVal Trabajando As String, ByVal Editado As Boolean)
+    
+    On Error GoTo CaptionWorldEditor_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -604,6 +707,13 @@ Public Sub CaptionWorldEditor(ByVal Trabajando As String, ByVal Editado As Boole
 
     End If
 
+    
+    Exit Sub
+
+CaptionWorldEditor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.CaptionWorldEditor", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub LoadClientSetup()
@@ -612,6 +722,9 @@ Private Sub LoadClientSetup()
     'Last Modify Date: 26/05/2006
     '26/05/2005 - GS . DirIndex
     '**************************************************************
+    
+    On Error GoTo LoadClientSetup_Err
+    
     Dim fHandle As Integer
     
     fHandle = FreeFile
@@ -619,4 +732,11 @@ Private Sub LoadClientSetup()
     Get fHandle, , ClientSetup
     Close fHandle
 
+    
+    Exit Sub
+
+LoadClientSetup_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modGeneral.LoadClientSetup", Erl)
+    Resume Next
+    
 End Sub

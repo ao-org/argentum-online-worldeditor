@@ -350,6 +350,9 @@ End Sub
 '
 
 Public Sub CargarIndicesDeCuerpos()
+    
+    On Error GoTo CargarIndicesDeCuerpos_Err
+    
     Dim n            As Integer
     Dim i            As Long
     Dim NumCuerpos   As Integer
@@ -401,6 +404,13 @@ Public Sub CargarIndicesDeCuerpos()
         Delete_File Windows_Temp_Dir & "personajes.ind"
     #End If
 
+    
+    Exit Sub
+
+CargarIndicesDeCuerpos_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modIndices.CargarIndicesDeCuerpos", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -408,6 +418,9 @@ End Sub
 '
 
 Public Sub CargarIndicesDeCabezas()
+    
+    On Error GoTo CargarIndicesDeCabezas_Err
+    
     Dim n            As Integer
     Dim i            As Long
     Dim Numheads     As Integer
@@ -456,6 +469,13 @@ Public Sub CargarIndicesDeCabezas()
     #If Compresion = 1 Then
         Delete_File Windows_Temp_Dir & "cabezas.ind"
     #End If
+    
+    
+    Exit Sub
+
+CargarIndicesDeCabezas_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modIndices.CargarIndicesDeCabezas", Erl)
+    Resume Next
     
 End Sub
 

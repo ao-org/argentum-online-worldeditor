@@ -135,12 +135,25 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Form_Load()
+    
+    On Error GoTo Form_Load_Err
+    
     Dim lR As Long
     lR = SetTopMostWindow(FrmArboles.hWnd, True)
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmArboles.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Insertar_Click()
+    
+    On Error GoTo Insertar_Click_Err
+    
     Dim cantidad As Long
     Dim bloquear As Byte
     Dim objeto   As Long
@@ -344,5 +357,12 @@ Private Sub Insertar_Click()
     DibujarMiniMapaParaMAPA
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Insertar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmArboles.Insertar_Click", Erl)
+    Resume Next
+    
 End Sub
 

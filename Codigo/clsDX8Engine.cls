@@ -227,6 +227,9 @@ Dim bump_map_powa         As Boolean
 #Const HARDCODED = False 'True ' == MÁS FPS ^^
 
 Public Function change_day_effect(ByVal o_r As Long, ByVal og As Long, ByVal ob As Long, ByVal r_ As Long, ByVal g_ As Long, ByVal b_ As Long) As Long
+    
+    On Error GoTo change_day_effect_Err
+    
     Dim r As Long
     Dim g As Long
     Dim b As Long
@@ -270,9 +273,19 @@ Public Function change_day_effect(ByVal o_r As Long, ByVal og As Long, ByVal ob 
 
     change_day_effect = ARGB(r, g, b, 255)
 
+    
+    Exit Function
+
+change_day_effect_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.change_day_effect", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub setup_ambient()
+    
+    On Error GoTo setup_ambient_Err
+    
 
     'Noche 87, 61, 43
     luz_dia(0).r = 87
@@ -362,6 +375,13 @@ Public Sub setup_ambient()
     luz_dia(24).g = 61
     luz_dia(24).b = 43
             
+    
+    Exit Sub
+
+setup_ambient_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.setup_ambient", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function GetElapsedTime() As Single
@@ -370,6 +390,9 @@ Private Function GetElapsedTime() As Single
     'Last Modify Date: 10/07/2002
     'Gets the time that past since the last call
     '**************************************************************
+    
+    On Error GoTo GetElapsedTime_Err
+    
     Dim start_time    As Currency
     Static end_time   As Currency
     Static timer_freq As Currency
@@ -389,12 +412,22 @@ Private Function GetElapsedTime() As Single
     'Get next end time
     Call QueryPerformanceCounter(end_time)
 
+    
+    Exit Function
+
+GetElapsedTime_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.GetElapsedTime", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Text_Render(ByVal font As D3DXFont, ByVal Text As String, ByVal Top As Long, ByVal Left As Long, ByVal Width As Long, ByVal Height As Long, ByVal color As Long, ByVal Format As Long, Optional ByVal shadow As Boolean = False)
     '*****************************************************
     '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
     '*****************************************************
+    
+    On Error GoTo Text_Render_Err
+    
     Dim TextRect   As RECT
     Dim ShadowRect As RECT
     
@@ -414,9 +447,19 @@ Public Sub Text_Render(ByVal font As D3DXFont, ByVal Text As String, ByVal Top A
     
     D3DX.DrawText font, color, Text, TextRect, Format
 
+    
+    Exit Sub
+
+Text_Render_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Text_Render", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Text_Render_ext(ByVal Text As String, ByVal Top As Long, ByVal Left As Long, ByVal Width As Long, ByVal Height As Long, ByVal color As Long, Optional ByVal shadow As Boolean = False, Optional ByVal center As Boolean = False)
+    
+    On Error GoTo Text_Render_ext_Err
+    
 
     If center = True Then
         Call Text_Render(font_list(1), Text, Top, Left, Width, Height, color, fa_center, shadow)
@@ -425,9 +468,19 @@ Public Sub Text_Render_ext(ByVal Text As String, ByVal Top As Long, ByVal Left A
 
     End If
 
+    
+    Exit Sub
+
+Text_Render_ext_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Text_Render_ext", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Font_Make(ByVal font_index As Long, ByVal Style As String, ByVal bold As Boolean, ByVal italic As Boolean, ByVal Size As Long)
+    
+    On Error GoTo Font_Make_Err
+    
 
     If font_index > font_last Then
         font_last = font_index
@@ -447,6 +500,13 @@ Private Sub Font_Make(ByVal font_index As Long, ByVal Style As String, ByVal bol
     Set font_desc = fnt
     Set font_list(font_index) = D3DX.CreateFont(D3DDevice, font_desc.hFont)
 
+    
+    Exit Sub
+
+Font_Make_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Font_Make", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function Font_Create(ByVal Style As String, ByVal Size As Long, ByVal bold As Boolean, ByVal italic As Boolean) As Long
@@ -461,11 +521,24 @@ ErrorHandler:
 End Function
 
 Private Function Font_Next_Open() As Long
+    
+    On Error GoTo Font_Next_Open_Err
+    
     Font_Next_Open = font_last + 1
 
+    
+    Exit Function
+
+Font_Next_Open_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Font_Next_Open", Erl)
+    Resume Next
+    
 End Function
 
 Private Function Font_Check(ByVal font_index As Long) As Boolean
+    
+    On Error GoTo Font_Check_Err
+    
 
     '*****************************************************
     '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
@@ -475,16 +548,33 @@ Private Function Font_Check(ByVal font_index As Long) As Boolean
 
     End If
 
+    
+    Exit Function
+
+Font_Check_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Font_Check", Erl)
+    Resume Next
+    
 End Function
 
 Function MakeVector(ByVal X As Single, ByVal y As Single, ByVal Z As Single) As D3DVECTOR
     '*****************************************************
     '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
     '*****************************************************
+    
+    On Error GoTo MakeVector_Err
+    
     MakeVector.X = X
     MakeVector.y = y
     MakeVector.Z = Z
 
+    
+    Exit Function
+
+MakeVector_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.MakeVector", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Engine_Init()
@@ -492,6 +582,9 @@ Public Sub Engine_Init()
     '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
     '*****************************************************
     'On Error GoTo ErrHandler:
+    
+    On Error GoTo Engine_Init_Err
+    
 
     Dim DispMode    As D3DDISPLAYMODE
     Dim DispModeBK  As D3DDISPLAYMODE
@@ -588,9 +681,19 @@ ErrHandler:
     Debug.Print "Error Number Returned: " & Err.Number
     bRunning = False
 
+    
+    Exit Sub
+
+Engine_Init_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Engine_Init", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Engine_Deinit()
+    
+    On Error GoTo Engine_Deinit_Err
+    
     Erase MapData
     Erase CharList
 
@@ -599,12 +702,22 @@ Public Sub Engine_Deinit()
     Set dX = Nothing
     End
 
+    
+    Exit Sub
+
+Engine_Deinit_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Engine_Deinit", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function CreateTLVertex(X As Single, y As Single, Z As Single, rhw As Single, color As Long, Specular As Long, tu As Single, tv As Single) As TLVERTEX
     '*****************************************************
     '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
     '*****************************************************
+    
+    On Error GoTo CreateTLVertex_Err
+    
     CreateTLVertex.X = X
     CreateTLVertex.y = y
     CreateTLVertex.Z = Z
@@ -614,9 +727,19 @@ Private Function CreateTLVertex(X As Single, y As Single, Z As Single, rhw As Si
     CreateTLVertex.tu = tu
     CreateTLVertex.tv = tv
 
+    
+    Exit Function
+
+CreateTLVertex_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.CreateTLVertex", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Engine_ActFPS()
+    
+    On Error GoTo Engine_ActFPS_Err
+    
 
     If GetTickCount - lFrameTimer > 1000 Then
         FPS = FramesPerSecCounter
@@ -625,9 +748,19 @@ Public Sub Engine_ActFPS()
 
     End If
 
+    
+    Exit Sub
+
+Engine_ActFPS_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Engine_ActFPS", Erl)
+    Resume Next
+    
 End Sub
 
 Function InMapBounds(ByVal X As Integer, ByVal y As Integer) As Boolean
+    
+    On Error GoTo InMapBounds_Err
+    
 
     '*****************************************************************
     'Checks to see if a tile position is in the maps bounds
@@ -639,9 +772,19 @@ Function InMapBounds(ByVal X As Integer, ByVal y As Integer) As Boolean
     
     InMapBounds = True
 
+    
+    Exit Function
+
+InMapBounds_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.InMapBounds", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Draw_GrhIndex(ByVal grh_index As Long, ByVal X As Integer, ByVal y As Integer)
+    
+    On Error GoTo Draw_GrhIndex_Err
+    
 
     If grh_index <= 0 Then Exit Sub
     Dim rgb_list(3) As Long
@@ -653,9 +796,19 @@ Public Sub Draw_GrhIndex(ByVal grh_index As Long, ByVal X As Integer, ByVal y As
     
     Device_Box_Textured_Render grh_index, X, y, GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, rgb_list, GrhData(grh_index).sX, GrhData(grh_index).sY
 
+    
+    Exit Sub
+
+Draw_GrhIndex_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Draw_GrhIndex", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Draw_GrhIndexColor(ByVal grh_index As Integer, ByVal X As Integer, ByVal y As Integer)
+    
+    On Error GoTo Draw_GrhIndexColor_Err
+    
 
     If grh_index <= 0 Then Exit Sub
     Dim rgb_list(3) As Long
@@ -667,6 +820,13 @@ Public Sub Draw_GrhIndexColor(ByVal grh_index As Integer, ByVal X As Integer, By
     
     Device_Box_Textured_Render grh_index, X, y, GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, rgb_list, GrhData(grh_index).sX, GrhData(grh_index).sY, True
 
+    
+    Exit Sub
+
+Draw_GrhIndexColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Draw_GrhIndexColor", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, ByVal center As Byte, ByVal animate As Byte, ByRef rgb_list() As Long, Optional ByVal alpha As Boolean, Optional ByVal map_x As Byte = 1, Optional ByVal map_y As Byte = 1, Optional ByVal angle As Single)
@@ -769,11 +929,24 @@ Public Function Map_Base_Light_Get() As Long
     'Last Modify Date: 6/12/2005
     '
     '**************************************************************
+    
+    On Error GoTo Map_Base_Light_Get_Err
+    
     Map_Base_Light_Get = map_base_light
 
+    
+    Exit Function
+
+Map_Base_Light_Get_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Map_Base_Light_Get", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Map_Base_Light_Set(ByVal base_light As Long)
+    
+    On Error GoTo Map_Base_Light_Set_Err
+    
 
     '**************************************************************
     'Author: Aaron Perkins
@@ -785,6 +958,13 @@ Public Function Map_Base_Light_Set(ByVal base_light As Long)
         
     End If
 
+    
+    Exit Function
+
+Map_Base_Light_Set_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Map_Base_Light_Set", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Map_Fill(ByVal grh_index As Long, ByVal LAYER As Byte, Optional ByVal light_base_color As Long = -1, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single) As Boolean
@@ -793,6 +973,9 @@ Public Function Map_Fill(ByVal grh_index As Long, ByVal LAYER As Byte, Optional 
     'Last Modify Date: 1/04/2003
     '
     '**************************************************************
+    
+    On Error GoTo Map_Fill_Err
+    
     Dim X As Integer
     Dim y As Integer
     
@@ -804,6 +987,13 @@ Public Function Map_Fill(ByVal grh_index As Long, ByVal LAYER As Byte, Optional 
         
     Map_Fill = True
 
+    
+    Exit Function
+
+Map_Fill_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Map_Fill", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Render()
@@ -849,8 +1039,18 @@ Public Sub Render()
 End Sub
 
 Sub ShowNextFrame()
+    
+    On Error GoTo ShowNextFrame_Err
+    
     Call RenderScreen(UserPos.X - AddtoUserPos.X, UserPos.y - AddtoUserPos.y, 0, 0)
 
+    
+    Exit Sub
+
+ShowNextFrame_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.ShowNextFrame", Erl)
+    Resume Next
+    
 End Sub
 
 Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffsetX As Integer, ByVal PixelOffsetY As Integer)
@@ -860,6 +1060,9 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     'Last modified by: Juan Martín Sotuyo Dodero (Maraxus)
     'Renders everything to the viewport
     '**************************************************************
+    
+    On Error GoTo RenderScreen_Err
+    
     Dim y                As Integer     'Keeps track of where on map we are
     Dim X                As Integer     'Keeps track of where on map we are
     Dim bCapa            As Byte
@@ -1317,6 +1520,13 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
 
     End If
 
+    
+    Exit Sub
+
+RenderScreen_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.RenderScreen", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function Convert_Tile_To_View_X(ByVal X As Integer) As Integer
@@ -1326,11 +1536,21 @@ Private Function Convert_Tile_To_View_X(ByVal X As Integer) As Integer
     'Convert tile position into position in view area
     '**************************************************************
     'If engine_windowed Then
+    
+    On Error GoTo Convert_Tile_To_View_X_Err
+    
     Convert_Tile_To_View_X = ((X - 1) * 32)
 
     ' Else
     '  Convert_Tile_To_View_X = view_screen_left + ((x - 1) * base_tile_size)
     '  End If
+    
+    Exit Function
+
+Convert_Tile_To_View_X_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Convert_Tile_To_View_X", Erl)
+    Resume Next
+    
 End Function
 
 Private Function Convert_Tile_To_View_Y(ByVal y As Integer) As Integer
@@ -1340,11 +1560,21 @@ Private Function Convert_Tile_To_View_Y(ByVal y As Integer) As Integer
     'Convert tile position into position in view area
     '**************************************************************
     ' If engine_windowed Then
+    
+    On Error GoTo Convert_Tile_To_View_Y_Err
+    
     Convert_Tile_To_View_Y = ((y - 1) * 32)
 
     'Else
     '   Convert_Tile_To_View_Y = view_screen_top + ((y - 1) * base_tile_size)
     'End If
+    
+    Exit Function
+
+Convert_Tile_To_View_Y_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Convert_Tile_To_View_Y", Erl)
+    Resume Next
+    
 End Function
 
 Private Function Geometry_Create_TLVertex(ByVal X As Single, ByVal y As Single, ByVal Z As Single, ByVal rhw As Single, ByVal color As Long, ByVal Specular As Long, tu As Single, ByVal tv As Single) As TLVERTEX
@@ -1352,6 +1582,9 @@ Private Function Geometry_Create_TLVertex(ByVal X As Single, ByVal y As Single, 
     'Author: Aaron Perkins
     'Last Modify Date: 10/07/2002
     '**************************************************************
+    
+    On Error GoTo Geometry_Create_TLVertex_Err
+    
     Geometry_Create_TLVertex.X = X
     Geometry_Create_TLVertex.y = y
     Geometry_Create_TLVertex.Z = Z
@@ -1361,10 +1594,20 @@ Private Function Geometry_Create_TLVertex(ByVal X As Single, ByVal y As Single, 
     Geometry_Create_TLVertex.tu = tu
     Geometry_Create_TLVertex.tv = tv
 
+    
+    Exit Function
+
+Geometry_Create_TLVertex_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Geometry_Create_TLVertex", Erl)
+    Resume Next
+    
 End Function
 
 Private Function Geometry_Create_TLVertex2(X As Single, y As Single, Z As Single, rhw As Single, color As Long, Specular As Long, tu1 As Single, tv1 As Single, tu2 As Single, tv2 As Single) As TLVERTEX2
     'mz
+    
+    On Error GoTo Geometry_Create_TLVertex2_Err
+    
     Geometry_Create_TLVertex2.X = X
     Geometry_Create_TLVertex2.y = y
     Geometry_Create_TLVertex2.Z = Z
@@ -1376,6 +1619,13 @@ Private Function Geometry_Create_TLVertex2(X As Single, y As Single, Z As Single
     Geometry_Create_TLVertex2.tu2 = tu2
     Geometry_Create_TLVertex2.tv2 = tv2
 
+    
+    Exit Function
+
+Geometry_Create_TLVertex2_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Geometry_Create_TLVertex2", Erl)
+    Resume Next
+    
 End Function
 
 Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, ByRef src As RECT, ByRef rgb_list() As Long, Optional ByRef Textures_Width As Long, Optional ByRef Textures_Height As Long, Optional ByVal angle As Single)
@@ -1392,6 +1642,9 @@ Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, B
     ' |        \|
     ' * v0      * v2
     '**************************************************************
+    
+    On Error GoTo Geometry_Create_Box_Err
+    
     Dim x_center    As Single
     Dim y_center    As Single
     Dim radius      As Single
@@ -1488,6 +1741,13 @@ Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, B
 
     End If
 
+    
+    Exit Sub
+
+Geometry_Create_Box_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Geometry_Create_Box", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, ByVal dest_width As Integer, Optional ByVal dest_height As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
@@ -1497,6 +1757,9 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal des
     'Copies the Textures allowing resizing
     'Modified by Juan Martín Sotuyo Dodero
     '**************************************************************
+    
+    On Error GoTo Device_Box_Textured_Render_Advance_Err
+    
     Static src_rect            As RECT
     Static dest_rect           As RECT
     Static temp_verts(3)       As TLVERTEX
@@ -1564,6 +1827,13 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal des
 
     End If
 
+    
+    Exit Sub
+
+Device_Box_Textured_Render_Advance_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Device_Box_Textured_Render_Advance", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
@@ -1572,6 +1842,9 @@ Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As In
     'Last Modify Date: 2/12/2004
     'Just copies the Textures
     '**************************************************************
+    
+    On Error GoTo Device_Box_Textured_Render_Err
+    
     Static src_rect            As RECT
     Static dest_rect           As RECT
     Static temp_verts(3)       As TLVERTEX
@@ -1632,12 +1905,22 @@ Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As In
 
     End If
 
+    
+    Exit Sub
+
+Device_Box_Textured_Render_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Device_Box_Textured_Render", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Engine_MoveScreen(ByVal nHeading As E_Heading)
     '******************************************
     'Starts the screen moving in a direction
     '******************************************
+    
+    On Error GoTo Engine_MoveScreen_Err
+    
     Dim X  As Integer
     Dim y  As Integer
     Dim tX As Integer
@@ -1677,6 +1960,13 @@ Public Sub Engine_MoveScreen(ByVal nHeading As E_Heading)
 
     End If
 
+    
+    Exit Sub
+
+Engine_MoveScreen_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Engine_MoveScreen", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Char_Render(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, ByVal PixelOffsetY As Integer, ByVal X As Byte, ByVal y As Byte)
@@ -1685,6 +1975,9 @@ Private Sub Char_Render(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, 
     'Last Modify Date: 12/03/04
     'Draw char's to screen without offcentering them
     '***************************************************
+    
+    On Error GoTo Char_Render_Err
+    
     Dim Moved As Boolean
     Dim Pos   As Integer
     Dim line  As String
@@ -1740,9 +2033,19 @@ Private Sub Char_Render(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, 
 
 End With
 
+    
+    Exit Sub
+
+Char_Render_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Char_Render", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Start()
+    
+    On Error GoTo Start_Err
+    
     day_r_old = luz_dia(Hour(Time)).r
     day_g_old = luz_dia(Hour(Time)).g
     day_b_old = luz_dia(Hour(Time)).b
@@ -1794,6 +2097,13 @@ Public Sub Start()
     Loop
     engine.Engine_Deinit
 
+    
+    Exit Sub
+
+Start_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Start", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub SetCharacterFx(ByVal CharIndex As Integer, ByVal fX As Integer, ByVal Loops As Integer)
@@ -1809,6 +2119,9 @@ Public Sub Char_Move_by_Head(ByVal CharIndex As Integer, ByVal nHeading As E_Hea
     '*****************************************************************
     'Starts the movement of a character in nHeading direction
     '*****************************************************************
+    
+    On Error GoTo Char_Move_by_Head_Err
+    
     Dim addx As Integer
     Dim addy As Integer
     Dim X    As Integer
@@ -1856,6 +2169,13 @@ Public Sub Char_Move_by_Head(ByVal CharIndex As Integer, ByVal nHeading As E_Hea
 
     End With
 
+    
+    Exit Sub
+
+Char_Move_by_Head_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Char_Move_by_Head", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Char_Move_by_Pos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As Integer)
@@ -1918,24 +2238,47 @@ Public Sub Char_Move_by_Pos(ByVal CharIndex As Integer, ByVal nX As Integer, ByV
 End Sub
 
 Private Function EstaPCarea(ByVal CharIndex As Integer) As Boolean
+    
+    On Error GoTo EstaPCarea_Err
+    
 
     With CharList(CharIndex).Pos
         EstaPCarea = .X > UserPos.X - MinXBorder And .X < UserPos.X + MinXBorder And .y > UserPos.y - MinYBorder And .y < UserPos.y + MinYBorder
 
     End With
 
+    
+    Exit Function
+
+EstaPCarea_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.EstaPCarea", Erl)
+    Resume Next
+    
 End Function
 
 Private Function Engine_FToDW(F As Single) As Long
     ' single > long
+    
+    On Error GoTo Engine_FToDW_Err
+    
     Dim buf As D3DXBuffer
     Set buf = D3DX.CreateBuffer(4)
     D3DX.BufferSetData buf, 0, 4, 1, F
     D3DX.BufferGetData buf, 0, 4, 1, Engine_FToDW
 
+    
+    Exit Function
+
+Engine_FToDW_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Engine_FToDW", Erl)
+    Resume Next
+    
 End Function
 
 Private Function VectorToRGBA(Vec As D3DVECTOR, fHeight As Single) As Long
+    
+    On Error GoTo VectorToRGBA_Err
+    
     Dim r As Integer, g As Integer, b As Integer, A As Integer
     r = 127 * Vec.X + 128
     g = 127 * Vec.y + 128
@@ -1943,9 +2286,19 @@ Private Function VectorToRGBA(Vec As D3DVECTOR, fHeight As Single) As Long
     A = 255 * fHeight
     VectorToRGBA = D3DColorARGB(A, r, g, b)
 
+    
+    Exit Function
+
+VectorToRGBA_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.VectorToRGBA", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Light_Remove(ByVal light_index As Long) As Boolean
+    
+    On Error GoTo Light_Remove_Err
+    
 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -1959,9 +2312,19 @@ Public Function Light_Remove(ByVal light_index As Long) As Boolean
 
     End If
 
+    
+    Exit Function
+
+Light_Remove_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Remove", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Light_Color_Value_Get(ByVal light_index As Long, ByRef color_value As Long) As Boolean
+    
+    On Error GoTo Light_Color_Value_Get_Err
+    
 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -1975,9 +2338,19 @@ Public Function Light_Color_Value_Get(ByVal light_index As Long, ByRef color_val
 
     End If
 
+    
+    Exit Function
+
+Light_Color_Value_Get_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Color_Value_Get", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Light_Create(ByVal map_x As Integer, ByVal map_y As Integer, Optional ByVal color_value As Long = &HFFFFFFFF, Optional ByVal range As Byte = 1, Optional ByVal id As Long) As Long
+    
+    On Error GoTo Light_Create_Err
+    
 
     '**************************************************************
     'Author: Aaron Perkins
@@ -1996,9 +2369,19 @@ Public Function Light_Create(ByVal map_x As Integer, ByVal map_y As Integer, Opt
 
     End If
 
+    
+    Exit Function
+
+Light_Create_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Create", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Light_Move(ByVal light_index As Long, ByVal map_x As Integer, ByVal map_y As Integer) As Boolean
+    
+    On Error GoTo Light_Move_Err
+    
 
     '**************************************************************
     'Author: Aaron Perkins
@@ -2022,6 +2405,13 @@ Public Function Light_Move(ByVal light_index As Long, ByVal map_x As Integer, By
 
     End If
 
+    
+    Exit Function
+
+Light_Move_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Move", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Light_Move_By_Head(ByVal light_index As Long, ByVal Heading As Byte) As Boolean
@@ -2030,6 +2420,9 @@ Public Function Light_Move_By_Head(ByVal light_index As Long, ByVal Heading As B
     'Last Modify Date: 15/05/2002
     'Returns true if successful, else false
     '**************************************************************
+    
+    On Error GoTo Light_Move_By_Head_Err
+    
     Dim map_x As Integer
     Dim map_y As Integer
     Dim nX    As Integer
@@ -2084,9 +2477,19 @@ Public Function Light_Move_By_Head(ByVal light_index As Long, ByVal Heading As B
 
     End If
 
+    
+    Exit Function
+
+Light_Move_By_Head_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Move_By_Head", Erl)
+    Resume Next
+    
 End Function
 
 Private Sub Light_Make(ByVal light_index As Long, ByVal map_x As Integer, ByVal map_y As Integer, ByVal rgb_value As Long, ByVal range As Long, Optional ByVal id As Long)
+    
+    On Error GoTo Light_Make_Err
+    
 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -2111,9 +2514,19 @@ Private Sub Light_Make(ByVal light_index As Long, ByVal map_x As Integer, ByVal 
     light_list(light_index).range = range
     light_list(light_index).id = id
 
+    
+    Exit Sub
+
+Light_Make_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Make", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function Light_Check(ByVal light_index As Long) As Boolean
+    
+    On Error GoTo Light_Check_Err
+    
 
     '**************************************************************
     'Author: Aaron Perkins
@@ -2129,9 +2542,19 @@ Private Function Light_Check(ByVal light_index As Long) As Boolean
 
     End If
 
+    
+    Exit Function
+
+Light_Check_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Check", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Light_Render_All()
+    
+    On Error GoTo Light_Render_All_Err
+    
 
     LightA.LightRenderAll
 
@@ -2151,10 +2574,20 @@ Public Sub Light_Render_All()
     
     Next loop_counter
 
+    
+    Exit Sub
+
+Light_Render_All_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Render_All", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Light_Render(ByVal light_index As Long)
     'menduz
+    
+    On Error GoTo Light_Render_Err
+    
 
     Dim min_x As Integer
     Dim min_y As Integer
@@ -2264,6 +2697,13 @@ Private Sub Light_Render(ByVal light_index As Long)
         Next y
     Next X
 
+    
+    Exit Sub
+
+Light_Render_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Render", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function Light_Next_Open() As Long
@@ -2334,6 +2774,9 @@ Public Function Light_Remove_All() As Boolean
     'Last Modify Date: 1/04/2003
     '
     '*****************************************************************
+    
+    On Error GoTo Light_Remove_All_Err
+    
     Dim Index As Long
     
     For Index = 1 To light_last
@@ -2348,6 +2791,13 @@ Public Function Light_Remove_All() As Boolean
     
     Light_Remove_All = True
 
+    
+    Exit Function
+
+Light_Remove_All_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Remove_All", Erl)
+    Resume Next
+    
 End Function
 
 Private Sub Light_Destroy(ByVal light_index As Long)
@@ -2356,6 +2806,9 @@ Private Sub Light_Destroy(ByVal light_index As Long)
     'Last Modify Date: 10/07/2002
     '
     '**************************************************************
+    
+    On Error GoTo Light_Destroy_Err
+    
     Dim temp As Light
     
     Light_Erase light_index
@@ -2381,6 +2834,13 @@ Private Sub Light_Destroy(ByVal light_index As Long)
 
     light_count = light_count - 1
 
+    
+    Exit Sub
+
+Light_Destroy_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Destroy", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Light_Erase(ByVal light_index As Long)
@@ -2389,6 +2849,9 @@ Private Sub Light_Erase(ByVal light_index As Long)
     'Last modified: 3/31/2003
     'Correctly erases a light
     '***************************************'
+    
+    On Error GoTo Light_Erase_Err
+    
     Dim min_x As Integer
     Dim min_y As Integer
     Dim max_x As Integer
@@ -2487,6 +2950,13 @@ Private Sub Light_Erase(ByVal light_index As Long)
         Next y
     Next X
 
+    
+    Exit Sub
+
+Light_Erase_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Light_Erase", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub DrawInv()
@@ -2494,6 +2964,9 @@ Public Sub DrawInv()
 End Sub
 
 Public Sub Draw_FilledBox(ByVal X As Integer, ByVal y As Integer, ByVal Width As Integer, ByVal Height As Integer, color As Long, outlinecolor As Long)
+    
+    On Error GoTo Draw_FilledBox_Err
+    
 
     Static box_rect     As RECT
     Static Outline      As RECT
@@ -2535,6 +3008,13 @@ Public Sub Draw_FilledBox(ByVal X As Integer, ByVal y As Integer, ByVal Width As
     D3DDevice.DrawPrimitiveUP D3DPT_TRIANGLESTRIP, 2, Vertex2(0), Len(Vertex2(0))
     D3DDevice.DrawPrimitiveUP D3DPT_TRIANGLESTRIP, 2, Vertex(0), Len(Vertex(0))
 
+    
+    Exit Sub
+
+Draw_FilledBox_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Draw_FilledBox", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Grh_Render_Advance(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen_y As Integer, ByVal Height As Integer, ByVal Width As Integer, ByRef rgb_list() As Long, Optional ByVal h_center As Boolean, Optional ByVal v_center As Boolean, Optional ByVal alpha_blend As Boolean = False)
@@ -2648,6 +3128,9 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
 End Sub
 
 Private Function Grh_Check(ByVal grh_index As Long) As Boolean
+    
+    On Error GoTo Grh_Check_Err
+    
 
     '**************************************************************
     'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
@@ -2660,9 +3143,19 @@ Private Function Grh_Check(ByVal grh_index As Long) As Boolean
 
     End If
 
+    
+    Exit Function
+
+Grh_Check_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Grh_Check", Erl)
+    Resume Next
+    
 End Function
 
 Private Function Char_Check(ByVal char_index As Integer) As Boolean
+    
+    On Error GoTo Char_Check_Err
+    
 
     '**************************************************************
     'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
@@ -2674,6 +3167,13 @@ Private Function Char_Check(ByVal char_index As Integer) As Boolean
         Char_Check = (CharList(char_index).Heading > 0)
 
     End If
+    
+    
+    Exit Function
+
+Char_Check_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Char_Check", Erl)
+    Resume Next
     
 End Function
 
@@ -2715,6 +3215,9 @@ ErrorHandler:
 End Function
 
 Private Function Particle_Group_Check(ByVal particle_group_index As Long) As Boolean
+    
+    On Error GoTo Particle_Group_Check_Err
+    
 
     '**************************************************************
     'Author: Aaron Perkins
@@ -2730,6 +3233,13 @@ Private Function Particle_Group_Check(ByVal particle_group_index As Long) As Boo
 
     End If
 
+    
+    Exit Function
+
+Particle_Group_Check_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Group_Check", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Particle_Group_Create(ByVal map_x As Integer, ByVal map_y As Integer, ByRef grh_index_list() As Long, ByRef rgb_list() As Long, _
@@ -2756,6 +3266,9 @@ Public Function Particle_Group_Create(ByVal map_x As Integer, ByVal map_y As Int
     'Modified by Augusto José Rando
     '**************************************************************
     
+    On Error GoTo Particle_Group_Create_Err
+    
+    
     If (map_x <> -1) And (map_y <> -1) Then
         If Map_Particle_Group_Get(map_x, map_y) = 0 Then
             Particle_Group_Create = Particle_Group_Next_Open
@@ -2769,9 +3282,19 @@ Public Function Particle_Group_Create(ByVal map_x As Integer, ByVal map_y As Int
 
     End If
 
+    
+    Exit Function
+
+Particle_Group_Create_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Group_Create", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Particle_Group_Remove(ByVal particle_group_index As Long) As Boolean
+    
+    On Error GoTo Particle_Group_Remove_Err
+    
 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -2785,6 +3308,13 @@ Public Function Particle_Group_Remove(ByVal particle_group_index As Long) As Boo
 
     End If
 
+    
+    Exit Function
+
+Particle_Group_Remove_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Group_Remove", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Particle_Group_Remove_All() As Boolean
@@ -2793,6 +3323,9 @@ Public Function Particle_Group_Remove_All() As Boolean
     'Last Modify Date: 1/04/2003
     '
     '*****************************************************************
+    
+    On Error GoTo Particle_Group_Remove_All_Err
+    
     Dim Index As Long
     
     For Index = 1 To particle_group_last
@@ -2807,6 +3340,13 @@ Public Function Particle_Group_Remove_All() As Boolean
     
     Particle_Group_Remove_All = True
 
+    
+    Exit Function
+
+Particle_Group_Remove_All_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Group_Remove_All", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Particle_Group_Find(ByVal id As Long) As Long
@@ -2846,6 +3386,9 @@ Private Sub Particle_Group_Destroy(ByVal particle_group_index As Long)
     'Last Modify Date: 10/07/2002
     '
     '**************************************************************
+    
+    On Error GoTo Particle_Group_Destroy_Err
+    
     Dim temp As particle_group
     
     MapData(particle_group_list(particle_group_index).map_x, particle_group_list(particle_group_index).map_y).particle_group = 0
@@ -2870,6 +3413,13 @@ Private Sub Particle_Group_Destroy(ByVal particle_group_index As Long)
 
     particle_group_count = particle_group_count - 1
 
+    
+    Exit Sub
+
+Particle_Group_Destroy_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Group_Destroy", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x As Integer, ByVal map_y As Integer, _
@@ -2887,6 +3437,9 @@ Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x 
    Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, _
    Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean, Optional grh_resize As Boolean, _
    Optional grh_resizex As Integer, Optional grh_resizey As Integer)
+    
+    On Error GoTo Particle_Group_Make_Err
+    
                                 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -2986,9 +3539,19 @@ Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x 
 
     End If
     
+    
+    Exit Sub
+
+Particle_Group_Make_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Group_Make", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Particle_Group_Render(ByVal particle_group_index As Long, ByVal screen_x As Integer, ByVal screen_y As Integer)
+    
+    On Error GoTo Particle_Group_Render_Err
+    
 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -3070,6 +3633,13 @@ Private Sub Particle_Group_Render(ByVal particle_group_index As Long, ByVal scre
 
     End If
 
+    
+    Exit Sub
+
+Particle_Group_Render_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Group_Render", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As Integer, ByVal screen_y As Integer, _
@@ -3086,6 +3656,9 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
    Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, _
    Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean, Optional grh_resize As Boolean, _
    Optional grh_resizex As Integer, Optional grh_resizey As Integer)
+    
+    On Error GoTo Particle_Render_Err
+    
                            
     '**************************************************************
 
@@ -3160,9 +3733,19 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
 
     End If
 
+    
+    Exit Sub
+
+Particle_Render_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Render", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function Particle_Type_Get(ByVal particle_Index As Long) As Long
+    
+    On Error GoTo Particle_Type_Get_Err
+    
 
     '*****************************************************************
     'Author: Juan Martín Sotuyo Dodero (juansotuyo@hotmail.com)
@@ -3174,9 +3757,19 @@ Public Function Particle_Type_Get(ByVal particle_Index As Long) As Long
 
     End If
 
+    
+    Exit Function
+
+Particle_Type_Get_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Particle_Type_Get", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Map_Particle_Group_Get(ByVal map_x As Integer, ByVal map_y As Integer) As Long
+    
+    On Error GoTo Map_Particle_Group_Get_Err
+    
 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -3190,9 +3783,19 @@ Public Function Map_Particle_Group_Get(ByVal map_x As Integer, ByVal map_y As In
 
     End If
 
+    
+    Exit Function
+
+Map_Particle_Group_Get_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.Map_Particle_Group_Get", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
+    
+    On Error GoTo MapCapture_Err
+    
 
     '*************************************************
     'Author: Torres Patricio(Pato)
@@ -3476,5 +4079,12 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
     Call SavePicture(FrmRender.picMap, App.Path & "\Render\" & NumMap_Save & ".bmp")
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         
+    
+    Exit Sub
+
+MapCapture_Err:
+    Call RegistrarError(Err.Number, Err.Description, "clsDX8Engine.MapCapture", Erl)
+    Resume Next
+    
 End Sub
 
