@@ -143,6 +143,12 @@ Public Sub VerFuncion(ByVal Numero As Byte, ByVal Ver As Boolean, Optional Norma
             FrmMain.cQuitarBloqueo.Visible = Ver
             FrmMain.cInsertarBloqueo.Visible = Ver
             FrmMain.cVerBloqueos.Visible = Ver
+            Dim i As Integer
+            For i = 0 To 3
+                FrmMain.chkBloqueo(i).Visible = Ver
+            Next
+            FrmMain.BloqAll.Visible = Ver
+            
         Case 3  ' NPCs
             FrmMain.lListado(1).Visible = Ver
             FrmMain.cFiltro(1).Visible = Ver
@@ -328,7 +334,7 @@ Dim SR As RECT, DR As RECT
 Dim aux As Long
 Dim Tem As Long
 If CurrentGrh.grhindex = 0 Then Exit Sub
-frmGrafico.ShowPic = frmGrafico.picture1
+frmGrafico.ShowPic = frmGrafico.Picture1
     If frmConfigSup.MOSAICO = vbUnchecked Then
     
         DR.Left = 0

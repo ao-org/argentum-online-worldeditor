@@ -107,7 +107,7 @@ Public Sub GuardarMapa(Optional Path As String)
 '*************************************************
 
 FrmMain.Dialog.CancelError = True
-On Error GoTo errhandler
+On Error GoTo ErrHandler
 
 If LenB(Path) = 0 Then
     FrmMain.ObtenerNombreArchivo True
@@ -117,7 +117,7 @@ End If
 
 Call MapaV2_Guardar(Path)
 
-errhandler:
+ErrHandler:
 End Sub
 
 ''
@@ -836,9 +836,9 @@ End If
 
 
     If Llueve Then
-        FrmMain.check1.value = 1
+        FrmMain.Check1.value = 1
     Else
-        FrmMain.check1.value = 0
+        FrmMain.Check1.value = 0
     End If
 
 
@@ -1007,12 +1007,12 @@ On Error Resume Next
         frmMapInfo.b1.Enabled = True
         frmMapInfo.Text1.Enabled = True
         frmMapInfo.lvButtons_H1.Enabled = True
-        frmMapInfo.picture1.Enabled = True
-        frmMapInfo.check1.value = 0
+        frmMapInfo.Picture1.Enabled = True
+        frmMapInfo.Check1.value = 0
         frmMapInfo.Text1 = MapInfo.Light
-        frmMapInfo.picture1.BackColor = frmMapInfo.Text1
+        frmMapInfo.Picture1.BackColor = frmMapInfo.Text1
     Else
-        frmMapInfo.picture1.BackColor = &HFFFFFF
+        frmMapInfo.Picture1.BackColor = &HFFFFFF
          MapInfo.Light = 0
          frmMapInfo.r1.Enabled = False
         frmMapInfo.G1.Enabled = False
@@ -1020,8 +1020,8 @@ On Error Resume Next
         frmMapInfo.Text1.Enabled = False
         frmMapInfo.Text1 = &HFFFFFF
         frmMapInfo.lvButtons_H1.Enabled = False
-        frmMapInfo.picture1.Enabled = False
-        frmMapInfo.check1.value = 1
+        frmMapInfo.Picture1.Enabled = False
+        frmMapInfo.Check1.value = 1
 End If
 
 engine.Map_Base_Light_Set frmMapInfo.Text1
@@ -1094,7 +1094,3 @@ For loopc = (NumMap_Save - 4) To (NumMap_Save + 8)
 Next
 End If
 End Sub
-
-
-
-

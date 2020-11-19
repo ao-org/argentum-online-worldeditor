@@ -315,7 +315,7 @@ On Error Resume Next
     Call IniciarCabecera(MiCabecera)
     ColorAmb = -1 'Luz Base por defecto
     FormatoIAO = True
-    If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
+    If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.Picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
     frmCargando.verX = "v" & App.Major & "." & App.Minor & "." & App.Revision
     frmCargando.Show
     frmCargando.SetFocus
@@ -397,9 +397,9 @@ cFPS = 0
 Chkflag = 0
 dTiempoGT = GetTickCount
 
+    maskBloqueo = &HF
+
 engine.Start
-
-
     
 If MapInfo.Changed = 1 Then
     If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then

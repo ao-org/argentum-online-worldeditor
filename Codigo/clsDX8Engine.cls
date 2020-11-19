@@ -844,6 +844,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     Dim offy                As Integer
     Dim Grh As Grh
     Dim TempChar            As char
+    Dim i                   As Integer
 
 
     
@@ -922,7 +923,7 @@ If screenmaxX > 100 Then screenmaxX = 100
                                       
                                         
         If DesdeBloq Then
-               Dim j As Integer, i As Integer, grafico As Integer
+               Dim j As Integer, grafico As Integer
             
         Dim Cont As Integer
         
@@ -1155,6 +1156,13 @@ If screenmaxX > 100 Then screenmaxX = 100
     Next y
     ScreenY = minYOffset - 5
     
+    Dim TmpRGB(3) As Long
+        TmpRGB(0) = D3DColorARGB(255, 255, 255, 255)
+        TmpRGB(1) = TmpRGB(0)
+        TmpRGB(2) = TmpRGB(0)
+        TmpRGB(3) = TmpRGB(0)
+        
+    Dim HeadingIt As Byte
     
                     
 ScreenY = minYOffset - TileBufferSize
@@ -1163,41 +1171,38 @@ ScreenY = minYOffset - TileBufferSize
         For X = minx To maxx
             PixelOffsetXTemp = ScreenX * 32 + PixelOffsetX
             PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
-            
-                                             Dim TmpRGB(3) As Long
-                   TmpRGB(0) = D3DColorARGB(255, 255, 255, 255)
-                   TmpRGB(1) = D3DColorARGB(255, 25, 255, 255)
-                   TmpRGB(2) = D3DColorARGB(255, 255, 255, 255)
-                   TmpRGB(3) = D3DColorARGB(255, 255, 255, 255)
-
-                         
                     
-                    'Layer 4 *****************************************
-                If MapData(X, y).Graphic(4).grhindex <> 0 And (FrmMain.mnuVerCapa4.Checked = True) Then
-                    Call Draw_Grh(MapData(X, y).Graphic(4), _
-                        ScreenX * 32 + PixelOffsetX, _
-                        ScreenY * 32 + PixelOffsetY, _
-                        1, 1, MapData(X, y).light_value, AlphaTecho, X, y)
-                End If
+            'Layer 4 *****************************************
+            If MapData(X, y).Graphic(4).grhindex <> 0 And (FrmMain.mnuVerCapa4.Checked = True) Then
+                Call Draw_Grh(MapData(X, y).Graphic(4), _
+                    ScreenX * 32 + PixelOffsetX, _
+                    ScreenY * 32 + PixelOffsetY, _
+                    1, 1, MapData(X, y).light_value, AlphaTecho, X, y)
+            End If
                 
                 
  
-                '************************************************
-                
-                If VerBlockeados And MapData(X, y).Blocked = 1 Then
-                Grh.grhindex = 4
-                Grh.FrameCounter = 1
-                Grh.Started = 0
-                Call Draw_Grh(Grh, _
-                                PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), False, X, y)
+            '************************************************
+            
+            If VerBlockeados And MapData(X, y).Blocked > 0 Then
+                HeadingIt = 1
+
+                For i = 1 To 4 ' Headings
+                    If (MapData(X, y).Blocked And HeadingIt) <> 0 Then
+                        Grh.grhindex = 1150 + i
+                        Grh.FrameCounter = 1
+                        Grh.Started = 0
+                        Call Draw_Grh(Grh, PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), False, X, y)
+                    End If
+                    HeadingIt = HeadingIt * 2
+                Next
             End If
             
              If MapData(X, y).TileExit.Map <> 0 And VerTranslados Then
                 Grh.grhindex = 3
                 Grh.FrameCounter = 1
                 Grh.Started = 0
-                Call Draw_Grh(Grh, _
-                            PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), True, X, y)
+                Call Draw_Grh(Grh, PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), True, X, y)
             End If
             
             If VerTriggers Then

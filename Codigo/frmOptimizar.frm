@@ -69,24 +69,16 @@ Begin VB.Form frmOptimizar
       TabIndex        =   5
       Top             =   2640
       Width           =   1815
-      _ExtentX        =   3201
-      _ExtentY        =   1296
-      Caption         =   "&Optimizar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   12648384
+      _extentx        =   3201
+      _extenty        =   1296
+      caption         =   "&Optimizar"
+      capalign        =   2
+      backstyle       =   2
+      font            =   "frmOptimizar.frx":628A
+      cgradient       =   0
+      mode            =   0
+      value           =   0   'False
+      cback           =   12648384
    End
    Begin WorldEditor.lvButtons_H cCancelar 
       Height          =   735
@@ -94,24 +86,16 @@ Begin VB.Form frmOptimizar
       TabIndex        =   6
       Top             =   2640
       Width           =   1575
-      _ExtentX        =   2778
-      _ExtentY        =   1296
-      Caption         =   "&Cancelar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   1
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   2778
+      _extenty        =   1296
+      caption         =   "&Cancelar"
+      capalign        =   2
+      backstyle       =   2
+      font            =   "frmOptimizar.frx":62AE
+      cgradient       =   0
+      mode            =   1
+      value           =   0   'False
+      cback           =   -2147483633
    End
 End
 Attribute VB_Name = "frmOptimizar"

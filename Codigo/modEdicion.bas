@@ -28,6 +28,9 @@ Attribute VB_Name = "modEdicion"
 ' @date 20061016
 
 Option Explicit
+
+Public maskBloqueo As Byte
+
 Public Sub General_Var_Write(ByVal file As String, ByVal Main As String, ByVal var As String, ByVal value As String)
 '*****************************************************************
 'Author: Aaron Perkins
@@ -212,7 +215,7 @@ modEdicion.Deshacer_Add "Bloquear los bordes" ' Hago deshacer
 For y = 1 To 100
     For X = 1 To 100
         If X < 13 Or X > 88 Or y < 10 Or y > 91 Then
-            MapData(X, y).Blocked = 1
+            MapData(X, y).Blocked = &HF
         End If
     Next X
 Next y
@@ -222,6 +225,22 @@ Next y
     MapData(13, 91).Blocked = 1
     MapData(88, 10).Blocked = 1
     MapData(88, 91).Blocked = 1
+    
+    MapData(13, 10).TileExit.Map = 0
+    MapData(13, 10).TileExit.X = 0
+    MapData(13, 10).TileExit.y = 0
+    
+    MapData(13, 91).TileExit.Map = 0
+    MapData(13, 91).TileExit.X = 0
+    MapData(13, 91).TileExit.y = 0
+    
+    MapData(88, 10).TileExit.Map = 0
+    MapData(88, 10).TileExit.X = 0
+    MapData(8, 10).TileExit.y = 0
+
+    MapData(88, 91).TileExit.Map = 0
+    MapData(88, 91).TileExit.X = 0
+    MapData(88, 91).TileExit.y = 0
 
 Call DibujarMiniMapa
 
@@ -272,7 +291,7 @@ If Cuantos > 0 Then
                 aux = Val(FrmMain.cGrh.Text) + _
                 (((y + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((X + dX) Mod frmConfigSup.mAncho.Text)
                 If FrmMain.cInsertarBloqueo.value = True Then
-                    MapData(X, y).Blocked = 1
+                    MapData(X, y).Blocked = &HF
                 Else
                     MapData(X, y).Blocked = 0
                 End If
@@ -288,7 +307,7 @@ If Cuantos > 0 Then
                         aux = Val(FrmMain.cGrh.Text) + desptile
                          
                         If FrmMain.cInsertarBloqueo.value = True Then
-                            MapData(tXX, tYY).Blocked = 1
+                            MapData(tXX, tYY).Blocked = &HF
                         Else
                             MapData(tXX, tYY).Blocked = 0
                         End If
@@ -342,7 +361,7 @@ For y = YMinMapSize To YMaxMapSize
             aux = Val(FrmMain.cGrh.Text) + _
             ((y Mod frmConfigSup.mLargo) * frmConfigSup.mAncho) + (X Mod frmConfigSup.mAncho)
             If FrmMain.cInsertarBloqueo.value = True Then
-                MapData(X, y).Blocked = 1
+                MapData(X, y).Blocked = &HF
             Else
                 MapData(X, y).Blocked = 0
             End If
@@ -352,7 +371,7 @@ For y = YMinMapSize To YMaxMapSize
           Else
             'Else Place graphic
             If FrmMain.cInsertarBloqueo.value = True Then
-                MapData(X, y).Blocked = 1
+                MapData(X, y).Blocked = &HF
             Else
                 MapData(X, y).Blocked = 0
             End If
@@ -496,8 +515,6 @@ For y = YMinMapSize To YMaxMapSize
     For X = XMinMapSize To XMaxMapSize
         MapData(X, y).Graphic(1).grhindex = 1
         'Change blockes status
-        MapData(X, y).Blocked = 0
-        
         MapData(X, y).Blocked = 0
 
         'Erase layer 2 and 3
@@ -845,7 +862,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & ENDL & ENDL & "Posición " & tX & "," & tY
         
         ' Bloqueos
-        If MapData(tX, tY).Blocked = 1 Then FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (BLOQ)"
+        If MapData(tX, tY).Blocked > 0 Then FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (BLOQ)"
         
         ' Translados
         If MapData(tX, tY).TileExit.Map > 0 Then
@@ -999,7 +1016,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
             If MapData(tX, tY).Blocked <> 1 Then
                 modEdicion.Deshacer_Add "Insertar Bloqueo" ' Hago deshacer
                 MapInfo.Changed = 1 'Set changed flag
-                MapData(tX, tY).Blocked = 1
+                MapData(tX, tY).Blocked = maskBloqueo
                 
             End If
         ElseIf FrmMain.cQuitarBloqueo.value = True Then
