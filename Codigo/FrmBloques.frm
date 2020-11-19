@@ -81,10 +81,20 @@ Attribute VB_Exposed = False
 Dim grafico As Long
 
 Private Sub Combo1_Click()
+    
+    On Error GoTo Combo1_Click_Err
+    
 
     List1.Clear
     Call CargarTipo(Combo1.ListIndex + 1)
 
+    
+    Exit Sub
+
+Combo1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmBloques.Combo1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command1_Click()
@@ -119,11 +129,24 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub Form_Load()
+    
+    On Error GoTo Form_Load_Err
+    
     Call CargarBloq
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmBloques.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub List1_Click()
+    
+    On Error GoTo List1_Click_Err
+    
     HotKeysAllow = False
     DesdeBloq = False
     picture1.BackColor = vbBlack
@@ -159,9 +182,19 @@ Private Sub List1_Click()
     Next
 
     'Next x
+    
+    Exit Sub
+
+List1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmBloques.List1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Picture1_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo Picture1_MouseUp_Err
+    
 
     If List1.ListIndex = -1 Then Exit Sub
 
@@ -171,5 +204,12 @@ Private Sub Picture1_MouseUp(Button As Integer, Shift As Integer, X As Single, y
     RenderY = Val(TILESY(TIPOOK(List1.ListIndex + 1)))
     RenderLayer = Val(LAYER(TIPOOK(List1.ListIndex + 1)))
 
+    
+    Exit Sub
+
+Picture1_MouseUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmBloques.Picture1_MouseUp", Erl)
+    Resume Next
+    
 End Sub
 

@@ -66,19 +66,29 @@ End Function
 ' @param FileType Especifica el tipo de archivo/directorio
 ' @return   Nos devuelve verdadero o falso
 
-Public Function FileExist(ByVal file As String, ByVal FileType As VbFileAttribute) As Boolean
+Public Function FileExist(ByVal File As String, ByVal FileType As VbFileAttribute) As Boolean
+    
+    On Error GoTo FileExist_Err
+    
 
     '*************************************************
     'Author: Unkwown
     'Last modified: 26/05/06
     '*************************************************
-    If LenB(Dir(file, FileType)) = 0 Then
+    If LenB(Dir(File, FileType)) = 0 Then
         FileExist = False
     Else
         FileExist = True
 
     End If
 
+    
+    Exit Function
+
+FileExist_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.FileExist", Erl)
+    Resume Next
+    
 End Function
 
 ''
@@ -87,6 +97,9 @@ End Function
 ' @param Path Especifica el path del mapa
 
 Public Sub AbrirMapa(ByVal Path As String)
+    
+    On Error GoTo AbrirMapa_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -98,6 +111,13 @@ Public Sub AbrirMapa(ByVal Path As String)
         Call MapaV3_Cargar(Path)
 
     End If
+    
+    
+    Exit Sub
+
+AbrirMapa_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.AbrirMapa", Erl)
+    Resume Next
     
 End Sub
 
@@ -140,6 +160,9 @@ Public Sub DeseaGuardarMapa(Optional Path As String)
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo DeseaGuardarMapa_Err
+    
 
     If MapInfo.Changed = 1 Then
         If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
@@ -149,6 +172,13 @@ Public Sub DeseaGuardarMapa(Optional Path As String)
 
     End If
 
+    
+    Exit Sub
+
+DeseaGuardarMapa_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.DeseaGuardarMapa", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -427,6 +457,9 @@ End Sub
 ' @param Map Especifica el Path del mapa
 
 Public Sub MapaV3_Cargar(ByVal Map As String)
+    
+    On Error GoTo MapaV3_Cargar_Err
+    
 
     Dim loopc       As Integer
     Dim TempInt     As Integer
@@ -618,6 +651,13 @@ Public Sub MapaV3_Cargar(ByVal Map As String)
     
     MapaCargado = True
 
+    
+    Exit Sub
+
+MapaV3_Cargar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.MapaV3_Cargar", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub MapaV2_Cargar(ByVal Map As String)
@@ -625,6 +665,9 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     'Author ^[GS]^
     'Last modified 200506
     '
+    
+    On Error GoTo MapaV2_Cargar_Err
+    
 
     If FormatoIAO Then
         Load_Map_Data_CSM (Map)
@@ -854,9 +897,9 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     FrmMain.TxtMp3.Text = Mp3Music
 
     If Llueve Then
-        FrmMain.Check1.value = 1
+        FrmMain.check1.value = 1
     Else
-        FrmMain.Check1.value = 0
+        FrmMain.check1.value = 0
 
     End If
 
@@ -875,6 +918,13 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     FrmMain.MousePointer = 0
     MapaCargado = True
     
+    
+    Exit Sub
+
+MapaV2_Cargar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.MapaV2_Cargar", Erl)
+    Resume Next
+    
 End Sub
 
 ' *****************************************************************************
@@ -891,6 +941,9 @@ Public Sub MapInfo_Guardar(ByVal Archivo As String)
     'Author: ^[GS]^
     'Last modified: 28/05/06
     '*************************************************
+    
+    On Error GoTo MapInfo_Guardar_Err
+    
 
     If LenB(MapTitulo) = 0 Then
         MapTitulo = NameMap_Save
@@ -918,6 +971,13 @@ Public Sub MapInfo_Guardar(ByVal Archivo As String)
 
     End If
 
+    
+    Exit Sub
+
+MapInfo_Guardar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.MapInfo_Guardar", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -1018,12 +1078,12 @@ Public Sub MapInfo_Actualizar()
         frmMapInfo.b1.Enabled = True
         frmMapInfo.Text1.Enabled = True
         frmMapInfo.lvButtons_H1.Enabled = True
-        frmMapInfo.Picture1.Enabled = True
-        frmMapInfo.Check1.value = 0
+        frmMapInfo.picture1.Enabled = True
+        frmMapInfo.check1.value = 0
         frmMapInfo.Text1 = MapInfo.Light
-        frmMapInfo.Picture1.BackColor = frmMapInfo.Text1
+        frmMapInfo.picture1.BackColor = frmMapInfo.Text1
     Else
-        frmMapInfo.Picture1.BackColor = &HFFFFFF
+        frmMapInfo.picture1.BackColor = &HFFFFFF
         MapInfo.Light = 0
         frmMapInfo.r1.Enabled = False
         frmMapInfo.G1.Enabled = False
@@ -1031,8 +1091,8 @@ Public Sub MapInfo_Actualizar()
         frmMapInfo.Text1.Enabled = False
         frmMapInfo.Text1 = &HFFFFFF
         frmMapInfo.lvButtons_H1.Enabled = False
-        frmMapInfo.Picture1.Enabled = False
-        frmMapInfo.Check1.value = 1
+        frmMapInfo.picture1.Enabled = False
+        frmMapInfo.check1.value = 1
 
     End If
 
@@ -1050,6 +1110,9 @@ Public Sub Pestañas(ByVal Map As String)
     'Author: ^[GS]^
     'Last modified: 28/05/06
     '*************************************************
+    
+    On Error GoTo Pestañas_Err
+    
 
     Dim loopc As Integer
 
@@ -1129,4 +1192,11 @@ Public Sub Pestañas(ByVal Map As String)
 
     End If
 
+    
+    Exit Sub
+
+Pestañas_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.Pestañas", Erl)
+    Resume Next
+    
 End Sub

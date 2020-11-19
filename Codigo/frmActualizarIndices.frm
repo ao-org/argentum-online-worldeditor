@@ -147,6 +147,9 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 Private Sub Botones_Click(Index As Integer)
+    
+    On Error GoTo Botones_Click_Err
+    
 
     Select Case Index
 
@@ -173,4 +176,11 @@ Private Sub Botones_Click(Index As Integer)
 
     End Select
 
+    
+    Exit Sub
+
+Botones_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmActualizarIndices.Botones_Click", Erl)
+    Resume Next
+    
 End Sub

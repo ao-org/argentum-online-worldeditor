@@ -36,6 +36,9 @@ Option Explicit
 ' @param Activado Especifica si esta o no activado
 
 Public Sub EstSelectPanel(ByVal Numero As Byte, ByVal Activado As Boolean)
+    
+    On Error GoTo EstSelectPanel_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -116,6 +119,13 @@ Public Sub EstSelectPanel(ByVal Numero As Byte, ByVal Activado As Boolean)
 
     End If
 
+    
+    Exit Sub
+
+EstSelectPanel_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modPaneles.EstSelectPanel", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -126,6 +136,9 @@ End Sub
 ' @param Normal Inidica que ahi que volver todo No visible
 
 Public Sub VerFuncion(ByVal Numero As Byte, ByVal Ver As Boolean, Optional Normal As Boolean)
+    
+    On Error GoTo VerFuncion_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -261,6 +274,13 @@ Public Sub VerFuncion(ByVal Numero As Byte, ByVal Ver As Boolean, Optional Norma
 
     End If
 
+    
+    Exit Sub
+
+VerFuncion_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modPaneles.VerFuncion", Erl)
+    Resume Next
+    
 End Sub
 
 ''
@@ -273,6 +293,9 @@ Public Sub Filtrar(ByVal Numero As Byte)
     'Author: ^[GS]^
     'Last modified: 26/05/06
     '*************************************************
+    
+    On Error GoTo Filtrar_Err
+    
 
     Dim vMaximo As Integer
     Dim vDatos  As String
@@ -337,6 +360,13 @@ Public Sub Filtrar(ByVal Numero As Byte)
         Next
     Next
 
+    
+    Exit Sub
+
+Filtrar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modPaneles.Filtrar", Erl)
+    Resume Next
+    
 End Sub
 
 Public Function DameGrhIndex(ByVal GrhIn As Long) As Long
@@ -344,6 +374,9 @@ Public Function DameGrhIndex(ByVal GrhIn As Long) As Long
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo DameGrhIndex_Err
+    
 
     DameGrhIndex = SupData(GrhIn).Grh
 
@@ -358,6 +391,13 @@ Public Function DameGrhIndex(ByVal GrhIn As Long) As Long
 
     End If
 
+    
+    Exit Function
+
+DameGrhIndex_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modPaneles.DameGrhIndex", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub fPreviewGrh(ByVal GrhIn As Long)
@@ -365,6 +405,9 @@ Public Sub fPreviewGrh(ByVal GrhIn As Long)
     'Author: Unkwown
     'Last modified: 22/05/06
     '*************************************************
+    
+    On Error GoTo fPreviewGrh_Err
+    
 
     If Val(GrhIn) < 1 Then
         FrmMain.cGrh.Text = MaxGrhs
@@ -383,6 +426,13 @@ Public Sub fPreviewGrh(ByVal GrhIn As Long)
     CurrentGrh.Started = 1
     CurrentGrh.FrameCounter = 1
 
+    
+    Exit Sub
+
+fPreviewGrh_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modPaneles.fPreviewGrh", Erl)
+    Resume Next
+    
 End Sub
 
 ''

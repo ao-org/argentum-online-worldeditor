@@ -407,6 +407,9 @@ End Enum
 
 Public Property Let ButtonStyle(Style As BackStyleConstants)
 Attribute ButtonStyle.VB_Description = "Various operating system button styles"
+    
+    On Error GoTo ButtonStyle_Err
+    
 
     ' Sets the style of button to be displayed
 
@@ -422,15 +425,35 @@ Attribute ButtonStyle.VB_Description = "Various operating system button styles"
     RedrawButton
     PropertyChanged "BackStyle"
 
+    
+    Exit Property
+
+ButtonStyle_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ButtonStyle", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get ButtonStyle() As BackStyleConstants
+    
+    On Error GoTo ButtonStyle_Err
+    
     ButtonStyle = myProps.bBackStyle
 
+    
+    Exit Property
+
+ButtonStyle_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ButtonStyle", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let Mode(nMode As ButtonModeConstants)
 Attribute Mode.VB_Description = "Command button, check box or option button mode"
+    
+    On Error GoTo Mode_Err
+    
 
     ' Sets the button function/mode
 
@@ -452,11 +475,28 @@ Attribute Mode.VB_Description = "Command button, check box or option button mode
     RedrawButton
     PropertyChanged "Mode"
 
+    
+    Exit Property
+
+Mode_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Mode", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get Mode() As ButtonModeConstants
+    
+    On Error GoTo Mode_Err
+    
     Mode = myProps.bMode
 
+    
+    Exit Property
+
+Mode_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Mode", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let Caption(sCaption As String)
@@ -464,6 +504,9 @@ Attribute Caption.VB_Description = "The caption of the button. Double pipe (||) 
 Attribute Caption.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
 Attribute Caption.VB_UserMemId = -518
 Attribute Caption.VB_MemberFlags = "200"
+    
+    On Error GoTo Caption_Err
+    
 
     ' Sets the button caption & hot key for the control
 
@@ -490,16 +533,36 @@ Attribute Caption.VB_MemberFlags = "200"
     RedrawButton
     PropertyChanged "Caption"
 
+    
+    Exit Property
+
+Caption_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Caption", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get Caption() As String
+    
+    On Error GoTo Caption_Err
+    
     Caption = myProps.bCaption
 
+    
+    Exit Property
+
+Caption_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Caption", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let CaptionAlign(nAlign As AlignmentConstants)
 Attribute CaptionAlign.VB_Description = "Horizontal alignment of caption on the button."
 Attribute CaptionAlign.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
+    
+    On Error GoTo CaptionAlign_Err
+    
 
     ' Caption options: Left, Right or Center Justified
 
@@ -522,15 +585,35 @@ Attribute CaptionAlign.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
     RedrawButton
     PropertyChanged "CapAlign"
 
+    
+    Exit Property
+
+CaptionAlign_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.CaptionAlign", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get CaptionAlign() As AlignmentConstants
+    
+    On Error GoTo CaptionAlign_Err
+    
     CaptionAlign = myProps.bCaptionAlign
 
+    
+    Exit Property
+
+CaptionAlign_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.CaptionAlign", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let CaptionStyle(nStyle As CaptionEffectConstants)
 Attribute CaptionStyle.VB_Description = "Flat, Embossed or Engraved effects"
+    
+    On Error GoTo CaptionStyle_Err
+    
 
     ' Sets the style, raised/sunken or flat (default)
 
@@ -544,15 +627,35 @@ Attribute CaptionStyle.VB_Description = "Flat, Embossed or Engraved effects"
 
     End If
 
+    
+    Exit Property
+
+CaptionStyle_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.CaptionStyle", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get CaptionStyle() As CaptionEffectConstants
+    
+    On Error GoTo CaptionStyle_Err
+    
     CaptionStyle = myProps.bCaptionStyle
 
+    
+    Exit Property
+
+CaptionStyle_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.CaptionStyle", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let CustomClick(nOpt As CustomCickConstants)
 Attribute CustomClick.VB_Description = "Custom shaped buttons only. Moves the button vs the traditional click effect."
+    
+    On Error GoTo CustomClick_Err
+    
 
     If nOpt < lv_cDefault Or nOpt > lv_cWest Then Exit Property
     If Not ambient.UserMode And myProps.bShape < lv_CustomFlat And nOpt > lv_cDefault Then
@@ -563,16 +666,36 @@ Attribute CustomClick.VB_Description = "Custom shaped buttons only. Moves the bu
     myProps.bCustomClick = nOpt
     PropertyChanged "CustomClick"
 
+    
+    Exit Property
+
+CustomClick_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.CustomClick", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get CustomClick() As CustomCickConstants
+    
+    On Error GoTo CustomClick_Err
+    
     CustomClick = myProps.bCustomClick
 
+    
+    Exit Property
+
+CustomClick_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.CustomClick", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let ButtonShape(nShape As ButtonStyleConstants)
 Attribute ButtonShape.VB_Description = "Rectangular or various diagonal shapes"
 Attribute ButtonShape.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
+    
+    On Error GoTo ButtonShape_Err
+    
 
     ' Sets the button's shape (rectangular, diagonal, or circular)
 
@@ -602,15 +725,35 @@ Attribute ButtonShape.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
     DelayDrawing False
     PropertyChanged "Shape"
 
+    
+    Exit Property
+
+ButtonShape_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ButtonShape", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get ButtonShape() As ButtonStyleConstants
+    
+    On Error GoTo ButtonShape_Err
+    
     ButtonShape = myProps.bShape
 
+    
+    Exit Property
+
+ButtonShape_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ButtonShape", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Set Picture(xPic As StdPicture)
 Attribute Picture.VB_Description = "The image used to display on the button."
+    
+    On Error GoTo Picture_Err
+    
 
     ' Sets the button image which to display
     Set myImage.image = xPic
@@ -641,15 +784,35 @@ Attribute Picture.VB_Description = "The image used to display on the button."
 
     PropertyChanged "Image"
 
+    
+    Exit Property
+
+Picture_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Picture", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get Picture() As StdPicture
+    
+    On Error GoTo Picture_Err
+    
     Set Picture = myImage.image
 
+    
+    Exit Property
+
+Picture_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Picture", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let PictureAlign(ImgAlign As ImagePlacementConstants)
 Attribute PictureAlign.VB_Description = "Alignment of the button image in relation to the caption and/or button."
+    
+    On Error GoTo PictureAlign_Err
+    
 
     ' Image alignment options for button (6 different positions)
 
@@ -661,17 +824,37 @@ Attribute PictureAlign.VB_Description = "Alignment of the button image in relati
     RedrawButton
     PropertyChanged "ImgAlign"
 
+    
+    Exit Property
+
+PictureAlign_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.PictureAlign", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get PictureAlign() As ImagePlacementConstants
+    
+    On Error GoTo PictureAlign_Err
+    
     PictureAlign = myImage.Align
 
+    
+    Exit Property
+
+PictureAlign_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.PictureAlign", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let Enabled(bEnabled As Boolean)
 Attribute Enabled.VB_Description = "Determines if events are fired for this button."
 Attribute Enabled.VB_ProcData.VB_Invoke_PropertyPut = ";Behavior"
 Attribute Enabled.VB_UserMemId = -514
+    
+    On Error GoTo Enabled_Err
+    
 
     ' Enables or disables the button
 
@@ -691,16 +874,36 @@ Attribute Enabled.VB_UserMemId = -514
 
     PropertyChanged "Enabled"
 
+    
+    Exit Property
+
+Enabled_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Enabled", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get Enabled() As Boolean
+    
+    On Error GoTo Enabled_Err
+    
     Enabled = UserControl.Enabled
 
+    
+    Exit Property
+
+Enabled_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Enabled", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let ShowFocusRect(bShow As Boolean)
 Attribute ShowFocusRect.VB_Description = "Allows or prevents a focus rectangle from being displayed. In design mode, this may always be displayed for button set as Default."
 Attribute ShowFocusRect.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
+    
+    On Error GoTo ShowFocusRect_Err
+    
 
     ' Shows/hides the focus rectangle when button comes into focus
 
@@ -725,16 +928,36 @@ Attribute ShowFocusRect.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
 
     PropertyChanged "Focus"
 
+    
+    Exit Property
+
+ShowFocusRect_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ShowFocusRect", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get ShowFocusRect() As Boolean
+    
+    On Error GoTo ShowFocusRect_Err
+    
     ShowFocusRect = myProps.bShowFocus
 
+    
+    Exit Property
+
+ShowFocusRect_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ShowFocusRect", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let value(bValue As Boolean)
 Attribute value.VB_Description = "Applicable to only check box or option button modes: True or False"
 Attribute value.VB_UserMemId = 0
+    
+    On Error GoTo value_Err
+    
 
     ' For option button & check box modes
 
@@ -757,15 +980,35 @@ Attribute value.VB_UserMemId = 0
     RedrawButton
     PropertyChanged "Value"
 
+    
+    Exit Property
+
+value_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.value", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get value() As Boolean
+    
+    On Error GoTo value_Err
+    
     value = myProps.bValue
 
+    
+    Exit Property
+
+value_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.value", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let PictureSize(nSize As ImageSizeConstants)
 Attribute PictureSize.VB_Description = "Various sizes for images used on buttons. Last 2 options center image automatically."
+    
+    On Error GoTo PictureSize_Err
+    
 
     ' Sets up to 5 picture sizes
 
@@ -783,29 +1026,66 @@ Attribute PictureSize.VB_Description = "Various sizes for images used on buttons
 
     If myProps.bShape > lv_RoundFlat Then Call UserControl_Resize
 
+    
+    Exit Property
+
+PictureSize_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.PictureSize", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get PictureSize() As ImageSizeConstants
+    
+    On Error GoTo PictureSize_Err
+    
 
     If myImage.Size = 0 Then myImage.Size = 16
     ' parameters are 0,1,2,3,4 & 5, but we store them as 16,24,32,40, & 44
     PictureSize = Choose(myImage.Size / 8 - 1, lv_16x16, lv_24x24, lv_32x32, lv_Fill_Stretch, lv_Fill_ScaleUpDown)
 
+    
+    Exit Property
+
+PictureSize_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.PictureSize", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let MousePointer(nPointer As MousePointerConstants)
 Attribute MousePointer.VB_Description = "Various optional mouse pointers to use when mouse is over the button"
+    
+    On Error GoTo MousePointer_Err
+    
 
     ' Sets the mouse pointer for the button
 
     UserControl.MousePointer = nPointer
     PropertyChanged "mPointer"
 
+    
+    Exit Property
+
+MousePointer_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.MousePointer", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get MousePointer() As MousePointerConstants
+    
+    On Error GoTo MousePointer_Err
+    
     MousePointer = UserControl.MousePointer
 
+    
+    Exit Property
+
+MousePointer_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.MousePointer", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Set MouseIcon(nIcon As StdPicture)
@@ -831,13 +1111,26 @@ ShowPropertyError:
 End Property
 
 Public Property Get MouseIcon() As StdPicture
+    
+    On Error GoTo MouseIcon_Err
+    
     Set MouseIcon = UserControl.MouseIcon
 
+    
+    Exit Property
+
+MouseIcon_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.MouseIcon", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Set font(nFont As StdFont)
 Attribute font.VB_Description = "Font used to display the caption."
 Attribute font.VB_ProcData.VB_Invoke_PropertyPutRef = ";Font"
+    
+    On Error GoTo font_Err
+    
 
     ' Sets the control's font & also the logical font to use on off-screen DC
 
@@ -848,15 +1141,35 @@ Attribute font.VB_ProcData.VB_Invoke_PropertyPutRef = ";Font"
 
     PropertyChanged "Font"
 
+    
+    Exit Property
+
+font_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.font", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get font() As StdFont
+    
+    On Error GoTo font_Err
+    
     Set font = UserControl.font
 
+    
+    Exit Property
+
+font_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.font", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let FontStyle(nStyle As FontStyles)
 Attribute FontStyle.VB_Description = "Various font attributes that can be changed directly."
+    
+    On Error GoTo FontStyle_Err
+    
 
     ' Allows direct changes to font attributes
 
@@ -872,20 +1185,40 @@ Attribute FontStyle.VB_Description = "Various font attributes that can be change
     PropertyChanged "Font"
     RedrawButton
 
+    
+    Exit Property
+
+FontStyle_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.FontStyle", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get FontStyle() As FontStyles
+    
+    On Error GoTo FontStyle_Err
+    
     Dim nStyle As Integer
     nStyle = nStyle Or Abs(UserControl.font.bold) * 2
     nStyle = nStyle Or Abs(UserControl.font.italic) * 4
     nStyle = nStyle Or Abs(UserControl.font.Underline) * 8
     FontStyle = nStyle
 
+    
+    Exit Property
+
+FontStyle_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.FontStyle", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let ForeColor(nColor As OLE_COLOR)
 Attribute ForeColor.VB_Description = "The color of the caption's font ."
 Attribute ForeColor.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
+    
+    On Error GoTo ForeColor_Err
+    
 
     ' Sets the caption text color
 
@@ -901,16 +1234,36 @@ Attribute ForeColor.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
     RedrawButton
     PropertyChanged "cFore"
 
+    
+    Exit Property
+
+ForeColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ForeColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get ForeColor() As OLE_COLOR
+    
+    On Error GoTo ForeColor_Err
+    
     ForeColor = UserControl.ForeColor
 
+    
+    Exit Property
+
+ForeColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ForeColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let BackColor(nColor As OLE_COLOR)
 Attribute BackColor.VB_Description = "Button back color. See also ResetDefaultColors"
 Attribute BackColor.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
+    
+    On Error GoTo BackColor_Err
+    
 
     ' Sets the backcolor of the button
 
@@ -930,15 +1283,35 @@ Attribute BackColor.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
     RedrawButton
     PropertyChanged "cBack"
 
+    
+    Exit Property
+
+BackColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.BackColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get BackColor() As OLE_COLOR
+    
+    On Error GoTo BackColor_Err
+    
     BackColor = curBackColor
 
+    
+    Exit Property
+
+BackColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.BackColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let GradientColor(nColor As OLE_COLOR)
 Attribute GradientColor.VB_Description = "Secondary color used for gradient shades. The BackColor property is the primary color."
+    
+    On Error GoTo GradientColor_Err
+    
 
     ' Sets the gradient color. Gradients are used this way...
     ' Shade from BackColor to GradientColor
@@ -956,15 +1329,35 @@ Attribute GradientColor.VB_Description = "Secondary color used for gradient shad
     If myProps.bGradient Then RedrawButton
     PropertyChanged "cGradient"
 
+    
+    Exit Property
+
+GradientColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.GradientColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get GradientColor() As OLE_COLOR
+    
+    On Error GoTo GradientColor_Err
+    
     GradientColor = myProps.bGradientColor
 
+    
+    Exit Property
+
+GradientColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.GradientColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let GradientMode(nOpt As GradientConstants)
 Attribute GradientMode.VB_Description = "Various directions to draw the gradient shading."
+    
+    On Error GoTo GradientMode_Err
+    
 
     ' Sets the direction of gradient shading
 
@@ -987,16 +1380,36 @@ Attribute GradientMode.VB_Description = "Various directions to draw the gradient
     RedrawButton
     PropertyChanged "Gradient"
 
+    
+    Exit Property
+
+GradientMode_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.GradientMode", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get GradientMode() As GradientConstants
+    
+    On Error GoTo GradientMode_Err
+    
     GradientMode = myProps.bGradient
 
+    
+    Exit Property
+
+GradientMode_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.GradientMode", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let ResetDefaultColors(nDefault As Boolean)
 Attribute ResetDefaultColors.VB_Description = "Resets button's back color and text color to Window's standard. The hover properties are also reset."
 Attribute ResetDefaultColors.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
+    
+    On Error GoTo ResetDefaultColors_Err
+    
 
     ' Resets the BackColor, ForeColor, GradientColor,
     ' HoverBackColor & HoverForeColor to defaults
@@ -1014,16 +1427,36 @@ Attribute ResetDefaultColors.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
     PropertyChanged "cGradient"
     PropertyChanged "cBack"
 
+    
+    Exit Property
+
+ResetDefaultColors_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ResetDefaultColors", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get ResetDefaultColors() As Boolean
+    
+    On Error GoTo ResetDefaultColors_Err
+    
     ResetDefaultColors = False
 
+    
+    Exit Property
+
+ResetDefaultColors_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ResetDefaultColors", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let HoverColorLocks(nLock As HoverLockConstants)
 Attribute HoverColorLocks.VB_Description = "Can ensure the hover colors match the caption and back colors. Click for more options."
 Attribute HoverColorLocks.VB_ProcData.VB_Invoke_PropertyPut = ";Behavior"
+    
+    On Error GoTo HoverColorLocks_Err
+    
 
     ' Has two purposes.
     ' 1. If the lock wasn't set but is now set, then setting it will
@@ -1063,16 +1496,36 @@ Attribute HoverColorLocks.VB_ProcData.VB_Invoke_PropertyPut = ";Behavior"
     GetGDIMetrics "BackColor"
     PropertyChanged "LockHover"
 
+    
+    Exit Property
+
+HoverColorLocks_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.HoverColorLocks", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get HoverColorLocks() As HoverLockConstants
+    
+    On Error GoTo HoverColorLocks_Err
+    
     HoverColorLocks = myProps.bLockHover
 
+    
+    Exit Property
+
+HoverColorLocks_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.HoverColorLocks", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let HoverForeColor(nColor As OLE_COLOR)
 Attribute HoverForeColor.VB_Description = "Color of button caption's text when mouse is hovering over it. Affects the HoverLockColors property."
 Attribute HoverForeColor.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
+    
+    On Error GoTo HoverForeColor_Err
+    
 
     ' Changes the text color when mouse is over the button
     ' Changing this property will affect the type of HoverLock
@@ -1095,16 +1548,36 @@ Attribute HoverForeColor.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
     myProps.bLockHover = Me.HoverColorLocks
     PropertyChanged "cFHover"
 
+    
+    Exit Property
+
+HoverForeColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.HoverForeColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get HoverForeColor() As OLE_COLOR
+    
+    On Error GoTo HoverForeColor_Err
+    
     HoverForeColor = myProps.bForeHover
 
+    
+    Exit Property
+
+HoverForeColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.HoverForeColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Let HoverBackColor(nColor As OLE_COLOR)
 Attribute HoverBackColor.VB_Description = "Color of button background when mouse is hovering over it. Affects the HoverLockColors property."
 Attribute HoverBackColor.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
+    
+    On Error GoTo HoverBackColor_Err
+    
 
     ' Changes the backcolor when mouse is over the button
     ' Changing this property will affect the type of HoverLock
@@ -1127,39 +1600,89 @@ Attribute HoverBackColor.VB_ProcData.VB_Invoke_PropertyPut = ";Appearance"
     GetGDIMetrics "BackColor"
     PropertyChanged "cBHover"
 
+    
+    Exit Property
+
+HoverBackColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.HoverBackColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get HoverBackColor() As OLE_COLOR
+    
+    On Error GoTo HoverBackColor_Err
+    
     HoverBackColor = myProps.bBackHover
 
+    
+    Exit Property
+
+HoverBackColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.HoverBackColor", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get hdc() As Long
+    
+    On Error GoTo hdc_Err
+    
 
     ' Makes the control's hDC availabe at runtime
 
     hdc = UserControl.hdc
 
+    
+    Exit Property
+
+hdc_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.hdc", Erl)
+    Resume Next
+    
 End Property
 
 Public Property Get hWnd() As Long
+    
+    On Error GoTo hWnd_Err
+    
 
     ' Makes the control's hWnd available at runtime
 
     hWnd = UserControl.hWnd
 
+    
+    Exit Property
+
+hWnd_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.hWnd", Erl)
+    Resume Next
+    
 End Property
 
 ' //////////////////// GENERAL FUNCTIONS, PUBLIC \\\\\\\\\\\\\\\\\\\\\
 Public Sub Refresh()
+    
+    On Error GoTo Refresh_Err
+    
 
     ' Refreshes the button & can be called from any form/module
     bNoRefresh = False
     RedrawButton
 
+    
+    Exit Sub
+
+Refresh_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.Refresh", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub DelayDrawing(bDelay As Boolean)
+    
+    On Error GoTo DelayDrawing_Err
+    
 
     ' Used to prevent redrawing button until all properties are set.
     ' Should you want to set multiple properties of the control during runtime
@@ -1175,9 +1698,19 @@ Public Sub DelayDrawing(bDelay As Boolean)
 
     If bDelay = False Then Refresh
 
+    
+    Exit Sub
+
+DelayDrawing_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DelayDrawing", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub RedrawButton()
+    
+    On Error GoTo RedrawButton_Err
+    
 
     ' ==================================================
     ' Main switchboard routine for redrawing a button
@@ -1283,6 +1816,13 @@ Private Sub RedrawButton()
 
     End If
 
+    
+    Exit Sub
+
+RedrawButton_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.RedrawButton", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function ToggleOptionButtons(nMode As Integer) As Boolean
@@ -1377,6 +1917,9 @@ OptionToggleError:
 End Function
 
 Friend Sub TimerUpdate(lvTimerID As Long)
+    
+    On Error GoTo TimerUpdate_Err
+    
 
     ' pretty good way to determine when cursor moves outside of any shape region
     ' especially useful for my diagonal/round buttons since they are not your typical
@@ -1397,9 +1940,19 @@ Friend Sub TimerUpdate(lvTimerID As Long)
 
     End If
 
+    
+    Exit Sub
+
+TimerUpdate_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.TimerUpdate", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub CalculateBoundingRects(bNormalizeImage As Boolean)
+    
+    On Error GoTo CalculateBoundingRects_Err
+    
 
     ' Routine measures and places the rectangles to draw
     ' the caption and image on the control. The results
@@ -1620,9 +2173,19 @@ Private Sub CalculateBoundingRects(bNormalizeImage As Boolean)
 
     If bNormalizeImage Then NormalizeImage iRect.Right - iRect.Left, iRect.Bottom - iRect.Top, 0
 
+    
+    Exit Sub
+
+CalculateBoundingRects_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.CalculateBoundingRects", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub GetSetOffDC(bSet As Boolean)
+    
+    On Error GoTo GetSetOffDC_Err
+    
 
     ' This sets up our off screen DC & pastes results onto our control.
 
@@ -1652,9 +2215,19 @@ Private Sub GetSetOffDC(bSet As Boolean)
 
     End If
 
+    
+    Exit Sub
+
+GetSetOffDC_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.GetSetOffDC", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawRect(m_hDC As Long, ByVal X1 As Long, ByVal Y1 As Long, ByVal X2 As Long, ByVal Y2 As Long, tColor As Long, Optional pColor As Long = -1, Optional PenWidth As Long = 0, Optional PenStyle As Long = 0)
+    
+    On Error GoTo DrawRect_Err
+    
 
     ' Simple routine to draw a rectangle
 
@@ -1662,9 +2235,19 @@ Private Sub DrawRect(m_hDC As Long, ByVal X1 As Long, ByVal Y1 As Long, ByVal X2
     SetButtonColors True, m_hDC, cObj_Brush, tColor, (pColor = -1)
     Call Rectangle(m_hDC, X1, Y1, X2, Y2)
 
+    
+    Exit Sub
+
+DrawRect_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawRect", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub SetButtonColors(bSet As Boolean, m_hDC As Long, TypeObject As ColorObjects, lColor As Long, Optional bSamePenColor As Boolean = True, Optional PenWidth As Long = 1, Optional bSwapPens As Boolean = False, Optional PenStyle As Long = 0)
+    
+    On Error GoTo SetButtonColors_Err
+    
 
     ' This is the basic routine that sets a DC's pen, brush or font color
 
@@ -1697,9 +2280,19 @@ Private Sub SetButtonColors(bSet As Boolean, m_hDC As Long, TypeObject As ColorO
 
     End If
 
+    
+    Exit Sub
+
+SetButtonColors_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.SetButtonColors", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function ConvertColor(tColor As Long) As Long
+    
+    On Error GoTo ConvertColor_Err
+    
 
     ' Converts VB color constants to real color values
 
@@ -1710,6 +2303,13 @@ Private Function ConvertColor(tColor As Long) As Long
 
     End If
 
+    
+    Exit Function
+
+ConvertColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ConvertColor", Erl)
+    Resume Next
+    
 End Function
 
 Private Sub CreateButtonRegion()
@@ -1992,6 +2592,9 @@ End Sub
 
 Private Sub ScaleImage(SizeX As Long, SizeY As Long, ImgX As Long, ImgY As Long)
     ' helper function for resizing images to scale
+    
+    On Error GoTo ScaleImage_Err
+    
     Dim Ratio(0 To 1) As Double
     Ratio(0) = SizeX / myImage.SourceSize.X
     Ratio(1) = SizeY / myImage.SourceSize.y
@@ -2001,9 +2604,19 @@ Private Sub ScaleImage(SizeX As Long, SizeY As Long, ImgX As Long, ImgY As Long)
     ImgY = myImage.SourceSize.y * Ratio(0)
     Erase Ratio
 
+    
+    Exit Sub
+
+ScaleImage_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ScaleImage", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub NormalizeImage(newSizeX As Long, newSizeY As Long, rtnRgn As Long)
+    
+    On Error GoTo NormalizeImage_Err
+    
 
     If myImage.image Is Nothing Then Exit Sub
     If myImage.TransImage Then DeleteObject myImage.TransImage
@@ -2115,9 +2728,19 @@ Private Sub NormalizeImage(newSizeX As Long, newSizeY As Long, rtnRgn As Long)
     myImage.TransSize.X = newSizeX
     myImage.TransSize.y = newSizeY
 
+    
+    Exit Sub
+
+NormalizeImage_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.NormalizeImage", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawTransparentBitmap(lHDCdest As Long, destRect As RECT, lBMPsource As Long, bmpRect As RECT, Optional lMaskColor As Long = -1, Optional lNewBmpCx As Long, Optional lNewBmpCy As Long)
+    
+    On Error GoTo DrawTransparentBitmap_Err
+    
     Const DSna = &H220326 '0x00220326
     ' =====================================================================
     ' A pretty good transparent bitmap maker I use in several projects
@@ -2211,9 +2834,19 @@ Private Sub DrawTransparentBitmap(lHDCdest As Long, destRect As RECT, lBMPsource
     DeleteDC lHDCcolor
     DeleteDC lHDCsrc
 
+    
+    Exit Sub
+
+DrawTransparentBitmap_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawTransparentBitmap", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButtonIcon(iRect As RECT)
+    
+    On Error GoTo DrawButtonIcon_Err
+    
 
     ' Routine will draw the button image
 
@@ -2279,9 +2912,19 @@ Private Sub DrawButtonIcon(iRect As RECT)
 
     End If
 
+    
+    Exit Sub
+
+DrawButtonIcon_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButtonIcon", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function ShadeColor(lColor As Long, shadeOffset As Integer, lessBlue As Boolean, Optional bFocusRect As Boolean, Optional bInvert As Boolean) As Long
+    
+    On Error GoTo ShadeColor_Err
+    
 
     ' Basically supply a value between -255 and +255. Positive numbers make
     ' the passed color lighter and negative numbers make the color darker
@@ -2317,9 +2960,19 @@ CalcNewColor:
 
     End If
 
+    
+    Exit Function
+
+ShadeColor_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.ShadeColor", Erl)
+    Resume Next
+    
 End Function
 
 Private Sub GetGDIMetrics(sObject As String)
+    
+    On Error GoTo GetGDIMetrics_Err
+    
 
     ' This routine caches information we don't want to keep gathering every time a button is redrawn.
 
@@ -2407,9 +3060,19 @@ Private Sub GetGDIMetrics(sObject As String)
 
     End Select
 
+    
+    Exit Sub
+
+GetGDIMetrics_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.GetGDIMetrics", Erl)
+    Resume Next
+    
 End Sub
 
 Private Function MoveButton() As Boolean
+    
+    On Error GoTo MoveButton_Err
+    
 
     If myProps.bCustomClick = 0 Or myProps.bMode > lv_CommandButton Then Exit Function
     ' optional function that will move a custom-shaped button in any direction
@@ -2496,9 +3159,19 @@ Private Function MoveButton() As Boolean
 
     End If
 
+    
+    Exit Function
+
+MoveButton_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.MoveButton", Erl)
+    Resume Next
+    
 End Function
 
 Private Sub DrawButtonBackground(bColor As Long, ActiveStatus As Integer, ActiveRegion As Integer, Optional bGradientColor As Long = -1, Optional bHoverColor As Long = -1)
+    
+    On Error GoTo DrawButtonBackground_Err
+    
                 
     ' Fill the button with the appropriate backcolor
 
@@ -2546,6 +3219,13 @@ Private Sub DrawButtonBackground(bColor As Long, ActiveStatus As Integer, Active
 
     End If
 
+    
+    Exit Sub
+
+DrawButtonBackground_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButtonBackground", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawCustomBorders(ActiveRegion As Integer)
@@ -2554,6 +3234,9 @@ Private Sub DrawCustomBorders(ActiveRegion As Integer)
     ' the window shape is not rectangular. Without clipping regions, we end up
     ' drawing over the button borders. This entire routine is just to determine
     ' which clipping region will be used & drawing the border (if any)
+    
+    On Error GoTo DrawCustomBorders_Err
+    
 
     ' backstyle of 5 = Hover buttons. This type button also complicates things
     ' as it doesn't have a border until a mouse is over it & then loses its
@@ -2656,9 +3339,19 @@ Private Sub DrawCustomBorders(ActiveRegion As Integer)
 
     End If
 
+    
+    Exit Sub
+
+DrawCustomBorders_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawCustomBorders", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButtonBorder(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, Optional OuterBorderStyle As Long = -1)
+    
+    On Error GoTo DrawButtonBorder_Err
+    
 
     ' This routine draws the border depending on the button style
 
@@ -2742,9 +3435,19 @@ Private Sub DrawButtonBorder(polyPts() As POINTAPI, polyColors() As Long, Active
 
     End If
 
+    
+    Exit Sub
+
+DrawButtonBorder_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButtonBorder", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawFocusRectangle(fColor As Long, bSolid As Boolean, bOnText As Boolean, polyPts() As POINTAPI)
+    
+    On Error GoTo DrawFocusRectangle_Err
+    
 
     ' Draws focus rectangles for the button style & button mode
 
@@ -2843,9 +3546,19 @@ Private Sub DrawFocusRectangle(fColor As Long, bSolid As Boolean, bOnText As Boo
 
     End If
 
+    
+    Exit Sub
+
+DrawFocusRectangle_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawFocusRectangle", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawCaptionIcon(bColor As Long, Optional tColorDisabled As Long = -1, Optional bOffsetTextDown As Boolean = False, Optional bSingleDisableColor As Boolean = False)
+    
+    On Error GoTo DrawCaptionIcon_Err
+    
 
     ' Routine draws the caption & calls the DrawButtonIcon routine
 
@@ -2931,6 +3644,13 @@ Private Sub DrawCaptionIcon(bColor As Long, Optional tColorDisabled As Long = -1
 
     End If
 
+    
+    Exit Sub
+
+DrawCaptionIcon_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawCaptionIcon", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawGradient(ByVal Color1 As Long, ByVal Color2 As Long)
@@ -2993,6 +3713,9 @@ Private Sub DrawGradient(ByVal Color1 As Long, ByVal Color2 As Long)
 End Sub
 
 Private Sub LoadGradientColors(Colors() As Long, ByVal Color1 As Long, ByVal Color2 As Long)
+    
+    On Error GoTo LoadGradientColors_Err
+    
     Dim i              As Integer, j As Integer
     Dim sBase(0 To 2)  As Single
     Dim xBase(0 To 2)  As Long
@@ -3027,6 +3750,13 @@ Private Sub LoadGradientColors(Colors() As Long, ByVal Color1 As Long, ByVal Col
     Erase xBase
     Erase lRatio
 
+    
+    Exit Sub
+
+LoadGradientColors_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.LoadGradientColors", Erl)
+    Resume Next
+    
 End Sub
 
 ' //////////////////// USER CONTROL EVENTS  \\\\\\\\\\\\\\\\\\\\\\\\
@@ -3065,6 +3795,9 @@ AbortCheck:
 End Sub
 
 Private Sub UserControl_AccessKeyPress(KeyAscii As Integer)
+    
+    On Error GoTo UserControl_AccessKeyPress_Err
+    
 
     ' This happens when hot key is pressed or button is default/cancel and
     ' Enter/Escape key is pressed. Basically, we need to fire a click event
@@ -3075,15 +3808,35 @@ Private Sub UserControl_AccessKeyPress(KeyAscii As Integer)
     mButton = vbLeftButton
     Call UserControl_Click  ' now trigger a click event
 
+    
+    Exit Sub
+
+UserControl_AccessKeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_AccessKeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_KeyPress(KeyAscii As Integer)
     ' not used by me, but we'll send the event
+    
+    On Error GoTo UserControl_KeyPress_Err
+    
     RaiseEvent KeyPress(KeyAscii)
 
+    
+    Exit Sub
+
+UserControl_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_KeyPress", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_KeyDown(KeyCode As Integer, Shift As Integer)
+    
+    On Error GoTo UserControl_KeyDown_Err
+    
 
     ' forward arrow keys as next/previous controls
 
@@ -3126,9 +3879,19 @@ Private Sub UserControl_KeyDown(KeyCode As Integer, Shift As Integer)
 
     If KeyCode Then RaiseEvent KeyDown(KeyCode, Shift)
 
+    
+    Exit Sub
+
+UserControl_KeyDown_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_KeyDown", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_KeyUp(KeyCode As Integer, Shift As Integer)
+    
+    On Error GoTo UserControl_KeyUp_Err
+    
 
     ' Key up events.
 
@@ -3168,9 +3931,19 @@ Private Sub UserControl_KeyUp(KeyCode As Integer, Shift As Integer)
 
     End Select
 
+    
+    Exit Sub
+
+UserControl_KeyUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_KeyUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo UserControl_MouseDown_Err
+    
 
     ' Only allow left clicks to fire a click event
 
@@ -3191,6 +3964,13 @@ Private Sub UserControl_MouseDown(Button As Integer, Shift As Integer, X As Sing
 
     RaiseEvent MouseDown(Button, Shift, X, y)
 
+    
+    Exit Sub
+
+UserControl_MouseDown_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_MouseDown", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
@@ -3246,6 +4026,9 @@ RaiseTheMouseEvent:
 End Sub
 
 Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+    
+    On Error GoTo UserControl_MouseUp_Err
+    
 
     ' The only tweak here is to trigger a fake click event if user
     ' double clicked on this button
@@ -3265,9 +4048,19 @@ Private Sub UserControl_MouseUp(Button As Integer, Shift As Integer, X As Single
     ' key flag. Update
     mButton = Button
 
+    
+    Exit Sub
+
+UserControl_MouseUp_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_MouseUp", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_Click()
+    
+    On Error GoTo UserControl_Click_Err
+    
 
     ' Again, only allow left mouse button to fire click events. Keyboard
     ' actions may set the mButton variable to ensure event is fired
@@ -3283,9 +4076,19 @@ Private Sub UserControl_Click()
 
     End If
 
+    
+    Exit Sub
+
+UserControl_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_DblClick()
+    
+    On Error GoTo UserControl_DblClick_Err
+    
 
     ' Typical Window buttons do not have a double click event. Each
     ' double click event on a typical button is registered as 2 clicks
@@ -3309,9 +4112,19 @@ Private Sub UserControl_DblClick()
 
     End If
 
+    
+    Exit Sub
+
+UserControl_DblClick_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_DblClick", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_GotFocus()
+    
+    On Error GoTo UserControl_GotFocus_Err
+    
 
     ' If no option button in the group is set to True, then the first one that
     ' gets the focus is set to True by default
@@ -3325,45 +4138,115 @@ Private Sub UserControl_GotFocus()
 
     End If
 
+    
+    Exit Sub
+
+UserControl_GotFocus_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_GotFocus", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_OLECompleteDrag(Effect As Long)
     ' not used by me, but we'll send the event
+    
+    On Error GoTo UserControl_OLECompleteDrag_Err
+    
     RaiseEvent OLECompleteDrag(Effect)
 
+    
+    Exit Sub
+
+UserControl_OLECompleteDrag_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_OLECompleteDrag", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_OLEDragDrop(data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, y As Single)
     ' not used by me, but we'll send the event
+    
+    On Error GoTo UserControl_OLEDragDrop_Err
+    
     RaiseEvent OLEDragDrop(data, Effect, Button, Shift, X, y)
 
+    
+    Exit Sub
+
+UserControl_OLEDragDrop_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_OLEDragDrop", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_OLEDragOver(data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, y As Single, State As Integer)
     ' not used by me, but we'll send the event
+    
+    On Error GoTo UserControl_OLEDragOver_Err
+    
     RaiseEvent OLEDragOver(data, Effect, Button, Shift, X, y, State)
 
+    
+    Exit Sub
+
+UserControl_OLEDragOver_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_OLEDragOver", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_OLEGiveFeedback(Effect As Long, DefaultCursors As Boolean)
     ' not used by me, but we'll send the event
+    
+    On Error GoTo UserControl_OLEGiveFeedback_Err
+    
     RaiseEvent OLEGiveFeedback(Effect, DefaultCursors)
 
+    
+    Exit Sub
+
+UserControl_OLEGiveFeedback_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_OLEGiveFeedback", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_OLESetData(data As DataObject, DataFormat As Integer)
     ' not used by me, but we'll send the event
+    
+    On Error GoTo UserControl_OLESetData_Err
+    
     RaiseEvent OLESetData(data, DataFormat)
 
+    
+    Exit Sub
+
+UserControl_OLESetData_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_OLESetData", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_OLEStartDrag(data As DataObject, AllowedEffects As Long)
     ' not used by me, but we'll send the event
+    
+    On Error GoTo UserControl_OLEStartDrag_Err
+    
     RaiseEvent OLEStartDrag(data, AllowedEffects)
 
+    
+    Exit Sub
+
+UserControl_OLEStartDrag_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_OLEStartDrag", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_Paint()
+    
+    On Error GoTo UserControl_Paint_Err
+    
 
     ' this routine typically called by Windows when another window covering
     ' this button is removed, or when the parent is moved/minimized/etc.
@@ -3371,6 +4254,13 @@ Private Sub UserControl_Paint()
     bNoRefresh = False
     RedrawButton
 
+    
+    Exit Sub
+
+UserControl_Paint_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_Paint", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_InitProperties()
@@ -3455,6 +4345,9 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
 End Sub
 
 Private Sub UserControl_Show()
+    
+    On Error GoTo UserControl_Show_Err
+    
 
     ' interesting, NT won't send the DisplayAsDefault (while in IDE) until after the button is shown
     ' Win98 fires this regardless. So fix is to put the test here also.
@@ -3467,9 +4360,19 @@ Private Sub UserControl_Show()
 
     End If
 
+    
+    Exit Sub
+
+UserControl_Show_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_Show", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
+    
+    On Error GoTo UserControl_WriteProperties_Err
+    
 
     ' Store Properties
 
@@ -3504,9 +4407,19 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
 
     End With
 
+    
+    Exit Sub
+
+UserControl_WriteProperties_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_WriteProperties", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_Resize()
+    
+    On Error GoTo UserControl_Resize_Err
+    
 
     ' since we are using a separate DC for drawing, we need to resize the
     ' bitmap in that DC each time the control resizes
@@ -3526,10 +4439,20 @@ Private Sub UserControl_Resize()
 
     End If
 
+    
+    Exit Sub
+
+UserControl_Resize_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_Resize", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub UserControl_Terminate()
     ' Button is ending, let's clean up
+    
+    On Error GoTo UserControl_Terminate_Err
+    
 
     ' should never happen that we have a timer left over; but just in case
     If bTimerActive Then KillTimer UserControl.hWnd, 1
@@ -3552,6 +4475,13 @@ Private Sub UserControl_Terminate()
     ' kill image used for transparencies when selected button pic is a bitmap
     If myImage.TransImage Then DeleteObject myImage.TransImage
 
+    
+    Exit Sub
+
+UserControl_Terminate_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.UserControl_Terminate", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButton_Win95(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, lastClipRgn As Integer)
@@ -3560,6 +4490,9 @@ Private Sub DrawButton_Win95(polyPts() As POINTAPI, polyColors() As Long, Active
     ' Dim statements to the last line before the End Sub with
     ' a simple Exit Sub
     '==========================================================================
+    
+    On Error GoTo DrawButton_Win95_Err
+    
 
     Dim midShade As Long, darkShade As Long, liteShade As Long, backShade As Long
     Dim lColor   As Long, fRect As RECT, i As Integer
@@ -3639,6 +4572,13 @@ Private Sub DrawButton_Win95(polyPts() As POINTAPI, polyColors() As Long, Active
 
     DrawFocusRectangle lColor, myProps.bValue, False, polyPts()
 
+    
+    Exit Sub
+
+DrawButton_Win95_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButton_Win95", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButton_Win31(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, lastClipRgn As Integer)
@@ -3647,6 +4587,9 @@ Private Sub DrawButton_Win31(polyPts() As POINTAPI, polyColors() As Long, Active
     ' Dim statements to the last line before the End Sub with
     ' a simple Exit Sub
     '==========================================================================
+    
+    On Error GoTo DrawButton_Win31_Err
+    
 
     Dim backShade As Long, darkShade As Long, liteShade As Long
     Dim i         As Integer, lColor As Long
@@ -3721,6 +4664,13 @@ Private Sub DrawButton_Win31(polyPts() As POINTAPI, polyColors() As Long, Active
 
     DrawFocusRectangle lColor, myProps.bValue, False, polyPts()
 
+    
+    Exit Sub
+
+DrawButton_Win31_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButton_Win31", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButton_WinXP(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, lastClipRgn As Integer)
@@ -3729,6 +4679,9 @@ Private Sub DrawButton_WinXP(polyPts() As POINTAPI, polyColors() As Long, Active
     ' Dim statements to the last line before the End Sub with
     ' a simple Exit Sub
     '==========================================================================
+    
+    On Error GoTo DrawButton_WinXP_Err
+    
 
     Dim backShade As Long, darkShade As Long, liteShade As Long, midShade As Long
     Dim i         As Integer, lColor As Long
@@ -3846,6 +4799,13 @@ Private Sub DrawButton_WinXP(polyPts() As POINTAPI, polyColors() As Long, Active
 
     End If
 
+    
+    Exit Sub
+
+DrawButton_WinXP_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButton_WinXP", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButton_Macintosh(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, lastClipRgn As Integer)
@@ -3854,6 +4814,9 @@ Private Sub DrawButton_Macintosh(polyPts() As POINTAPI, polyColors() As Long, Ac
     ' Dim statements to the last line before the End Sub with
     ' a simple Exit Sub
     '==========================================================================
+    
+    On Error GoTo DrawButton_Macintosh_Err
+    
 
     Dim backShade      As Long, darkShade As Long, liteShade As Long, midShade As Long
     Dim lGradientColor As Long, lFocusColor As Long
@@ -3992,6 +4955,13 @@ Private Sub DrawButton_Macintosh(polyPts() As POINTAPI, polyColors() As Long, Ac
 
     DrawFocusRectangle lFocusColor, myProps.bValue, True, polyPts()
 
+    
+    Exit Sub
+
+DrawButton_Macintosh_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButton_Macintosh", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButton_Flat(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, lastClipRgn As Integer)
@@ -4000,6 +4970,9 @@ Private Sub DrawButton_Flat(polyPts() As POINTAPI, polyColors() As Long, ActiveS
     ' Dim statements to the last line before the End Sub with
     ' a simple Exit Sub
     '==========================================================================
+    
+    On Error GoTo DrawButton_Flat_Err
+    
 
     Dim darkShade As Long, liteShade As Long, backShade As Long
     Dim i         As Integer, lColor As Long
@@ -4062,6 +5035,13 @@ Private Sub DrawButton_Flat(polyPts() As POINTAPI, polyColors() As Long, ActiveS
 
     DrawFocusRectangle lColor, myProps.bValue, False, polyPts()
 
+    
+    Exit Sub
+
+DrawButton_Flat_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButton_Flat", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButton_Hover(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, lastClipRgn As Integer)
@@ -4070,6 +5050,9 @@ Private Sub DrawButton_Hover(polyPts() As POINTAPI, polyColors() As Long, Active
     ' Dim statements to the last line before the End Sub with
     ' a simple Exit Sub
     '==========================================================================
+    
+    On Error GoTo DrawButton_Hover_Err
+    
 
     Dim backShade As Long, i As Integer, lColor As Long, lFocusColor As Long
 
@@ -4147,6 +5130,13 @@ Private Sub DrawButton_Hover(polyPts() As POINTAPI, polyColors() As Long, Active
 
     DrawFocusRectangle lFocusColor, myProps.bValue, False, polyPts()
 
+    
+    Exit Sub
+
+DrawButton_Hover_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButton_Hover", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButton_Netscape(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, lastClipRgn As Integer)
@@ -4155,6 +5145,9 @@ Private Sub DrawButton_Netscape(polyPts() As POINTAPI, polyColors() As Long, Act
     ' Dim statements to the last line before the End Sub with
     ' a simple Exit Sub
     '==========================================================================
+    
+    On Error GoTo DrawButton_Netscape_Err
+    
 
     Dim backShade As Long, darkShade As Long, liteShade As Long
     Dim i         As Integer, lColor As Long
@@ -4220,6 +5213,13 @@ Private Sub DrawButton_Netscape(polyPts() As POINTAPI, polyColors() As Long, Act
 
     DrawFocusRectangle lColor, myProps.bValue, False, polyPts()
 
+    
+    Exit Sub
+
+DrawButton_Netscape_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButton_Netscape", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub DrawButton_Java(polyPts() As POINTAPI, polyColors() As Long, ActiveStatus As Integer, lastClipRgn As Integer)
@@ -4228,6 +5228,9 @@ Private Sub DrawButton_Java(polyPts() As POINTAPI, polyColors() As Long, ActiveS
     ' Dim statements to the last line before the End Sub with
     ' a simple Exit Sub
     '==========================================================================
+    
+    On Error GoTo DrawButton_Java_Err
+    
 
     Dim backShade As Long, darkShade As Long, liteShade As Long
     Dim i         As Integer, lColor As Long
@@ -4298,4 +5301,11 @@ Private Sub DrawButton_Java(polyPts() As POINTAPI, polyColors() As Long, ActiveS
 
     DrawFocusRectangle &HCC9999, True, True, polyPts()
 
+    
+    Exit Sub
+
+DrawButton_Java_Err:
+    Call RegistrarError(Err.Number, Err.Description, "lvButtons_H.DrawButton_Java", Erl)
+    Resume Next
+    
 End Sub

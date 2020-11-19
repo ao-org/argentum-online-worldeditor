@@ -187,6 +187,9 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdAceptar_Click()
+    
+    On Error GoTo cmdAceptar_Click_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -207,6 +210,13 @@ Private Sub cmdAceptar_Click()
     FrmMain.mnuAutoGuardarMapas.Checked = True
     Unload Me
 
+    
+    Exit Sub
+
+cmdAceptar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmAutoGuardarMapa.cmdAceptar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdCerrar_Click()
@@ -214,8 +224,18 @@ Private Sub cmdCerrar_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdCerrar_Click_Err
+    
     Unload Me
 
+    
+    Exit Sub
+
+cmdCerrar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmAutoGuardarMapa.cmdCerrar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub cmdDetener_Click()
@@ -223,10 +243,20 @@ Private Sub cmdDetener_Click()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo cmdDetener_Click_Err
+    
     FrmMain.TimAutoGuardarMapa.Enabled = False
     FrmMain.mnuAutoGuardarMapas.Checked = False
     Unload Me
 
+    
+    Exit Sub
+
+cmdDetener_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmAutoGuardarMapa.cmdDetener_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Load()
@@ -234,7 +264,17 @@ Private Sub Form_Load()
     'Author: ^[GS]^
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo Form_Load_Err
+    
     cmbMinutos.Text = bAutoGuardarMapa
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmAutoGuardarMapa.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 

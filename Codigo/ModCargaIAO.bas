@@ -180,6 +180,9 @@ Private MapSize As tMapSize
 Public MapDat   As tMapDat
 
 Public Function Load_Map_Data_CSM(ByVal MapRoute As String, Optional ByVal Client_Mode As Boolean = False) As Boolean
+    
+    On Error GoTo Load_Map_Data_CSM_Err
+    
 
     'On Error GoTo ErrorHandler
     ColorAmb = &HFFFFFF 'Luz Base por defecto
@@ -454,6 +457,13 @@ ErrorHandler:
 
     If fh <> 0 Then Close fh
 
+    
+    Exit Function
+
+Load_Map_Data_CSM_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModCargaIAO.Load_Map_Data_CSM", Erl)
+    Resume Next
+    
 End Function
 
 Public Function Save_Map_Data(ByVal MapRoute As String) As Boolean
@@ -664,6 +674,9 @@ ErrorHandler:
 End Function
 
 Sub establecerVariables()
+    
+    On Error GoTo establecerVariables_Err
+    
     MapDat.ambient = Ambiente
     MapDat.lluvia = MapDat.lluvia
     MapDat.nieve = Nieba
@@ -677,9 +690,19 @@ Sub establecerVariables()
     MapDat.terrain = MapDat.terrain
     MapDat.base_light = ColorAmb
 
+    
+    Exit Sub
+
+establecerVariables_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModCargaIAO.establecerVariables", Erl)
+    Resume Next
+    
 End Sub
 
 Sub CargarVariables()
+    
+    On Error GoTo CargarVariables_Err
+    
     Ambiente = MapDat.ambient
     '  Llueve = MapDat.lluvia
     Nieba = MapDat.nieve
@@ -695,6 +718,13 @@ Sub CargarVariables()
 
     Call CompletarForms
 
+    
+    Exit Sub
+
+CargarVariables_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModCargaIAO.CargarVariables", Erl)
+    Resume Next
+    
 End Sub
 
 Sub CompletarForms()
@@ -741,6 +771,9 @@ Sub CompletarForms()
 End Sub
 
 Public Function Load_Map_Data_CSM_Fast_ConBloqueosViejos(ByVal MapRoute As String) As Boolean
+    
+    On Error GoTo Load_Map_Data_CSM_Fast_ConBloqueosViejos_Err
+    
 
     Dim ERRORDESC    As String
     Dim fh           As Integer
@@ -999,4 +1032,11 @@ ErrorHandler:
 
     If fh <> 0 Then Close fh
 
+    
+    Exit Function
+
+Load_Map_Data_CSM_Fast_ConBloqueosViejos_Err:
+    Call RegistrarError(Err.Number, Err.Description, "ModCargaIAO.Load_Map_Data_CSM_Fast_ConBloqueosViejos", Erl)
+    Resume Next
+    
 End Function

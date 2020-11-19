@@ -129,8 +129,18 @@ Private Sub cmdCerrar_Click()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo cmdCerrar_Click_Err
+    
     Unload Me
 
+    
+    Exit Sub
+
+cmdCerrar_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmGRHaBMP.cmdCerrar_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Load()
@@ -138,11 +148,24 @@ Private Sub Form_Load()
     'Author: ^[GS]^
     'Last modified: 01/11/08
     '*************************************************
+    
+    On Error GoTo Form_Load_Err
+    
     Me.Icon = FrmMain.Icon
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmGRHaBMP.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtGRH_Change()
+    
+    On Error GoTo txtGRH_Change_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -155,9 +178,19 @@ Private Sub txtGRH_Change()
 
     End If
 
+    
+    Exit Sub
+
+txtGRH_Change_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmGRHaBMP.txtGRH_Change", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub txtGRH_KeyPress(KeyAscii As Integer)
+    
+    On Error GoTo txtGRH_KeyPress_Err
+    
 
     '*************************************************
     'Author: ^[GS]^
@@ -168,4 +201,11 @@ Private Sub txtGRH_KeyPress(KeyAscii As Integer)
 
     End If
 
+    
+    Exit Sub
+
+txtGRH_KeyPress_Err:
+    Call RegistrarError(Err.Number, Err.Description, "frmGRHaBMP.txtGRH_KeyPress", Erl)
+    Resume Next
+    
 End Sub

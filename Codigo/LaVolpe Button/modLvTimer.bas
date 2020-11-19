@@ -7,6 +7,9 @@ Public Function lv_TimerCallBack(ByVal hWnd As Long, ByVal Message As Long, ByVa
     'Author: LaVolpe
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo lv_TimerCallBack_Err
+    
 
     Dim tgtButton As lvButtons_H
     ' when timer was intialized, the button control's hWnd
@@ -16,5 +19,12 @@ Public Function lv_TimerCallBack(ByVal hWnd As Long, ByVal Message As Long, ByVa
     Call tgtButton.TimerUpdate(GetProp(hWnd, "lv_TimerID"))  ' fire the button's event
     CopyMemory tgtButton, 0&, &H4                                    ' erase this instance
 
+    
+    Exit Function
+
+lv_TimerCallBack_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modLvTimer.lv_TimerCallBack", Erl)
+    Resume Next
+    
 End Function
 

@@ -652,11 +652,24 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cCapas_Click()
+    
+    On Error GoTo cCapas_Click_Err
+    
     FrmMain.cCapas.ListIndex = cCapas.ListIndex
 
+    
+    Exit Sub
+
+cCapas_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.cCapas_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Combo1_Click()
+    
+    On Error GoTo Combo1_Click_Err
+    
     List1.Clear
     Dim i As Long
 
@@ -669,9 +682,19 @@ Private Sub Combo1_Click()
 
     Next i
 
+    
+    Exit Sub
+
+Combo1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.Combo1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Command1_Click()
+    
+    On Error GoTo Command1_Click_Err
+    
             
     Dim cantidad As Long
     Dim bloquear As Byte
@@ -705,15 +728,35 @@ Private Sub Command1_Click()
 
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+Command1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.Command1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Load()
+    
+    On Error GoTo Form_Load_Err
+    
     Call LeerAmbientaciones
     Combo1.ListIndex = 0
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub List1_Click()
+    
+    On Error GoTo List1_Click_Err
+    
 
     If FrmMain.cSeleccionarSuperficie.Enabled = False Then
         Call FrmMain.SelectPanel_Click(0)
@@ -736,9 +779,19 @@ Private Sub List1_Click()
     FrmMain.cSeleccionarSuperficie.value = True
     Call FrmMain.cSeleccionarSuperficie_Click
 
+    
+    Exit Sub
+
+List1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.List1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub List1_DblClick()
+    
+    On Error GoTo List1_DblClick_Err
+    
     Dim Index As Long
 
     Call FrmMain.SelectPanel_Click(0)
@@ -747,9 +800,19 @@ Private Sub List1_DblClick()
 
     'index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
     'FrmMain.cGrh.Text = Ambientaciones(index).grhindex
+    
+    Exit Sub
+
+List1_DblClick_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.List1_DblClick", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Option1_Click()
+    
+    On Error GoTo Option1_Click_Err
+    
     tp1(0).Tag = "357"
     tp1(1).Tag = "366"
     tp1(2).Tag = "359"
@@ -770,9 +833,19 @@ Private Sub Option1_Click()
     tp2(7).Tag = "366"
     tp2(8).Tag = "360"
 
+    
+    Exit Sub
+
+Option1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.Option1_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Option2_Click()
+    
+    On Error GoTo Option2_Click_Err
+    
     tp1(0).Tag = "369"
     tp1(1).Tag = "374"
     tp1(2).Tag = "371"
@@ -793,9 +866,19 @@ Private Sub Option2_Click()
     tp2(7).Tag = "374"
     tp2(8).Tag = "372"
 
+    
+    Exit Sub
+
+Option2_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.Option2_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub Option3_Click()
+    
+    On Error GoTo Option3_Click_Err
+    
     tp1(0).Tag = "658"
     tp1(1).Tag = "667"
     tp1(2).Tag = "660"
@@ -816,5 +899,12 @@ Private Sub Option3_Click()
     tp2(7).Tag = "667"
     tp2(8).Tag = "661"
 
+    
+    Exit Sub
+
+Option3_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "AmbientacionesForm.Option3_Click", Erl)
+    Resume Next
+    
 End Sub
 

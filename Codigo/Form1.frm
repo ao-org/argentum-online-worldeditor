@@ -49,6 +49,9 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 Private Sub Form_Load()
+    
+    On Error GoTo Form_Load_Err
+    
     Dim lR As Long
     lR = SetTopMostWindow(Form1.hWnd, True)
          
@@ -60,9 +63,19 @@ Private Sub Form_Load()
         Rem   End If
     Next i
 
+    
+    Exit Sub
+
+Form_Load_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form1.Form_Load", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub ListGraficosind_Click()
+    
+    On Error GoTo ListGraficosind_Click_Err
+    
     picture1.Refresh
     Call Grh_Render_To_Hdc(Form1.picture1.hdc, str$(ListGraficosind.ListIndex And &HFFFF&) + 1, 0, 0, False)
     frmConfigSup.MOSAICO.value = vbUnchecked
@@ -70,9 +83,26 @@ Private Sub ListGraficosind_Click()
     frmConfigSup.mLargo.Text = "0"
     HotKeysAllow = False
 
+    
+    Exit Sub
+
+ListGraficosind_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form1.ListGraficosind_Click", Erl)
+    Resume Next
+    
 End Sub
 
 Private Sub ListGraficosind_DblClick()
+    
+    On Error GoTo ListGraficosind_DblClick_Err
+    
     FrmMain.cGrh.Text = str$(ListGraficosind.ListIndex And &HFFFF&) + 1
 
+    
+    Exit Sub
+
+ListGraficosind_DblClick_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Form1.ListGraficosind_DblClick", Erl)
+    Resume Next
+    
 End Sub

@@ -56,6 +56,9 @@ Sub ConvertCPtoTPa(StartPixelLeft As Integer, StartPixelTop As Integer, ByVal cx
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo ConvertCPtoTPa_Err
+    
     Dim HWindowX As Integer
     Dim HWindowY As Integer
 
@@ -99,6 +102,13 @@ Sub ConvertCPtoTPa(StartPixelLeft As Integer, StartPixelTop As Integer, ByVal cx
     tX = UserPos.X + cx
     tY = UserPos.y + cy
 
+    
+    Exit Sub
+
+ConvertCPtoTPa_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.ConvertCPtoTPa", Erl)
+    Resume Next
+    
 End Sub
 
 Sub MakeChar(ByVal CharIndex As Integer, ByVal Body As Integer, ByVal Head As Integer, ByVal Heading As Byte, ByVal X As Integer, ByVal y As Integer)
@@ -141,6 +151,9 @@ Sub MakeChar(ByVal CharIndex As Integer, ByVal Body As Integer, ByVal Head As In
 End Sub
 
 Sub EraseChar(CharIndex As Integer)
+    
+    On Error GoTo EraseChar_Err
+    
 
     CharList(CharIndex).active = 0
     
@@ -166,6 +179,13 @@ Sub EraseChar(CharIndex As Integer)
 
     bRefreshRadar = True
 
+    
+    Exit Sub
+
+EraseChar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.EraseChar", Erl)
+    Resume Next
+    
 End Sub
 
 Sub ResetCharInfo(ByVal CharIndex As Integer)
@@ -235,6 +255,9 @@ Sub MoveCharbyHead(CharIndex As Integer, nHeading As Byte)
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo MoveCharbyHead_Err
+    
     Dim addx As Integer
     Dim addy As Integer
     Dim X    As Integer
@@ -273,6 +296,13 @@ Sub MoveCharbyHead(CharIndex As Integer, nHeading As Byte)
     CharList(CharIndex).Moving = 1
     CharList(CharIndex).Heading = nHeading
 
+    
+    Exit Sub
+
+MoveCharbyHead_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.MoveCharbyHead", Erl)
+    Resume Next
+    
 End Sub
 
 Sub MoveCharbyPos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As Integer)
@@ -347,6 +377,9 @@ Function NextOpenChar() As Integer
     '*****************************************************************
     'Finds next open char slot in CharList
     '*****************************************************************
+    
+    On Error GoTo NextOpenChar_Err
+    
     Dim loopc As Integer
 
     loopc = 1
@@ -357,6 +390,13 @@ Function NextOpenChar() As Integer
 
     NextOpenChar = loopc
 
+    
+    Exit Function
+
+NextOpenChar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.NextOpenChar", Erl)
+    Resume Next
+    
 End Function
 
 Function LegalPos(X As Integer, y As Integer) As Boolean
@@ -364,6 +404,9 @@ Function LegalPos(X As Integer, y As Integer) As Boolean
     'Author: Unkwown
     'Last modified: 28/05/06 - GS
     '*************************************************
+    
+    On Error GoTo LegalPos_Err
+    
 
     'Check to see if its out of bounds
     If X - 8 < 1 Or X - 8 > 100 Or y - 6 < 1 Or y - 6 > 100 Then
@@ -387,6 +430,13 @@ Function LegalPos(X As Integer, y As Integer) As Boolean
 
     End If
 
+    
+    Exit Function
+
+LegalPos_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.LegalPos", Erl)
+    Resume Next
+    
 End Function
 
 Function InMapLegalBounds(X As Integer, y As Integer) As Boolean
@@ -394,6 +444,9 @@ Function InMapLegalBounds(X As Integer, y As Integer) As Boolean
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo InMapLegalBounds_Err
+    
 
     If X < MinXBorder Or X > MaxXBorder Or y < MinYBorder Or y > MaxYBorder Then
         InMapLegalBounds = False
@@ -403,6 +456,13 @@ Function InMapLegalBounds(X As Integer, y As Integer) As Boolean
 
     InMapLegalBounds = True
 
+    
+    Exit Function
+
+InMapLegalBounds_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.InMapLegalBounds", Erl)
+    Resume Next
+    
 End Function
 
 Function InMapBounds(X As Integer, y As Integer) As Boolean
@@ -410,6 +470,9 @@ Function InMapBounds(X As Integer, y As Integer) As Boolean
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo InMapBounds_Err
+    
 
     If X < XMinMapSize Or X > XMaxMapSize Or y < YMinMapSize Or y > YMaxMapSize Then
         InMapBounds = False
@@ -419,9 +482,19 @@ Function InMapBounds(X As Integer, y As Integer) As Boolean
 
     InMapBounds = True
 
+    
+    Exit Function
+
+InMapBounds_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.InMapBounds", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal grhindex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal alpha As Integer = False)
+    
+    On Error GoTo Grh_Render_To_Hdcok_Err
+    
 
     If grhindex = 0 Then Exit Sub
 
@@ -454,9 +527,19 @@ Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal grhindex As Long, 
     D3DDevice.EndScene
     D3DDevice.Present Piture, ByVal 0, pic.hWnd, ByVal 0
 
+    
+    Exit Sub
+
+Grh_Render_To_Hdcok_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.Grh_Render_To_Hdcok", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal grhindex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal alpha As Integer = False)
+    
+    On Error GoTo Grh_Render_To_HdcPNG_Err
+    
 
     If grhindex = 0 Then Exit Sub
 
@@ -488,6 +571,13 @@ Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal grhindex As Long,
                            
     D3DDevice.EndScene
     D3DDevice.Present Piture, ByVal 0, pic.hWnd, ByVal 0
+    
+    
+    Exit Sub
+
+Grh_Render_To_HdcPNG_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.Grh_Render_To_HdcPNG", Erl)
+    Resume Next
     
 End Sub
 
@@ -579,6 +669,9 @@ Public Sub DePegar()
     'Author: Loopzer
     'Last modified: 21/11/07
     '*************************************************
+    
+    On Error GoTo DePegar_Err
+    
     Dim X As Integer
     Dim y As Integer
 
@@ -588,6 +681,13 @@ Public Sub DePegar()
         Next
     Next
  
+    
+    Exit Sub
+
+DePegar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.DePegar", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub PegarSeleccion() '(mx As Integer, my As Integer)
@@ -596,6 +696,9 @@ Public Sub PegarSeleccion() '(mx As Integer, my As Integer)
     'Last modified: 21/11/07
     '*************************************************
     'podria usar copy mem , pero por las dudas no XD
+    
+    On Error GoTo PegarSeleccion_Err
+    
     Static UltimoX As Integer
     Static UltimoY As Integer
     'If UltimoX = SobreX And UltimoY = SobreY Then Exit Sub
@@ -646,6 +749,13 @@ Public Sub PegarSeleccion() '(mx As Integer, my As Integer)
     Seleccionando = False
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+PegarSeleccion_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.PegarSeleccion", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub AccionSeleccion()
@@ -691,6 +801,9 @@ Public Sub BlockearSeleccion()
     'Author: Loopzer
     'Last modified: 21/11/07
     '*************************************************
+    
+    On Error GoTo BlockearSeleccion_Err
+    
     Dim X     As Integer
     Dim y     As Integer
     Dim Vacio As MapBlock
@@ -722,6 +835,13 @@ Public Sub BlockearSeleccion()
     Next
     Seleccionando = False
 
+    
+    Exit Sub
+
+BlockearSeleccion_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.BlockearSeleccion", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub CortarSeleccion()
@@ -729,6 +849,9 @@ Public Sub CortarSeleccion()
     'Author: Loopzer
     'Last modified: 21/11/07
     '*************************************************
+    
+    On Error GoTo CortarSeleccion_Err
+    
     CopiarSeleccion
     Dim X     As Integer
     Dim y     As Integer
@@ -753,6 +876,13 @@ Public Sub CortarSeleccion()
     Seleccionando = False
     Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+CortarSeleccion_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.CortarSeleccion", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub CopiarSeleccion()
@@ -761,6 +891,9 @@ Public Sub CopiarSeleccion()
     'Last modified: 21/11/07
     '*************************************************
     'podria usar copy mem , pero por las dudas no XD
+    
+    On Error GoTo CopiarSeleccion_Err
+    
     Dim X As Integer
     Dim y As Integer
     Debug.Print
@@ -783,6 +916,13 @@ Public Sub CopiarSeleccion()
     Next
     MapInfo.Changed = 1
 
+    
+    Exit Sub
+
+CopiarSeleccion_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.CopiarSeleccion", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub GenerarVista()
@@ -793,6 +933,9 @@ Public Sub GenerarVista()
     ' hacer una llamada a un seter o geter , es mas lento q una variable
     ' con esto hacemos q no este preguntando a el objeto cadavez
     ' q dibuja , Render mas rapido ;)
+    
+    On Error GoTo GenerarVista_Err
+    
     VerBlockeados = FrmMain.cVerBloqueos.value
     VerTriggers = FrmMain.cVerTriggers.value
     VerCapa1 = FrmMain.mnuVerCapa1.Checked
@@ -805,6 +948,13 @@ Public Sub GenerarVista()
     VerParticulas = FrmMain.mnuVerParticulas.Checked
     VerLuces = FrmMain.mnuVerParticulas.Checked
     
+    
+    Exit Sub
+
+GenerarVista_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.GenerarVista", Erl)
+    Resume Next
+    
 End Sub
 
 Function HayUserAbajo(X As Integer, y As Integer, grhindex) As Boolean
@@ -812,8 +962,18 @@ Function HayUserAbajo(X As Integer, y As Integer, grhindex) As Boolean
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo HayUserAbajo_Err
+    
     HayUserAbajo = CharList(UserCharIndex).Pos.X >= X - (GrhData(grhindex).TileWidth \ 2) And CharList(UserCharIndex).Pos.X <= X + (GrhData(grhindex).TileWidth \ 2) And CharList(UserCharIndex).Pos.y >= y - (GrhData(grhindex).TileHeight - 1) And CharList(UserCharIndex).Pos.y <= y
 
+    
+    Exit Function
+
+HayUserAbajo_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.HayUserAbajo", Erl)
+    Resume Next
+    
 End Function
 
 Function PixelPos(X As Integer) As Integer
@@ -821,9 +981,19 @@ Function PixelPos(X As Integer) As Integer
     'Author: Unkwown
     'Last modified: 20/05/06
     '*************************************************
+    
+    On Error GoTo PixelPos_Err
+    
 
     PixelPos = (TilePixelWidth * X) - TilePixelWidth
 
+    
+    Exit Function
+
+PixelPos_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.PixelPos", Erl)
+    Resume Next
+    
 End Function
 
 Function InitTileEngine(ByRef setDisplayFormhWnd As Long, setMainViewTop As Integer, setMainViewLeft As Integer, setTilePixelHeight As Integer, setTilePixelWidth As Integer, setWindowTileHeight As Integer, setWindowTileWidth As Integer, setTileBufferSize As Integer) As Boolean
@@ -831,6 +1001,9 @@ Function InitTileEngine(ByRef setDisplayFormhWnd As Long, setMainViewTop As Inte
     'Author: Unkwown
     'Last modified: 15/10/06 by GS
     '*************************************************
+    
+    On Error GoTo InitTileEngine_Err
+    
 
     'Fill startup variables
     DisplayFormhWnd = setDisplayFormhWnd
@@ -862,4 +1035,11 @@ Function InitTileEngine(ByRef setDisplayFormhWnd As Long, setMainViewTop As Inte
 
     InitTileEngine = True
 
+    
+    Exit Function
+
+InitTileEngine_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.InitTileEngine", Erl)
+    Resume Next
+    
 End Function

@@ -15,6 +15,9 @@ Public Function General_Field_Read(ByVal field_pos As Long, ByVal Text As String
     'Last Modify Date: 11/15/2004
     'Gets a field from a delimited string
     '*****************************************************************
+    
+    On Error GoTo General_Field_Read_Err
+    
     Dim i          As Long
     Dim LastPos    As Long
     Dim CurrentPos As Long
@@ -34,6 +37,13 @@ Public Function General_Field_Read(ByVal field_pos As Long, ByVal Text As String
 
     End If
 
+    
+    Exit Function
+
+General_Field_Read_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module1.General_Field_Read", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub DibujarMiniMapa()
@@ -129,6 +139,9 @@ Public Sub DibujarMiniMapa()
 End Sub
 
 Public Function General_Field_Count(ByVal Text As String, ByVal delimiter As Byte) As Long
+    
+    On Error GoTo General_Field_Count_Err
+    
 
     '*****************************************************************
     'Author: Aaron Perkins
@@ -156,9 +169,19 @@ Public Function General_Field_Count(ByVal Text As String, ByVal delimiter As Byt
 
     General_Field_Count = FieldNum + 1
 
+    
+    Exit Function
+
+General_Field_Count_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module1.General_Field_Count", Erl)
+    Resume Next
+    
 End Function
 
 Public Function General_Particle_Create(ByVal ParticulaInd As Long, ByVal X As Integer, ByVal y As Integer, Optional ByVal particle_life As Long = 0) As Long
+    
+    On Error GoTo General_Particle_Create_Err
+    
 
     If ParticulaInd <= 0 Then Exit Function
     Dim rgb_list(0 To 3) As Long
@@ -175,6 +198,13 @@ Public Function General_Particle_Create(ByVal ParticulaInd As Long, ByVal X As I
        StreamData(ParticulaInd).Y2, StreamData(ParticulaInd).XMove, StreamData(ParticulaInd).move_x1, StreamData(ParticulaInd).move_x2, StreamData(ParticulaInd).move_y1, _
        StreamData(ParticulaInd).move_y2, StreamData(ParticulaInd).YMove, StreamData(ParticulaInd).spin_speedH, StreamData(ParticulaInd).spin, StreamData(ParticulaInd).grh_resize, StreamData(ParticulaInd).grh_resizex, StreamData(ParticulaInd).grh_resizey)
 
+    
+    Exit Function
+
+General_Particle_Create_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module1.General_Particle_Create", Erl)
+    Resume Next
+    
 End Function
 
 Public Sub CargarParticulasBinary()
@@ -184,6 +214,9 @@ Public Sub CargarParticulasBinary()
     'Loads the Particles.ini file to the ComboBox
     'Edited by Juan Martín Sotuyo Dodero to add speed and life
     '*************************************
+    
+    On Error GoTo CargarParticulasBinary_Err
+    
     Dim loopc      As Long
     Dim i          As Long
     Dim GrhListing As String
@@ -266,6 +299,13 @@ Public Sub CargarParticulasBinary()
         Delete_File Windows_Temp_Dir & "particles.ini"
     #End If
 
+    
+    Exit Sub
+
+CargarParticulasBinary_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module1.CargarParticulasBinary", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub CargarParticulas()
@@ -275,6 +315,9 @@ Public Sub CargarParticulas()
     'Loads the Particles.ini file to the ComboBox
     'Edited by Juan Martín Sotuyo Dodero to add speed and life
     '*************************************
+    
+    On Error GoTo CargarParticulas_Err
+    
     Dim loopc      As Long
     Dim i          As Long
     Dim GrhListing As String
@@ -362,6 +405,13 @@ Public Sub CargarParticulas()
         Delete_File Windows_Temp_Dir & "particles.ini"
     #End If
 
+    
+    Exit Sub
+
+CargarParticulas_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Module1.CargarParticulas", Erl)
+    Resume Next
+    
 End Sub
 
 Public Sub DibujarMiniMapaParaMAPA()
