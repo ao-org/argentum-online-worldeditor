@@ -343,32 +343,26 @@ Function LegalPos(X As Integer, y As Integer) As Boolean
 'Last modified: 28/05/06 - GS
 '*************************************************
 
-LegalPos = True
-
-'Check to see if its out of bounds
-If X - 8 < 1 Or X - 8 > 100 Or y - 6 < 1 Or y - 6 > 100 Then
-    LegalPos = False
-    Exit Function
-End If
-
-'Check to see if its blocked
-If X > 100 Then Exit Function
-If y > 100 Then Exit Function
-If MapData(X, y).Blocked = 1 Then
-    LegalPos = False
-    Exit Function
-End If
-
-'Check for character
-If MapData(X, y).CharIndex > 0 Then
-    LegalPos = False
-    Exit Function
-End If
+    'Check to see if its out of bounds
+    If X - 8 < 1 Or X - 8 > 100 Or y - 6 < 1 Or y - 6 > 100 Then
+        Exit Function
+    End If
+    
+    'Check to see if its blocked
+    If X > 100 Then Exit Function
+    If y > 100 Then Exit Function
+    
+    'Check for character
+    If MapData(X, y).CharIndex > 0 Then
+        Exit Function
+    End If
+    
+    'Tile Bloqueado? (todo bloqueado)
+    If MapData(X, y).Blocked = &HF Then
+        Exit Function
+    End If
 
 End Function
-
-
-
 
 Function InMapLegalBounds(X As Integer, y As Integer) As Boolean
 '*************************************************
@@ -688,10 +682,10 @@ Public Sub BlockearSeleccion()
     Next
     For X = 0 To SeleccionAncho - 1
         For y = 0 To SeleccionAlto - 1
-             If MapData(X + SeleccionIX, y + SeleccionIY).Blocked = 1 Then
+             If MapData(X + SeleccionIX, y + SeleccionIY).Blocked > 0 Then
                 MapData(X + SeleccionIX, y + SeleccionIY).Blocked = 0
              Else
-                MapData(X + SeleccionIX, y + SeleccionIY).Blocked = 1
+                MapData(X + SeleccionIX, y + SeleccionIY).Blocked = &HF
             End If
         Next
     Next
