@@ -50,4 +50,4 @@ DesplazarTranslados = 0, 0, 0, 0, C, 225, 225, 1423, 888, C
 WavAmbiental = 0, 0, 0, 0, C, 250, 250, 1448, 913, C
 FrmRender = 0, 0, 0, 0, C, 275, 275, 1473, 938, C
 clsLight = 0, 0, 0, 0, C
-frmActualizarIndices = 234, 234, 1494, 775, , 208, 208, 1468, 749, C
+frmActualizarIndices = 0, 0, 0, 0, C, 25, 25, 1223, 688, C
