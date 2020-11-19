@@ -1296,7 +1296,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
         '************** Place blocked tile
         If FrmMain.cInsertarBloqueo.value = True Then
-            If MapData(tX, tY).Blocked <> 1 Then
+            If MapData(tX, tY).Blocked <> maskBloqueo Then
                 modEdicion.Deshacer_Add "Insertar Bloqueo" ' Hago deshacer
                 MapInfo.Changed = 1 'Set changed flag
                 MapData(tX, tY).Blocked = maskBloqueo
