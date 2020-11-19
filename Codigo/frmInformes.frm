@@ -278,11 +278,12 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdCerrar_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Unload Me
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Unload Me
+
 End Sub
 
 ''
@@ -290,27 +291,33 @@ End Sub
 '
 
 Private Sub ActalizarObjetos()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
-Dim Y As Integer
-Dim X As Integer
 
-If Not MapaCargado Then
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-txtInfo.Text = "Informe de Objetos (X,Y)"
+    Dim y As Integer
+    Dim X As Integer
 
-For Y = YMinMapSize To YMaxMapSize
-    For X = XMinMapSize To XMaxMapSize
-        If MapData(X, Y).OBJInfo.objindex > 0 Then
-            txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & MapData(X, Y).OBJInfo.Amount & " del Objeto " & MapData(X, Y).OBJInfo.objindex & " - " & ObjData(MapData(X, Y).OBJInfo.objindex).name
-        End If
-    Next X
-Next Y
+    If Not MapaCargado Then
+        Exit Sub
+
+    End If
+
+    txtInfo.Text = "Informe de Objetos (X,Y)"
+
+    For y = YMinMapSize To YMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
+
+            If MapData(X, y).OBJInfo.objindex > 0 Then
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & MapData(X, y).OBJInfo.Amount & " del Objeto " & MapData(X, y).OBJInfo.objindex & " - " & ObjData(MapData(X, y).OBJInfo.objindex).name
+
+            End If
+
+        Next X
+    Next y
 
 End Sub
 
@@ -319,127 +326,162 @@ End Sub
 '
 
 Private Sub ActalizarNPCs()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
-Dim Y As Integer
-Dim X As Integer
 
-If Not MapaCargado Then
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-txtInfo.Text = "Informe de NPCs/Hostiles (X,Y)"
+    Dim y As Integer
+    Dim X As Integer
 
-For Y = YMinMapSize To YMaxMapSize
-    For X = XMinMapSize To XMaxMapSize
-        If MapData(X, Y).NPCIndex > 0 Then
-            If MapData(X, Y).NPCIndex >= 500 Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & NpcData(MapData(X, Y).NPCIndex).name & " (Hostil)"
-            Else
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & NpcData(MapData(X, Y).NPCIndex).name
+    If Not MapaCargado Then
+        Exit Sub
+
+    End If
+
+    txtInfo.Text = "Informe de NPCs/Hostiles (X,Y)"
+
+    For y = YMinMapSize To YMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
+
+            If MapData(X, y).NPCIndex > 0 Then
+                If MapData(X, y).NPCIndex >= 500 Then
+                    txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & NpcData(MapData(X, y).NPCIndex).name & " (Hostil)"
+                Else
+                    txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & NpcData(MapData(X, y).NPCIndex).name
+
+                End If
+
             End If
-        End If
-    Next X
-Next Y
+
+        Next X
+    Next y
 
 End Sub
+
 Private Sub ActalizarCapa2()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
-Dim Y As Integer
-Dim X As Integer
 
-If Not MapaCargado Then
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-txtInfo.Text = "Informe de capa 1"
+    Dim y As Integer
+    Dim X As Integer
 
-For Y = YMinMapSize To YMaxMapSize
-    For X = XMinMapSize To XMaxMapSize
-        If MapData(X, Y).Graphic(2).grhindex > 0 Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene el grafico " & MapData(X, Y).Graphic(2).grhindex
+    If Not MapaCargado Then
+        Exit Sub
+
+    End If
+
+    txtInfo.Text = "Informe de capa 1"
+
+    For y = YMinMapSize To YMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
+
+            If MapData(X, y).Graphic(2).grhindex > 0 Then
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene el grafico " & MapData(X, y).Graphic(2).grhindex
+
             End If
-    Next X
-Next Y
+
+        Next X
+    Next y
 
 End Sub
+
 Private Sub ActalizarCapa1()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
-Dim Y As Integer
-Dim X As Integer
 
-If Not MapaCargado Then
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-txtInfo.Text = "Informe de capa 1"
+    Dim y As Integer
+    Dim X As Integer
 
-For Y = YMinMapSize To YMaxMapSize
-    For X = XMinMapSize To XMaxMapSize
-        If MapData(X, Y).Graphic(1).grhindex > 0 Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene el grafico " & MapData(X, Y).Graphic(1).grhindex
+    If Not MapaCargado Then
+        Exit Sub
+
+    End If
+
+    txtInfo.Text = "Informe de capa 1"
+
+    For y = YMinMapSize To YMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
+
+            If MapData(X, y).Graphic(1).grhindex > 0 Then
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene el grafico " & MapData(X, y).Graphic(1).grhindex
+
             End If
-    Next X
-Next Y
+
+        Next X
+    Next y
 
 End Sub
+
 Private Sub ActalizarCapa3()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
-Dim Y As Integer
-Dim X As Integer
 
-If Not MapaCargado Then
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-txtInfo.Text = "Informe de capa 3"
+    Dim y As Integer
+    Dim X As Integer
 
-For Y = YMinMapSize To YMaxMapSize
-    For X = XMinMapSize To XMaxMapSize
-        If MapData(X, Y).Graphic(3).grhindex > 0 Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene el grafico " & MapData(X, Y).Graphic(3).grhindex
+    If Not MapaCargado Then
+        Exit Sub
+
+    End If
+
+    txtInfo.Text = "Informe de capa 3"
+
+    For y = YMinMapSize To YMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
+
+            If MapData(X, y).Graphic(3).grhindex > 0 Then
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene el grafico " & MapData(X, y).Graphic(3).grhindex
+
             End If
-    Next X
-Next Y
+
+        Next X
+    Next y
 
 End Sub
+
 Private Sub ActalizarCapa4()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
-Dim Y As Integer
-Dim X As Integer
 
-If Not MapaCargado Then
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-txtInfo.Text = "Informe de capa 4"
+    Dim y As Integer
+    Dim X As Integer
 
-For Y = YMinMapSize To YMaxMapSize
-    For X = XMinMapSize To XMaxMapSize
-        If MapData(X, Y).Graphic(4).grhindex > 0 Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene el grafico " & MapData(X, Y).Graphic(4).grhindex
+    If Not MapaCargado Then
+        Exit Sub
+
+    End If
+
+    txtInfo.Text = "Informe de capa 4"
+
+    For y = YMinMapSize To YMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
+
+            If MapData(X, y).Graphic(4).grhindex > 0 Then
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene el grafico " & MapData(X, y).Graphic(4).grhindex
+
             End If
-    Next X
-Next Y
+
+        Next X
+    Next y
 
 End Sub
 
@@ -448,72 +490,89 @@ End Sub
 '
 
 Private Sub ActalizarTranslados()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
-Dim Y As Integer
-Dim X As Integer
 
-If Not MapaCargado Then
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-txtInfo.Text = "Informe de Translados (X,Y)"
+    Dim y As Integer
+    Dim X As Integer
 
-For Y = YMinMapSize To YMaxMapSize
-    For X = XMinMapSize To XMaxMapSize
-            If MapData(X, Y).TileExit.Map > 0 Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " nos traslada a la posición " & MapData(X, Y).TileExit.X & "," & MapData(X, Y).TileExit.Y & " del Mapa " & MapData(X, Y).TileExit.Map
-                If ((X < 20 And MapData(X, Y).TileExit.X < 20) Or (X > 80 And MapData(X, Y).TileExit.X > 80)) And (X <> MapData(X, Y).TileExit.X) Then
+    If Not MapaCargado Then
+        Exit Sub
+
+    End If
+
+    txtInfo.Text = "Informe de Translados (X,Y)"
+
+    For y = YMinMapSize To YMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
+
+            If MapData(X, y).TileExit.Map > 0 Then
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " nos traslada a la posición " & MapData(X, y).TileExit.X & "," & MapData(X, y).TileExit.y & " del Mapa " & MapData(X, y).TileExit.Map
+
+                If ((X < 20 And MapData(X, y).TileExit.X < 20) Or (X > 80 And MapData(X, y).TileExit.X > 80)) And (X <> MapData(X, y).TileExit.X) Then
                     txtInfo.Text = txtInfo.Text & " (X sospechoso)"
+
                 End If
-                If ((Y < 20 And MapData(X, Y).TileExit.Y < 20) Or (Y > 80 And MapData(X, Y).TileExit.Y > 80)) And (Y <> MapData(X, Y).TileExit.Y) Then
+
+                If ((y < 20 And MapData(X, y).TileExit.y < 20) Or (y > 80 And MapData(X, y).TileExit.y > 80)) And (y <> MapData(X, y).TileExit.y) Then
                     txtInfo.Text = txtInfo.Text & " (Y sospechoso)"
+
                 End If
+
             End If
-    Next X
-Next Y
+
+        Next X
+    Next y
 
 End Sub
 
 Private Sub cmdNPCs_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Call ActalizarNPCs
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Call ActalizarNPCs
+
 End Sub
 
 Private Sub cmdObjetos_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Call ActalizarObjetos
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Call ActalizarObjetos
+
 End Sub
 
 Private Sub cmdTranslados_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Call ActalizarTranslados
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Call ActalizarTranslados
+
 End Sub
 
 Private Sub lvButtons_H1_Click()
-Call ActalizarCapa2
+    Call ActalizarCapa2
+
 End Sub
 
 Private Sub lvButtons_H2_Click()
-Call ActalizarCapa1
+    Call ActalizarCapa1
+
 End Sub
 
 Private Sub lvButtons_H3_Click()
-Call ActalizarCapa3
+    Call ActalizarCapa3
+
 End Sub
 
 Private Sub lvButtons_H4_Click()
-Call ActalizarCapa4
+    Call ActalizarCapa4
+
 End Sub

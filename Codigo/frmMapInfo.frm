@@ -607,256 +607,278 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Check1_Click()
-If check1.value = 0 Then
-    r1.Enabled = True
-    G1.Enabled = True
-    b1.Enabled = True
-    Text1.Enabled = True
-    lvButtons_H1.Enabled = True
-    picture1.Enabled = True
-    check1.value = 0
-    Exit Sub
-End If
-If check1.value = 1 Then
-   r1.Enabled = False
-    G1.Enabled = False
-    b1.Enabled = False
-    Text1.Enabled = False
-   lvButtons_H1.Enabled = False
-    picture1.Enabled = False
-    check1.value = 1
-    MapInfo.Light = 0
-    MapInfo.Changed = 1
-    engine.Map_Base_Light_Set (-1)
-    Exit Sub
-End If
+
+    If Check1.value = 0 Then
+        r1.Enabled = True
+        G1.Enabled = True
+        b1.Enabled = True
+        Text1.Enabled = True
+        lvButtons_H1.Enabled = True
+        Picture1.Enabled = True
+        Check1.value = 0
+        Exit Sub
+
+    End If
+
+    If Check1.value = 1 Then
+        r1.Enabled = False
+        G1.Enabled = False
+        b1.Enabled = False
+        Text1.Enabled = False
+        lvButtons_H1.Enabled = False
+        Picture1.Enabled = False
+        Check1.value = 1
+        MapInfo.Light = 0
+        MapInfo.Changed = 1
+        engine.Map_Base_Light_Set (-1)
+        Exit Sub
+
+    End If
 
 End Sub
 
 Private Sub chkMapBackup_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-MapInfo.BackUp = chkMapBackup.value
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    MapInfo.BackUp = chkMapBackup.value
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub chkMapMagiaSinEfecto_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-MapInfo.MagiaSinEfecto = chkMapMagiaSinEfecto.value
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    MapInfo.MagiaSinEfecto = chkMapMagiaSinEfecto.value
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub chkMapInviSinEfecto_LostFocus()
-'*************************************************
-'Author:
-'Last modified:
-'*************************************************
-MapInfo.InviSinEfecto = chkMapInviSinEfecto.value
-MapInfo.Changed = 1
+    '*************************************************
+    'Author:
+    'Last modified:
+    '*************************************************
+    MapInfo.InviSinEfecto = chkMapInviSinEfecto.value
+    MapInfo.Changed = 1
 
 End Sub
 
 Private Sub chkMapResuSinEfecto_LostFocus()
-'*************************************************
-'Author:
-'Last modified:
-'*************************************************
-MapInfo.ResuSinEfecto = chkMapResuSinEfecto.value
-MapInfo.Changed = 1
+    '*************************************************
+    'Author:
+    'Last modified:
+    '*************************************************
+    MapInfo.ResuSinEfecto = chkMapResuSinEfecto.value
+    MapInfo.Changed = 1
 
 End Sub
 
 Private Sub chkMapNoEncriptarMP_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-MapInfo.NoEncriptarMP = chkMapNoEncriptarMP.value
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    MapInfo.NoEncriptarMP = chkMapNoEncriptarMP.value
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub chkMapPK_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-MapInfo.PK = chkMapPK.value
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    MapInfo.PK = chkMapPK.value
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub cmdCerrar_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-If Text1 = "" Then
-Me.Hide
-Exit Sub
-End If
-engine.Map_Base_Light_Set Text1
-Me.Hide
-MapInfo.Changed = 1
+
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    If Text1 = "" Then
+        Me.Hide
+        Exit Sub
+
+    End If
+
+    engine.Map_Base_Light_Set Text1
+    Me.Hide
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub cmdMusica_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-frmMusica.Show
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    frmMusica.Show
+
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-If UnloadMode = vbFormControlMenu Then
-    Cancel = True
-    Me.Hide
-End If
+
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    If UnloadMode = vbFormControlMenu Then
+        Cancel = True
+        Me.Hide
+
+    End If
+
 End Sub
 
 Private Sub lvButtons_H1_Click()
-picture1.BackColor = RGB(r1, G1, b1)
-Dim Out As String
-Out = "&H" & Format(Hex(r1), "0#") _
-     & Format(Hex(G1), "0#") _
-      & Format(Hex(b1), "0#")
+    Picture1.BackColor = RGB(r1, G1, b1)
+    Dim Out As String
+    Out = "&H" & Format(Hex(r1), "0#") & Format(Hex(G1), "0#") & Format(Hex(b1), "0#")
 
-MapInfo.Light = Out
+    MapInfo.Light = Out
 
-engine.Map_Base_Light_Set MapInfo.Light
+    engine.Map_Base_Light_Set MapInfo.Light
+
 End Sub
-
 
 Public Function Selected_Color()
 
-  Dim c     As Long
+    Dim c   As Long
   
-  Dim r   As Integer ' Red component value   (0 to 255)
-  Dim g   As Integer ' Green component value (0 to 255)
-  Dim b   As Integer ' Blue component value  (0 to 255)
+    Dim r   As Integer ' Red component value   (0 to 255)
+    Dim g   As Integer ' Green component value (0 to 255)
+    Dim b   As Integer ' Blue component value  (0 to 255)
   
-  Dim Out As String  ' Function output string
+    Dim Out As String  ' Function output string
     
-' Setup the color selection palette dialog.
-  With FrmMain.CommonDialog2
+    ' Setup the color selection palette dialog.
+    With FrmMain.CommonDialog2
   
-' Set initial flags to open the full palette and allow an
-' initial default color selection.
-  .FLAGS = cdlCCFullOpen + cdlCCRGBInit
+        ' Set initial flags to open the full palette and allow an
+        ' initial default color selection.
+        .FLAGS = cdlCCFullOpen + cdlCCRGBInit
       
-  .color = RGB(255, 255, 255)
+        .color = RGB(255, 255, 255)
       
-' Display the full color palette
-  .ShowColor
-  c = .color
+        ' Display the full color palette
+        .ShowColor
+        c = .color
                       
-  End With
-  r = c And 255              ' Get lowest 8 bits  - Red
-  g = Int(c / 256) And 255   ' Get middle 8 bits  - Green
-  b = Int(c / 65536) And 255 ' Get highest 8 bits - Blue
+    End With
+
+    r = c And 255              ' Get lowest 8 bits  - Red
+    g = Int(c / 256) And 255   ' Get middle 8 bits  - Green
+    b = Int(c / 65536) And 255 ' Get highest 8 bits - Blue
   
-' If H mode is selected, replace default with hex RGB values.
-     Out = "&H" & Format(Hex(r), "0#") _
-     & Format(Hex(g), "0#") _
-      & Format(Hex(b), "0#")
+    ' If H mode is selected, replace default with hex RGB values.
+    Out = "&H" & Format(Hex(r), "0#") & Format(Hex(g), "0#") & Format(Hex(b), "0#")
     FrmMain.Picture3.BackColor = RGB(r, g, b)
 
-  Selected_Color = Out
-  
+    Selected_Color = Out
 
-  End Function
+End Function
 
 Private Sub Picture1_Click()
-Text1 = Selected_Color()
+    Text1 = Selected_Color()
 
-MapInfo.Light = Text1
+    MapInfo.Light = Text1
+
 End Sub
 
 Private Sub txtMapMusica_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-MapInfo.Music = txtMapMusica.Text
-'FrmMain.lblMapMusica.Caption = MapInfo.Music
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    MapInfo.Music = txtMapMusica.Text
+    'FrmMain.lblMapMusica.Caption = MapInfo.Music
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub txtMapVersion_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 29/05/06
-'*************************************************
-MapInfo.MapVersion = txtMapVersion.Text
-'FrmMain.lblMapVersion.Caption = MapInfo.MapVersion
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 29/05/06
+    '*************************************************
+    MapInfo.MapVersion = txtMapVersion.Text
+    'FrmMain.lblMapVersion.Caption = MapInfo.MapVersion
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub txtMapNombre_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-MapInfo.name = txtMapNombre.Text
-'FrmMain.lblMapNombre.Caption = MapInfo.name
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    MapInfo.name = txtMapNombre.Text
+    'FrmMain.lblMapNombre.Caption = MapInfo.name
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub txtMapRestringir_KeyPress(KeyAscii As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-KeyAscii = 0
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    KeyAscii = 0
+
 End Sub
 
 Private Sub txtMapRestringir_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-'MapInfo.Restringir = txtMapRestringir.Text
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    'MapInfo.Restringir = txtMapRestringir.Text
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub txtMapTerreno_KeyPress(KeyAscii As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-KeyAscii = 0
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    KeyAscii = 0
+
 End Sub
 
 Private Sub txtMapTerreno_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-'MapInfo.Terreno = txtMapTerreno.Text
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    'MapInfo.Terreno = txtMapTerreno.Text
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub txtMapZona_KeyPress(KeyAscii As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-KeyAscii = 0
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    KeyAscii = 0
+
 End Sub
 
 Private Sub txtMapZona_LostFocus()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-MapInfo.Zona = txtMapZona.Text
-MapInfo.Changed = 1
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    MapInfo.Zona = txtMapZona.Text
+    MapInfo.Changed = 1
+
 End Sub

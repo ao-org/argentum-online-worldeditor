@@ -651,156 +651,170 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-
-
-
 Private Sub cCapas_Click()
-FrmMain.cCapas.ListIndex = cCapas.ListIndex
+    FrmMain.cCapas.ListIndex = cCapas.ListIndex
+
 End Sub
 
 Private Sub Combo1_Click()
-List1.Clear
-Dim i As Long
-For i = 1 To AmbientacionesTotal
-    If Ambientaciones(i).tipo = Combo1.ListIndex + 1 Then
-        List1.AddItem i & "-" & Ambientaciones(i).Nombre
-    End If
-Next i
+    List1.Clear
+    Dim i As Long
+
+    For i = 1 To AmbientacionesTotal
+
+        If Ambientaciones(i).tipo = Combo1.ListIndex + 1 Then
+            List1.AddItem i & "-" & Ambientaciones(i).Nombre
+
+        End If
+
+    Next i
+
 End Sub
 
 Private Sub Command1_Click()
             
-            
-            Dim cantidad As Long
-Dim bloquear As Byte
-Dim objeto As Long
-Dim X As Byte
-Dim y As Byte
-Dim i As Long
+    Dim cantidad As Long
+    Dim bloquear As Byte
+    Dim objeto   As Long
+    Dim X        As Byte
+    Dim y        As Byte
+    Dim i        As Long
 
-cantidad = Text1.Text
-If cantidad <= 0 Then Exit Sub
-bloquear = check1
+    cantidad = Text1.Text
 
-D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
+    If cantidad <= 0 Then Exit Sub
+    bloquear = check1
 
-For i = 1 To cantidad
-            X = RandomNumber(13, 87)
-            y = RandomNumber(11, 90)
-            If MapData(X, y).Graphic(1).grhindex < 1505 Or MapData(X, y).Graphic(1).grhindex > 1520 Then
+    D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
+
+    For i = 1 To cantidad
+        X = RandomNumber(13, 87)
+        y = RandomNumber(11, 90)
+
+        If MapData(X, y).Graphic(1).grhindex < 1505 Or MapData(X, y).Graphic(1).grhindex > 1520 Then
 
             MapData(X, y).Blocked = bloquear
-                    MapData(X, y).Graphic(cCapas).grhindex = 1
-                    InitGrh MapData(X, y).Graphic(cCapas), Ambientaciones(ReadField(1, List1.List(List1.ListIndex), Asc("-"))).grhindex
-            Else
-        i = i - 1
-            End If
+            MapData(X, y).Graphic(cCapas).grhindex = 1
+            InitGrh MapData(X, y).Graphic(cCapas), Ambientaciones(ReadField(1, List1.List(List1.ListIndex), Asc("-"))).grhindex
+        Else
+            i = i - 1
+
+        End If
+
     Next i
-MapInfo.Changed = 1
+
+    MapInfo.Changed = 1
+
 End Sub
 
 Private Sub Form_Load()
-Call LeerAmbientaciones
-Combo1.ListIndex = 0
+    Call LeerAmbientaciones
+    Combo1.ListIndex = 0
+
 End Sub
 
 Private Sub List1_Click()
 
-If FrmMain.cSeleccionarSuperficie.Enabled = False Then
-    Call FrmMain.SelectPanel_Click(0)
-    modPaneles.VerFuncion 0, True
-    FrmMain.cSeleccionarSuperficie.Enabled = True
-End If
+    If FrmMain.cSeleccionarSuperficie.Enabled = False Then
+        Call FrmMain.SelectPanel_Click(0)
+        modPaneles.VerFuncion 0, True
+        FrmMain.cSeleccionarSuperficie.Enabled = True
 
-D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
-Dim index As Long
-index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
-Call Grh_Render_To_HdcPNG(AmbientacionesForm.picture1, Ambientaciones(index).grhindex, 0, 0, False)
+    End If
+
+    D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
+    Dim Index As Long
+    Index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
+    Call Grh_Render_To_HdcPNG(AmbientacionesForm.picture1, Ambientaciones(Index).grhindex, 0, 0, False)
     frmConfigSup.MOSAICO.value = vbUnchecked
     frmConfigSup.mAncho.Text = "0"
     frmConfigSup.mLargo.Text = "0"
     HotKeysAllow = False
-    index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
-    FrmMain.cGrh.Text = Ambientaciones(index).grhindex
+    Index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
+    FrmMain.cGrh.Text = Ambientaciones(Index).grhindex
     modPaneles.VerFuncion 0, True
     FrmMain.cSeleccionarSuperficie.value = True
     Call FrmMain.cSeleccionarSuperficie_Click
+
 End Sub
 
 Private Sub List1_DblClick()
-Dim index As Long
+    Dim Index As Long
 
-Call FrmMain.SelectPanel_Click(0)
-modPaneles.VerFuncion 0, True
-FrmMain.cSeleccionarSuperficie.Enabled = True
+    Call FrmMain.SelectPanel_Click(0)
+    modPaneles.VerFuncion 0, True
+    FrmMain.cSeleccionarSuperficie.Enabled = True
 
-'index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
-'FrmMain.cGrh.Text = Ambientaciones(index).grhindex
+    'index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
+    'FrmMain.cGrh.Text = Ambientaciones(index).grhindex
 End Sub
 
 Private Sub Option1_Click()
-tp1(0).Tag = "357"
-tp1(1).Tag = "366"
-tp1(2).Tag = "359"
-tp1(3).Tag = "362"
-tp1(4).Tag = "137"
-tp1(5).Tag = "365"
-tp1(6).Tag = "356"
-tp1(7).Tag = "367"
-tp1(8).Tag = "358"
+    tp1(0).Tag = "357"
+    tp1(1).Tag = "366"
+    tp1(2).Tag = "359"
+    tp1(3).Tag = "362"
+    tp1(4).Tag = "137"
+    tp1(5).Tag = "365"
+    tp1(6).Tag = "356"
+    tp1(7).Tag = "367"
+    tp1(8).Tag = "358"
 
-tp2(0).Tag = "364"
-tp2(1).Tag = "367"
-tp2(2).Tag = "361"
-tp2(3).Tag = "365"
-tp2(4).Tag = "0"
-tp2(5).Tag = "362"
-tp2(6).Tag = "363"
-tp2(7).Tag = "366"
-tp2(8).Tag = "360"
+    tp2(0).Tag = "364"
+    tp2(1).Tag = "367"
+    tp2(2).Tag = "361"
+    tp2(3).Tag = "365"
+    tp2(4).Tag = "0"
+    tp2(5).Tag = "362"
+    tp2(6).Tag = "363"
+    tp2(7).Tag = "366"
+    tp2(8).Tag = "360"
+
 End Sub
 
 Private Sub Option2_Click()
-tp1(0).Tag = "369"
-tp1(1).Tag = "374"
-tp1(2).Tag = "371"
-tp1(3).Tag = "375"
-tp1(4).Tag = "137"
-tp1(5).Tag = "378"
-tp1(6).Tag = "368"
-tp1(7).Tag = "379"
-tp1(8).Tag = "370"
+    tp1(0).Tag = "369"
+    tp1(1).Tag = "374"
+    tp1(2).Tag = "371"
+    tp1(3).Tag = "375"
+    tp1(4).Tag = "137"
+    tp1(5).Tag = "378"
+    tp1(6).Tag = "368"
+    tp1(7).Tag = "379"
+    tp1(8).Tag = "370"
 
-tp2(0).Tag = "377"
-tp2(1).Tag = "379"
-tp2(2).Tag = "373"
-tp2(3).Tag = "378"
-tp2(4).Tag = "130"
-tp2(5).Tag = "375"
-tp2(6).Tag = "376"
-tp2(7).Tag = "374"
-tp2(8).Tag = "372"
+    tp2(0).Tag = "377"
+    tp2(1).Tag = "379"
+    tp2(2).Tag = "373"
+    tp2(3).Tag = "378"
+    tp2(4).Tag = "130"
+    tp2(5).Tag = "375"
+    tp2(6).Tag = "376"
+    tp2(7).Tag = "374"
+    tp2(8).Tag = "372"
+
 End Sub
 
 Private Sub Option3_Click()
-tp1(0).Tag = "658"
-tp1(1).Tag = "667"
-tp1(2).Tag = "660"
-tp1(3).Tag = "663"
-tp1(4).Tag = "137"
-tp1(5).Tag = "666"
-tp1(6).Tag = "657"
-tp1(7).Tag = "668"
-tp1(8).Tag = "659"
+    tp1(0).Tag = "658"
+    tp1(1).Tag = "667"
+    tp1(2).Tag = "660"
+    tp1(3).Tag = "663"
+    tp1(4).Tag = "137"
+    tp1(5).Tag = "666"
+    tp1(6).Tag = "657"
+    tp1(7).Tag = "668"
+    tp1(8).Tag = "659"
 
-tp2(0).Tag = "665"
-tp2(1).Tag = "668"
-tp2(2).Tag = "662"
-tp2(3).Tag = "666"
-tp2(4).Tag = "621"
-tp2(5).Tag = "663"
-tp2(6).Tag = "664"
-tp2(7).Tag = "667"
-tp2(8).Tag = "661"
+    tp2(0).Tag = "665"
+    tp2(1).Tag = "668"
+    tp2(2).Tag = "662"
+    tp2(3).Tag = "666"
+    tp2(4).Tag = "621"
+    tp2(5).Tag = "663"
+    tp2(6).Tag = "664"
+    tp2(7).Tag = "667"
+    tp2(8).Tag = "661"
+
 End Sub
 

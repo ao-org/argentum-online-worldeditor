@@ -131,385 +131,454 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Public Sub Command1_Click()
-'FrmMain.Timer4.Enabled = True
-FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
-FrmMain.mnuGuardarMapa_Click
-Label5.Caption = MapaActual
-Call HacerTranslados
-Label5.Caption = 0
+    'FrmMain.Timer4.Enabled = True
+    FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
+    FrmMain.mnuGuardarMapa_Click
+    Label5.Caption = MapaActual
+    Call HacerTranslados
+    Label5.Caption = 0
+
 End Sub
+
 Public Sub LogError(Desc As String)
-On Error GoTo ErrHandler
 
-Dim nfile As Integer
-nfile = FreeFile ' obtenemos un canal
-Open App.Path & "\logs\errores.log" For Append Shared As #nfile
-Print #nfile, Date & " " & Time & " " & Desc
-Close #nfile
+    On Error GoTo ErrHandler
 
-Exit Sub
+    Dim nfile As Integer
+    nfile = FreeFile ' obtenemos un canal
+    Open App.Path & "\logs\errores.log" For Append Shared As #nfile
+    Print #nfile, Date & " " & Time & " " & Desc
+    Close #nfile
+
+    Exit Sub
 
 ErrHandler:
 
 End Sub
+
 Public Sub HacerTranslados()
-Label5.Caption = MapaActual
+    Label5.Caption = MapaActual
 
     Dim X As Integer
     Dim y As Integer
 
     'Izquierda
     X = 13
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label1.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'arriba
     y = 10
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label2.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Derecha
     X = 88
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label3.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Abajo
     y = 91
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label4.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
 
-If Superior.value = vbChecked Then
-    If CLng(Label2.Caption) = 0 Then
-        Label2.Caption = MapData(49, 10).TileExit.Map
+    If Superior.value = vbChecked Then
+        If CLng(Label2.Caption) = 0 Then
+            Label2.Caption = MapData(49, 10).TileExit.Map
+
             If CLng(Label2.Caption) = 0 Then
-            Call LogError("Mapa " & Label5.Caption & " sin translado")
+                Call LogError("Mapa " & Label5.Caption & " sin translado")
                 MsgBox "arriba cancelado con dos intentos"
                 Exit Sub
+
             End If
-    End If
-    ' ver ReyarB
-SeleccionIX = 1
-SeleccionFX = 100
-SeleccionIY = 10
-SeleccionFY = 21
-    Call CopiarSeleccion
+
+        End If
+
+        ' ver ReyarB
+        SeleccionIX = 1
+        SeleccionFX = 100
+        SeleccionIY = 10
+        SeleccionFY = 21
+        Call CopiarSeleccion
+
         If FileExist(PATH_Save & NameMap_Save & CLng(Label2.Caption) & ".csm", vbArchive) = True Then
             Call modMapIO.NuevoMapa
             FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label2.Caption) & ".csm"
             modMapIO.AbrirMapa FrmMain.Dialog.FileName
 
             FrmMain.mnuReAbrirMapa.Enabled = True
+
         End If
     
-    
-SobreX = 1
-SobreY = 90
-    Call PegarSeleccion
-    Call modEdicion.Bloquear_Bordes
-FrmMain.mnuGuardarMapa_Click
+        SobreX = 1
+        SobreY = 90
+        Call PegarSeleccion
+        Call modEdicion.Bloquear_Bordes
+        FrmMain.mnuGuardarMapa_Click
 
-'Call Form_Load
+        'Call Form_Load
     
         If CLng(Label4.Caption) = 0 Then
-        Label4.Caption = MapData(49, 91).TileExit.Map
+            Label4.Caption = MapData(49, 91).TileExit.Map
+
             If CLng(Label4.Caption) = 0 Then
                 Call LogError("Mapa " & Label5.Caption & " sin translado")
-               Exit Sub
-            End If
-   End If
-    
-    
-    
-If FileExist(PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm", vbArchive) = True Then
-                Call modMapIO.NuevoMapa
-                FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
-                modMapIO.AbrirMapa FrmMain.Dialog.FileName
-    
-                FrmMain.mnuReAbrirMapa.Enabled = True
-            End If
-End If
+                Exit Sub
 
+            End If
+
+        End If
+    
+        If FileExist(PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm", vbArchive) = True Then
+            Call modMapIO.NuevoMapa
+            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
+            modMapIO.AbrirMapa FrmMain.Dialog.FileName
+    
+            FrmMain.mnuReAbrirMapa.Enabled = True
+
+        End If
+
+    End If
 
     'Izquierda
     X = 13
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label1.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'arriba
     y = 10
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label2.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Derecha
     X = 88
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label3.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Abajo
     y = 91
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label4.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
 
-
-
-
-
-If Inferior.value = vbChecked Then
+    If Inferior.value = vbChecked Then
         If CLng(Label4.Caption) = 0 Then
-        Label4.Caption = MapData(49, 91).TileExit.Map
+            Label4.Caption = MapData(49, 91).TileExit.Map
+
             If CLng(Label4.Caption) = 0 Then
-               Call LogError("Mapa " & Label5.Caption & " sin translado")
-               MsgBox "Abajo cancelado con dos intentos"
+                Call LogError("Mapa " & Label5.Caption & " sin translado")
+                MsgBox "Abajo cancelado con dos intentos"
                 Exit Sub
-            End If
-    End If
-    ' ver ReyarB
-SeleccionIX = 1
-SeleccionFX = 100
-SeleccionIY = 81
-SeleccionFY = 89
 
-                Call CopiarSeleccion
-                If FileExist(PATH_Save & NameMap_Save & CLng(Label4.Caption) & ".csm", vbArchive) = True Then
-                            Call modMapIO.NuevoMapa
-                            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label4.Caption) & ".csm"
-                            modMapIO.AbrirMapa FrmMain.Dialog.FileName
+            End If
+
+        End If
+
+        ' ver ReyarB
+        SeleccionIX = 1
+        SeleccionFX = 100
+        SeleccionIY = 81
+        SeleccionFY = 89
+
+        Call CopiarSeleccion
+
+        If FileExist(PATH_Save & NameMap_Save & CLng(Label4.Caption) & ".csm", vbArchive) = True Then
+            Call modMapIO.NuevoMapa
+            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label4.Caption) & ".csm"
+            modMapIO.AbrirMapa FrmMain.Dialog.FileName
                 
-                            FrmMain.mnuReAbrirMapa.Enabled = True
-                        End If
+            FrmMain.mnuReAbrirMapa.Enabled = True
+
+        End If
                 
-                
-            SobreX = 1
-            SobreY = 1
-                Call PegarSeleccion
-                Call modEdicion.Bloquear_Bordes
-            FrmMain.mnuGuardarMapa_Click
+        SobreX = 1
+        SobreY = 1
+        Call PegarSeleccion
+        Call modEdicion.Bloquear_Bordes
+        FrmMain.mnuGuardarMapa_Click
             
-            Call Form_Load
-
+        Call Form_Load
                 
-            If FileExist(PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm", vbArchive) = True Then
-                            Call modMapIO.NuevoMapa
-                            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
-                            modMapIO.AbrirMapa FrmMain.Dialog.FileName
+        If FileExist(PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm", vbArchive) = True Then
+            Call modMapIO.NuevoMapa
+            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
+            modMapIO.AbrirMapa FrmMain.Dialog.FileName
                 
-                            FrmMain.mnuReAbrirMapa.Enabled = True
-                        End If
-            End If
+            FrmMain.mnuReAbrirMapa.Enabled = True
 
+        End If
 
-
+    End If
 
     'Izquierda
     X = 13
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label1.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'arriba
     y = 10
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label2.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Derecha
     X = 88
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label3.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Abajo
     y = 91
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label4.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
 
+    If Derecho.value = vbChecked Then
+        If CLng(Label3.Caption) = 0 Then
+            Label3.Caption = MapData(88, 49).TileExit.Map
 
-
-
-
-If Derecho.value = vbChecked Then
-    If CLng(Label3.Caption) = 0 Then
-        Label3.Caption = MapData(88, 49).TileExit.Map
             If CLng(Label3.Caption) = 0 Then
-               Call LogError("Mapa " & Label5.Caption & " sin translado")
-               MsgBox "Derecha cancelado con dos intentos"
+                Call LogError("Mapa " & Label5.Caption & " sin translado")
+                MsgBox "Derecha cancelado con dos intentos"
                 Exit Sub
-            End If
-    End If
-    ' ver ReyarB
-SeleccionIX = 76
-SeleccionFX = 87
-SeleccionIY = 1
-SeleccionFY = 100
-                Call CopiarSeleccion
-                If FileExist(PATH_Save & NameMap_Save & CLng(Label3.Caption) & ".csm", vbArchive) = True Then
-                            Call modMapIO.NuevoMapa
-                            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label3.Caption) & ".csm"
-                            modMapIO.AbrirMapa FrmMain.Dialog.FileName
-                
-                            FrmMain.mnuReAbrirMapa.Enabled = True
-                        End If
-                
-                
-SobreX = 1
-SobreY = 1
-                Call PegarSeleccion
-                Call modEdicion.Bloquear_Bordes
-            FrmMain.mnuGuardarMapa_Click
-            
 
-            If FileExist(PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm", vbArchive) = True Then
-                            Call modMapIO.NuevoMapa
-                            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
-                            modMapIO.AbrirMapa FrmMain.Dialog.FileName
-                
-                            FrmMain.mnuReAbrirMapa.Enabled = True
-                        End If
             End If
-            
-            
-            
-            
-            
-            
+
+        End If
+
+        ' ver ReyarB
+        SeleccionIX = 76
+        SeleccionFX = 87
+        SeleccionIY = 1
+        SeleccionFY = 100
+        Call CopiarSeleccion
+
+        If FileExist(PATH_Save & NameMap_Save & CLng(Label3.Caption) & ".csm", vbArchive) = True Then
+            Call modMapIO.NuevoMapa
+            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label3.Caption) & ".csm"
+            modMapIO.AbrirMapa FrmMain.Dialog.FileName
+                
+            FrmMain.mnuReAbrirMapa.Enabled = True
+
+        End If
+                
+        SobreX = 1
+        SobreY = 1
+        Call PegarSeleccion
+        Call modEdicion.Bloquear_Bordes
+        FrmMain.mnuGuardarMapa_Click
+
+        If FileExist(PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm", vbArchive) = True Then
+            Call modMapIO.NuevoMapa
+            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
+            modMapIO.AbrirMapa FrmMain.Dialog.FileName
+                
+            FrmMain.mnuReAbrirMapa.Enabled = True
+
+        End If
+
+    End If
             
     'Izquierda
     X = 13
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label1.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'arriba
     y = 10
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label2.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Derecha
     X = 88
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label3.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Abajo
     y = 91
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label4.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
-
-
-
-
 
     If Izquierdo.value = vbChecked Then
+        If CLng(Label1.Caption) = 0 Then
+            Label1.Caption = MapData(12, 49).TileExit.Map
+
             If CLng(Label1.Caption) = 0 Then
-                Label1.Caption = MapData(12, 49).TileExit.Map
-                    If CLng(Label1.Caption) = 0 Then
-                      Call LogError("Mapa " & Label5.Caption & " sin translado")
-                      MsgBox "Izquierda cancelado con dos intentos"
-                      Exit Sub
-                    End If
-            End If
-'ver ReyarB
-SeleccionIX = 13
-SeleccionFX = 25
-SeleccionIY = 1
-SeleccionFY = 100
-                Call CopiarSeleccion
-                If FileExist(PATH_Save & NameMap_Save & CLng(Label1.Caption) & ".csm", vbArchive) = True Then
-                            Call modMapIO.NuevoMapa
-                            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label1.Caption) & ".csm"
-                            modMapIO.AbrirMapa FrmMain.Dialog.FileName
-                
-                            FrmMain.mnuReAbrirMapa.Enabled = True
-                        End If
-                
-                
-SobreX = 88
-SobreY = 1
-                Call PegarSeleccion
-                Call modEdicion.Bloquear_Bordes
-            FrmMain.mnuGuardarMapa_Click
-            
+                Call LogError("Mapa " & Label5.Caption & " sin translado")
+                MsgBox "Izquierda cancelado con dos intentos"
+                Exit Sub
 
-            If FileExist(PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm", vbArchive) = True Then
-                            Call modMapIO.NuevoMapa
-                            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
-                            modMapIO.AbrirMapa FrmMain.Dialog.FileName
-                
-                            FrmMain.mnuReAbrirMapa.Enabled = True
-                        End If
             End If
+
+        End If
+
+        'ver ReyarB
+        SeleccionIX = 13
+        SeleccionFX = 25
+        SeleccionIY = 1
+        SeleccionFY = 100
+        Call CopiarSeleccion
+
+        If FileExist(PATH_Save & NameMap_Save & CLng(Label1.Caption) & ".csm", vbArchive) = True Then
+            Call modMapIO.NuevoMapa
+            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label1.Caption) & ".csm"
+            modMapIO.AbrirMapa FrmMain.Dialog.FileName
+                
+            FrmMain.mnuReAbrirMapa.Enabled = True
+
+        End If
+                
+        SobreX = 88
+        SobreY = 1
+        Call PegarSeleccion
+        Call modEdicion.Bloquear_Bordes
+        FrmMain.mnuGuardarMapa_Click
+
+        If FileExist(PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm", vbArchive) = True Then
+            Call modMapIO.NuevoMapa
+            FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(Label5.Caption) & ".csm"
+            modMapIO.AbrirMapa FrmMain.Dialog.FileName
+                
+            FrmMain.mnuReAbrirMapa.Enabled = True
+
+        End If
+
+    End If
             
-            
-            Debug.Print "TERMINADO"
-            Unload Me
+    Debug.Print "TERMINADO"
+    Unload Me
+
 End Sub
-
-
 
 Private Sub Form_Load()
 
-    Dim X As Integer
-    Dim y As Integer
-    
+    Dim X           As Integer
+    Dim y           As Integer
     
     Dim ObtenerMapa As String
     
@@ -520,45 +589,58 @@ Private Sub Form_Load()
     'Label1.Caption = MapData(13, 50).TileExit.Map  'Izquierda
     ' Oeste
     X = 13
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label1.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Label2.Caption = MapData(50, 10).TileExit.Map  'arriba
     ' Norte
     y = 10
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label2.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
-    
     
     'Label3.Caption = MapData(88, 49).TileExit.Map 'Derecha
     'Este
     X = 88
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label3.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Label4.Caption = MapData(50, 91).TileExit.Map 'Abajo
-        ' Sur
+    ' Sur
     y = 91
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Label4.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
+
 End Sub
-
-
-
 

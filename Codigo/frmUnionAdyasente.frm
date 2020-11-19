@@ -1035,124 +1035,161 @@ Attribute VB_Exposed = False
 '**************************************************************
 Option Explicit
 
-Private Sub Aplicar_Click(index As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Dim i As Byte
-cmdAplicar.Enabled = False
-For i = 0 To 3
-    If Aplicar(i).value = 1 Then cmdAplicar.Enabled = True
-Next
+Private Sub Aplicar_Click(Index As Integer)
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Dim i As Byte
+    cmdAplicar.Enabled = False
+
+    For i = 0 To 3
+
+        If Aplicar(i).value = 1 Then cmdAplicar.Enabled = True
+    Next
+
 End Sub
 
 Private Sub cmdAplicar_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
-Dim y As Integer
-Dim X As Integer
 
-If Not MapaCargado Then
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-modEdicion.Deshacer_Add "Insertar Translados a mapas Adyasentes" ' Hago deshacer
+    Dim y As Integer
+    Dim X As Integer
 
-' ARRIBA
-If Mapa(0).Text > -1 And Aplicar(0).value = 1 Then
-    y = PosLim(1).Text
-    For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
-        If MapData(X, y).Blocked = 0 Then
-            MapData(X, y).TileExit.Map = Mapa(0).Text
-            If Mapa(0).Text = 0 Then
-                MapData(X, y).TileExit.X = 0
-                MapData(X, y).TileExit.y = 0
-            Else
-                MapData(X, y).TileExit.X = X
-                MapData(X, y).TileExit.y = PosLim(4).Text
+    If Not MapaCargado Then
+        Exit Sub
+
+    End If
+
+    modEdicion.Deshacer_Add "Insertar Translados a mapas Adyasentes" ' Hago deshacer
+
+    ' ARRIBA
+    If Mapa(0).Text > -1 And Aplicar(0).value = 1 Then
+        y = PosLim(1).Text
+
+        For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+
+            If MapData(X, y).Blocked = 0 Then
+                MapData(X, y).TileExit.Map = Mapa(0).Text
+
+                If Mapa(0).Text = 0 Then
+                    MapData(X, y).TileExit.X = 0
+                    MapData(X, y).TileExit.y = 0
+                Else
+                    MapData(X, y).TileExit.X = X
+                    MapData(X, y).TileExit.y = PosLim(4).Text
+
+                End If
+
             End If
-        End If
-    Next
-End If
 
-' DERECHA
-If Mapa(1).Text > -1 And Aplicar(1).value = 1 Then
-    X = PosLim(2).Text
-    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
-        If MapData(X, y).Blocked = 0 Then
-            MapData(X, y).TileExit.Map = Mapa(1).Text
+        Next
+
+    End If
+
+    ' DERECHA
+    If Mapa(1).Text > -1 And Aplicar(1).value = 1 Then
+        X = PosLim(2).Text
+
+        For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+
+            If MapData(X, y).Blocked = 0 Then
+                MapData(X, y).TileExit.Map = Mapa(1).Text
+
                 If Mapa(1).Text = 0 Then
                     MapData(X, y).TileExit.X = 0
                     MapData(X, y).TileExit.y = 0
                 Else
                     MapData(X, y).TileExit.X = PosLim(6).Text
                     MapData(X, y).TileExit.y = y
-                End If
-        End If
-    Next
-End If
 
-' ABAJO
-If Mapa(2).Text > -1 And Aplicar(2).value = 1 Then
-    y = PosLim(0).Text
-    For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
-        If MapData(X, y).Blocked = 0 Then
-            MapData(X, y).TileExit.Map = Mapa(2).Text
+                End If
+
+            End If
+
+        Next
+
+    End If
+
+    ' ABAJO
+    If Mapa(2).Text > -1 And Aplicar(2).value = 1 Then
+        y = PosLim(0).Text
+
+        For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+
+            If MapData(X, y).Blocked = 0 Then
+                MapData(X, y).TileExit.Map = Mapa(2).Text
+
                 If Mapa(2).Text = 0 Then
                     MapData(X, y).TileExit.X = 0
                     MapData(X, y).TileExit.y = 0
                 Else
                     MapData(X, y).TileExit.X = X
                     MapData(X, y).TileExit.y = PosLim(5).Text
-                End If
-        End If
-    Next
-End If
 
-' IZQUIERDA
-If Mapa(3).Text > -1 And Aplicar(3).value = 1 Then
-    X = PosLim(3).Text
-    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
-        If MapData(X, y).Blocked = 0 Then
-            MapData(X, y).TileExit.Map = Mapa(3).Text
+                End If
+
+            End If
+
+        Next
+
+    End If
+
+    ' IZQUIERDA
+    If Mapa(3).Text > -1 And Aplicar(3).value = 1 Then
+        X = PosLim(3).Text
+
+        For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+
+            If MapData(X, y).Blocked = 0 Then
+                MapData(X, y).TileExit.Map = Mapa(3).Text
+
                 If Mapa(3).Text = 0 Then
                     MapData(X, y).TileExit.X = 0
                     MapData(X, y).TileExit.y = 0
                 Else
                     MapData(X, y).TileExit.X = PosLim(7).Text
                     MapData(X, y).TileExit.y = y
+
                 End If
-        End If
-    Next
-End If
 
-'Set changed flag
-'ver ReyarB bloqueo bordes
-Call modEdicion.Bloquear_Bordes
+            End If
 
-MapInfo.Changed = 1
-DoEvents
-Unload Me
+        Next
+
+    End If
+
+    'Set changed flag
+    'ver ReyarB bloqueo bordes
+    Call modEdicion.Bloquear_Bordes
+
+    MapInfo.Changed = 1
+    DoEvents
+    Unload Me
+
 End Sub
 
 Private Sub cmdCancelar_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Unload Me
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Unload Me
+
 End Sub
 
 Private Sub cmdDefault_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Me.PopupMenu mnuDefault
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Me.PopupMenu mnuDefault
+
 End Sub
 
 ''
@@ -1160,214 +1197,258 @@ End Sub
 '
 
 Private Sub LeerMapaExit()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-On Error Resume Next
 
-Dim X As Integer
-Dim y As Integer
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    On Error Resume Next
 
-' ARRIBA
-Mapa(0).Text = 0
-y = PosLim(1).Text
-For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+    Dim X As Integer
+    Dim y As Integer
+
+    ' ARRIBA
+    Mapa(0).Text = 0
+    y = PosLim(1).Text
+
+    For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Mapa(0).Text = MapData(X, y).TileExit.Map
             Exit For
-        End If
-Next
-Aplicar(0).value = 0
 
-' DERECHA
-Mapa(1).Text = 0
-X = PosLim(2).Text
-For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+        End If
+
+    Next
+    Aplicar(0).value = 0
+
+    ' DERECHA
+    Mapa(1).Text = 0
+    X = PosLim(2).Text
+
+    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Mapa(1).Text = MapData(X, y).TileExit.Map
             Exit For
-        End If
-Next
-Aplicar(1).value = 0
 
-' ABAJO
-Mapa(2).Text = 0
-y = PosLim(0).Text
-For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+        End If
+
+    Next
+    Aplicar(1).value = 0
+
+    ' ABAJO
+    Mapa(2).Text = 0
+    y = PosLim(0).Text
+
+    For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Mapa(2).Text = MapData(X, y).TileExit.Map
             Exit For
-        End If
-Next
-Aplicar(2).value = 0
 
-' IZQUIERDA
-Mapa(3).Text = 0
-X = PosLim(3).Text
-For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+        End If
+
+    Next
+    Aplicar(2).value = 0
+
+    ' IZQUIERDA
+    Mapa(3).Text = 0
+    X = PosLim(3).Text
+
+    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Mapa(3).Text = MapData(X, y).TileExit.Map
             Exit For
-        End If
-Next
-Aplicar(3).value = 0
 
+        End If
+
+    Next
+    Aplicar(3).value = 0
 
 End Sub
 
 Private Sub Command1_Click()
 
-Mapa(0).Text = FrmMain.Label3 '- 10 'arriba
-Mapa(1).Text = FrmMain.Label1 '+ 1 'derecha
-Mapa(2).Text = FrmMain.Label4 '+ 10 'abajo
-Mapa(3).Text = FrmMain.Label2 '- 1 ' izquierda
+    Mapa(0).Text = FrmMain.Label3 '- 10 'arriba
+    Mapa(1).Text = FrmMain.Label1 '+ 1 'derecha
+    Mapa(2).Text = FrmMain.Label4 '+ 10 'abajo
+    Mapa(3).Text = FrmMain.Label2 '- 1 ' izquierda
+
 End Sub
 
 Private Sub Form_Load()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Call mnuBasica_Click
-frmUnionAdyacente.lblMapaAct.Caption = FrmMain.Label16.Caption
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Call mnuBasica_Click
+    frmUnionAdyacente.lblMapaAct.Caption = FrmMain.Label16.Caption
 
 End Sub
 
-Private Sub Mapa_Change(index As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-Aplicar(index).value = 1
-End Sub
-
-Private Sub Mapa_KeyPress(index As Integer, KeyAscii As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-If IsNumeric(Chr(KeyAscii)) = False And KeyAscii <> 8 Then
-    KeyAscii = 0
-    Exit Sub
-End If
+Private Sub Mapa_Change(Index As Integer)
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    Aplicar(Index).value = 1
 
 End Sub
 
-Private Sub Mapa_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 15/10/06
-'*************************************************
-If LenB(Mapa(index).Text) = 0 Then Mapa(index).Text = 0
-If Mapa(index).Text > 1024 Then Mapa(index).Text = 1024
+Private Sub Mapa_KeyPress(Index As Integer, KeyAscii As Integer)
+
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    If IsNumeric(Chr(KeyAscii)) = False And KeyAscii <> 8 Then
+        KeyAscii = 0
+        Exit Sub
+
+    End If
+
+End Sub
+
+Private Sub Mapa_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 15/10/06
+    '*************************************************
+    If LenB(Mapa(Index).Text) = 0 Then Mapa(Index).Text = 0
+    If Mapa(Index).Text > 1024 Then Mapa(Index).Text = 1024
+
 End Sub
 
 Private Sub mnuBasica_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
 
-Call LeerMapaExit
+    Call LeerMapaExit
+
 End Sub
 
 Private Sub mnuLegal_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 02/10/06
-'*************************************************
-PosLim(0).Text = MaxYBorder
-PosLim(1).Text = MinYBorder
-PosLim(2).Text = MaxXBorder
-PosLim(3).Text = MinXBorder
-PosLim(4).Text = MaxYBorder - 1
-PosLim(5).Text = MinYBorder + 1
-PosLim(6).Text = MinXBorder + 1
-PosLim(7).Text = MaxXBorder - 1
-Call LeerMapaExit
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 02/10/06
+    '*************************************************
+    PosLim(0).Text = MaxYBorder
+    PosLim(1).Text = MinYBorder
+    PosLim(2).Text = MaxXBorder
+    PosLim(3).Text = MinXBorder
+    PosLim(4).Text = MaxYBorder - 1
+    PosLim(5).Text = MinYBorder + 1
+    PosLim(6).Text = MinXBorder + 1
+    PosLim(7).Text = MaxXBorder - 1
+    Call LeerMapaExit
+
 End Sub
 
 Private Sub mnuUlla_Click()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-PosLim(0).Text = 94
-PosLim(1).Text = 7
-PosLim(2).Text = 92
-PosLim(3).Text = 9
-PosLim(4).Text = 93
-PosLim(5).Text = 8
-PosLim(6).Text = 10
-PosLim(7).Text = 91
-Call LeerMapaExit
-End Sub
-
-Private Sub PosLim_KeyPress(index As Integer, KeyAscii As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 20/05/06
-'*************************************************
-
-If IsNumeric(Chr(KeyAscii)) = False And KeyAscii <> 8 Then
-    KeyAscii = 0
-    Exit Sub
-End If
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
+    PosLim(0).Text = 94
+    PosLim(1).Text = 7
+    PosLim(2).Text = 92
+    PosLim(3).Text = 9
+    PosLim(4).Text = 93
+    PosLim(5).Text = 8
+    PosLim(6).Text = 10
+    PosLim(7).Text = 91
+    Call LeerMapaExit
 
 End Sub
 
-Private Sub PosLim_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 26/05/06
-'*************************************************
-On Error Resume Next
-If LenB(PosLim(index).Text) = 0 Then PosLim(index).Text = 1
-If PosLim(index).Text > 99 Then PosLim(index) = 99
-If PosLim(index).Text < 1 Then PosLim(index) = 1
+Private Sub PosLim_KeyPress(Index As Integer, KeyAscii As Integer)
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 20/05/06
+    '*************************************************
 
-Dim y As Integer
-Dim X As Integer
+    If IsNumeric(Chr(KeyAscii)) = False And KeyAscii <> 8 Then
+        KeyAscii = 0
+        Exit Sub
 
-' ARRIBA
-y = PosLim(1).Text
-For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+    End If
+
+End Sub
+
+Private Sub PosLim_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+
+    '*************************************************
+    'Author: ^[GS]^
+    'Last modified: 26/05/06
+    '*************************************************
+    On Error Resume Next
+
+    If LenB(PosLim(Index).Text) = 0 Then PosLim(Index).Text = 1
+    If PosLim(Index).Text > 99 Then PosLim(Index) = 99
+    If PosLim(Index).Text < 1 Then PosLim(Index) = 1
+
+    Dim y As Integer
+    Dim X As Integer
+
+    ' ARRIBA
+    y = PosLim(1).Text
+
+    For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Mapa(0).Text = MapData(X, y).TileExit.Map
             Aplicar(0).value = 0
             Exit For
-        End If
-Next
 
-' DERECHA
-X = PosLim(2).Text
-For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+        End If
+
+    Next
+
+    ' DERECHA
+    X = PosLim(2).Text
+
+    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Mapa(1).Text = MapData(X, y).TileExit.Map
             Aplicar(1).value = 0
             Exit For
-        End If
-Next
 
-' ABAJO
-y = PosLim(0).Text
-For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+        End If
+
+    Next
+
+    ' ABAJO
+    y = PosLim(0).Text
+
+    For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Mapa(2).Text = MapData(X, y).TileExit.Map
             Aplicar(2).value = 0
             Exit For
-        End If
-Next
 
-' IZQUIERDA
-X = PosLim(3).Text
-For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+        End If
+
+    Next
+
+    ' IZQUIERDA
+    X = PosLim(3).Text
+
+    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             Mapa(3).Text = MapData(X, y).TileExit.Map
             Aplicar(3).value = 0
             Exit For
+
         End If
-Next
+
+    Next
 
 End Sub
