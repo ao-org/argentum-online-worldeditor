@@ -145,15 +145,32 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Private Sub Botones_Click(Index As Integer)
+
     Select Case Index
-        Case 0: Call modIndices.CargarIndicesDeGraficos
-        Case 1: Call modIndices.CargarIndicesSuperficie
-        Case 2: Call modIndices.CargarIndicesDeCuerpos
-        Case 3: Call modIndices.CargarIndicesDeCabezas
-        Case 4: Call modIndices.CargarIndicesTriggers
-        Case 5: Call modIndices.CargarIndicesOBJ
-        Case 6: Call modIndices.CargarIndicesNPC
+
+        Case 0
+            Call modIndices.CargarIndicesDeGraficos
+
+        Case 1
+            Call modIndices.CargarIndicesSuperficie
+
+        Case 2
+            Call modIndices.CargarIndicesDeCuerpos
+
+        Case 3
+            Call modIndices.CargarIndicesDeCabezas
+
+        Case 4
+            Call modIndices.CargarIndicesTriggers
+
+        Case 5
+            Call modIndices.CargarIndicesOBJ
+
+        Case 6
+            Call modIndices.CargarIndicesNPC
+
     End Select
 
 End Sub

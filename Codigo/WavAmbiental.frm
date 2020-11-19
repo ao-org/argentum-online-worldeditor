@@ -37,7 +37,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Private Sub List1_Click()
-FrmMain.TxtWav.Text = List1.ListIndex + 500
-Unload Me
+    FrmMain.TxtWav.Text = List1.ListIndex + 500
+    Unload Me
+
 End Sub

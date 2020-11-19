@@ -92,22 +92,14 @@ Option Explicit
       
 '*************************************************************
 ' Función BitBlt para copiar la imagen del control en un picturebox
-Private Declare Function BitBlt _
-                Lib "gdi32" (ByVal hDestDC As Long, _
-                             ByVal X As Long, _
-                             ByVal y As Long, _
-                             ByVal nWidth As Long, _
-                             ByVal nHeight As Long, _
-                             ByVal hSrcDC As Long, _
-                             ByVal xSrc As Long, _
-                             ByVal ySrc As Long, _
-                             ByVal dwRop As Long) As Long
+Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, ByVal X As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal dwRop As Long) As Long
       
 ' Recupera la imagen del área del control
 Private Declare Function GetWindowDC Lib "user32" (ByVal hWnd As Long) As Long
 
 Private Sub cmdAceptar_Click()
     Call engine.MapCapture(False, False)
+
 End Sub
 
 '*************************************************************
@@ -138,6 +130,7 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
         Control.Container.ScaleMode = vbPixels
         Ancho = Control.Width
         Alto = Control.Height
+
     End If
           
     ' limpia el error
@@ -151,6 +144,7 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
         Call BitBlt(Destino.hdc, 0 - 50, 0 - 50, Ancho - 50, Alto - 50, hdc, 0, 0, vbSrcCopy)
     Else
         Call BitBlt(Destino.hdc, 0, 0, 3000, 3000, hdc, 0, 0, vbSrcCopy)
+
     End If
     
     ' Convierte la imagen anterior en un Mapa de bits
@@ -164,11 +158,13 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
     If Err.Number = 0 Then
         ' Si el control no está en un  Frame, restaura la escala del contenedor
         Control.Container.ScaleMode = Escala_Anterior
+
     End If
           
 End Sub
 
 Private Sub Command1_Click()
     Unload Me
+
 End Sub
 

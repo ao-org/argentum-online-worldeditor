@@ -14,20 +14,18 @@ Attribute VB_Exposed = False
 'MOTOR DX8 POR LADDER
 Option Explicit
 
-
-
-
 Public bRunning As Boolean
 
 Private Const FVF = D3DFVF_XYZRHW Or D3DFVF_TEX1 Or D3DFVF_DIFFUSE Or D3DFVF_SPECULAR
 Private Const FVF2 = D3DFVF_XYZRHW Or D3DFVF_DIFFUSE Or D3DFVF_SPECULAR Or D3DFVF_TEX2
 
-Dim font_count As Long
-Dim font_last As Long
+Dim font_count      As Long
+Dim font_last       As Long
 
 Private font_list() As D3DXFont
 
 Public Enum FontAlignment
+
     fa_center = DT_CENTER
     fa_top = DT_TOP
     fa_left = DT_LEFT
@@ -37,66 +35,69 @@ Public Enum FontAlignment
     fa_right = DT_RIGHT
     fa_bottomright = DT_BOTTOM Or DT_RIGHT
     fa_topright = DT_TOP Or DT_RIGHT
+
 End Enum
 
-Dim texture As Direct3DTexture8
+Dim texture      As Direct3DTexture8
 Dim TransTexture As Direct3DTexture8
 
 Private Declare Function QueryPerformanceFrequency Lib "kernel32" (lpFrequency As Currency) As Long
 Private Declare Function QueryPerformanceCounter Lib "kernel32" (lpPerformanceCount As Currency) As Long
 
-Public FPS As Integer
-Private FramesPerSecCounter As Integer
-Private timerElapsedTime As Single
-Private timerTicksPerFrame As Double
+Public FPS                     As Integer
+Private FramesPerSecCounter    As Integer
+Private timerElapsedTime       As Single
+Private timerTicksPerFrame     As Double
 
-Public engineBaseSpeed As Single
-Private lFrameTimer As Long
-Private lFrameLimiter As Long
-Private ScrollPixelsPerFrameX As Byte
-Private ScrollPixelsPerFrameY As Byte
+Public engineBaseSpeed         As Single
+Private lFrameTimer            As Long
+Private lFrameLimiter          As Long
+Private ScrollPixelsPerFrameX  As Byte
+Private ScrollPixelsPerFrameY  As Byte
 
 Private TileBufferPixelOffsetX As Integer
 Private TileBufferPixelOffsetY As Integer
 
-Private MainViewTop As Integer
-Private MainViewLeft As Integer
-Private MainDestRect   As RECT
-Private MainViewRect   As RECT
-Private BackBufferRect As RECT
+Private MainViewTop            As Integer
+Private MainViewLeft           As Integer
+Private MainDestRect           As RECT
+Private MainViewRect           As RECT
+Private BackBufferRect         As RECT
 
-Private MainViewWidth As Integer
-Private MainViewHeight As Integer
+Private MainViewWidth          As Integer
+Private MainViewHeight         As Integer
 
-Private MouseTileX As Byte
-Private MouseTileY As Byte
-Private RLluvia(7)  As RECT  'RECT de la lluvia
-Private iFrameIndex As Byte  'Frame actual de la LL
-Private llTick      As Long  'Contador
-Private LTLluvia(4) As Integer
-Private WindowTileWidth As Integer
-Private WindowTileHeight As Integer
+Private MouseTileX             As Byte
+Private MouseTileY             As Byte
+Private RLluvia(7)             As RECT  'RECT de la lluvia
+Private iFrameIndex            As Byte  'Frame actual de la LL
+Private llTick                 As Long  'Contador
+Private LTLluvia(4)            As Integer
+Private WindowTileWidth        As Integer
+Private WindowTileHeight       As Integer
 
-Private HalfWindowTileWidth As Integer
-Private HalfWindowTileHeight As Integer
-Private Const GrhFogata As Integer = 1521
+Private HalfWindowTileWidth    As Integer
+Private HalfWindowTileHeight   As Integer
+Private Const GrhFogata        As Integer = 1521
 
 Private Type Light
+
     active As Boolean 'Do we ignore this light?
     id As Long
     map_x As Integer 'Coordinates
     map_y As Integer
     color As Long 'Start colour
     range As Byte
+
 End Type
 
 'Light list
 Dim light_list() As Light
-Dim light_count As Long
-Dim light_last As Long
-
+Dim light_count  As Long
+Dim light_last   As Long
 
 Private Type Particle
+
     friction As Single
     X As Single
     y As Single
@@ -132,11 +133,13 @@ Private Type Particle
     grh_resize As Boolean
     grh_resizex As Integer
     grh_resizey As Integer
+
 End Type
 
 'Modified by: Ryan Cain (Onezero)
 'Last modify date: 5/14/2003
 Private Type particle_group
+
     active As Boolean
     id As Long
     map_x As Integer
@@ -150,7 +153,6 @@ Private Type particle_group
 
     particle_stream() As Particle
     particle_count As Long
-    
     
     grh_index_list() As Long
     grh_index_count As Long
@@ -194,192 +196,188 @@ Private Type particle_group
     grh_resize As Boolean
     grh_resizex As Integer
     grh_resizey As Integer
-End Type
 
+End Type
 
 'Particle system
 Dim particle_group_list() As particle_group
-Dim particle_group_count As Long
-Dim particle_group_last As Long
+Dim particle_group_count  As Long
+Dim particle_group_last   As Long
 
 'Loaded Particle groups list
-Dim StreamData() As particle_group
-Dim TotalStreams As Long
+Dim StreamData()          As particle_group
+Dim TotalStreams          As Long
 
+Dim valoreBlur            As Long
+Dim dimeTex               As Long
+Dim tex                   As Direct3DTexture8
+Dim D3DbackBuffer         As Direct3DSurface8
+Dim zTarget               As Direct3DSurface8
+Dim stencil               As Direct3DSurface8
+Dim superTex              As Direct3DSurface8
+Dim blur                  As Boolean
+Public blur_factor        As Byte
 
-
-Dim valoreBlur As Long
-Dim dimeTex As Long
-Dim tex As Direct3DTexture8
-Dim D3DbackBuffer As Direct3DSurface8
-Dim zTarget As Direct3DSurface8
-Dim stencil As Direct3DSurface8
-Dim superTex As Direct3DSurface8
-Dim blur As Boolean
-Public blur_factor As Byte
-
-Dim bump_map_texture As Direct3DTexture8
-Dim bump_map_texture_ex As Direct3DTexture8
-Dim bump_map_supported As Boolean
-Dim bump_map_powa As Boolean
+Dim bump_map_texture      As Direct3DTexture8
+Dim bump_map_texture_ex   As Direct3DTexture8
+Dim bump_map_supported    As Boolean
+Dim bump_map_powa         As Boolean
 'Sets a Grh animation to loop indefinitely.
-
-
-
-
-
-
 
 #Const HARDCODED = False 'True ' == MÁS FPS ^^
 
-
-
-
-
-
 Public Function change_day_effect(ByVal o_r As Long, ByVal og As Long, ByVal ob As Long, ByVal r_ As Long, ByVal g_ As Long, ByVal b_ As Long) As Long
-Dim r As Long
-Dim g As Long
-Dim b As Long
-r = o_r
-g = og
-b = ob
+    Dim r As Long
+    Dim g As Long
+    Dim b As Long
+    r = o_r
+    g = og
+    b = ob
     
     If o_r > r_ Then
         r = r - 1
     ElseIf o_r < r_ Then
         r = r + 1
+
     End If
 
     If og > g_ Then
         g = g - 1
     ElseIf og < r Then
         g = g + 1
+
     End If
 
     If ob > b_ Then
         b = b - 1
     ElseIf og < r Then
         b = b + 1
-    End If
-If r > 255 Then r = 255
-If g > 255 Then g = 255
-If b > 255 Then b = 255
-day_r_old = r
-day_g_old = g
-day_b_old = b
 
-If r < 0 Or g < 0 Or b < 0 Then r = 1: g = 1: b = 1
-change_day_effect = ARGB(r, g, b, 255)
+    End If
+
+    If r > 255 Then r = 255
+    If g > 255 Then g = 255
+    If b > 255 Then b = 255
+    day_r_old = r
+    day_g_old = g
+    day_b_old = b
+
+    If r < 0 Or g < 0 Or b < 0 Then
+        r = 1
+        g = 1
+        b = 1
+    End If
+
+    change_day_effect = ARGB(r, g, b, 255)
 
 End Function
 
 Public Sub setup_ambient()
 
-'Noche 87, 61, 43
-luz_dia(0).r = 87
-luz_dia(0).g = 61
-luz_dia(0).b = 43
-luz_dia(1).r = 143
-luz_dia(1).g = 137
-luz_dia(1).b = 135
-luz_dia(2).r = 143
-luz_dia(2).g = 137
-luz_dia(2).b = 135
-luz_dia(3).r = 143
-luz_dia(3).g = 137
-luz_dia(3).b = 135
-'4 am 124,117,91
-luz_dia(4).r = 143
-luz_dia(4).g = 137
-luz_dia(4).b = 135
-'5,6 am 143,137,135
-luz_dia(5).r = 143
-luz_dia(5).g = 137
-luz_dia(5).b = 135
-luz_dia(6).r = 143
-luz_dia(6).g = 137
-luz_dia(6).b = 135
-'7 am 212,205,207
-luz_dia(7).r = 212
-luz_dia(7).g = 205
-luz_dia(7).b = 207
-luz_dia(8).r = 212
-luz_dia(8).g = 205
-luz_dia(8).b = 207
-luz_dia(9).r = 212
-luz_dia(9).g = 205
-luz_dia(9).b = 207
-luz_dia(10).r = 212
-luz_dia(10).g = 205
-luz_dia(10).b = 207
-luz_dia(11).r = 212
-luz_dia(11).g = 205
-luz_dia(11).b = 207
-luz_dia(12).r = 212
-luz_dia(12).g = 205
-luz_dia(12).b = 207
-'Dia 255, 255, 255
-luz_dia(12).r = 255
-luz_dia(12).g = 255
-luz_dia(12).b = 255
-luz_dia(13).r = 255
-luz_dia(13).g = 255
-luz_dia(13).b = 255
-'Medio Dia 255, 200, 255
-luz_dia(14).r = 255
-luz_dia(14).g = 250
-luz_dia(14).b = 255
-luz_dia(15).r = 255
-luz_dia(15).g = 240
-luz_dia(15).b = 255
-luz_dia(16).r = 255
-luz_dia(16).g = 230
-luz_dia(16).b = 255
-'17/18 0, 100, 255
-luz_dia(17).r = 230
-luz_dia(17).g = 230
-luz_dia(17).b = 255
-'18/19 0, 100, 255
-luz_dia(18).r = 230
-luz_dia(18).g = 230
-luz_dia(18).b = 255
-'19/20 156, 142, 83
-luz_dia(19).r = 156
-luz_dia(19).g = 142
-luz_dia(19).b = 83
-luz_dia(20).r = 87
-luz_dia(20).g = 61
-luz_dia(20).b = 43
-luz_dia(21).r = 87
-luz_dia(21).g = 61
-luz_dia(21).b = 43
-luz_dia(22).r = 87
-luz_dia(22).g = 61
-luz_dia(22).b = 43
-luz_dia(23).r = 87
-luz_dia(23).g = 61
-luz_dia(23).b = 43
-luz_dia(24).r = 87
-luz_dia(24).g = 61
-luz_dia(24).b = 43
+    'Noche 87, 61, 43
+    luz_dia(0).r = 87
+    luz_dia(0).g = 61
+    luz_dia(0).b = 43
+    luz_dia(1).r = 143
+    luz_dia(1).g = 137
+    luz_dia(1).b = 135
+    luz_dia(2).r = 143
+    luz_dia(2).g = 137
+    luz_dia(2).b = 135
+    luz_dia(3).r = 143
+    luz_dia(3).g = 137
+    luz_dia(3).b = 135
+    '4 am 124,117,91
+    luz_dia(4).r = 143
+    luz_dia(4).g = 137
+    luz_dia(4).b = 135
+    '5,6 am 143,137,135
+    luz_dia(5).r = 143
+    luz_dia(5).g = 137
+    luz_dia(5).b = 135
+    luz_dia(6).r = 143
+    luz_dia(6).g = 137
+    luz_dia(6).b = 135
+    '7 am 212,205,207
+    luz_dia(7).r = 212
+    luz_dia(7).g = 205
+    luz_dia(7).b = 207
+    luz_dia(8).r = 212
+    luz_dia(8).g = 205
+    luz_dia(8).b = 207
+    luz_dia(9).r = 212
+    luz_dia(9).g = 205
+    luz_dia(9).b = 207
+    luz_dia(10).r = 212
+    luz_dia(10).g = 205
+    luz_dia(10).b = 207
+    luz_dia(11).r = 212
+    luz_dia(11).g = 205
+    luz_dia(11).b = 207
+    luz_dia(12).r = 212
+    luz_dia(12).g = 205
+    luz_dia(12).b = 207
+    'Dia 255, 255, 255
+    luz_dia(12).r = 255
+    luz_dia(12).g = 255
+    luz_dia(12).b = 255
+    luz_dia(13).r = 255
+    luz_dia(13).g = 255
+    luz_dia(13).b = 255
+    'Medio Dia 255, 200, 255
+    luz_dia(14).r = 255
+    luz_dia(14).g = 250
+    luz_dia(14).b = 255
+    luz_dia(15).r = 255
+    luz_dia(15).g = 240
+    luz_dia(15).b = 255
+    luz_dia(16).r = 255
+    luz_dia(16).g = 230
+    luz_dia(16).b = 255
+    '17/18 0, 100, 255
+    luz_dia(17).r = 230
+    luz_dia(17).g = 230
+    luz_dia(17).b = 255
+    '18/19 0, 100, 255
+    luz_dia(18).r = 230
+    luz_dia(18).g = 230
+    luz_dia(18).b = 255
+    '19/20 156, 142, 83
+    luz_dia(19).r = 156
+    luz_dia(19).g = 142
+    luz_dia(19).b = 83
+    luz_dia(20).r = 87
+    luz_dia(20).g = 61
+    luz_dia(20).b = 43
+    luz_dia(21).r = 87
+    luz_dia(21).g = 61
+    luz_dia(21).b = 43
+    luz_dia(22).r = 87
+    luz_dia(22).g = 61
+    luz_dia(22).b = 43
+    luz_dia(23).r = 87
+    luz_dia(23).g = 61
+    luz_dia(23).b = 43
+    luz_dia(24).r = 87
+    luz_dia(24).g = 61
+    luz_dia(24).b = 43
             
 End Sub
 
-
 Private Function GetElapsedTime() As Single
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'Gets the time that past since the last call
-'**************************************************************
-    Dim start_time As Currency
-    Static end_time As Currency
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    'Gets the time that past since the last call
+    '**************************************************************
+    Dim start_time    As Currency
+    Static end_time   As Currency
     Static timer_freq As Currency
 
     'Get the timer frequency
     If timer_freq = 0 Then
         QueryPerformanceFrequency timer_freq
+
     End If
     
     'Get current time
@@ -390,16 +388,14 @@ Private Function GetElapsedTime() As Single
     
     'Get next end time
     Call QueryPerformanceCounter(end_time)
+
 End Function
 
-
-
-Public Sub Text_Render(ByVal font As D3DXFont, ByVal Text As String, ByVal Top As Long, ByVal Left As Long, _
-                                ByVal Width As Long, ByVal Height As Long, ByVal color As Long, ByVal Format As Long, Optional ByVal shadow As Boolean = False)
-'*****************************************************
-'****** Coded by Menduz (lord.yo.wo@gmail.com) *******
-'*****************************************************
-    Dim TextRect As RECT
+Public Sub Text_Render(ByVal font As D3DXFont, ByVal Text As String, ByVal Top As Long, ByVal Left As Long, ByVal Width As Long, ByVal Height As Long, ByVal color As Long, ByVal Format As Long, Optional ByVal shadow As Boolean = False)
+    '*****************************************************
+    '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
+    '*****************************************************
+    Dim TextRect   As RECT
     Dim ShadowRect As RECT
     
     TextRect.Top = Top
@@ -413,29 +409,36 @@ Public Sub Text_Render(ByVal font As D3DXFont, ByVal Text As String, ByVal Top A
         ShadowRect.Bottom = (Top + Height) - 1
         ShadowRect.Right = (Left + Width) - 2
         D3DX.DrawText font, &HFF000000, Text, ShadowRect, Format
+
     End If
     
     D3DX.DrawText font, color, Text, TextRect, Format
+
 End Sub
-Public Sub Text_Render_ext(ByVal Text As String, ByVal Top As Long, ByVal Left As Long, _
-                                ByVal Width As Long, ByVal Height As Long, ByVal color As Long, Optional ByVal shadow As Boolean = False, Optional ByVal center As Boolean = False)
+
+Public Sub Text_Render_ext(ByVal Text As String, ByVal Top As Long, ByVal Left As Long, ByVal Width As Long, ByVal Height As Long, ByVal color As Long, Optional ByVal shadow As Boolean = False, Optional ByVal center As Boolean = False)
+
     If center = True Then
         Call Text_Render(font_list(1), Text, Top, Left, Width, Height, color, fa_center, shadow)
     Else
         Call Text_Render(font_list(1), Text, Top, Left, Width, Height, color, DT_TOP Or DT_LEFT, shadow)
+
     End If
+
 End Sub
 
-Private Sub Font_Make(ByVal font_index As Long, ByVal Style As String, ByVal bold As Boolean, _
-                        ByVal italic As Boolean, ByVal Size As Long)
+Private Sub Font_Make(ByVal font_index As Long, ByVal Style As String, ByVal bold As Boolean, ByVal italic As Boolean, ByVal Size As Long)
+
     If font_index > font_last Then
         font_last = font_index
         ReDim Preserve font_list(1 To font_last)
+
     End If
+
     font_count = font_count + 1
     
     Dim font_desc As IFont
-    Dim fnt As New StdFont
+    Dim fnt       As New StdFont
     fnt.name = Style
     fnt.Size = Size
     fnt.bold = bold
@@ -443,49 +446,56 @@ Private Sub Font_Make(ByVal font_index As Long, ByVal Style As String, ByVal bol
     
     Set font_desc = fnt
     Set font_list(font_index) = D3DX.CreateFont(D3DDevice, font_desc.hFont)
+
 End Sub
 
+Public Function Font_Create(ByVal Style As String, ByVal Size As Long, ByVal bold As Boolean, ByVal italic As Boolean) As Long
 
-Public Function Font_Create(ByVal Style As String, ByVal Size As Long, ByVal bold As Boolean, _
-                            ByVal italic As Boolean) As Long
-On Error GoTo ErrorHandler:
+    On Error GoTo ErrorHandler:
+
     Font_Create = Font_Next_Open
     Font_Make Font_Create, Style, bold, italic, Size
 ErrorHandler:
     Font_Create = 0
+
 End Function
 
 Private Function Font_Next_Open() As Long
     Font_Next_Open = font_last + 1
+
 End Function
 
 Private Function Font_Check(ByVal font_index As Long) As Boolean
-'*****************************************************
-'****** Coded by Menduz (lord.yo.wo@gmail.com) *******
-'*****************************************************
+
+    '*****************************************************
+    '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
+    '*****************************************************
     If font_index > 0 And font_index <= font_last Then
         Font_Check = True
+
     End If
+
 End Function
 
 Function MakeVector(ByVal X As Single, ByVal y As Single, ByVal Z As Single) As D3DVECTOR
-'*****************************************************
-'****** Coded by Menduz (lord.yo.wo@gmail.com) *******
-'*****************************************************
-  MakeVector.X = X
-  MakeVector.y = y
-  MakeVector.Z = Z
+    '*****************************************************
+    '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
+    '*****************************************************
+    MakeVector.X = X
+    MakeVector.y = y
+    MakeVector.Z = Z
+
 End Function
 
 Public Sub Engine_Init()
-'*****************************************************
-'****** Coded by Menduz (lord.yo.wo@gmail.com) *******
-'*****************************************************
-'On Error GoTo ErrHandler:
+    '*****************************************************
+    '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
+    '*****************************************************
+    'On Error GoTo ErrHandler:
 
-    Dim DispMode As D3DDISPLAYMODE
-    Dim DispModeBK As D3DDISPLAYMODE
-    Dim D3DWindow As D3DPRESENT_PARAMETERS
+    Dim DispMode    As D3DDISPLAYMODE
+    Dim DispModeBK  As D3DDISPLAYMODE
+    Dim D3DWindow   As D3DPRESENT_PARAMETERS
     Dim ColorKeyVal As Long
     
     Set SurfaceDB = New clsTexManager
@@ -497,7 +507,6 @@ Public Sub Engine_Init()
     D3D.GetAdapterDisplayMode D3DADAPTER_DEFAULT, DispMode
     D3D.GetAdapterDisplayMode D3DADAPTER_DEFAULT, DispModeBK
     
-    
     With D3DWindow
         .Windowed = True
         .SwapEffect = D3DSWAPEFFECT_COPY
@@ -507,24 +516,30 @@ Public Sub Engine_Init()
         .EnableAutoDepthStencil = 1
         .AutoDepthStencilFormat = D3DFMT_D16
         .hDeviceWindow = FrmMain.renderer.hWnd
+
     End With
+
     DispMode.Format = D3DFMT_X8R8G8B8
+
     If D3D.CheckDeviceFormat(0, D3DDEVTYPE_HAL, DispMode.Format, 0, D3DRTYPE_TEXTURE, D3DFMT_A8R8G8B8) = D3D_OK Then
         Dim Caps8 As D3DCAPS8
         D3D.GetDeviceCaps 0, D3DDEVTYPE_HAL, Caps8
+
         If (Caps8.TextureOpCaps And D3DTEXOPCAPS_DOTPRODUCT3) = D3DTEXOPCAPS_DOTPRODUCT3 Then
             bump_map_supported = True
         Else
             bump_map_supported = False
             DispMode.Format = DispModeBK.Format
+
         End If
+
     Else
         bump_map_supported = False
         DispMode.Format = DispModeBK.Format
+
     End If
-    Set D3DDevice = D3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, FrmMain.renderer.hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, _
-                                                            D3DWindow)
-                                                            
+
+    Set D3DDevice = D3D.CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, FrmMain.renderer.hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, D3DWindow)
                                                             
     HalfWindowTileHeight = (FrmMain.renderer.ScaleHeight / 32) \ 2
     HalfWindowTileWidth = (FrmMain.renderer.ScaleWidth / 32) \ 2
@@ -564,33 +579,32 @@ Public Sub Engine_Init()
     MinYBorder = YMinMapSize + (FrmMain.renderer.ScaleHeight / 64)
     MaxYBorder = YMaxMapSize - (FrmMain.renderer.ScaleHeight / 64)
     
-
-    
     Font_Create "Tahoma", 8, True, 0
     Font_Create "Verdana", 8, False, 0
     
-bRunning = True
-Exit Sub
+    bRunning = True
+    Exit Sub
 ErrHandler:
-Debug.Print "Error Number Returned: " & Err.Number
-bRunning = False
+    Debug.Print "Error Number Returned: " & Err.Number
+    bRunning = False
+
 End Sub
 
 Public Sub Engine_Deinit()
-Erase MapData
-Erase CharList
+    Erase MapData
+    Erase CharList
 
-Set D3DDevice = Nothing
-Set D3D = Nothing
-Set dX = Nothing
-End
+    Set D3DDevice = Nothing
+    Set D3D = Nothing
+    Set dX = Nothing
+    End
+
 End Sub
 
-
 Private Function CreateTLVertex(X As Single, y As Single, Z As Single, rhw As Single, color As Long, Specular As Long, tu As Single, tv As Single) As TLVERTEX
-'*****************************************************
-'****** Coded by Menduz (lord.yo.wo@gmail.com) *******
-'*****************************************************
+    '*****************************************************
+    '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
+    '*****************************************************
     CreateTLVertex.X = X
     CreateTLVertex.y = y
     CreateTLVertex.Z = Z
@@ -599,27 +613,36 @@ Private Function CreateTLVertex(X As Single, y As Single, Z As Single, rhw As Si
     CreateTLVertex.Specular = Specular
     CreateTLVertex.tu = tu
     CreateTLVertex.tv = tv
+
 End Function
 
 Public Sub Engine_ActFPS()
+
     If GetTickCount - lFrameTimer > 1000 Then
         FPS = FramesPerSecCounter
         FramesPerSecCounter = 0
         lFrameTimer = GetTickCount
+
     End If
+
 End Sub
 
 Function InMapBounds(ByVal X As Integer, ByVal y As Integer) As Boolean
-'*****************************************************************
-'Checks to see if a tile position is in the maps bounds
-'*****************************************************************
+
+    '*****************************************************************
+    'Checks to see if a tile position is in the maps bounds
+    '*****************************************************************
     If X < XMinMapSize Or X > XMaxMapSize Or y < YMinMapSize Or y > YMaxMapSize Then
         Exit Function
+
     End If
     
     InMapBounds = True
+
 End Function
+
 Public Sub Draw_GrhIndex(ByVal grh_index As Long, ByVal X As Integer, ByVal y As Integer)
+
     If grh_index <= 0 Then Exit Sub
     Dim rgb_list(3) As Long
     
@@ -628,13 +651,12 @@ Public Sub Draw_GrhIndex(ByVal grh_index As Long, ByVal X As Integer, ByVal y As
     rgb_list(2) = D3DColorXRGB(255, 255, 255)
     rgb_list(3) = D3DColorXRGB(255, 255, 255)
     
-    Device_Box_Textured_Render grh_index, _
-        X, y, _
-        GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, _
-        rgb_list, _
-        GrhData(grh_index).sX, GrhData(grh_index).sY
+    Device_Box_Textured_Render grh_index, X, y, GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, rgb_list, GrhData(grh_index).sX, GrhData(grh_index).sY
+
 End Sub
+
 Public Sub Draw_GrhIndexColor(ByVal grh_index As Integer, ByVal X As Integer, ByVal y As Integer)
+
     If grh_index <= 0 Then Exit Sub
     Dim rgb_list(3) As Long
     
@@ -643,19 +665,21 @@ Public Sub Draw_GrhIndexColor(ByVal grh_index As Integer, ByVal X As Integer, By
     rgb_list(2) = D3DColorXRGB(255, 255, 255)
     rgb_list(3) = D3DColorXRGB(255, 255, 255)
     
-    Device_Box_Textured_Render grh_index, _
-        X, y, _
-        GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, _
-        rgb_list, _
-        GrhData(grh_index).sX, GrhData(grh_index).sY, True
+    Device_Box_Textured_Render grh_index, X, y, GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, rgb_list, GrhData(grh_index).sX, GrhData(grh_index).sY, True
+
 End Sub
+
 Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, ByVal center As Byte, ByVal animate As Byte, ByRef rgb_list() As Long, Optional ByVal alpha As Boolean, Optional ByVal map_x As Byte = 1, Optional ByVal map_y As Byte = 1, Optional ByVal angle As Single)
+
     On Error Resume Next
+
     Dim CurrentGrhIndex As Long
+
     If Grh.grhindex = 0 Then Exit Sub
     If animate Then
         If Grh.Started = 1 Then
             Grh.FrameCounter = Grh.FrameCounter + (timerElapsedTime * GrhData(Grh.grhindex).NumFrames / Grh.speed)
+
             If Grh.FrameCounter > GrhData(Grh.grhindex).NumFrames Then
                 Grh.FrameCounter = (Grh.FrameCounter Mod GrhData(Grh.grhindex).NumFrames) + 1
                 
@@ -664,189 +688,202 @@ Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, B
                         Grh.Loops = Grh.Loops - 1
                     Else
                         Grh.Started = 0
+
                     End If
+
                 End If
+
             End If
+
         End If
+
     End If
     
     If GrhData(Grh.grhindex).NumFrames = 0 Then
         Call AddtoRichTextBox(FrmMain.RichTextBox1, "Hay un error en el grh " & Grh.grhindex & " (" & map_x & ", " & map_y & ")", 255, 100, 100, False, False, False)
         Exit Sub
+
     End If
     
     'Figure out what frame to draw (always 1 if not animated)
     CurrentGrhIndex = GrhData(Grh.grhindex).Frames(Grh.FrameCounter)
-If CurrentGrhIndex = 0 Then
-    Dim ix As Byte
-    Dim iy As Byte
+
+    If CurrentGrhIndex = 0 Then
+        Dim ix As Byte
+        Dim iy As Byte
     
-    For iy = 1 To 100
-    For ix = 1 To 100
-        If MapData(ix, iy).Graphic(1).grhindex = Grh.grhindex Then
-         '  Debug.Print "El tile que falla es: " & ix & "-" & iy
-            MapData(ix, iy).Graphic(1).grhindex = 0
-        End If
+        For iy = 1 To 100
+            For ix = 1 To 100
+
+                If MapData(ix, iy).Graphic(1).grhindex = Grh.grhindex Then
+                    '  Debug.Print "El tile que falla es: " & ix & "-" & iy
+                    MapData(ix, iy).Graphic(1).grhindex = 0
+
+                End If
+
                 If MapData(ix, iy).Graphic(2).grhindex = Grh.grhindex Then
-         '   Debug.Print "El tile que falla es: " & ix & "-" & iy
-            MapData(ix, iy).Graphic(2).grhindex = 0
-        End If
+                    '   Debug.Print "El tile que falla es: " & ix & "-" & iy
+                    MapData(ix, iy).Graphic(2).grhindex = 0
+
+                End If
+
                 If MapData(ix, iy).Graphic(3).grhindex = Grh.grhindex Then
-       '    Debug.Print "El tile que falla es: " & ix & "-" & iy
-            MapData(ix, iy).Graphic(3).grhindex = 0
-        End If
+                    '    Debug.Print "El tile que falla es: " & ix & "-" & iy
+                    MapData(ix, iy).Graphic(3).grhindex = 0
+
+                End If
         
-        If MapData(ix, iy).Graphic(4).grhindex = Grh.grhindex Then
-        '    Debug.Print "El tile que falla es: " & ix & "-" & iy
-            MapData(ix, iy).Graphic(4).grhindex = 0
-        End If
-    Next ix
-    Next iy
-End If
+                If MapData(ix, iy).Graphic(4).grhindex = Grh.grhindex Then
+                    '    Debug.Print "El tile que falla es: " & ix & "-" & iy
+                    MapData(ix, iy).Graphic(4).grhindex = 0
+
+                End If
+
+            Next ix
+        Next iy
+
+    End If
+
     'Center Grh over X,Y pos
     If center Then
         If GrhData(CurrentGrhIndex).TileWidth <> 1 Then
             X = X - Int(GrhData(CurrentGrhIndex).TileWidth * (32 \ 2)) + 32 \ 2
+
         End If
 
         If GrhData(Grh.grhindex).TileHeight <> 1 Then
             y = y - Int(GrhData(CurrentGrhIndex).TileHeight * 32) + 32
+
         End If
+
     End If
-    
 
-
-    Device_Box_Textured_Render CurrentGrhIndex, _
-        X, y, _
-        GrhData(CurrentGrhIndex).pixelWidth, GrhData(CurrentGrhIndex).pixelHeight, _
-        rgb_list, GrhData(CurrentGrhIndex).sX, GrhData(CurrentGrhIndex).sY, _
-        alpha _
-        , angle
-'exits:
+    Device_Box_Textured_Render CurrentGrhIndex, X, y, GrhData(CurrentGrhIndex).pixelWidth, GrhData(CurrentGrhIndex).pixelHeight, rgb_list, GrhData(CurrentGrhIndex).sX, GrhData(CurrentGrhIndex).sY, alpha, angle
+    'exits:
 
 End Sub
 
-
 Public Function Map_Base_Light_Get() As Long
-'**************************************************************
-'Author: Aaron Perkins - Modified by Augusto José Rando
-'Last Modify Date: 6/12/2005
-'
-'**************************************************************
+    '**************************************************************
+    'Author: Aaron Perkins - Modified by Augusto José Rando
+    'Last Modify Date: 6/12/2005
+    '
+    '**************************************************************
     Map_Base_Light_Get = map_base_light
+
 End Function
+
 Public Function Map_Base_Light_Set(ByVal base_light As Long)
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'
-'**************************************************************
+
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    '
+    '**************************************************************
     If map_base_light <> base_light Then
         map_base_light = base_light
         
     End If
+
 End Function
-Public Function Map_Fill(ByVal grh_index As Long, ByVal LAYER As Byte, Optional ByVal light_base_color As Long = -1, _
-                        Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single) As Boolean
-'**************************************************************
-'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
-'Last Modify Date: 1/04/2003
-'
-'**************************************************************
+
+Public Function Map_Fill(ByVal grh_index As Long, ByVal LAYER As Byte, Optional ByVal light_base_color As Long = -1, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single) As Boolean
+    '**************************************************************
+    'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
+    'Last Modify Date: 1/04/2003
+    '
+    '**************************************************************
     Dim X As Integer
     Dim y As Integer
     
     'Base light color
     If light_base_color <> -1 Then
         If Not Map_Base_Light_Set(light_base_color) Then Exit Function
+
     End If
-    
         
     Map_Fill = True
-End Function
-Public Sub Render()
-'*****************************************************
-'****** Coded by Menduz (lord.yo.wo@gmail.com) *******
-'*****************************************************
-On Error Resume Next
 
-D3DDevice.BeginScene
-If FrmMain.PreviewGrh.Visible = True Then
-       ' Call modPaneles.VistaPreviaDeSup
+End Function
+
+Public Sub Render()
+
+    '*****************************************************
+    '****** Coded by Menduz (lord.yo.wo@gmail.com) *******
+    '*****************************************************
+    On Error Resume Next
+
+    D3DDevice.BeginScene
+
+    If FrmMain.PreviewGrh.Visible = True Then
+
+        ' Call modPaneles.VistaPreviaDeSup
     End If
 
     D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 1#, 0
 
     ShowNextFrame
 
-    
-
     If bRefreshRadar = True Then
         Call RefreshAllChars
         bRefreshRadar = False
+
     End If
+
     Text_Render font_list(1), "FPS: " & FPS, 10, 10, 70, 20, &HFFFFFFFF, DT_TOP Or DT_LEFT, True
     Text_Render font_list(1), SeleccionAncho & "," & SeleccionAlto, 30, 10, 70, 20, &HFFFFFFFF, DT_TOP Or DT_LEFT, True
     
-    
     Text_Render font_list(1), SeleccionFX - SeleccionIX + 1 & "," & SeleccionFY - SeleccionIY + 1, 40, 10, 70, 20, &HFFFFFFFF, DT_TOP Or DT_LEFT, True
     
-    
     Text_Render font_list(1), "Ultimo Click: X: " & UltimoClickX & " Y: " & UltimoClickY, 20, 10, 150, 20, &HFFFFFFFF, DT_TOP Or DT_LEFT, True
-    
-  
-    
-    
 
-D3DDevice.EndScene
+    D3DDevice.EndScene
 
-D3DDevice.Present ByVal 0, ByVal 0, 0, ByVal 0
+    D3DDevice.Present ByVal 0, ByVal 0, 0, ByVal 0
 
-lFrameLimiter = GetTickCount
-FramesPerSecCounter = FramesPerSecCounter + 1
-timerElapsedTime = GetElapsedTime()
-timerTicksPerFrame = timerElapsedTime * engineBaseSpeed
+    lFrameLimiter = GetTickCount
+    FramesPerSecCounter = FramesPerSecCounter + 1
+    timerElapsedTime = GetElapsedTime()
+    timerTicksPerFrame = timerElapsedTime * engineBaseSpeed
+
 End Sub
 
-
-
 Sub ShowNextFrame()
-        Call RenderScreen(UserPos.X - AddtoUserPos.X, UserPos.y - AddtoUserPos.y, 0, 0)
+    Call RenderScreen(UserPos.X - AddtoUserPos.X, UserPos.y - AddtoUserPos.y, 0, 0)
+
 End Sub
 
 Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffsetX As Integer, ByVal PixelOffsetY As Integer)
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 8/14/2007
-'Last modified by: Juan Martín Sotuyo Dodero (Maraxus)
-'Renders everything to the viewport
-'**************************************************************
-    Dim y                   As Integer     'Keeps track of where on map we are
-    Dim X                   As Integer     'Keeps track of where on map we are
-    Dim bCapa    As Byte
-    Dim Sobre   As Long
-    Dim screenminY          As Integer  'Start Y pos on current screen
-    Dim screenmaxY          As Integer  'End Y pos on current screen
-    Dim screenminX          As Integer  'Start X pos on current screen
-    Dim screenmaxX          As Integer  'End X pos on current screen
-    Dim miny                As Integer  'Start Y pos on current map
-    Dim maxy                As Integer  'End Y pos on current map
-    Dim minx                As Integer  'Start X pos on current map
-    Dim maxx                As Integer  'End X pos on current map
-    Dim ScreenX             As Integer  'Keeps track of where to place tile on screen
-    Dim ScreenY             As Integer  'Keeps track of where to place tile on screen
-    Dim minXOffset          As Integer
-    Dim minYOffset          As Integer
-    Dim PixelOffsetXTemp    As Integer 'For centering grhs
-    Dim PixelOffsetYTemp    As Integer 'For centering grhs
-    Dim CurrentGrhIndex     As Long
-    Dim offx                As Integer
-    Dim offy                As Integer
-    Dim Grh As Grh
-    Dim TempChar            As char
-    Dim i                   As Integer
-
-
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 8/14/2007
+    'Last modified by: Juan Martín Sotuyo Dodero (Maraxus)
+    'Renders everything to the viewport
+    '**************************************************************
+    Dim y                As Integer     'Keeps track of where on map we are
+    Dim X                As Integer     'Keeps track of where on map we are
+    Dim bCapa            As Byte
+    Dim Sobre            As Long
+    Dim screenminY       As Integer  'Start Y pos on current screen
+    Dim screenmaxY       As Integer  'End Y pos on current screen
+    Dim screenminX       As Integer  'Start X pos on current screen
+    Dim screenmaxX       As Integer  'End X pos on current screen
+    Dim miny             As Integer  'Start Y pos on current map
+    Dim maxy             As Integer  'End Y pos on current map
+    Dim minx             As Integer  'Start X pos on current map
+    Dim maxx             As Integer  'End X pos on current map
+    Dim ScreenX          As Integer  'Keeps track of where to place tile on screen
+    Dim ScreenY          As Integer  'Keeps track of where to place tile on screen
+    Dim minXOffset       As Integer
+    Dim minYOffset       As Integer
+    Dim PixelOffsetXTemp As Integer 'For centering grhs
+    Dim PixelOffsetYTemp As Integer 'For centering grhs
+    Dim CurrentGrhIndex  As Long
+    Dim offx             As Integer
+    Dim offy             As Integer
+    Dim Grh              As Grh
+    Dim TempChar         As char
+    Dim i                As Integer
     
     'Figure out Ends and Starts of screen
     screenminY = TileY - HalfWindowTileHeight
@@ -859,10 +896,11 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     minx = screenminX - TileBufferSize
     maxx = screenmaxX + TileBufferSize
     
-     'Make sure mins and maxs are allways in map bounds
+    'Make sure mins and maxs are allways in map bounds
     If miny < XMinMapSize Then
         minYOffset = YMinMapSize - miny
         miny = YMinMapSize
+
     End If
     
     If maxy > YMaxMapSize Then maxy = YMaxMapSize
@@ -870,6 +908,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     If minx < XMinMapSize Then
         minXOffset = XMinMapSize - minx
         minx = XMinMapSize
+
     End If
     
     If maxx > XMaxMapSize Then maxx = XMaxMapSize
@@ -880,6 +919,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     Else
         screenminY = 1
         ScreenY = 1
+
     End If
     
     If screenmaxY < YMaxMapSize Then screenmaxY = screenmaxY + 1
@@ -889,153 +929,152 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     Else
         screenminX = 1
         ScreenX = 1
+
     End If
     
     If screenmaxX < XMaxMapSize Then screenmaxX = screenmaxX + 1
-    
 
     If Val(FrmMain.cCapas.Text) >= 1 And (FrmMain.cCapas.Text) <= 4 Then
-           bCapa = Val(FrmMain.cCapas.Text)
+        bCapa = Val(FrmMain.cCapas.Text)
     Else
         bCapa = 1
+
     End If
+
     GenerarVista 'Loopzer
-    
 
-
-If screenmaxX > 100 Then screenmaxX = 100
-
+    If screenmaxX > 100 Then screenmaxX = 100
 
     'Draw floor layer
     For y = screenminY To screenmaxY
     
         For X = screenminX To screenmaxX
 
-
-        
-    
-    
-    
-
-
-
-                                If SobreX = X And SobreY = y Then
-                                      
+            If SobreX = X And SobreY = y Then
                                         
-        If DesdeBloq Then
-               Dim j As Integer, grafico As Integer
+                If DesdeBloq Then
+                    Dim j    As Integer, grafico As Integer
             
-        Dim Cont As Integer
+                    Dim Cont As Integer
         
-        Dim grha As Long
-        grha = RenderGrh
-              i = 0
-        j = 0
+                    Dim grha As Long
+                    grha = RenderGrh
+                    i = 0
+                    j = 0
        
-        For i = 1 To y
-            For j = 1 To X
-               ' MapData(j, i).Marcado = True
-                MapData(j, i).Graphic(RenderLayer + 4).grhindex = 1
-                InitGrh MapData(j, i).Graphic(RenderLayer + 4), 1
+                    For i = 1 To y
+                        For j = 1 To X
+                            ' MapData(j, i).Marcado = True
+                            MapData(j, i).Graphic(RenderLayer + 4).grhindex = 1
+                            InitGrh MapData(j, i).Graphic(RenderLayer + 4), 1
 
-            Next
-        Next
+                        Next
+                    Next
         
-        i = 0
-        j = 0
+                    i = 0
+                    j = 0
         
-        For i = RenderY To 100
-            For j = RenderX To 100
-               ' MapData(j, i).Marcado = True
-                MapData(j, i).Graphic(RenderLayer + 4).grhindex = 1
-                InitGrh MapData(j, i).Graphic(RenderLayer + 4), 1
+                    For i = RenderY To 100
+                        For j = RenderX To 100
+                            ' MapData(j, i).Marcado = True
+                            MapData(j, i).Graphic(RenderLayer + 4).grhindex = 1
+                            InitGrh MapData(j, i).Graphic(RenderLayer + 4), 1
 
-            Next
-        Next
+                        Next
+                    Next
        
-       
-      i = 0
-        j = 0
+                    i = 0
+                    j = 0
 
-        For i = y To y + RenderY - 1
-            For j = X To X + RenderX - 1
-               ' MapData(j, i).Marcado = True
-                MapData(j, i).Graphic(RenderLayer + 4).grhindex = grha
-                InitGrh MapData(j, i).Graphic(RenderLayer + 4), grha
-                If Cont < RenderY * RenderX Then
-                    Cont = Cont + 1
-                    grha = grha + 1
-                End If
-            Next
-        Next
-                            
+                    For i = y To y + RenderY - 1
+                        For j = X To X + RenderX - 1
+                            ' MapData(j, i).Marcado = True
+                            MapData(j, i).Graphic(RenderLayer + 4).grhindex = grha
+                            InitGrh MapData(j, i).Graphic(RenderLayer + 4), grha
+
+                            If Cont < RenderY * RenderX Then
+                                Cont = Cont + 1
+                                grha = grha + 1
+
+                            End If
+
+                        Next
+                    Next
                            
-        Else
-                ' Pone Grh !
-                Sobre = -1
-                If FrmMain.cSeleccionarSuperficie.value = True Then
-                    Sobre = MapData(X, y).Graphic(bCapa).grhindex
-                    If frmConfigSup.MOSAICO.value = vbChecked Then
-                        Dim aux As Long
-                        Dim dy As Integer
-                        Dim dX As Integer
-                        If frmConfigSup.DespMosaic.value = vbChecked Then
-                            dy = Val(frmConfigSup.DMLargo.Text)
-                            dX = Val(frmConfigSup.DMAncho.Text)
-                        Else
-                            dy = 0
-                            dX = 0
-                        End If
-                        If FrmMain.mnuAutoCompletarSuperficies.Checked = False Then
-                            aux = Val(FrmMain.cGrh.Text) + _
-                            (((y + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((X + dX) Mod frmConfigSup.mAncho.Text)
-                            If MapData(X, y).Graphic(bCapa).grhindex <> aux Then
-                                MapData(X, y).Graphic(bCapa).grhindex = aux
-                                InitGrh MapData(X, y).Graphic(bCapa), aux
+                Else
+                    ' Pone Grh !
+                    Sobre = -1
+
+                    If FrmMain.cSeleccionarSuperficie.value = True Then
+                        Sobre = MapData(X, y).Graphic(bCapa).grhindex
+
+                        If frmConfigSup.MOSAICO.value = vbChecked Then
+                            Dim aux As Long
+                            Dim dy  As Integer
+                            Dim dX  As Integer
+
+                            If frmConfigSup.DespMosaic.value = vbChecked Then
+                                dy = Val(frmConfigSup.DMLargo.Text)
+                                dX = Val(frmConfigSup.DMAncho.Text)
+                            Else
+                                dy = 0
+                                dX = 0
+
                             End If
-                        Else
-                            aux = Val(FrmMain.cGrh.Text) + _
-                            (((y + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((X + dX) Mod frmConfigSup.mAncho.Text)
-                            If MapData(X, y).Graphic(bCapa).grhindex <> aux Then
-                                MapData(X, y).Graphic(bCapa).grhindex = aux
-                                InitGrh MapData(X, y).Graphic(bCapa), aux
+
+                            If FrmMain.mnuAutoCompletarSuperficies.Checked = False Then
+                                aux = Val(FrmMain.cGrh.Text) + (((y + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((X + dX) Mod frmConfigSup.mAncho.Text)
+
+                                If MapData(X, y).Graphic(bCapa).grhindex <> aux Then
+                                    MapData(X, y).Graphic(bCapa).grhindex = aux
+                                    InitGrh MapData(X, y).Graphic(bCapa), aux
+
+                                End If
+
+                            Else
+                                aux = Val(FrmMain.cGrh.Text) + (((y + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((X + dX) Mod frmConfigSup.mAncho.Text)
+
+                                If MapData(X, y).Graphic(bCapa).grhindex <> aux Then
+                                    MapData(X, y).Graphic(bCapa).grhindex = aux
+                                    InitGrh MapData(X, y).Graphic(bCapa), aux
+
+                                End If
+
                             End If
+
+                        Else
+
+                            If MapData(X, y).Graphic(bCapa).grhindex <> Val(FrmMain.cGrh.Text) Then
+                                MapData(X, y).Graphic(bCapa).grhindex = Val(FrmMain.cGrh.Text)
+                                InitGrh MapData(X, y).Graphic(bCapa), Val(FrmMain.cGrh.Text)
+
+                            End If
+
                         End If
-                    Else
-                        If MapData(X, y).Graphic(bCapa).grhindex <> Val(FrmMain.cGrh.Text) Then
-                            MapData(X, y).Graphic(bCapa).grhindex = Val(FrmMain.cGrh.Text)
-                            InitGrh MapData(X, y).Graphic(bCapa), Val(FrmMain.cGrh.Text)
-                        End If
+
                     End If
+
                 End If
-            End If
+
             Else
             
                 Sobre = -1
-        
             
-       End If
+            End If
+
             'Layer 1 **********************************
-         
             
             If VerCapa1 Then
             
-                Call Draw_Grh(MapData(X, y).Graphic(1), _
-                        (ScreenX - 1) * 32 + PixelOffsetX, _
-                        (ScreenY - 1) * 32 + PixelOffsetY, _
-                        0, 1, MapData(X, y).light_value, False, X, y)
+                Call Draw_Grh(MapData(X, y).Graphic(1), (ScreenX - 1) * 32 + PixelOffsetX, (ScreenY - 1) * 32 + PixelOffsetY, 0, 1, MapData(X, y).light_value, False, X, y)
+
             End If
             
             If MapData(X, y).Graphic(5).grhindex <> 1 Then
-            
                             
-                        Call Draw_Grh(MapData(X, y).Graphic(5), _
-                        (ScreenX - 1) * 32 + PixelOffsetX, _
-                        (ScreenY - 1) * 32 + PixelOffsetY, _
-                        0, 1, MapData(X, y).light_value, False, X, y)
+                Call Draw_Grh(MapData(X, y).Graphic(5), (ScreenX - 1) * 32 + PixelOffsetX, (ScreenY - 1) * 32 + PixelOffsetY, 0, 1, MapData(X, y).light_value, False, X, y)
                         
             End If
-                        
                         
             'Layer 2  **********************************
 
@@ -1043,144 +1082,136 @@ If screenmaxX > 100 Then screenmaxX = 100
             
             If Sobre >= 0 Then
                 If MapData(X, y).Graphic(bCapa).grhindex <> Sobre Then
-                MapData(X, y).Graphic(bCapa).grhindex = Sobre
-                InitGrh MapData(X, y).Graphic(bCapa), Sobre
+                    MapData(X, y).Graphic(bCapa).grhindex = Sobre
+                    InitGrh MapData(X, y).Graphic(bCapa), Sobre
+
                 End If
+
             End If
+
             ScreenX = ScreenX + 1
+
             If X > 100 Then Exit For
         Next X
-      
 
         'Reset ScreenX to original value and increment ScreenY
         ScreenX = ScreenX - X + screenminX
         ScreenY = ScreenY + 1
+
         If y > 99 Then Exit For
 
-
     Next y
-    
-
-    
     
     ScreenY = minYOffset - TileBufferSize
     
     For y = miny To maxy
         ScreenX = minXOffset - TileBufferSize
+
         For X = minx To maxx
             PixelOffsetXTemp = ScreenX * 32 + PixelOffsetX
             PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
+
             With MapData(X, y)
+
                 '******************************************
                 If MapData(X, y).Graphic(2).grhindex <> 0 And VerCapa2 Then
-                Call Draw_Grh(MapData(X, y).Graphic(2), PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, False, X, y)
+                    Call Draw_Grh(MapData(X, y).Graphic(2), PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, False, X, y)
+
                 End If
                 
-                
-                            If MapData(X, y).Graphic(6).grhindex <> 1 Then
-            
+                If MapData(X, y).Graphic(6).grhindex <> 1 Then
                             
-                        Call Draw_Grh(MapData(X, y).Graphic(6), _
-                        (ScreenX - 1) * 32 + PixelOffsetX, _
-                        (ScreenY - 1) * 32 + PixelOffsetY, _
-                        0, 1, MapData(X, y).light_value, False, X, y)
+                    Call Draw_Grh(MapData(X, y).Graphic(6), (ScreenX - 1) * 32 + PixelOffsetX, (ScreenY - 1) * 32 + PixelOffsetY, 0, 1, MapData(X, y).light_value, False, X, y)
                         
-            End If
+                End If
+
                 'Object Layer **********************************
                 If .OBJInfo.objindex <> 0 And VerObjetos Then
-                    Call Draw_Grh(.ObjGrh, _
-                            PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, , X, y)
+                    Call Draw_Grh(.ObjGrh, PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, , X, y)
+
                 End If
+
                 '***********************************************
                 
                 'Char layer **********************************
 
                 If .CharIndex <> 0 And VerNpcs Then
                 
-                 Call Char_Render(.CharIndex, PixelOffsetXTemp, PixelOffsetYTemp, X, y)
+                    Call Char_Render(.CharIndex, PixelOffsetXTemp, PixelOffsetYTemp, X, y)
           
-              End If
-                 
+                End If
                 
                 'Layer 3 *****************************************
                 If .Graphic(3).grhindex <> 0 And VerCapa3 Then
 
-                    Call Draw_Grh(.Graphic(3), _
-                            PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, , X, y)
+                    Call Draw_Grh(.Graphic(3), PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, , X, y)
+
                 End If
                 
-                
-                            'If MapData(X, Y).Graphic(7).grhindex <> 1 Then
-            
+                'If MapData(X, Y).Graphic(7).grhindex <> 1 Then
                             
-                       'Call Draw_Grh(MapData(X, Y).Graphic(7), _
-                        (ScreenX - 1) * 32 + PixelOffsetX, _
-                        (ScreenY - 1) * 32 + PixelOffsetY, _
-                        0, 1, MapData(X, Y).light_value, False, X, Y)
+                'Call Draw_Grh(MapData(X, Y).Graphic(7), _
+                 (ScreenX - 1) * 32 + PixelOffsetX, _
+                 (ScreenY - 1) * 32 + PixelOffsetY, _
+                 0, 1, MapData(X, Y).light_value, False, X, Y)
                         
-                        
-           ' End If
-            
+                ' End If
       
                 '************************************************
             End With
+
             ScreenX = ScreenX + 1
         Next X
+
         ScreenY = ScreenY + 1
     Next y
+
     ScreenY = minYOffset - 5
     
-    
-    
-    
     ScreenY = minYOffset - TileBufferSize
+
     For y = miny To maxy
         ScreenX = minXOffset - TileBufferSize
+
         For X = minx To maxx
             PixelOffsetXTemp = ScreenX * 32 + PixelOffsetX
             PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
     
+            If MapData(X, y).particle_group > 0 And VerParticulas Then
+                Call Particle_Group_Render(MapData(X, y).particle_group, ScreenX * 32 + PixelOffsetX + 15, ScreenY * 32 + PixelOffsetY + 15)
+
+            End If
     
-    
-    
-    
-    
-       If MapData(X, y).particle_group > 0 And VerParticulas Then
-                                Call Particle_Group_Render(MapData(X, y).particle_group, ScreenX * 32 + PixelOffsetX + 15, ScreenY * 32 + PixelOffsetY + 15)
-                            End If
-    
-    
-                ScreenX = ScreenX + 1
+            ScreenX = ScreenX + 1
         Next X
+
         ScreenY = ScreenY + 1
     Next y
+
     ScreenY = minYOffset - 5
     
     Dim TmpRGB(3) As Long
-        TmpRGB(0) = D3DColorARGB(255, 255, 255, 255)
-        TmpRGB(1) = TmpRGB(0)
-        TmpRGB(2) = TmpRGB(0)
-        TmpRGB(3) = TmpRGB(0)
+    TmpRGB(0) = D3DColorARGB(255, 255, 255, 255)
+    TmpRGB(1) = TmpRGB(0)
+    TmpRGB(2) = TmpRGB(0)
+    TmpRGB(3) = TmpRGB(0)
         
     Dim HeadingIt As Byte
-    
                     
-ScreenY = minYOffset - TileBufferSize
+    ScreenY = minYOffset - TileBufferSize
+
     For y = miny To maxy
         ScreenX = minXOffset - TileBufferSize
+
         For X = minx To maxx
             PixelOffsetXTemp = ScreenX * 32 + PixelOffsetX
             PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
                     
             'Layer 4 *****************************************
             If MapData(X, y).Graphic(4).grhindex <> 0 And (FrmMain.mnuVerCapa4.Checked = True) Then
-                Call Draw_Grh(MapData(X, y).Graphic(4), _
-                    ScreenX * 32 + PixelOffsetX, _
-                    ScreenY * 32 + PixelOffsetY, _
-                    1, 1, MapData(X, y).light_value, AlphaTecho, X, y)
+                Call Draw_Grh(MapData(X, y).Graphic(4), ScreenX * 32 + PixelOffsetX, ScreenY * 32 + PixelOffsetY, 1, 1, MapData(X, y).light_value, AlphaTecho, X, y)
+
             End If
-                
-                
  
             '************************************************
             
@@ -1188,137 +1219,139 @@ ScreenY = minYOffset - TileBufferSize
                 HeadingIt = 1
 
                 For i = 1 To 4 ' Headings
+
                     If (MapData(X, y).Blocked And HeadingIt) <> 0 Then
                         Grh.grhindex = 1150 + i
                         Grh.FrameCounter = 1
                         Grh.Started = 0
                         Call Draw_Grh(Grh, PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), False, X, y)
+
                     End If
+
                     HeadingIt = HeadingIt * 2
                 Next
+
             End If
             
-             If MapData(X, y).TileExit.Map <> 0 And VerTranslados Then
+            If MapData(X, y).TileExit.Map <> 0 And VerTranslados Then
                 Grh.grhindex = 3
                 Grh.FrameCounter = 1
                 Grh.Started = 0
                 Call Draw_Grh(Grh, PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), True, X, y)
+
             End If
             
             If VerTriggers Then
-             '   Grh.grhindex = Str(MapData(X, Y).Trigger) + 21452
-              '  Grh.FrameCounter = 1
-              '  Grh.Started = 0
-                If MapData(X, y).Trigger <> 0 Then
-             '   If MapData(X, Y).Trigger < 7 Then
-               ' engine.Text_Render_ext Str(MapData(X, Y).Trigger), PixelOffsetXTemp, PixelOffsetYTemp, 10, 10, &HFFFFFF, True, True
-              '     Call Draw_Grh(Grh, _
-                            PixelOffsetXTemp, PixelOffsetYTemp - 7, 1, 1, TmpRGB(), False, X, Y)
-                '
-               ' Else
-                            
-                            Text_Render font_list(1), str(MapData(X, y).Trigger), PixelOffsetYTemp, PixelOffsetXTemp, 70, 20, &HFFFFFFFF, DT_TOP Or DT_LEFT, True
-                End If
-               ' End If
-            End If
 
-            
-            
-            
-   
+                '   Grh.grhindex = Str(MapData(X, Y).Trigger) + 21452
+                '  Grh.FrameCounter = 1
+                '  Grh.Started = 0
+                If MapData(X, y).Trigger <> 0 Then
+                    '   If MapData(X, Y).Trigger < 7 Then
+                    ' engine.Text_Render_ext Str(MapData(X, Y).Trigger), PixelOffsetXTemp, PixelOffsetYTemp, 10, 10, &HFFFFFF, True, True
+                    '     Call Draw_Grh(Grh, _
+                          PixelOffsetXTemp, PixelOffsetYTemp - 7, 1, 1, TmpRGB(), False, X, Y)
+                    '
+                    ' Else
+                            
+                    Text_Render font_list(1), str(MapData(X, y).Trigger), PixelOffsetYTemp, PixelOffsetXTemp, 70, 20, &HFFFFFFFF, DT_TOP Or DT_LEFT, True
+
+                End If
+
+                ' End If
+            End If
           
-          If Seleccionando Then
+            If Seleccionando Then
           
-          If X >= SeleccionIX And y >= SeleccionIY Then
-                        If X <= SeleccionFX And y <= SeleccionFY Then
+                If X >= SeleccionIX And y >= SeleccionIY Then
+                    If X <= SeleccionFX And y <= SeleccionFY Then
                         
-                 '       Grh.grhindex = 4
-              '   Grh.FrameCounter = 1
-              '   Grh.Started = 0
+                        '       Grh.grhindex = 4
+                        '   Grh.FrameCounter = 1
+                        '   Grh.Started = 0
                 
-                  '   TmpRGB(0) = D3DColorARGB(254, 255, 255, 0)
-                 '   TmpRGB(1) = D3DColorARGB(254, 255, 255, 0)
-                 '   TmpRGB(2) = D3DColorARGB(254, 255, 255, 0)
-                  '  TmpRGB(3) = D3DColorARGB(254, 255, 255, 0)
+                        '   TmpRGB(0) = D3DColorARGB(254, 255, 255, 0)
+                        '   TmpRGB(1) = D3DColorARGB(254, 255, 255, 0)
+                        '   TmpRGB(2) = D3DColorARGB(254, 255, 255, 0)
+                        '  TmpRGB(3) = D3DColorARGB(254, 255, 255, 0)
                    
-    Engine_Draw_Box PixelOffsetXTemp, PixelOffsetYTemp, 30, 30, D3DColorARGB(75, 0, 200, 100)
+                        Engine_Draw_Box PixelOffsetXTemp, PixelOffsetYTemp, 30, 30, D3DColorARGB(75, 0, 200, 100)
     
-    
-    
-                  '   Call Draw_Grh(Grh, _
+                        '   Call Draw_Grh(Grh, _
                             PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), False, X, Y)
                         
-                        
-                          '  BackBufferSurface.SetForeColor vbGreen
-                          '  BackBufferSurface.SetFillStyle 1
-                          '  BackBufferSurface.DrawBox iPPx, iPPy, iPPx + 32, iPPy + 32
-                        End If
+                        '  BackBufferSurface.SetForeColor vbGreen
+                        '  BackBufferSurface.SetFillStyle 1
+                        '  BackBufferSurface.DrawBox iPPx, iPPy, iPPx + 32, iPPy + 32
                     End If
-        End If
+
+                End If
+
+            End If
                     
-                    
-                    
-                                ScreenX = ScreenX + 1
+            ScreenX = ScreenX + 1
         Next X
+
         ScreenY = ScreenY + 1
     Next y
+
     ScreenY = minYOffset - 5
-                                
               
-                   TmpRGB(0) = D3DColorARGB(254, 128, 128, 128)
-                   TmpRGB(1) = D3DColorARGB(255, 128, 128, 128)
-                   TmpRGB(2) = D3DColorARGB(255, 128, 128, 128)
-                   TmpRGB(3) = D3DColorARGB(255, 128, 128, 128)
+    TmpRGB(0) = D3DColorARGB(254, 128, 128, 128)
+    TmpRGB(1) = D3DColorARGB(255, 128, 128, 128)
+    TmpRGB(2) = D3DColorARGB(255, 128, 128, 128)
+    TmpRGB(3) = D3DColorARGB(255, 128, 128, 128)
    
-If VerGrilla Then
-Dim A As Byte
-Dim b As Byte
-For A = 0 To 35
-For b = 0 To 26
+    If VerGrilla Then
+        Dim A As Byte
+        Dim b As Byte
 
-Call Draw_GrhIndex(2, 32 * A, 32 * b)
-'
-'Engine_Draw_Box 32 * A, 32 * b, 30, 30, D3DColorARGB(10, 255, 255, 255)
-Next b
-Next A
+        For A = 0 To 35
+            For b = 0 To 26
 
-End If
+                Call Draw_GrhIndex(2, 32 * A, 32 * b)
+                '
+                'Engine_Draw_Box 32 * A, 32 * b, 30, 30, D3DColorARGB(10, 255, 255, 255)
+            Next b
+        Next A
 
+    End If
 
 End Sub
+
 Private Function Convert_Tile_To_View_X(ByVal X As Integer) As Integer
-'**************************************************************
-'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
-'Last Modify Date: 10/07/2002
-'Convert tile position into position in view area
-'**************************************************************
+    '**************************************************************
+    'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
+    'Last Modify Date: 10/07/2002
+    'Convert tile position into position in view area
+    '**************************************************************
     'If engine_windowed Then
-        Convert_Tile_To_View_X = ((X - 1) * 32)
-   ' Else
-      '  Convert_Tile_To_View_X = view_screen_left + ((x - 1) * base_tile_size)
-  '  End If
+    Convert_Tile_To_View_X = ((X - 1) * 32)
+
+    ' Else
+    '  Convert_Tile_To_View_X = view_screen_left + ((x - 1) * base_tile_size)
+    '  End If
 End Function
 
 Private Function Convert_Tile_To_View_Y(ByVal y As Integer) As Integer
-'**************************************************************
-'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
-'Last Modify Date: 10/07/2002
-'Convert tile position into position in view area
-'**************************************************************
-   ' If engine_windowed Then
-        Convert_Tile_To_View_Y = ((y - 1) * 32)
+    '**************************************************************
+    'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
+    'Last Modify Date: 10/07/2002
+    'Convert tile position into position in view area
+    '**************************************************************
+    ' If engine_windowed Then
+    Convert_Tile_To_View_Y = ((y - 1) * 32)
+
     'Else
-     '   Convert_Tile_To_View_Y = view_screen_top + ((y - 1) * base_tile_size)
+    '   Convert_Tile_To_View_Y = view_screen_top + ((y - 1) * base_tile_size)
     'End If
 End Function
 
-Private Function Geometry_Create_TLVertex(ByVal X As Single, ByVal y As Single, ByVal Z As Single, _
-                                            ByVal rhw As Single, ByVal color As Long, ByVal Specular As Long, tu As Single, _
-                                            ByVal tv As Single) As TLVERTEX
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'**************************************************************
+Private Function Geometry_Create_TLVertex(ByVal X As Single, ByVal y As Single, ByVal Z As Single, ByVal rhw As Single, ByVal color As Long, ByVal Specular As Long, tu As Single, ByVal tv As Single) As TLVERTEX
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    '**************************************************************
     Geometry_Create_TLVertex.X = X
     Geometry_Create_TLVertex.y = y
     Geometry_Create_TLVertex.Z = Z
@@ -1327,45 +1360,46 @@ Private Function Geometry_Create_TLVertex(ByVal X As Single, ByVal y As Single, 
     Geometry_Create_TLVertex.Specular = Specular
     Geometry_Create_TLVertex.tu = tu
     Geometry_Create_TLVertex.tv = tv
+
 End Function
 
 Private Function Geometry_Create_TLVertex2(X As Single, y As Single, Z As Single, rhw As Single, color As Long, Specular As Long, tu1 As Single, tv1 As Single, tu2 As Single, tv2 As Single) As TLVERTEX2
-'mz
-Geometry_Create_TLVertex2.X = X
-Geometry_Create_TLVertex2.y = y
-Geometry_Create_TLVertex2.Z = Z
-Geometry_Create_TLVertex2.rhw = rhw
-Geometry_Create_TLVertex2.color = color
-Geometry_Create_TLVertex2.Specular = Specular
-Geometry_Create_TLVertex2.tu1 = tu1
-Geometry_Create_TLVertex2.tv1 = tv1
-Geometry_Create_TLVertex2.tu2 = tu2
-Geometry_Create_TLVertex2.tv2 = tv2
+    'mz
+    Geometry_Create_TLVertex2.X = X
+    Geometry_Create_TLVertex2.y = y
+    Geometry_Create_TLVertex2.Z = Z
+    Geometry_Create_TLVertex2.rhw = rhw
+    Geometry_Create_TLVertex2.color = color
+    Geometry_Create_TLVertex2.Specular = Specular
+    Geometry_Create_TLVertex2.tu1 = tu1
+    Geometry_Create_TLVertex2.tv1 = tv1
+    Geometry_Create_TLVertex2.tu2 = tu2
+    Geometry_Create_TLVertex2.tv2 = tv2
+
 End Function
 
-Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, ByRef src As RECT, ByRef rgb_list() As Long, _
-                                Optional ByRef Textures_Width As Long, Optional ByRef Textures_Height As Long, Optional ByVal angle As Single)
-'**************************************************************
-'Author: Aaron Perkins
-'Modified by Juan Martín Sotuyo Dodero
-'Last Modify Date: 11/17/2002
-'
-' * v1      * v3
-' |\        |
-' |  \      |
-' |    \    |
-' |      \  |
-' |        \|
-' * v0      * v2
-'**************************************************************
-    Dim x_center As Single
-    Dim y_center As Single
-    Dim radius As Single
-    Dim x_Cor As Single
-    Dim y_Cor As Single
-    Dim left_point As Single
+Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, ByRef src As RECT, ByRef rgb_list() As Long, Optional ByRef Textures_Width As Long, Optional ByRef Textures_Height As Long, Optional ByVal angle As Single)
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Modified by Juan Martín Sotuyo Dodero
+    'Last Modify Date: 11/17/2002
+    '
+    ' * v1      * v3
+    ' |\        |
+    ' |  \      |
+    ' |    \    |
+    ' |      \  |
+    ' |        \|
+    ' * v0      * v2
+    '**************************************************************
+    Dim x_center    As Single
+    Dim y_center    As Single
+    Dim radius      As Single
+    Dim x_Cor       As Single
+    Dim y_Cor       As Single
+    Dim left_point  As Single
     Dim right_point As Single
-    Dim temp As Single
+    Dim temp        As Single
     
     If angle > 0 Then
         'Center coordinates on screen of the square
@@ -1379,6 +1413,7 @@ Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, B
         temp = (dest.Right - x_center) / radius
         right_point = Atn(temp / Sqr(-temp * temp + 1))
         left_point = PI - right_point
+
     End If
     
     'Calculate screen coordinates of sprite, and only rotate if necessary
@@ -1388,15 +1423,17 @@ Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, B
     Else
         x_Cor = x_center + Cos(-left_point - angle) * radius
         y_Cor = y_center - Sin(-left_point - angle) * radius
+
     End If
-    
     
     '0 - Bottom left vertex
     If Textures_Width And Textures_Height Then
         verts(0) = Geometry_Create_TLVertex(x_Cor, y_Cor, 0, 1, rgb_list(0), 0, src.Left / Textures_Width, (src.Bottom + 1) / Textures_Height)
     Else
         verts(0) = Geometry_Create_TLVertex(x_Cor, y_Cor, 0, 1, rgb_list(0), 0, 0, 0)
+
     End If
+
     'Calculate screen coordinates of sprite, and only rotate if necessary
     If angle = 0 Then
         x_Cor = dest.Left
@@ -1404,15 +1441,17 @@ Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, B
     Else
         x_Cor = x_center + Cos(left_point - angle) * radius
         y_Cor = y_center - Sin(left_point - angle) * radius
+
     End If
-    
     
     '1 - Top left vertex
     If Textures_Width And Textures_Height Then
         verts(1) = Geometry_Create_TLVertex(x_Cor, y_Cor, 0, 1, rgb_list(1), 0, src.Left / Textures_Width, src.Top / Textures_Height)
     Else
         verts(1) = Geometry_Create_TLVertex(x_Cor, y_Cor, 0, 1, rgb_list(1), 0, 0, 1)
+
     End If
+
     'Calculate screen coordinates of sprite, and only rotate if necessary
     If angle = 0 Then
         x_Cor = dest.Right
@@ -1420,15 +1459,17 @@ Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, B
     Else
         x_Cor = x_center + Cos(-right_point - angle) * radius
         y_Cor = y_center - Sin(-right_point - angle) * radius
+
     End If
-    
     
     '2 - Bottom right vertex
     If Textures_Width And Textures_Height Then
         verts(2) = Geometry_Create_TLVertex(x_Cor, y_Cor, 0, 1, rgb_list(2), 0, (src.Right + 1) / Textures_Width, (src.Bottom + 1) / Textures_Height)
     Else
         verts(2) = Geometry_Create_TLVertex(x_Cor, y_Cor, 0, 1, rgb_list(2), 0, 1, 0)
+
     End If
+
     'Calculate screen coordinates of sprite, and only rotate if necessary
     If angle = 0 Then
         x_Cor = dest.Right
@@ -1436,31 +1477,30 @@ Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, B
     Else
         x_Cor = x_center + Cos(right_point - angle) * radius
         y_Cor = y_center - Sin(right_point - angle) * radius
+
     End If
-    
     
     '3 - Top right vertex
     If Textures_Width And Textures_Height Then
         verts(3) = Geometry_Create_TLVertex(x_Cor, y_Cor, 0, 1, rgb_list(3), 0, (src.Right + 1) / Textures_Width, src.Top / Textures_Height)
     Else
         verts(3) = Geometry_Create_TLVertex(x_Cor, y_Cor, 0, 1, rgb_list(3), 0, 1, 1)
+
     End If
 
 End Sub
-Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, _
-                                            ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, _
-                                            ByVal src_y As Integer, ByVal dest_width As Integer, Optional ByVal dest_height As Integer, _
-                                            Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 5/15/2003
-'Copies the Textures allowing resizing
-'Modified by Juan Martín Sotuyo Dodero
-'**************************************************************
-    Static src_rect As RECT
-    Static dest_rect As RECT
-    Static temp_verts(3) As TLVERTEX
-    Static d3dTextures As D3D8Textures
+
+Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, ByVal dest_width As Integer, Optional ByVal dest_height As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 5/15/2003
+    'Copies the Textures allowing resizing
+    'Modified by Juan Martín Sotuyo Dodero
+    '**************************************************************
+    Static src_rect            As RECT
+    Static dest_rect           As RECT
+    Static temp_verts(3)       As TLVERTEX
+    Static d3dTextures         As D3D8Textures
     Static light_value(0 To 3) As Long
 
     If grhindex = 0 Then Exit Sub
@@ -1477,10 +1517,10 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal des
     '    If (light_value(2) = 0) Then light_value(2) = 0
     '    If (light_value(3) = 0) Then light_value(3) = 0
     'Else
-       ' light_value(0) = &HFFFFFFFF 'blind_color
-        'light_value(1) = &HFFFFFFFF 'blind_color
-        'light_value(2) = &HFFFFFFFF 'blind_color
-        'light_value(3) = &HFFFFFFFF 'blind_color
+    ' light_value(0) = &HFFFFFFFF 'blind_color
+    'light_value(1) = &HFFFFFFFF 'blind_color
+    'light_value(2) = &HFFFFFFFF 'blind_color
+    'light_value(3) = &HFFFFFFFF 'blind_color
     'End If
     
     'Set up the source rectangle
@@ -1489,6 +1529,7 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal des
         .Left = src_x
         .Right = src_x + src_width
         .Top = src_y
+
     End With
         
     'Set up the destination rectangle
@@ -1497,6 +1538,7 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal des
         .Left = dest_x
         .Right = dest_x + dest_width
         .Top = dest_y
+
     End With
     
     'Set up the TempVerts(3) vertices
@@ -1506,9 +1548,10 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal des
     D3DDevice.SetTexture 0, d3dTextures.texture
     
     If alpha_blend Then
-       'Set Rendering for alphablending
+        'Set Rendering for alphablending
         D3DDevice.SetRenderState D3DRS_SRCBLEND, D3DBLEND_ONE
         D3DDevice.SetRenderState D3DRS_DESTBLEND, D3DBLEND_ONE
+
     End If
     
     'Draw the triangles that make up our square Textures
@@ -1518,41 +1561,35 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal des
         'Set Rendering for colokeying
         D3DDevice.SetRenderState D3DRS_SRCBLEND, D3DBLEND_SRCALPHA
         D3DDevice.SetRenderState D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA
+
     End If
 
 End Sub
 
-Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, _
-                                            ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, _
-                                            ByVal src_y As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
-'**************************************************************
-'Author: Juan Martín Sotuyo Dodero
-'Last Modify Date: 2/12/2004
-'Just copies the Textures
-'**************************************************************
-    Static src_rect As RECT
-    Static dest_rect As RECT
-    Static temp_verts(3) As TLVERTEX
-    Static d3dTextures As D3D8Textures
+Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
+    '**************************************************************
+    'Author: Juan Martín Sotuyo Dodero
+    'Last Modify Date: 2/12/2004
+    'Just copies the Textures
+    '**************************************************************
+    Static src_rect            As RECT
+    Static dest_rect           As RECT
+    Static temp_verts(3)       As TLVERTEX
+    Static d3dTextures         As D3D8Textures
     Static light_value(0 To 3) As Long
     
     If grhindex = 0 Then Exit Sub
     Set d3dTextures.texture = SurfaceDB.GetTexture(GrhData(grhindex).FileNum, d3dTextures.texwidth, d3dTextures.texheight)
-    
-
 
     light_value(0) = rgb_list(0)
     light_value(1) = rgb_list(1)
     light_value(2) = rgb_list(2)
     light_value(3) = rgb_list(3)
-    
 
     If (light_value(0) = 0) Then light_value(0) = map_base_light
     If (light_value(1) = 0) Then light_value(1) = map_base_light
     If (light_value(2) = 0) Then light_value(2) = map_base_light
     If (light_value(3) = 0) Then light_value(3) = map_base_light
-        
-
         
     'Set up the source rectangle
     With src_rect
@@ -1560,6 +1597,7 @@ Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As In
         .Left = src_x
         .Right = src_x + src_width
         .Top = src_y
+
     End With
                 
     'Set up the destination rectangle
@@ -1568,6 +1606,7 @@ Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As In
         .Left = dest_x
         .Right = dest_x + src_width
         .Top = dest_y
+
     End With
     
     'Set up the TempVerts(3) vertices
@@ -1577,9 +1616,10 @@ Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As In
     D3DDevice.SetTexture 0, d3dTextures.texture
     
     If alpha_blend Then
-       'Set Rendering for alphablending
+        'Set Rendering for alphablending
         D3DDevice.SetRenderState D3DRS_SRCBLEND, D3DBLEND_ONE
         D3DDevice.SetRenderState D3DRS_DESTBLEND, D3DBLEND_ONE
+
     End If
     
     'Draw the triangles that make up our square Textures
@@ -1589,22 +1629,23 @@ Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As In
         'Set Rendering for colokeying
         D3DDevice.SetRenderState D3DRS_SRCBLEND, D3DBLEND_SRCALPHA
         D3DDevice.SetRenderState D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA
+
     End If
 
 End Sub
 
-
 Public Sub Engine_MoveScreen(ByVal nHeading As E_Heading)
-'******************************************
-'Starts the screen moving in a direction
-'******************************************
-    Dim X As Integer
-    Dim y As Integer
+    '******************************************
+    'Starts the screen moving in a direction
+    '******************************************
+    Dim X  As Integer
+    Dim y  As Integer
     Dim tX As Integer
     Dim tY As Integer
     
     'Figure out which way to move
     Select Case nHeading
+
         Case E_Heading.NORTH
             y = -1
         
@@ -1616,6 +1657,7 @@ Public Sub Engine_MoveScreen(ByVal nHeading As E_Heading)
         
         Case E_Heading.WEST
             X = -1
+
     End Select
     
     'Fill temp pos
@@ -1632,26 +1674,26 @@ Public Sub Engine_MoveScreen(ByVal nHeading As E_Heading)
         UserPos.X = tX
         AddtoUserPos.y = y
         UserPos.y = tY
-        
 
     End If
+
 End Sub
 
 Private Sub Char_Render(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, ByVal PixelOffsetY As Integer, ByVal X As Byte, ByVal y As Byte)
-'***************************************************
-'Author: Juan Martín Sotuyo Dodero (Maraxus)
-'Last Modify Date: 12/03/04
-'Draw char's to screen without offcentering them
-'***************************************************
+    '***************************************************
+    'Author: Juan Martín Sotuyo Dodero (Maraxus)
+    'Last Modify Date: 12/03/04
+    'Draw char's to screen without offcentering them
+    '***************************************************
     Dim Moved As Boolean
-    Dim Pos As Integer
-    Dim line As String
+    Dim Pos   As Integer
+    Dim line  As String
     Dim color As Long
-    Dim i As Long
+    Dim i     As Long
     
     With CharList(CharIndex)
-    If .Heading = 0 Then Exit Sub
-   
+
+        If .Heading = 0 Then Exit Sub
         
         'If done moving stop animation
         If Not Moved Then
@@ -1660,55 +1702,44 @@ Private Sub Char_Render(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, 
             .Body.Walk(.Heading).Started = 0
             .Body.Walk(.Heading).FrameCounter = 1
             
- 
-            
             .Escudo.ShieldWalk(.Heading).Started = 0
             .Escudo.ShieldWalk(.Heading).FrameCounter = 1
             
             .Moving = False
+
         End If
 
         PixelOffsetX = PixelOffsetX + .MoveOffsetX
         PixelOffsetY = PixelOffsetY + .MoveOffsetY
-        
-        
-
-        
            
-If .Body.Walk(.Heading).grhindex Then
-        
-
-        
+        If .Body.Walk(.Heading).grhindex Then
 
             Dim colorz(3) As Long
-                'Draw Body
+            'Draw Body
                 
-                    colorz(0) = MapData(X, y).light_value(0)
-                    colorz(1) = MapData(X, y).light_value(1)
-                    colorz(2) = MapData(X, y).light_value(2)
-                    colorz(3) = MapData(X, y).light_value(3)
+            colorz(0) = MapData(X, y).light_value(0)
+            colorz(1) = MapData(X, y).light_value(1)
+            colorz(2) = MapData(X, y).light_value(2)
+            colorz(3) = MapData(X, y).light_value(3)
     
-    
-                            If .Body.Walk(.Heading).grhindex Then _
-                           
-                                Call Draw_Grh(.Body.Walk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
-                            If .Head.Head(.Heading).grhindex Then _
-                                Call Draw_Grh(.Head.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.y, 1, 0, MapData(X, y).light_value, False, X, y)
-                            If .Casco.Head(.Heading).grhindex Then _
-                                Call Draw_Grh(.Casco.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.y, 1, 0, MapData(X, y).light_value, False, X, y)
-                            If .Arma.WeaponWalk(.Heading).grhindex Then _
-                                Call Draw_Grh(.Arma.WeaponWalk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
-                            If .Escudo.ShieldWalk(.Heading).grhindex Then _
-                                Call Draw_Grh(.Escudo.ShieldWalk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
-                    'Draw name over head
+             If .Body.Walk(.Heading).grhindex Then
+               Call Draw_Grh(.Body.Walk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
 
+            If .Head.Head(.Heading).grhindex Then Call Draw_Grh(.Head.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.y, 1, 0, MapData(X, y).light_value, False, X, y)
+
+            If .Casco.Head(.Heading).grhindex Then Call Draw_Grh(.Casco.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.y, 1, 0, MapData(X, y).light_value, False, X, y)
+
+            If .Arma.WeaponWalk(.Heading).grhindex Then Call Draw_Grh(.Arma.WeaponWalk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
+
+            If .Escudo.ShieldWalk(.Heading).grhindex Then Call Draw_Grh(.Escudo.ShieldWalk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
+            'Draw name over head
             
         End If
 
+    End If
 
+End With
 
-End If
-    End With
 End Sub
 
 Public Sub Start()
@@ -1717,66 +1748,73 @@ Public Sub Start()
     day_b_old = luz_dia(Hour(Time)).b
     base_light = ARGB(day_r_old, day_g_old, day_b_old, 255)
     
-DoEvents
-vertList(0).X = 0: vertList(0).y = 0
-vertList(1).X = 800: vertList(1).y = 0
-vertList(2).X = 0: vertList(2).y = 600
-vertList(3).X = 800: vertList(3).y = 600
-vertList(0).rhw = 1
-vertList(1).rhw = 1
-vertList(2).rhw = 1
-vertList(3).rhw = 1
-vertList(0).color = D3DColorXRGB(255, 255, 255)
-vertList(1).color = D3DColorXRGB(255, 255, 255)
-vertList(2).color = D3DColorXRGB(255, 255, 255)
-vertList(3).color = D3DColorXRGB(255, 255, 255)
-vertList(0).tu = 0
-vertList(0).tv = 0
-vertList(1).tu = 1
-vertList(1).tv = 0
-vertList(2).tu = 0
-vertList(2).tv = 1
-vertList(3).tu = 1
-vertList(3).tv = 1
+    DoEvents
+    vertList(0).X = 0
+    vertList(0).y = 0
+    vertList(1).X = 800
+    vertList(1).y = 0
+    vertList(2).X = 0
+    vertList(2).y = 600
+    vertList(3).X = 800
+    vertList(3).y = 600
+    vertList(0).rhw = 1
+    vertList(1).rhw = 1
+    vertList(2).rhw = 1
+    vertList(3).rhw = 1
+    vertList(0).color = D3DColorXRGB(255, 255, 255)
+    vertList(1).color = D3DColorXRGB(255, 255, 255)
+    vertList(2).color = D3DColorXRGB(255, 255, 255)
+    vertList(3).color = D3DColorXRGB(255, 255, 255)
+    vertList(0).tu = 0
+    vertList(0).tv = 0
+    vertList(1).tu = 1
+    vertList(1).tv = 0
+    vertList(2).tu = 0
+    vertList(2).tv = 1
+    vertList(3).tu = 1
+    vertList(3).tv = 1
 
-Do While prgRun
+    Do While prgRun
 
-If FrmMain.WindowState <> vbMinimized And FrmMain.Visible = True Then
-    CheckKeys
-    engine.Render
-Else
-    Sleep 10&
-End If
-DoEvents
-    Rem Limitar FPS
+        If FrmMain.WindowState <> vbMinimized And FrmMain.Visible = True Then
+            CheckKeys
+            engine.Render
+        Else
+            Sleep 10&
 
-    While GetTickCount - lFrameLimiter < 10
-       Sleep 5
-    Wend
-Loop
-engine.Engine_Deinit
+        End If
+
+        DoEvents
+        Rem Limitar FPS
+
+        While GetTickCount - lFrameLimiter < 10
+
+            Sleep 5
+        Wend
+    Loop
+    engine.Engine_Deinit
 
 End Sub
 
 Public Sub SetCharacterFx(ByVal CharIndex As Integer, ByVal fX As Integer, ByVal Loops As Integer)
-'***************************************************
-'Author: Juan Martín Sotuyo Dodero (Maraxus)
-'Last Modify Date: 12/03/04
-'Sets an FX to the character.
-'***************************************************
+    '***************************************************
+    'Author: Juan Martín Sotuyo Dodero (Maraxus)
+    'Last Modify Date: 12/03/04
+    'Sets an FX to the character.
+    '***************************************************
 
 End Sub
 
 Public Sub Char_Move_by_Head(ByVal CharIndex As Integer, ByVal nHeading As E_Heading)
-'*****************************************************************
-'Starts the movement of a character in nHeading direction
-'*****************************************************************
+    '*****************************************************************
+    'Starts the movement of a character in nHeading direction
+    '*****************************************************************
     Dim addx As Integer
     Dim addy As Integer
-    Dim X As Integer
-    Dim y As Integer
-    Dim nX As Integer
-    Dim nY As Integer
+    Dim X    As Integer
+    Dim y    As Integer
+    Dim nX   As Integer
+    Dim nY   As Integer
     
     With CharList(CharIndex)
         X = .Pos.X
@@ -1784,6 +1822,7 @@ Public Sub Char_Move_by_Head(ByVal CharIndex As Integer, ByVal nHeading As E_Hea
         
         'Figure out which way to move
         Select Case nHeading
+
             Case E_Heading.NORTH
                 addy = -1
         
@@ -1795,17 +1834,16 @@ Public Sub Char_Move_by_Head(ByVal CharIndex As Integer, ByVal nHeading As E_Hea
             
             Case E_Heading.WEST
                 addx = -1
+
         End Select
         
         nX = X + addx
         nY = y + addy
-    
         
         MapData(nX, nY).CharIndex = CharIndex
         .Pos.X = nX
         .Pos.y = nY
         MapData(X, y).CharIndex = 0
-    
         
         .MoveOffsetX = -1 * (32 * addx)
         .MoveOffsetY = -1 * (32 * addy)
@@ -1815,18 +1853,19 @@ Public Sub Char_Move_by_Head(ByVal CharIndex As Integer, ByVal nHeading As E_Hea
         
         .scrollDirectionX = addx
         .scrollDirectionY = addy
-    End With
 
-    
+    End With
 
 End Sub
 
 Public Sub Char_Move_by_Pos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As Integer)
-On Error Resume Next
-    Dim X As Integer
-    Dim y As Integer
-    Dim addx As Integer
-    Dim addy As Integer
+
+    On Error Resume Next
+
+    Dim X        As Integer
+    Dim y        As Integer
+    Dim addx     As Integer
+    Dim addy     As Integer
     Dim nHeading As E_Heading
     
     With CharList(CharIndex)
@@ -1840,22 +1879,25 @@ On Error Resume Next
         
         If Sgn(addx) = 1 Then
             nHeading = E_Heading.EAST
+
         End If
         
         If Sgn(addx) = -1 Then
             nHeading = E_Heading.WEST
+
         End If
         
         If Sgn(addy) = -1 Then
             nHeading = E_Heading.NORTH
+
         End If
         
         If Sgn(addy) = 1 Then
             nHeading = E_Heading.SOUTH
+
         End If
         
         MapData(nX, nY).CharIndex = CharIndex
-        
         
         .Pos.X = nX
         .Pos.y = nY
@@ -1873,66 +1915,76 @@ On Error Resume Next
 
     End With
     
-    
-    
 End Sub
 
 Private Function EstaPCarea(ByVal CharIndex As Integer) As Boolean
+
     With CharList(CharIndex).Pos
         EstaPCarea = .X > UserPos.X - MinXBorder And .X < UserPos.X + MinXBorder And .y > UserPos.y - MinYBorder And .y < UserPos.y + MinYBorder
+
     End With
+
 End Function
+
 Private Function Engine_FToDW(F As Single) As Long
-' single > long
-Dim buf As D3DXBuffer
+    ' single > long
+    Dim buf As D3DXBuffer
     Set buf = D3DX.CreateBuffer(4)
     D3DX.BufferSetData buf, 0, 4, 1, F
     D3DX.BufferGetData buf, 0, 4, 1, Engine_FToDW
+
 End Function
 
 Private Function VectorToRGBA(Vec As D3DVECTOR, fHeight As Single) As Long
-Dim r As Integer, g As Integer, b As Integer, A As Integer
+    Dim r As Integer, g As Integer, b As Integer, A As Integer
     r = 127 * Vec.X + 128
     g = 127 * Vec.y + 128
     b = 127 * Vec.Z + 128
     A = 255 * fHeight
     VectorToRGBA = D3DColorARGB(A, r, g, b)
+
 End Function
 
 Public Function Light_Remove(ByVal light_index As Long) As Boolean
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 1/04/2003
-'
-'*****************************************************************
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 1/04/2003
+    '
+    '*****************************************************************
     'Make sure it's a legal index
     If Light_Check(light_index) Then
         Light_Destroy light_index
         Light_Remove = True
+
     End If
+
 End Function
 
 Public Function Light_Color_Value_Get(ByVal light_index As Long, ByRef color_value As Long) As Boolean
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 2/28/2003
-'
-'*****************************************************************
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 2/28/2003
+    '
+    '*****************************************************************
     'Make sure it's a legal index
     If Light_Check(light_index) Then
         color_value = light_list(light_index).color
         Light_Color_Value_Get = True
+
     End If
+
 End Function
 
-Public Function Light_Create(ByVal map_x As Integer, ByVal map_y As Integer, Optional ByVal color_value As Long = &HFFFFFFFF, _
-                            Optional ByVal range As Byte = 1, Optional ByVal id As Long) As Long
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'Returns the light_index if successful, else 0
-'Edited by Juan Martín Sotuyo Dodero
-'**************************************************************
+Public Function Light_Create(ByVal map_x As Integer, ByVal map_y As Integer, Optional ByVal color_value As Long = &HFFFFFFFF, Optional ByVal range As Byte = 1, Optional ByVal id As Long) As Long
+
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    'Returns the light_index if successful, else 0
+    'Edited by Juan Martín Sotuyo Dodero
+    '**************************************************************
     If InMapBounds(map_x, map_y) Then
         'Make sure there is no light in the given map pos
         'If Map_Light_Get(map_x, map_y) <> 0 Then
@@ -1941,17 +1993,21 @@ Public Function Light_Create(ByVal map_x As Integer, ByVal map_y As Integer, Opt
         'End If
         Light_Create = Light_Next_Open
         Light_Make Light_Create, map_x, map_y, color_value, range, id
+
     End If
+
 End Function
 
 Public Function Light_Move(ByVal light_index As Long, ByVal map_x As Integer, ByVal map_y As Integer) As Boolean
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'Returns true if successful, else false
-'**************************************************************
+
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    'Returns true if successful, else false
+    '**************************************************************
     'Make sure it's a legal CharIndex
     If Light_Check(light_index) Then
+
         'Make sure it's a legal move
         If InMapBounds(map_x, map_y) Then
         
@@ -1963,25 +2019,29 @@ Public Function Light_Move(ByVal light_index As Long, ByVal map_x As Integer, By
             Light_Move = True
             
         End If
+
     End If
+
 End Function
 
 Public Function Light_Move_By_Head(ByVal light_index As Long, ByVal Heading As Byte) As Boolean
-'**************************************************************
-'Author: Juan Martín Sotuyo Dodero
-'Last Modify Date: 15/05/2002
-'Returns true if successful, else false
-'**************************************************************
+    '**************************************************************
+    'Author: Juan Martín Sotuyo Dodero
+    'Last Modify Date: 15/05/2002
+    'Returns true if successful, else false
+    '**************************************************************
     Dim map_x As Integer
     Dim map_y As Integer
-    Dim nX As Integer
-    Dim nY As Integer
-    Dim addy As Byte
-    Dim addx As Byte
+    Dim nX    As Integer
+    Dim nY    As Integer
+    Dim addy  As Byte
+    Dim addx  As Byte
+
     'Check for valid heading
     If Heading < 1 Or Heading > 8 Then
         Light_Move_By_Head = False
         Exit Function
+
     End If
 
     'Make sure it's a legal CharIndex
@@ -1989,10 +2049,9 @@ Public Function Light_Move_By_Head(ByVal light_index As Long, ByVal Heading As B
     
         map_x = light_list(light_index).map_x
         map_y = light_list(light_index).map_y
-        
-
 
         Select Case Heading
+
             Case NORTH
                 addy = -1
         
@@ -2004,6 +2063,7 @@ Public Function Light_Move_By_Head(ByVal light_index As Long, ByVal Heading As B
             
             Case WEST
                 addx = -1
+
         End Select
         
         nX = map_x + addx
@@ -2021,21 +2081,25 @@ Public Function Light_Move_By_Head(ByVal light_index As Long, ByVal Heading As B
             Light_Move_By_Head = True
             
         End If
+
     End If
+
 End Function
 
-Private Sub Light_Make(ByVal light_index As Long, ByVal map_x As Integer, ByVal map_y As Integer, ByVal rgb_value As Long, _
-                        ByVal range As Long, Optional ByVal id As Long)
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'
-'*****************************************************************
+Private Sub Light_Make(ByVal light_index As Long, ByVal map_x As Integer, ByVal map_y As Integer, ByVal rgb_value As Long, ByVal range As Long, Optional ByVal id As Long)
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    '
+    '*****************************************************************
     'Update array size
     If light_index > light_last Then
         light_last = light_index
         ReDim Preserve light_list(1 To light_last)
+
     End If
+
     light_count = light_count + 1
     
     'Make active
@@ -2046,53 +2110,60 @@ Private Sub Light_Make(ByVal light_index As Long, ByVal map_x As Integer, ByVal 
     light_list(light_index).color = rgb_value
     light_list(light_index).range = range
     light_list(light_index).id = id
+
 End Sub
 
 Private Function Light_Check(ByVal light_index As Long) As Boolean
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 1/04/2003
-'
-'**************************************************************
+
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 1/04/2003
+    '
+    '**************************************************************
     'check light_index
     If light_index > 0 And light_index <= light_last Then
         If light_list(light_index).active Then
             Light_Check = True
+
         End If
+
     End If
+
 End Function
 
 Public Sub Light_Render_All()
 
-LightA.LightRenderAll
+    LightA.LightRenderAll
 
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'
-'**************************************************************
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    '
+    '**************************************************************
     Dim loop_counter As Long
             
     For loop_counter = 1 To light_count
         
         If light_list(loop_counter).active Then
             Light_Render loop_counter
+
         End If
     
     Next loop_counter
+
 End Sub
 
 Private Sub Light_Render(ByVal light_index As Long)
-'menduz
+    'menduz
 
     Dim min_x As Integer
     Dim min_y As Integer
     Dim max_x As Integer
     Dim max_y As Integer
-    Dim X As Integer
-    Dim y As Integer
-    Dim ia As Single
-    Dim i As Integer
+    Dim X     As Integer
+    Dim y     As Integer
+    Dim ia    As Single
+    Dim i     As Integer
     Dim color As Long
     
     'Set up light borders
@@ -2108,143 +2179,183 @@ Private Sub Light_Render(ByVal light_index As Long)
     MapData(light_list(light_index).map_x, light_list(light_index).map_y).light_value(1) = color
     MapData(light_list(light_index).map_x, light_list(light_index).map_y).light_value(2) = color
     MapData(light_list(light_index).map_x, light_list(light_index).map_y).light_value(3) = color
-                
    
     'NE
     If InMapBounds(min_x, min_y) Then
         MapData(min_x, min_y).light_value(2) = color
+
     End If
+
     'NW
     If InMapBounds(max_x, min_y) Then
         MapData(max_x, min_y).light_value(0) = color
+
     End If
+
     'SW
     If InMapBounds(max_x, max_y) Then
         MapData(max_x, max_y).light_value(1) = color
+
     End If
+
     'SE
     If InMapBounds(min_x, max_y) Then
         MapData(min_x, max_y).light_value(3) = color
+
     End If
     
     'Arrange borders
     'Upper border
     For X = min_x + 1 To max_x - 1
+
         If InMapBounds(X, min_y) Then
             MapData(X, min_y).light_value(0) = color
             MapData(X, min_y).light_value(2) = color
+
         End If
+
     Next X
     
     'Lower border
     For X = min_x + 1 To max_x - 1
+
         If InMapBounds(X, max_y) Then
             MapData(X, max_y).light_value(1) = color
             MapData(X, max_y).light_value(3) = color
+
         End If
+
     Next X
     
     'Left border
     For y = min_y + 1 To max_y - 1
+
         If InMapBounds(min_x, y) Then
             MapData(min_x, y).light_value(2) = color
             MapData(min_x, y).light_value(3) = color
-       End If
+
+        End If
+
     Next y
     
     'Right border
     For y = min_y + 1 To max_y - 1
+
         If InMapBounds(max_x, y) Then
             MapData(max_x, y).light_value(0) = color
             MapData(max_x, y).light_value(1) = color
+
         End If
-   Next y
+
+    Next y
     
     'Set the inner part of the light
     For X = min_x + 1 To max_x - 1
         For y = min_y + 1 To max_y - 1
+
             If InMapBounds(X, y) Then
                 MapData(X, y).light_value(0) = color
                 MapData(X, y).light_value(1) = color
                 MapData(X, y).light_value(2) = color
                 MapData(X, y).light_value(3) = color
+
             End If
+
         Next y
     Next X
+
 End Sub
 
 Private Function Light_Next_Open() As Long
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'
-'*****************************************************************
-On Error GoTo ErrorHandler:
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    '
+    '*****************************************************************
+    On Error GoTo ErrorHandler:
+
     Dim loopc As Long
     
     loopc = 1
+
     Do Until light_list(loopc).active = False
+
         If loopc = light_last Then
             Light_Next_Open = light_last + 1
             Exit Function
+
         End If
+
         loopc = loopc + 1
     Loop
     
     Light_Next_Open = loopc
-Exit Function
+    Exit Function
 ErrorHandler:
     Light_Next_Open = 1
+
 End Function
 
 Public Function Light_Find(ByVal id As Long) As Long
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 1/04/2003
-'Find the index related to the handle
-'*****************************************************************
-On Error GoTo ErrorHandler:
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 1/04/2003
+    'Find the index related to the handle
+    '*****************************************************************
+    On Error GoTo ErrorHandler:
+
     Dim loopc As Long
     
     loopc = 1
+
     Do Until light_list(loopc).id = id
+
         If loopc = light_last Then
             Light_Find = 0
             Exit Function
+
         End If
+
         loopc = loopc + 1
     Loop
     
     Light_Find = loopc
-Exit Function
+    Exit Function
 ErrorHandler:
     Light_Find = 0
+
 End Function
 
 Public Function Light_Remove_All() As Boolean
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 1/04/2003
-'
-'*****************************************************************
-    Dim index As Long
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 1/04/2003
+    '
+    '*****************************************************************
+    Dim Index As Long
     
-    For index = 1 To light_last
+    For Index = 1 To light_last
+
         'Make sure it's a legal index
-        If Light_Check(index) Then
-            Light_Destroy index
+        If Light_Check(Index) Then
+            Light_Destroy Index
+
         End If
-    Next index
+
+    Next Index
     
     Light_Remove_All = True
+
 End Function
 
 Private Sub Light_Destroy(ByVal light_index As Long)
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'
-'**************************************************************
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    '
+    '**************************************************************
     Dim temp As Light
     
     Light_Erase light_index
@@ -2253,30 +2364,37 @@ Private Sub Light_Destroy(ByVal light_index As Long)
     
     'Update array size
     If light_index = light_last Then
+
         Do Until light_list(light_last).active
             light_last = light_last - 1
+
             If light_last = 0 Then
                 light_count = 0
                 Exit Sub
+
             End If
+
         Loop
         ReDim Preserve light_list(1 To light_last)
+
     End If
+
     light_count = light_count - 1
+
 End Sub
 
 Private Sub Light_Erase(ByVal light_index As Long)
-'***************************************'
-'Author: Juan Martín Sotuyo Dodero
-'Last modified: 3/31/2003
-'Correctly erases a light
-'***************************************'
+    '***************************************'
+    'Author: Juan Martín Sotuyo Dodero
+    'Last modified: 3/31/2003
+    'Correctly erases a light
+    '***************************************'
     Dim min_x As Integer
     Dim min_y As Integer
     Dim max_x As Integer
     Dim max_y As Integer
-    Dim X As Integer
-    Dim y As Integer
+    Dim X     As Integer
+    Dim y     As Integer
     
     'Set up light borders
     min_x = light_list(light_index).map_x - light_list(light_index).range
@@ -2288,66 +2406,88 @@ Private Sub Light_Erase(ByVal light_index As Long)
     'NE
     If InMapBounds(min_x, min_y) Then
         MapData(min_x, min_y).light_value(2) = 0
+
     End If
+
     'NW
     If InMapBounds(max_x, min_y) Then
         MapData(max_x, min_y).light_value(0) = 0
+
     End If
+
     'SW
     If InMapBounds(max_x, max_y) Then
         MapData(max_x, max_y).light_value(1) = 0
+
     End If
+
     'SE
     If InMapBounds(min_x, max_y) Then
         MapData(min_x, max_y).light_value(3) = 0
+
     End If
     
     'Arrange borders
     'Upper border
     For X = min_x + 1 To max_x - 1
+
         If InMapBounds(X, min_y) Then
             MapData(X, min_y).light_value(0) = 0
             MapData(X, min_y).light_value(2) = 0
+
         End If
+
     Next X
     
     'Lower border
     For X = min_x + 1 To max_x - 1
+
         If InMapBounds(X, max_y) Then
             MapData(X, max_y).light_value(1) = 0
             MapData(X, max_y).light_value(3) = 0
+
         End If
+
     Next X
     
     'Left border
     For y = min_y + 1 To max_y - 1
+
         If InMapBounds(min_x, y) Then
             MapData(min_x, y).light_value(2) = 0
             MapData(min_x, y).light_value(3) = 0
+
         End If
+
     Next y
     
     'Right border
     For y = min_y + 1 To max_y - 1
+
         If InMapBounds(max_x, y) Then
             MapData(max_x, y).light_value(0) = 0
             MapData(max_x, y).light_value(1) = 0
+
         End If
+
     Next y
     
     'Set the inner part of the light
     For X = min_x + 1 To max_x - 1
         For y = min_y + 1 To max_y - 1
+
             If InMapBounds(X, y) Then
                 MapData(X, y).light_value(0) = 0
                 MapData(X, y).light_value(1) = 0
                 MapData(X, y).light_value(2) = 0
                 MapData(X, y).light_value(3) = 0
+
             End If
+
         Next y
     Next X
-End Sub
 
+End Sub
 
 Public Sub DrawInv()
 
@@ -2355,12 +2495,12 @@ End Sub
 
 Public Sub Draw_FilledBox(ByVal X As Integer, ByVal y As Integer, ByVal Width As Integer, ByVal Height As Integer, color As Long, outlinecolor As Long)
 
-    Static box_rect As RECT
-    Static Outline As RECT
-    Static rgb_list(3) As Long
+    Static box_rect     As RECT
+    Static Outline      As RECT
+    Static rgb_list(3)  As Long
     Static rgb_list2(3) As Long
-    Static Vertex(3) As TLVERTEX
-    Static Vertex2(3) As TLVERTEX
+    Static Vertex(3)    As TLVERTEX
+    Static Vertex2(3)   As TLVERTEX
     
     rgb_list(0) = color
     rgb_list(1) = color
@@ -2377,6 +2517,7 @@ Public Sub Draw_FilledBox(ByVal X As Integer, ByVal y As Integer, ByVal Width As
         .Left = X
         .Right = X + Width
         .Top = y
+
     End With
     
     With Outline
@@ -2384,6 +2525,7 @@ Public Sub Draw_FilledBox(ByVal X As Integer, ByVal y As Integer, ByVal Width As
         .Left = X - 2
         .Right = X + Width + 2
         .Top = y - 2
+
     End With
     
     Geometry_Create_Box Vertex2(), Outline, Outline, rgb_list2(), 0, 0
@@ -2392,36 +2534,35 @@ Public Sub Draw_FilledBox(ByVal X As Integer, ByVal y As Integer, ByVal Width As
     D3DDevice.SetTexture 0, Nothing
     D3DDevice.DrawPrimitiveUP D3DPT_TRIANGLESTRIP, 2, Vertex2(0), Len(Vertex2(0))
     D3DDevice.DrawPrimitiveUP D3DPT_TRIANGLESTRIP, 2, Vertex(0), Len(Vertex(0))
+
 End Sub
 
-
-
-
-
-
-
-
 Private Sub Grh_Render_Advance(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen_y As Integer, ByVal Height As Integer, ByVal Width As Integer, ByRef rgb_list() As Long, Optional ByVal h_center As Boolean, Optional ByVal v_center As Boolean, Optional ByVal alpha_blend As Boolean = False)
-'**************************************************************
-'Author: Juan Martín Sotuyo Dodero (juansotuyo@hotmail.com)
-'Last Modify Date: 11/19/2003
-'Similar to Grh_Render, but let´s you resize the Grh
-'**************************************************************
-On Error Resume Next
-    Dim tile_width As Integer
+
+    '**************************************************************
+    'Author: Juan Martín Sotuyo Dodero (juansotuyo@hotmail.com)
+    'Last Modify Date: 11/19/2003
+    'Similar to Grh_Render, but let´s you resize the Grh
+    '**************************************************************
+    On Error Resume Next
+
+    Dim tile_width  As Integer
     Dim tile_height As Integer
-    Dim grh_index As Long
+    Dim grh_index   As Long
     
     'Animation
     If Grh.Started Then
         Grh.FrameCounter = Grh.FrameCounter + (timerTicksPerFrame * Grh.speed)
+
         If Grh.FrameCounter > GrhData(Grh.grhindex).NumFrames Then
             'If Grh.noloop Then
             '    Grh.FrameCounter = GrhData(Grh.GrhIndex).NumFrames
             'Else
-                Grh.FrameCounter = 1
+            Grh.FrameCounter = 1
+
             'End If
         End If
+
     End If
     
     'Figure out what frame to draw (always 1 if not animated)
@@ -2431,51 +2572,55 @@ On Error Resume Next
     'Center Grh over X, Y pos
     If GrhData(Grh.grhindex).TileWidth <> 1 Then
         screen_x = screen_x - Int(GrhData(Grh.grhindex).TileWidth * (32 \ 2)) + 32 \ 2
+
     End If
     
     If GrhData(Grh.grhindex).TileHeight <> 1 Then
         screen_y = screen_y - Int(GrhData(Grh.grhindex).TileHeight * 32) + 32
+
     End If
     
     'Draw it to device
-    Device_Box_Textured_Render_Advance grh_index, _
-        screen_x, screen_y, _
-        GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, _
-        rgb_list, _
-        GrhData(grh_index).sX, GrhData(grh_index).sY, _
-        Width, Height, alpha_blend, Grh.angle
-End Sub
-Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen_y As Integer, ByRef rgb_list() As Long, Optional ByVal h_centered As Boolean = True, Optional ByVal v_centered As Boolean = True, Optional ByVal alpha_blend As Boolean = False)
-On Error Resume Next
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 2/28/2003
-'Modified by Juan Martín Sotuyo Dodero
-'Added centering
-'**************************************************************
-    Dim tile_width As Integer
-    Dim tile_height As Integer
-    Dim grh_index As Long
+    Device_Box_Textured_Render_Advance grh_index, screen_x, screen_y, GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, rgb_list, GrhData(grh_index).sX, GrhData(grh_index).sY, Width, Height, alpha_blend, Grh.angle
 
+End Sub
+
+Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen_y As Integer, ByRef rgb_list() As Long, Optional ByVal h_centered As Boolean = True, Optional ByVal v_centered As Boolean = True, Optional ByVal alpha_blend As Boolean = False)
+
+    On Error Resume Next
+
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 2/28/2003
+    'Modified by Juan Martín Sotuyo Dodero
+    'Added centering
+    '**************************************************************
+    Dim tile_width  As Integer
+    Dim tile_height As Integer
+    Dim grh_index   As Long
     
     If Grh.grhindex = 0 Then Exit Sub
         
     'Animation
     If Grh.Started Then
         Grh.FrameCounter = Grh.FrameCounter + (timerTicksPerFrame * Grh.speed)
+
         If Grh.FrameCounter > GrhData(Grh.grhindex).NumFrames Then
             'If Grh.noloop Then
             '    Grh.FrameCounter = GrhData(Grh.GrhIndex).NumFrames
             'Else
-                Grh.FrameCounter = 1
+            Grh.FrameCounter = 1
+
             'End If
         End If
+
     End If
 
     'Figure out what frame to draw (always 1 if not animated)
     If Grh.FrameCounter = 0 Then Grh.FrameCounter = 1
     If Not Grh_Check(Grh.grhindex) Then Exit Sub
     grh_index = GrhData(Grh.grhindex).Frames(Grh.FrameCounter)
+
     If grh_index <= 0 Then Exit Sub
     If GrhData(grh_index).FileNum = 0 Then Exit Sub
         
@@ -2484,189 +2629,223 @@ On Error Resume Next
     If h_centered Then
         If GrhData(Grh.grhindex).TileWidth <> 1 Then
             screen_x = screen_x - Int(GrhData(Grh.grhindex).TileWidth * (32 \ 2)) + 32 \ 2
+
         End If
+
     End If
     
     If v_centered Then
         If GrhData(Grh.grhindex).TileHeight <> 1 Then
             screen_y = screen_y - Int(GrhData(Grh.grhindex).TileHeight * 32) + 32
+
         End If
+
     End If
     
     'Draw it to device
-    Device_Box_Textured_Render grh_index, _
-        screen_x, screen_y, _
-        GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, _
-        rgb_list(), _
-        GrhData(grh_index).sX, GrhData(grh_index).sY, _
-        alpha_blend, _
-        Grh.angle
+    Device_Box_Textured_Render grh_index, screen_x, screen_y, GrhData(grh_index).pixelWidth, GrhData(grh_index).pixelHeight, rgb_list(), GrhData(grh_index).sX, GrhData(grh_index).sY, alpha_blend, Grh.angle
 
 End Sub
+
 Private Function Grh_Check(ByVal grh_index As Long) As Boolean
-'**************************************************************
-'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
-'Last Modify Date: 1/04/2003
-'
-'**************************************************************
+
+    '**************************************************************
+    'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
+    'Last Modify Date: 1/04/2003
+    '
+    '**************************************************************
     'check grh_index
     If grh_index > 0 And grh_index <= MaxGrhs Then
         Grh_Check = GrhData(grh_index).NumFrames
+
     End If
+
 End Function
 
-
 Private Function Char_Check(ByVal char_index As Integer) As Boolean
-'**************************************************************
-'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
-'Last Modify Date: 1/04/2003
-'
-'**************************************************************
+
+    '**************************************************************
+    'Author: Aaron Perkins - Modified by Juan Martín Sotuyo Dodero
+    'Last Modify Date: 1/04/2003
+    '
+    '**************************************************************
     'check char_index
     If char_index > 0 And char_index <= LastChar Then
         Char_Check = (CharList(char_index).Heading > 0)
+
     End If
     
 End Function
+
 Private Function Particle_Group_Next_Open() As Long
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'
-'*****************************************************************
-On Error GoTo ErrorHandler:
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    '
+    '*****************************************************************
+    On Error GoTo ErrorHandler:
+
     Dim loopc As Long
     
     If particle_group_last = 0 Then
         Particle_Group_Next_Open = 1
         Exit Function
+
     End If
     
     loopc = 1
+
     Do Until particle_group_list(loopc).active = False
+
         If loopc = particle_group_last Then
             Particle_Group_Next_Open = particle_group_last + 1
             Exit Function
+
         End If
+
         loopc = loopc + 1
     Loop
     
     Particle_Group_Next_Open = loopc
-Exit Function
+    Exit Function
 ErrorHandler:
     Particle_Group_Next_Open = 1
+
 End Function
 
 Private Function Particle_Group_Check(ByVal particle_group_index As Long) As Boolean
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 1/04/2003
-'
-'**************************************************************
+
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 1/04/2003
+    '
+    '**************************************************************
     'check index
     If particle_group_index > 0 And particle_group_index <= particle_group_last Then
         If particle_group_list(particle_group_index).active Then
             Particle_Group_Check = True
+
         End If
+
     End If
+
 End Function
+
 Public Function Particle_Group_Create(ByVal map_x As Integer, ByVal map_y As Integer, ByRef grh_index_list() As Long, ByRef rgb_list() As Long, _
-                                        Optional ByVal particle_count As Long = 20, Optional ByVal stream_type As Long = 1, _
-                                        Optional ByVal alpha_blend As Boolean, Optional ByVal alive_counter As Long = -1, _
-                                        Optional ByVal frame_speed As Single = 0.5, Optional ByVal id As Long, _
-                                        Optional ByVal X1 As Integer, Optional ByVal Y1 As Integer, Optional ByVal angle As Integer, _
-                                        Optional ByVal vecx1 As Integer, Optional ByVal vecx2 As Integer, _
-                                        Optional ByVal vecy1 As Integer, Optional ByVal vecy2 As Integer, _
-                                        Optional ByVal life1 As Integer, Optional ByVal life2 As Integer, _
-                                        Optional ByVal fric As Integer, Optional ByVal spin_speedL As Single, _
-                                        Optional ByVal gravity As Boolean, Optional grav_strength As Long, _
-                                        Optional bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, _
-                                        Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, _
-                                        Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, _
-                                        Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean, Optional grh_resize As Boolean, _
-                                        Optional grh_resizex As Integer, Optional grh_resizey As Integer)
-'**************************************************************
-'Author: Aaron Perkins
-'Modified by: Ryan Cain (Onezero)
-'Last Modify Date: 5/14/2003
-'Returns the particle_group_index if successful, else 0
-'Modified by Juan Martín Sotuyo Dodero
-'Modified by Augusto José Rando
-'**************************************************************
+   Optional ByVal particle_count As Long = 20, Optional ByVal stream_type As Long = 1, _
+   Optional ByVal alpha_blend As Boolean, Optional ByVal alive_counter As Long = -1, _
+   Optional ByVal frame_speed As Single = 0.5, Optional ByVal id As Long, _
+   Optional ByVal X1 As Integer, Optional ByVal Y1 As Integer, Optional ByVal angle As Integer, _
+   Optional ByVal vecx1 As Integer, Optional ByVal vecx2 As Integer, _
+   Optional ByVal vecy1 As Integer, Optional ByVal vecy2 As Integer, _
+   Optional ByVal life1 As Integer, Optional ByVal life2 As Integer, _
+   Optional ByVal fric As Integer, Optional ByVal spin_speedL As Single, _
+   Optional ByVal gravity As Boolean, Optional grav_strength As Long, _
+   Optional bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, _
+   Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, _
+   Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, _
+   Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean, Optional grh_resize As Boolean, _
+   Optional grh_resizex As Integer, Optional grh_resizey As Integer)
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Modified by: Ryan Cain (Onezero)
+    'Last Modify Date: 5/14/2003
+    'Returns the particle_group_index if successful, else 0
+    'Modified by Juan Martín Sotuyo Dodero
+    'Modified by Augusto José Rando
+    '**************************************************************
     
     If (map_x <> -1) And (map_y <> -1) Then
         If Map_Particle_Group_Get(map_x, map_y) = 0 Then
             Particle_Group_Create = Particle_Group_Next_Open
             Particle_Group_Make Particle_Group_Create, map_x, map_y, particle_count, stream_type, grh_index_list(), rgb_list(), alpha_blend, alive_counter, frame_speed, id, X1, Y1, angle, vecx1, vecx2, vecy1, vecy2, life1, life2, fric, spin_speedL, gravity, grav_strength, bounce_strength, X2, Y2, XMove, move_x1, move_x2, move_y1, move_y2, YMove, spin_speedH, spin, grh_resize, grh_resizex, grh_resizey
+
         End If
+
     Else
         Particle_Group_Create = Particle_Group_Next_Open
         Particle_Group_Make Particle_Group_Create, map_x, map_y, particle_count, stream_type, grh_index_list(), rgb_list(), alpha_blend, alive_counter, frame_speed, id, X1, Y1, angle, vecx1, vecx2, vecy1, vecy2, life1, life2, fric, spin_speedL, gravity, grav_strength, bounce_strength, X2, Y2, XMove, move_x1, move_x2, move_y1, move_y2, YMove, spin_speedH, spin, grh_resize, grh_resizex, grh_resizey
+
     End If
 
 End Function
 
 Public Function Particle_Group_Remove(ByVal particle_group_index As Long) As Boolean
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 1/04/2003
-'
-'*****************************************************************
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 1/04/2003
+    '
+    '*****************************************************************
     'Make sure it's a legal index
     If Particle_Group_Check(particle_group_index) Then
         Particle_Group_Destroy particle_group_index
         Particle_Group_Remove = True
+
     End If
+
 End Function
 
 Public Function Particle_Group_Remove_All() As Boolean
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 1/04/2003
-'
-'*****************************************************************
-    Dim index As Long
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 1/04/2003
+    '
+    '*****************************************************************
+    Dim Index As Long
     
-    For index = 1 To particle_group_last
+    For Index = 1 To particle_group_last
+
         'Make sure it's a legal index
-        If Particle_Group_Check(index) Then
-            Particle_Group_Destroy index
+        If Particle_Group_Check(Index) Then
+            Particle_Group_Destroy Index
+
         End If
-    Next index
+
+    Next Index
     
     Particle_Group_Remove_All = True
+
 End Function
 
 Public Function Particle_Group_Find(ByVal id As Long) As Long
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 1/04/2003
-'Find the index related to the handle
-'*****************************************************************
-On Error GoTo ErrorHandler:
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 1/04/2003
+    'Find the index related to the handle
+    '*****************************************************************
+    On Error GoTo ErrorHandler:
+
     Dim loopc As Long
     
     loopc = 1
+
     Do Until particle_group_list(loopc).id = id
+
         If loopc = particle_group_last Then
             Particle_Group_Find = 0
             Exit Function
+
         End If
+
         loopc = loopc + 1
     Loop
     
     Particle_Group_Find = loopc
-Exit Function
+    Exit Function
 ErrorHandler:
     Particle_Group_Find = 0
+
 End Function
 
 Private Sub Particle_Group_Destroy(ByVal particle_group_index As Long)
-'**************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 10/07/2002
-'
-'**************************************************************
+    '**************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 10/07/2002
+    '
+    '**************************************************************
     Dim temp As particle_group
     
     MapData(particle_group_list(particle_group_index).map_x, particle_group_list(particle_group_index).map_y).particle_group = 0
@@ -2674,47 +2853,56 @@ Private Sub Particle_Group_Destroy(ByVal particle_group_index As Long)
     
     'Update array size
     If particle_group_index = particle_group_last Then
+
         Do Until particle_group_list(particle_group_last).active
             particle_group_last = particle_group_last - 1
+
             If particle_group_last = 0 Then
                 particle_group_count = 0
                 Exit Sub
+
             End If
+
         Loop
         ReDim Preserve particle_group_list(1 To particle_group_last)
+
     End If
+
     particle_group_count = particle_group_count - 1
+
 End Sub
+
 Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x As Integer, ByVal map_y As Integer, _
-                                ByVal particle_count As Long, ByVal stream_type As Long, ByRef grh_index_list() As Long, ByRef rgb_list() As Long, _
-                                Optional ByVal alpha_blend As Boolean, Optional ByVal alive_counter As Long = -1, _
-                                Optional ByVal frame_speed As Single = 0.5, Optional ByVal id As Long, _
-                                Optional ByVal X1 As Integer, Optional ByVal Y1 As Integer, Optional ByVal angle As Integer, _
-                                Optional ByVal vecx1 As Integer, Optional ByVal vecx2 As Integer, _
-                                Optional ByVal vecy1 As Integer, Optional ByVal vecy2 As Integer, _
-                                Optional ByVal life1 As Integer, Optional ByVal life2 As Integer, _
-                                Optional ByVal fric As Integer, Optional ByVal spin_speedL As Single, _
-                                Optional ByVal gravity As Boolean, Optional grav_strength As Long, _
-                                Optional bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, _
-                                Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, _
-                                Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, _
-                                Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean, Optional grh_resize As Boolean, _
-                                Optional grh_resizex As Integer, Optional grh_resizey As Integer)
+   ByVal particle_count As Long, ByVal stream_type As Long, ByRef grh_index_list() As Long, ByRef rgb_list() As Long, _
+   Optional ByVal alpha_blend As Boolean, Optional ByVal alive_counter As Long = -1, _
+   Optional ByVal frame_speed As Single = 0.5, Optional ByVal id As Long, _
+   Optional ByVal X1 As Integer, Optional ByVal Y1 As Integer, Optional ByVal angle As Integer, _
+   Optional ByVal vecx1 As Integer, Optional ByVal vecx2 As Integer, _
+   Optional ByVal vecy1 As Integer, Optional ByVal vecy2 As Integer, _
+   Optional ByVal life1 As Integer, Optional ByVal life2 As Integer, _
+   Optional ByVal fric As Integer, Optional ByVal spin_speedL As Single, _
+   Optional ByVal gravity As Boolean, Optional grav_strength As Long, _
+   Optional bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, _
+   Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, _
+   Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, _
+   Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean, Optional grh_resize As Boolean, _
+   Optional grh_resizex As Integer, Optional grh_resizey As Integer)
                                 
-                                
-'*****************************************************************
-'Author: Aaron Perkins
-'Modified by: Ryan Cain (Onezero)
-'Last Modify Date: 5/15/2003
-'Makes a new particle effect
-'Modified by Juan Martín Sotuyo Dodero
-'*****************************************************************
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Modified by: Ryan Cain (Onezero)
+    'Last Modify Date: 5/15/2003
+    'Makes a new particle effect
+    'Modified by Juan Martín Sotuyo Dodero
+    '*****************************************************************
 
     'Update array size
     If particle_group_index > particle_group_last Then
         particle_group_last = particle_group_index
         ReDim Preserve particle_group_list(1 To particle_group_last)
+
     End If
+
     particle_group_count = particle_group_count + 1
     
     'Make active
@@ -2724,6 +2912,7 @@ Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x 
     If (map_x <> -1) And (map_y <> -1) Then
         particle_group_list(particle_group_index).map_x = map_x
         particle_group_list(particle_group_index).map_y = map_y
+
     End If
     
     'Grh list
@@ -2738,6 +2927,7 @@ Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x 
     Else
         particle_group_list(particle_group_index).alive_counter = alive_counter
         particle_group_list(particle_group_index).never_die = False
+
     End If
     
     'alpha blending
@@ -2783,7 +2973,6 @@ Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x 
     particle_group_list(particle_group_index).grh_resizex = grh_resizex
     particle_group_list(particle_group_index).grh_resizey = grh_resizey
     
-    
     'handle
     particle_group_list(particle_group_index).id = id
     
@@ -2794,26 +2983,23 @@ Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x 
     'Escribo La particula en el mapdata(x,y).particle_group :P
     If (map_x <> -1) And (map_y <> -1) Then
         MapData(map_x, map_y).particle_group = particle_group_index
+
     End If
-    
- 
     
 End Sub
 
-
 Private Sub Particle_Group_Render(ByVal particle_group_index As Long, ByVal screen_x As Integer, ByVal screen_y As Integer)
 
-'*****************************************************************
-'Author: Aaron Perkins
-'Modified by: Ryan Cain (Onezero)
-'Modified by: Juan Martín Sotuyo Dodero
-'Last Modify Date: 5/15/2003
-'Renders a particle stream at a paticular screen point
-'*****************************************************************
-    Dim loopc As Long
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Modified by: Ryan Cain (Onezero)
+    'Modified by: Juan Martín Sotuyo Dodero
+    'Last Modify Date: 5/15/2003
+    'Renders a particle stream at a paticular screen point
+    '*****************************************************************
+    Dim loopc            As Long
     Dim temp_rgb(0 To 3) As Long
-    Dim no_move As Boolean
-
+    Dim no_move          As Boolean
     
     'Set colors
 
@@ -2826,82 +3012,88 @@ Private Sub Particle_Group_Render(ByVal particle_group_index As Long, ByVal scre
     
         'See if it is time to move a particle
         particle_group_list(particle_group_index).frame_counter = particle_group_list(particle_group_index).frame_counter + timerTicksPerFrame
+
         If particle_group_list(particle_group_index).frame_counter > particle_group_list(particle_group_index).frame_speed Then
             particle_group_list(particle_group_index).frame_counter = 0
             no_move = False
         Else
             no_move = True
+
         End If
-    
     
         'If it's still alive render all the particles inside
         For loopc = 1 To particle_group_list(particle_group_index).particle_count
         
-       Dim i As Byte
-     '  Debug.Print particle_group_list(particle_group_index).grh_index_count
+            Dim i As Byte
+            '  Debug.Print particle_group_list(particle_group_index).grh_index_count
        
-      ' For i = 1 To particle_group_list(particle_group_index).grh_index_count
-       'Debug.Print particle_group_list(particle_group_index).grh_index_list(i)
-     '   Next i
+            ' For i = 1 To particle_group_list(particle_group_index).grh_index_count
+            'Debug.Print particle_group_list(particle_group_index).grh_index_list(i)
+            '   Next i
 
-    ' Debug.Print particle_group_list(particle_group_index).grh_index_list(RandomNumber2(1, particle_group_list(particle_group_index).grh_index_count))
+            ' Debug.Print particle_group_list(particle_group_index).grh_index_list(RandomNumber2(1, particle_group_list(particle_group_index).grh_index_count))
         
-Particle_Render particle_group_list(particle_group_index).particle_stream(loopc), _
-                            screen_x, screen_y, _
-                            particle_group_list(particle_group_index).grh_index_list(1), _
-                            temp_rgb(), _
-                            particle_group_list(particle_group_index).alpha_blend, no_move, _
-                            particle_group_list(particle_group_index).X1, particle_group_list(particle_group_index).Y1, particle_group_list(particle_group_index).angle, _
-                            particle_group_list(particle_group_index).vecx1, particle_group_list(particle_group_index).vecx2, _
-                            particle_group_list(particle_group_index).vecy1, particle_group_list(particle_group_index).vecy2, _
-                            particle_group_list(particle_group_index).life1, particle_group_list(particle_group_index).life2, _
-                            particle_group_list(particle_group_index).fric, particle_group_list(particle_group_index).spin_speedL, _
-                            particle_group_list(particle_group_index).gravity, particle_group_list(particle_group_index).grav_strength, _
-                            particle_group_list(particle_group_index).bounce_strength, particle_group_list(particle_group_index).X2, _
-                            particle_group_list(particle_group_index).Y2, particle_group_list(particle_group_index).XMove, _
-                            particle_group_list(particle_group_index).move_x1, particle_group_list(particle_group_index).move_x2, _
-                            particle_group_list(particle_group_index).move_y1, particle_group_list(particle_group_index).move_y2, _
-                            particle_group_list(particle_group_index).YMove, particle_group_list(particle_group_index).spin_speedH, _
-                            particle_group_list(particle_group_index).spin, particle_group_list(particle_group_index).grh_resize, particle_group_list(particle_group_index).grh_resizex, particle_group_list(particle_group_index).grh_resizey
+            Particle_Render particle_group_list(particle_group_index).particle_stream(loopc), _
+               screen_x, screen_y, _
+               particle_group_list(particle_group_index).grh_index_list(1), _
+               temp_rgb(), _
+               particle_group_list(particle_group_index).alpha_blend, no_move, _
+               particle_group_list(particle_group_index).X1, particle_group_list(particle_group_index).Y1, particle_group_list(particle_group_index).angle, _
+               particle_group_list(particle_group_index).vecx1, particle_group_list(particle_group_index).vecx2, _
+               particle_group_list(particle_group_index).vecy1, particle_group_list(particle_group_index).vecy2, _
+               particle_group_list(particle_group_index).life1, particle_group_list(particle_group_index).life2, _
+               particle_group_list(particle_group_index).fric, particle_group_list(particle_group_index).spin_speedL, _
+               particle_group_list(particle_group_index).gravity, particle_group_list(particle_group_index).grav_strength, _
+               particle_group_list(particle_group_index).bounce_strength, particle_group_list(particle_group_index).X2, _
+               particle_group_list(particle_group_index).Y2, particle_group_list(particle_group_index).XMove, _
+               particle_group_list(particle_group_index).move_x1, particle_group_list(particle_group_index).move_x2, _
+               particle_group_list(particle_group_index).move_y1, particle_group_list(particle_group_index).move_y2, _
+               particle_group_list(particle_group_index).YMove, particle_group_list(particle_group_index).spin_speedH, _
+               particle_group_list(particle_group_index).spin, particle_group_list(particle_group_index).grh_resize, particle_group_list(particle_group_index).grh_resizex, particle_group_list(particle_group_index).grh_resizey
                             
         Next loopc
         
         If no_move = False Then
+
             'Update the group alive counter
             If particle_group_list(particle_group_index).never_die = False Then
                 particle_group_list(particle_group_index).alive_counter = particle_group_list(particle_group_index).alive_counter - 1
+
             End If
+
         End If
     
     Else
         'If it's dead destroy it
-        
    
         Particle_Group_Destroy particle_group_index
-    End If
-End Sub
-Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As Integer, ByVal screen_y As Integer, _
-                            ByVal grh_index As Long, ByRef rgb_list() As Long, _
-                            Optional ByVal alpha_blend As Boolean, Optional ByVal no_move As Boolean, _
-                            Optional ByVal X1 As Integer, Optional ByVal Y1 As Integer, Optional ByVal angle As Integer, _
-                            Optional ByVal vecx1 As Integer, Optional ByVal vecx2 As Integer, _
-                            Optional ByVal vecy1 As Integer, Optional ByVal vecy2 As Integer, _
-                            Optional ByVal life1 As Integer, Optional ByVal life2 As Integer, _
-                            Optional ByVal fric As Integer, Optional ByVal spin_speedL As Single, _
-                            Optional ByVal gravity As Boolean, Optional grav_strength As Long, _
-                            Optional ByVal bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, _
-                            Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, _
-                            Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, _
-                            Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean, Optional grh_resize As Boolean, _
-                            Optional grh_resizex As Integer, Optional grh_resizey As Integer)
-                           
-'**************************************************************
 
-'Author: Aaron Perkins
-'Modified by: Ryan Cain (Onezero)
-'Modified by: Juan Martín Sotuyo Dodero
-'Last Modify Date: 5/15/2003
-'**************************************************************
+    End If
+
+End Sub
+
+Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As Integer, ByVal screen_y As Integer, _
+   ByVal grh_index As Long, ByRef rgb_list() As Long, _
+   Optional ByVal alpha_blend As Boolean, Optional ByVal no_move As Boolean, _
+   Optional ByVal X1 As Integer, Optional ByVal Y1 As Integer, Optional ByVal angle As Integer, _
+   Optional ByVal vecx1 As Integer, Optional ByVal vecx2 As Integer, _
+   Optional ByVal vecy1 As Integer, Optional ByVal vecy2 As Integer, _
+   Optional ByVal life1 As Integer, Optional ByVal life2 As Integer, _
+   Optional ByVal fric As Integer, Optional ByVal spin_speedL As Single, _
+   Optional ByVal gravity As Boolean, Optional grav_strength As Long, _
+   Optional ByVal bounce_strength As Long, Optional ByVal X2 As Integer, Optional ByVal Y2 As Integer, _
+   Optional ByVal XMove As Boolean, Optional ByVal move_x1 As Integer, Optional ByVal move_x2 As Integer, _
+   Optional ByVal move_y1 As Integer, Optional ByVal move_y2 As Integer, Optional ByVal YMove As Boolean, _
+   Optional ByVal spin_speedH As Single, Optional ByVal spin As Boolean, Optional grh_resize As Boolean, _
+   Optional grh_resizex As Integer, Optional grh_resizey As Integer)
+                           
+    '**************************************************************
+
+    'Author: Aaron Perkins
+    'Modified by: Ryan Cain (Onezero)
+    'Modified by: Juan Martín Sotuyo Dodero
+    'Last Modify Date: 5/15/2003
+    '**************************************************************
     If no_move = False Then
         If temp_particle.alive_counter = 0 Then
             'Start new particle
@@ -2914,23 +3106,30 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
             temp_particle.alive_counter = RandomNumber(life1, life2)
             temp_particle.friction = fric
         Else
+
             'Continue old particle
             'Do gravity
             If gravity = True Then
                 temp_particle.vector_y = temp_particle.vector_y + grav_strength
+
                 If temp_particle.y > 0 Then
                     'bounce
                     temp_particle.vector_y = bounce_strength
+
                 End If
+
             End If
+
             'Do rotation
             If spin = True Then temp_particle.Grh.angle = temp_particle.Grh.angle + (RandomNumber(spin_speedL, spin_speedH) / 100)
             If temp_particle.angle >= 360 Then
                 temp_particle.angle = 0
+
             End If
             
             If XMove = True Then temp_particle.vector_x = RandomNumber(move_x1, move_x2)
             If YMove = True Then temp_particle.vector_y = RandomNumber(move_y1, move_y2)
+
         End If
         
         'Add in vector
@@ -2938,45 +3137,59 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
         temp_particle.y = temp_particle.y + (temp_particle.vector_y \ temp_particle.friction)
     
         'decrement counter
-         temp_particle.alive_counter = temp_particle.alive_counter - 1
+        temp_particle.alive_counter = temp_particle.alive_counter - 1
+
     End If
     
     temp_particle.grh_resize = grh_resize
     temp_particle.grh_resizex = grh_resizex
     temp_particle.grh_resizey = grh_resizey
+
     'Draw i
     If grh_resize = True Then
         If temp_particle.Grh.grhindex Then
-             Grh_Render_Advance temp_particle.Grh, temp_particle.X + screen_x, temp_particle.y + screen_y, grh_resizex, grh_resizey, rgb_list(), True, True, alpha_blend
+            Grh_Render_Advance temp_particle.Grh, temp_particle.X + screen_x, temp_particle.y + screen_y, grh_resizex, grh_resizey, rgb_list(), True, True, alpha_blend
             Exit Sub
+
         End If
+
     End If
+
     If temp_particle.Grh.grhindex Then
         Grh_Render temp_particle.Grh, temp_particle.X + screen_x, temp_particle.y + screen_y, rgb_list(), True, True, alpha_blend
+
     End If
+
 End Sub
 
 Public Function Particle_Type_Get(ByVal particle_Index As Long) As Long
-'*****************************************************************
-'Author: Juan Martín Sotuyo Dodero (juansotuyo@hotmail.com)
-'Last Modify Date: 8/27/2003
-'Returns the stream type of a particle stream
-'*****************************************************************
+
+    '*****************************************************************
+    'Author: Juan Martín Sotuyo Dodero (juansotuyo@hotmail.com)
+    'Last Modify Date: 8/27/2003
+    'Returns the stream type of a particle stream
+    '*****************************************************************
     If Particle_Group_Check(particle_Index) Then
         Particle_Type_Get = particle_group_list(particle_Index).stream_type
+
     End If
+
 End Function
+
 Public Function Map_Particle_Group_Get(ByVal map_x As Integer, ByVal map_y As Integer) As Long
-'*****************************************************************
-'Author: Aaron Perkins
-'Last Modify Date: 2/20/2003
-'Checks to see if a tile position has a particle_group_index and return it
-'*****************************************************************
+
+    '*****************************************************************
+    'Author: Aaron Perkins
+    'Last Modify Date: 2/20/2003
+    'Checks to see if a tile position has a particle_group_index and return it
+    '*****************************************************************
     If InMapBounds(map_x, map_y) Then
         Map_Particle_Group_Get = MapData(map_x, map_y).particle_group
     Else
         Map_Particle_Group_Get = 0
+
     End If
+
 End Function
 
 Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
@@ -2999,8 +3212,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         .Top = 0
         .Bottom = 3200
         .Right = 3200
-    End With
 
+    End With
 
     Call D3DDevice.Clear(0, ByVal 0, D3DCLEAR_TARGET, 0, 0#, 0)
     
@@ -3254,23 +3467,14 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
     'Si no existe la carpeta de MiniMapas, la hacemos.
     If Not FileExist(App.Path & "\Render\", vbDirectory) Then
         Call MkDir(App.Path & "\Render\")
+
     End If
     
-    
-    
-
-    
-    
-    
-    
-    
-    
     'SavePicture FrmRender.picMap, "C:\imagen.bmp"
-     SavePicture FrmRender.picMap.Picture, App.Path & "\Render\" & FrmMain.MapPest(4).Caption & ".bmp"
+    SavePicture FrmRender.picMap.Picture, App.Path & "\Render\" & FrmMain.MapPest(4).Caption & ".bmp"
     
     Call SavePicture(FrmRender.picMap, App.Path & "\Render\" & NumMap_Save & ".bmp")
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         
 End Sub
-
 

@@ -161,167 +161,186 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Public Sub Command1_Click()
-'Superior
-Call VerMapaTraslado
+    'Superior
+    Call VerMapaTraslado
 
-SeleccionIX = 1
-SeleccionFX = 100
-SeleccionIY = 11
-SeleccionFY = 22
-Command1.Visible = False
-Command2.Visible = False
-Command3.Visible = False
-Command4.Visible = False
-Command5.Visible = True
-Command6.Visible = False
-Command7.Visible = False
-Command8.Visible = False
-Call CopiarSeleccion
-MapInfo.Changed = 1
-FrmMain.mnuGuardarMapa_Click
+    SeleccionIX = 1
+    SeleccionFX = 100
+    SeleccionIY = 11
+    SeleccionFY = 22
+    Command1.Visible = False
+    Command2.Visible = False
+    Command3.Visible = False
+    Command4.Visible = False
+    Command5.Visible = True
+    Command6.Visible = False
+    Command7.Visible = False
+    Command8.Visible = False
+    Call CopiarSeleccion
+    MapInfo.Changed = 1
+    FrmMain.mnuGuardarMapa_Click
 
 End Sub
 
 Public Sub Command2_Click()
-'copiar izquierdo
-SeleccionIX = 14
-SeleccionFX = 27
-SeleccionIY = 1
-SeleccionFY = 100
-Command1.Visible = False
-Command2.Visible = False
-Command3.Visible = False
-Command4.Visible = False
-Command5.Visible = False
-Command6.Visible = False
-Command7.Visible = True
-Command8.Visible = False
-Call CopiarSeleccion
-MapInfo.Changed = 1
-FrmMain.mnuGuardarMapa_Click
+    'copiar izquierdo
+    SeleccionIX = 14
+    SeleccionFX = 27
+    SeleccionIY = 1
+    SeleccionFY = 100
+    Command1.Visible = False
+    Command2.Visible = False
+    Command3.Visible = False
+    Command4.Visible = False
+    Command5.Visible = False
+    Command6.Visible = False
+    Command7.Visible = True
+    Command8.Visible = False
+    Call CopiarSeleccion
+    MapInfo.Changed = 1
+    FrmMain.mnuGuardarMapa_Click
+
 End Sub
 
 Public Sub Command3_Click()
-'copiar derecho
-SeleccionIX = 75
-SeleccionFX = 87
-SeleccionIY = 1
-SeleccionFY = 100
-Command1.Visible = False
-Command2.Visible = False
-Command3.Visible = False
-Command4.Visible = False
-Command5.Visible = False
-Command6.Visible = False
-Command7.Visible = False
-Command8.Visible = True
-Call CopiarSeleccion
-MapInfo.Changed = 1
-FrmMain.mnuGuardarMapa_Click
+    'copiar derecho
+    SeleccionIX = 75
+    SeleccionFX = 87
+    SeleccionIY = 1
+    SeleccionFY = 100
+    Command1.Visible = False
+    Command2.Visible = False
+    Command3.Visible = False
+    Command4.Visible = False
+    Command5.Visible = False
+    Command6.Visible = False
+    Command7.Visible = False
+    Command8.Visible = True
+    Call CopiarSeleccion
+    MapInfo.Changed = 1
+    FrmMain.mnuGuardarMapa_Click
+
 End Sub
 
 Public Sub Command4_Click()
-'Copiar inferior ok!
-SeleccionIX = 1
-SeleccionFX = 100
-SeleccionIY = 81
-SeleccionFY = 90
-Command1.Visible = False
-Command2.Visible = False
-Command3.Visible = False
-Command4.Visible = False
-Command5.Visible = False
-Command6.Visible = True
-Command7.Visible = False
-Command8.Visible = False
-Call CopiarSeleccion
-MapInfo.Changed = 1
-FrmMain.mnuGuardarMapa_Click
+    'Copiar inferior ok!
+    SeleccionIX = 1
+    SeleccionFX = 100
+    SeleccionIY = 81
+    SeleccionFY = 90
+    Command1.Visible = False
+    Command2.Visible = False
+    Command3.Visible = False
+    Command4.Visible = False
+    Command5.Visible = False
+    Command6.Visible = True
+    Command7.Visible = False
+    Command8.Visible = False
+    Call CopiarSeleccion
+    MapInfo.Changed = 1
+    FrmMain.mnuGuardarMapa_Click
+
 End Sub
 
 Public Sub Command5_Click()
-'Pegar Inferior OK!
-If lblMapaNorte.Caption <> "Norte" Then
+
+    'Pegar Inferior OK!
+    If lblMapaNorte.Caption <> "Norte" Then
         If FileExist(PATH_Save & NameMap_Save & CLng(lblMapaNorte.Caption) & ".csm", vbArchive) = True Then
             Call modMapIO.NuevoMapa
             FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(lblMapaNorte.Caption) & ".csm"
             modMapIO.AbrirMapa FrmMain.Dialog.FileName
     
             FrmMain.mnuReAbrirMapa.Enabled = True
+
         End If
-    SobreX = 1
-    SobreY = 91
-    Call PegarSeleccion
-    Call modEdicion.Bloquear_Bordes
-    MapInfo.Changed = 1
-    UserPos.y = 87
-    Unload Me
-End If
+
+        SobreX = 1
+        SobreY = 91
+        Call PegarSeleccion
+        Call modEdicion.Bloquear_Bordes
+        MapInfo.Changed = 1
+        UserPos.y = 87
+        Unload Me
+
+    End If
+
 End Sub
 
 Public Sub Command6_Click()
-'pegar superior
+    'pegar superior
 
-If lblMapaSur.Caption <> "Sur" Then
+    If lblMapaSur.Caption <> "Sur" Then
         If FileExist(PATH_Save & NameMap_Save & CLng(lblMapaSur.Caption) & ".csm", vbArchive) = True Then
             Call modMapIO.NuevoMapa
             FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(lblMapaSur.Caption) & ".csm"
             modMapIO.AbrirMapa FrmMain.Dialog.FileName
     
             FrmMain.mnuReAbrirMapa.Enabled = True
+
         End If
-    SobreX = 1
-    SobreY = 1
-    Call PegarSeleccion
-    Call modEdicion.Bloquear_Bordes
-    MapInfo.Changed = 1
-    UserPos.y = 14
-    Unload Me
-End If
+
+        SobreX = 1
+        SobreY = 1
+        Call PegarSeleccion
+        Call modEdicion.Bloquear_Bordes
+        MapInfo.Changed = 1
+        UserPos.y = 14
+        Unload Me
+
+    End If
 
 End Sub
 
 Public Sub Command7_Click()
-'pegar derecho OK!
-If lblMapaOeste.Caption <> "Oeste" Then
+
+    'pegar derecho OK!
+    If lblMapaOeste.Caption <> "Oeste" Then
         If FileExist(PATH_Save & NameMap_Save & CLng(lblMapaOeste.Caption) & ".csm", vbArchive) = True Then
             Call modMapIO.NuevoMapa
             FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(lblMapaOeste.Caption) & ".csm"
             modMapIO.AbrirMapa FrmMain.Dialog.FileName
     
             FrmMain.mnuReAbrirMapa.Enabled = True
+
         End If
-    SobreX = 88
-    SobreY = 1
-    Call PegarSeleccion
-    Call modEdicion.Bloquear_Bordes
-    MapInfo.Changed = 1
-    UserPos.X = 83
-    Unload Me
-End If
+
+        SobreX = 88
+        SobreY = 1
+        Call PegarSeleccion
+        Call modEdicion.Bloquear_Bordes
+        MapInfo.Changed = 1
+        UserPos.X = 83
+        Unload Me
+
+    End If
+
 End Sub
 
 Public Sub Command8_Click()
-'pegar izquierdo OK!
-If lblMapaEste.Caption <> "Este" Then
+
+    'pegar izquierdo OK!
+    If lblMapaEste.Caption <> "Este" Then
         If FileExist(PATH_Save & NameMap_Save & CLng(lblMapaEste.Caption) & ".csm", vbArchive) = True Then
             Call modMapIO.NuevoMapa
             FrmMain.Dialog.FileName = PATH_Save & NameMap_Save & CLng(lblMapaEste.Caption) & ".csm"
             modMapIO.AbrirMapa FrmMain.Dialog.FileName
     
             FrmMain.mnuReAbrirMapa.Enabled = True
+
         End If
-    SobreX = 1
-    SobreY = 1
-    Call PegarSeleccion
-    Call modEdicion.Bloquear_Bordes
-    MapInfo.Changed = 1
-    UserPos.X = 19
-    Unload Me
-End If
+
+        SobreX = 1
+        SobreY = 1
+        Call PegarSeleccion
+        Call modEdicion.Bloquear_Bordes
+        MapInfo.Changed = 1
+        UserPos.X = 19
+        Unload Me
+
+    End If
 
 End Sub
-
 
 Private Sub VerMapaTraslado()
     Dim X As Integer
@@ -329,51 +348,67 @@ Private Sub VerMapaTraslado()
 
     'Izquierda
     X = 13
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             lblMapaOeste.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'arriba
     y = 10
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             lblMapaNorte.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Derecha
     X = 88
+
     For y = (MinYBorder + 1) To (MaxYBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             lblMapaEste.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
     
     'Abajo
     y = 91
+
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
+
         If MapData(X, y).TileExit.Map > 0 Then
             lblMapaSur.Caption = MapData(X, y).TileExit.Map
             Exit For
+
         End If
+
     Next
 
 End Sub
 
 Private Sub Form_Load()
-Call VerMapaTraslado
+    Call VerMapaTraslado
 
-If lblMapaSur.Caption = "Sur" Then Form2.Command4.Visible = False
+    If lblMapaSur.Caption = "Sur" Then Form2.Command4.Visible = False
 
-If lblMapaEste.Caption = "Este" Then Form2.Command3.Visible = False
+    If lblMapaEste.Caption = "Este" Then Form2.Command3.Visible = False
 
-If lblMapaOeste.Caption = "Oeste" Then Form2.Command2.Visible = False
+    If lblMapaOeste.Caption = "Oeste" Then Form2.Command2.Visible = False
 
-If lblMapaOeste.Caption = "Norte" Then Form2.Command1.Visible = False
+    If lblMapaOeste.Caption = "Norte" Then Form2.Command1.Visible = False
 
 End Sub

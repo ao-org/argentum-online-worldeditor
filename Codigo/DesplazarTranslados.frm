@@ -199,65 +199,73 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Public Sub Command1_Click()
-Dim X As Byte
-Dim Y As Byte
+    Dim X As Byte
+    Dim y As Byte
 
-For X = 13 To 87
-    For Y = ActualYSuperior To ActualYSuperior
-        If MapData(X, Y).TileExit.Map > 0 Then
-            MapData(X, DesplazadaYSuperior).TileExit.Map = MapData(X, Y).TileExit.Map
-            MapData(X, DesplazadaYSuperior).TileExit.X = MapData(X, Y).TileExit.X
-            MapData(X, DesplazadaYSuperior).TileExit.Y = DestinoSuperior
-            MapData(X, Y).TileExit.Map = 0
-            MapData(X, Y).TileExit.X = 0
-            MapData(X, Y).TileExit.Y = 0
-        End If
-        Next Y
-Next X
+    For X = 13 To 87
+        For y = ActualYSuperior To ActualYSuperior
 
-For X = 13 To 87
-    For Y = ActualYInferior To ActualYInferior
-        If MapData(X, Y).TileExit.Map > 0 Then
-            MapData(X, DesplazadaYInferior).TileExit.Map = MapData(X, Y).TileExit.Map
-            MapData(X, DesplazadaYInferior).TileExit.X = MapData(X, Y).TileExit.X
-            MapData(X, DesplazadaYInferior).TileExit.Y = DestinoYInferior
-            MapData(X, Y).TileExit.Map = 0
-            MapData(X, Y).TileExit.X = 0
-            MapData(X, Y).TileExit.Y = 0
-        End If
-        Next Y
-Next X
+            If MapData(X, y).TileExit.Map > 0 Then
+                MapData(X, DesplazadaYSuperior).TileExit.Map = MapData(X, y).TileExit.Map
+                MapData(X, DesplazadaYSuperior).TileExit.X = MapData(X, y).TileExit.X
+                MapData(X, DesplazadaYSuperior).TileExit.y = DestinoSuperior
+                MapData(X, y).TileExit.Map = 0
+                MapData(X, y).TileExit.X = 0
+                MapData(X, y).TileExit.y = 0
 
-For X = ActualXIzquierda To ActualXIzquierda
-    For Y = 11 To 90
-        If MapData(X, Y).TileExit.Map > 0 Then
-            MapData(DesplazadaXIzquierda, Y).TileExit.Map = MapData(X, Y).TileExit.Map
-            MapData(DesplazadaXIzquierda, Y).TileExit.X = DestinoIzquierda
-            MapData(DesplazadaXIzquierda, Y).TileExit.Y = MapData(X, Y).TileExit.Y
-            MapData(X, Y).TileExit.Map = 0
-            MapData(X, Y).TileExit.X = 0
-            MapData(X, Y).TileExit.Y = 0
-        End If
-        Next Y
-Next X
+            End If
 
+        Next y
+    Next X
 
-For X = ActualXDerecha To ActualXDerecha
-    For Y = 11 To 90
-        If MapData(X, Y).TileExit.Map > 0 Then
-            MapData(DesplazadaXDerecha, Y).TileExit.Map = MapData(X, Y).TileExit.Map
-            MapData(DesplazadaXDerecha, Y).TileExit.X = DestinoDerecha
-            MapData(DesplazadaXDerecha, Y).TileExit.Y = MapData(X, Y).TileExit.Y
-            MapData(X, Y).TileExit.Map = 0
-            MapData(X, Y).TileExit.X = 0
-            MapData(X, Y).TileExit.Y = 0
-        End If
-        Next Y
-Next X
+    For X = 13 To 87
+        For y = ActualYInferior To ActualYInferior
 
+            If MapData(X, y).TileExit.Map > 0 Then
+                MapData(X, DesplazadaYInferior).TileExit.Map = MapData(X, y).TileExit.Map
+                MapData(X, DesplazadaYInferior).TileExit.X = MapData(X, y).TileExit.X
+                MapData(X, DesplazadaYInferior).TileExit.y = DestinoYInferior
+                MapData(X, y).TileExit.Map = 0
+                MapData(X, y).TileExit.X = 0
+                MapData(X, y).TileExit.y = 0
 
+            End If
 
-            
+        Next y
+    Next X
+
+    For X = ActualXIzquierda To ActualXIzquierda
+        For y = 11 To 90
+
+            If MapData(X, y).TileExit.Map > 0 Then
+                MapData(DesplazadaXIzquierda, y).TileExit.Map = MapData(X, y).TileExit.Map
+                MapData(DesplazadaXIzquierda, y).TileExit.X = DestinoIzquierda
+                MapData(DesplazadaXIzquierda, y).TileExit.y = MapData(X, y).TileExit.y
+                MapData(X, y).TileExit.Map = 0
+                MapData(X, y).TileExit.X = 0
+                MapData(X, y).TileExit.y = 0
+
+            End If
+
+        Next y
+    Next X
+
+    For X = ActualXDerecha To ActualXDerecha
+        For y = 11 To 90
+
+            If MapData(X, y).TileExit.Map > 0 Then
+                MapData(DesplazadaXDerecha, y).TileExit.Map = MapData(X, y).TileExit.Map
+                MapData(DesplazadaXDerecha, y).TileExit.X = DestinoDerecha
+                MapData(DesplazadaXDerecha, y).TileExit.y = MapData(X, y).TileExit.y
+                MapData(X, y).TileExit.Map = 0
+                MapData(X, y).TileExit.X = 0
+                MapData(X, y).TileExit.y = 0
+
+            End If
+
+        Next y
+    Next X
         
 End Sub
