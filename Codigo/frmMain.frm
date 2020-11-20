@@ -862,7 +862,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -4638,12 +4637,19 @@ Private Sub BloqAll_Click()
     On Error GoTo BloqAll_Click_Err
     
     Dim i As Integer
+    
+    If maskBloqueo = &HF Then
+        For i = 0 To 3
+            chkBloqueo(i).value = vbUnchecked
+        Next
+        maskBloqueo = 0
 
-    For i = 0 To 3
-        chkBloqueo(i).value = vbChecked
-    Next
-    maskBloqueo = &HF
-
+    Else
+        For i = 0 To 3
+            chkBloqueo(i).value = vbChecked
+        Next
+        maskBloqueo = &HF
+    End If
     
     Exit Sub
 
