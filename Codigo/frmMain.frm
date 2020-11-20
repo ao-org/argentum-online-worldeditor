@@ -79,9 +79,9 @@ Begin VB.Form FrmMain
    Begin VB.CommandButton Command1 
       Caption         =   "Convertir bloqueos"
       Height          =   375
-      Left            =   18960
+      Left            =   20280
       TabIndex        =   180
-      Top             =   1080
+      Top             =   1200
       Width           =   1575
    End
    Begin VB.Frame Frame1 
@@ -797,12 +797,11 @@ Begin VB.Form FrmMain
    End
    Begin VB.CommandButton cmdCovertitMap 
       Caption         =   "Convertir Mapa"
-      Height          =   495
-      Left            =   17640
+      Height          =   375
+      Left            =   18720
       TabIndex        =   148
-      Top             =   120
-      Visible         =   0   'False
-      Width           =   1575
+      Top             =   1200
+      Width           =   1455
    End
    Begin VB.CheckBox Check6 
       BackColor       =   &H00C0C0C0&
@@ -861,7 +860,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5382,11 +5380,11 @@ Private Sub cmdCovertitMap_Click()
     For i = 1 To 318
         FormatoIAO = False
 
-        If FileExist(App.Path & "\Conversor\Mapas Long\Mapa" & i & ".map", vbNormal) = True Then
+        If FileExist(App.Path & "\Conversor\Mapa" & i & ".map", vbNormal) = True Then
             Call modMapIO.NuevoMapa
-            Call MapaV3_Cargar(App.Path & "\Conversor\Mapas Long\Mapa" & i & ".map")
+            Call MapaV3_Cargar(App.Path & "\Conversor\Mapa" & i & ".map")
             FormatoIAO = True
-            Call MapaV2_Guardar(App.Path & "\Conversor\Mapas CSM\Mapa" & i & ".csm")
+            Call MapaV2_Guardar(App.Path & "\Conversor\Mapa" & i & ".csm")
             
             'Info.Caption = "Mapa" & i & " convertido correctamente!"
         End If
