@@ -82,6 +82,7 @@ Begin VB.Form FrmMain
       Left            =   20280
       TabIndex        =   180
       Top             =   1200
+      Visible         =   0   'False
       Width           =   1575
    End
    Begin VB.Frame Frame1 
@@ -801,6 +802,7 @@ Begin VB.Form FrmMain
       Left            =   18720
       TabIndex        =   148
       Top             =   1200
+      Visible         =   0   'False
       Width           =   1455
    End
    Begin VB.CheckBox Check6 
@@ -860,6 +862,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
