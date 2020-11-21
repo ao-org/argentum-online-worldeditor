@@ -407,9 +407,11 @@ Function LegalPos(X As Integer, y As Integer) As Boolean
     
     On Error GoTo LegalPos_Err
     
-
+    LegalPos = True
+    
     'Check to see if its out of bounds
-    If X - 8 < 1 Or X - 8 > 100 Or y - 6 < 1 Or y - 6 > 100 Then
+    If X - 12 < 1 Or X - 12 > 100 Or y - 9 < 1 Or y - 9 > 100 Then
+        LegalPos = False
         Exit Function
 
     End If
@@ -420,12 +422,14 @@ Function LegalPos(X As Integer, y As Integer) As Boolean
     
     'Check for character
     If MapData(X, y).CharIndex > 0 Then
+        LegalPos = False
         Exit Function
 
     End If
     
     'Tile Bloqueado? (todo bloqueado)
     If MapData(X, y).Blocked = &HF Then
+        LegalPos = False
         Exit Function
 
     End If
@@ -758,6 +762,75 @@ PegarSeleccion_Err:
     
 End Sub
 
+Public Sub PegarSeleccionCasa() '(mx As Integer, my As Integer)
+    '*************************************************
+    'Author: Loopzer
+    'Last modified: 21/11/07
+    '*************************************************
+    'podria usar copy mem , pero por las dudas no XD
+    
+    On Error GoTo PegarSeleccionCasa_Err
+    
+    Static UltimoX As Integer
+    Static UltimoY As Integer
+    'If UltimoX = SobreX And UltimoY = SobreY Then Exit Sub
+    UltimoX = SobreX
+    UltimoY = SobreY
+    Dim X As Integer
+    Dim y As Integer
+    DeSeleccionAncho = SeleccionAncho
+    DeSeleccionAlto = SeleccionAlto
+    DeSeleccionOX = SobreX
+    DeSeleccionOY = SobreY
+    
+    Debug.Print SobreX
+    Debug.Print SobreY
+    ReDim DeSeleccionMap(DeSeleccionAncho, DeSeleccionAlto) As MapBlock
+    
+    For X = 0 To DeSeleccionAncho - 1
+        For y = 0 To DeSeleccionAlto - 1
+
+            If y + SobreY > 100 Then Exit For
+            If X + SobreX > 100 Then Exit For
+            'NO copia tile exit - LADDER
+  
+            DeSeleccionMap(X, y).TileExit.Map = MapData(X + SobreX, y + SobreY).TileExit.Map
+            DeSeleccionMap(X, y).TileExit.X = MapData(X + SobreX, y + SobreY).TileExit.X
+            DeSeleccionMap(X, y).TileExit.y = MapData(X + SobreX, y + SobreY).TileExit.y
+            DeSeleccionMap(X, y) = MapData(X + SobreX, y + SobreY)
+
+            MapData(X + SobreX, y + SobreY).NPCIndex = 0 'NO copia NPC
+
+        Next
+    Next
+
+    For X = 0 To SeleccionAncho - 1
+        For y = 0 To SeleccionAlto - 1
+
+            If y + SobreY > 100 Then Exit For
+            If X + SobreX > 100 Then Exit For
+            'NO copia tile exit - LADDER
+            SeleccionMap(X, y).TileExit.Map = MapData(X + SobreX, y + SobreY).TileExit.Map
+            SeleccionMap(X, y).TileExit.X = MapData(X + SobreX, y + SobreY).TileExit.X
+            SeleccionMap(X, y).TileExit.y = MapData(X + SobreX, y + SobreY).TileExit.y
+        
+            MapData(X + SobreX, y + SobreY) = SeleccionMap(X, y)
+            MapData(X + SobreX, y + SobreY).NPCIndex = 0 'NO copia NPC
+
+        Next
+    Next
+    Seleccionando = False
+    Call DibujarMiniMapa
+
+    
+    Exit Sub
+
+PegarSeleccionCasa_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.PegarSeleccionCasa", Erl)
+    Resume Next
+    
+End Sub
+
 Public Sub AccionSeleccion()
 
     Working = True
@@ -881,6 +954,52 @@ Public Sub CortarSeleccion()
 
 CortarSeleccion_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.CortarSeleccion", Erl)
+    Resume Next
+    
+End Sub
+
+Public Sub CopiarSeleccionCasa()
+    '*************************************************
+    'Author: Loopzer
+    'Last modified: 21/11/07
+    '*************************************************
+    'podria usar copy mem , pero por las dudas no XD
+    
+    On Error GoTo CopiarSeleccionCasa_Err
+    
+    SeleccionIX = 65
+    SeleccionFX = 74
+    
+    SeleccionIY = 23
+    SeleccionFY = 30
+    
+    Dim X As Integer
+    Dim y As Integer
+    Debug.Print
+    Seleccionando = False
+    SeleccionAncho = Abs(SeleccionIX - SeleccionFX) + 1
+    SeleccionAlto = Abs(SeleccionIY - SeleccionFY) + 1
+    
+    Debug.Print SeleccionIX
+    Debug.Print SeleccionFX
+    
+    Debug.Print SeleccionIY
+    Debug.Print SeleccionFY
+    
+    ReDim SeleccionMap(SeleccionAncho, SeleccionAlto) As MapBlock
+
+    For X = 0 To SeleccionAncho - 1
+        For y = 0 To SeleccionAlto - 1
+            SeleccionMap(X, y) = MapData(X + SeleccionIX, y + SeleccionIY)
+        Next
+    Next
+    MapInfo.Changed = 1
+
+    
+    Exit Sub
+
+CopiarSeleccionCasa_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.CopiarSeleccionCasa", Erl)
     Resume Next
     
 End Sub
