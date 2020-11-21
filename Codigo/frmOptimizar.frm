@@ -172,7 +172,7 @@ Public Sub Optimizar()
             End If
 
             ' ** Quitar Translados y Triggers en Bloqueo
-            If MapData(X, y).Blocked = 1 Then
+            If MapData(X, y).Blocked = &HF Then
                 If MapData(X, y).TileExit.Map > 0 And chkQuitarTrans.value = 1 Then ' Quita Translado Bloqueado
                     MapData(X, y).TileExit.Map = 0
                     MapData(X, y).TileExit.y = 0

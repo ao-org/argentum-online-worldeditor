@@ -309,10 +309,10 @@ Public Sub Bloquear_Bordes()
     Next y
 
     ' Bloqueo las 4 esquinitas ReyarB
-    MapData(13, 10).Blocked = 1
-    MapData(13, 91).Blocked = 1
-    MapData(88, 10).Blocked = 1
-    MapData(88, 91).Blocked = 1
+    MapData(13, 10).Blocked = &HF
+    MapData(13, 91).Blocked = &HF
+    MapData(88, 10).Blocked = &HF
+    MapData(88, 91).Blocked = &HF
     
     MapData(13, 10).TileExit.Map = 0
     MapData(13, 10).TileExit.X = 0
@@ -1449,7 +1449,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
                         Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
                             MapData(tX, tY).Graphic(3) = MapData(tX, tY).ObjGrh
-                            MapData(tX, tY).Blocked = 1
+                            MapData(tX, tY).Blocked = &HF
 
                     End Select
 

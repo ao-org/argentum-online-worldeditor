@@ -862,6 +862,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -3991,6 +3992,10 @@ Begin VB.Form FrmMain
          Caption         =   "&Pegar Selección"
          Shortcut        =   ^V
       End
+      Begin VB.Menu mnuPegarCasa 
+         Caption         =   "&Pegar House"
+         Shortcut        =   ^H
+      End
       Begin VB.Menu mnuBloquearS 
          Caption         =   "&Bloquear Selección"
          Shortcut        =   ^B
@@ -5465,11 +5470,11 @@ Private Sub Remplazograficos()
             ' End If
             '  End If
         
-            If MapData(X, y).Graphic(3).grhindex = txtGRH.Text Then
+            If MapData(X, y).Graphic(3).grhindex = TxtGrh.Text Then
                 MapData(X, y).Graphic(3).grhindex = TxtGrh2.Text
             
                 'InitGrh MapData(X, y).Graphic(2), 0
-                MapData(X, y).Graphic(2).grhindex = txtGRH.Text
+                MapData(X, y).Graphic(2).grhindex = TxtGrh.Text
                 InitGrh MapData(X, y).Graphic(2), TxtGrh2.Text
             
             End If
@@ -5981,6 +5986,35 @@ mnuActualizarIndices_Click_Err:
     Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuActualizarIndices_Click", Erl)
     Resume Next
     
+End Sub
+
+Private Sub mnuPegarCasa_Click()
+    Dim Mapa As Integer
+    Dim MapaOld As String
+    
+    MapaOld = Label16.Caption
+    
+    Mapa = 169
+
+    If Mapa <> 0 Then
+
+        Dialog.FileName = PATH_Save & NameMap_Save & Mapa & ".csm"
+
+        If FileExist(Dialog.FileName, vbArchive) = False Then Exit Sub
+        Call modMapIO.NuevoMapa
+        DoEvents
+        modMapIO.AbrirMapa Dialog.FileName
+        EngineRun = True
+
+    End If
+
+Call CopiarSeleccionCasa
+
+Dialog.FileName = PATH_Save & NameMap_Save & MapaOld & ".csm"
+modMapIO.AbrirMapa Dialog.FileName
+
+Call modEdicion.Deshacer_Add("Pegar Selección")
+Call PegarSeleccionCasa
 End Sub
 
 Private Sub niebla_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
@@ -6764,17 +6798,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(1, lListado(Index).Text, Asc("-"))
-                picture1.Refresh
-                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                Picture1.Refresh
+                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(1, lListado(Index).Text, Asc("-"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(1, lListado(Index).Text, Asc("-"))
-                picture1.Refresh
+                Picture1.Refresh
             
-                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
@@ -9036,6 +9070,8 @@ SelectPanel_Click_Err:
     Resume Next
     
 End Sub
+
+
 
 Private Sub Stopminimap_Click()
     

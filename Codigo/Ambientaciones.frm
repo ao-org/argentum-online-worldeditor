@@ -608,7 +608,7 @@ Begin VB.Form AmbientacionesForm
       Height          =   315
       ItemData        =   "Ambientaciones.frx":0020
       Left            =   120
-      List            =   "Ambientaciones.frx":0048
+      List            =   "Ambientaciones.frx":004B
       TabIndex        =   0
       Text            =   "Combo1"
       Top             =   120
