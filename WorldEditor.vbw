@@ -1,4 +1,4 @@
-FrmMain = 0, 0, 787, 901, Z, 359, 109, 1557, 772, C
+FrmMain = 0, 0, 787, 901, , 359, 109, 1557, 772, C
 modGeneral = 52, 52, 1312, 593, 
 modDeclaraciones = 78, 78, 1338, 619, 
 modDirectDraw = 200, 200, 1540, 677, 
@@ -49,4 +49,4 @@ WavAmbiental = 0, 0, 0, 0, C, 250, 250, 1448, 913, C
 FrmRender = 0, 0, 0, 0, C, 275, 275, 1473, 938, C
 clsLight = 0, 0, 0, 0, C
 frmActualizarIndices = 0, 0, 0, 0, C, 25, 25, 1223, 688, C
-Logs = 0, 0, 0, 0, C
+Logs = 175, 175, 1515, 626, 
