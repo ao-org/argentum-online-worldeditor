@@ -49,7 +49,7 @@ Public Sub CargarIndicesDeGraficos()
     #If Compresion = 1 Then
 
         If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT\", "graficos.ind", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de recurso!"
+            Err.Description = "Â¡No se puede cargar el archivo de recurso!"
             GoTo ErrorHandler
 
         End If
@@ -163,7 +163,7 @@ Public Sub CargarIndicesDeGraficos()
     #If Compresion = 1 Then
 
         If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT", "minimap.dat", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de recursos (minimap.dat)!"
+            Err.Description = "Â¡No se puede cargar el archivo de recursos (minimap.dat)!"
             GoTo ErrorHandler
 
         End If
@@ -214,7 +214,7 @@ Public Sub CargarIndicesSuperficie()
     #If Compresion = 1 Then
 
         If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT", "indices.ini", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de superficies (indices.ini)!"
+            Err.Description = "Â¡No se puede cargar el archivo de superficies (indices.ini)!"
             GoTo ErrorHandler
 
         End If
@@ -314,7 +314,7 @@ Public Sub CargarIndicesTriggers()
     #If Compresion = 1 Then
 
         If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT", "triggers.ini", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de triggers (triggers.ini)!"
+            Err.Description = "Â¡No se puede cargar el archivo de triggers (triggers.ini)!"
             GoTo Fallo
 
         End If
@@ -363,7 +363,7 @@ Public Sub CargarIndicesDeCuerpos()
     #If Compresion = 1 Then
 
         If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT\", "personajes.ind", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de personajes.ind!"
+            Err.Description = "Â¡No se puede cargar el archivo de personajes.ind!"
             MsgBox Err.Description
 
         End If
@@ -431,7 +431,7 @@ Public Sub CargarIndicesDeCabezas()
     #If Compresion = 1 Then
 
         If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT\", "cabezas.ind", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de Cabezas.ind!"
+            Err.Description = "Â¡No se puede cargar el archivo de Cabezas.ind!"
             MsgBox Err.Description
 
         End If

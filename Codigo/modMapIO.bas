@@ -31,10 +31,10 @@ Option Explicit
 Private MapTitulo As String     ' GS > Almacena el titulo del mapa para el .dat
 
 ''
-' Obtener el tamaño de un archivo
+' Obtener el tamaÃ±o de un archivo
 '
 ' @param FileName Especifica el path del archivo
-' @return   Nos devuelve el tamaño
+' @return   Nos devuelve el tamaÃ±o
 
 Public Function FileSize(ByVal FileName As String) As Long
     '*************************************************
@@ -430,7 +430,7 @@ Public Sub MapaV2_Guardar(ByVal SaveAs As String)
     'Close .inf file
     Close FreeFileInf
 
-    Call Pestañas(SaveAs)
+    Call PestaÃ±as(SaveAs)
 
     'write .dat file
     SaveAs = Left$(SaveAs, Len(SaveAs) - 4) & ".dat"
@@ -856,7 +856,7 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     'Close files
     Close FreeFileMap
     Close FreeFileInf
-    Call Pestañas(Map)
+    Call PestaÃ±as(Map)
     Call DibujarMiniMapa
     engine.Light_Render_All
 
@@ -1101,17 +1101,17 @@ Public Sub MapInfo_Actualizar()
 End Sub
 
 ''
-' Calcula la orden de Pestañas
+' Calcula la orden de PestaÃ±as
 '
 ' @param Map Especifica path del mapa
 
-Public Sub Pestañas(ByVal Map As String)
+Public Sub PestaÃ±as(ByVal Map As String)
     '*************************************************
     'Author: ^[GS]^
     'Last modified: 28/05/06
     '*************************************************
     
-    On Error GoTo Pestañas_Err
+    On Error GoTo PestaÃ±as_Err
     
 
     Dim loopc As Integer
@@ -1195,8 +1195,8 @@ Public Sub Pestañas(ByVal Map As String)
     
     Exit Sub
 
-Pestañas_Err:
-    Call RegistrarError(Err.Number, Err.Description, "modMapIO.Pestañas", Erl)
+PestaÃ±as_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.PestaÃ±as", Erl)
     Resume Next
     
 End Sub

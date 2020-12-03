@@ -435,7 +435,7 @@ Public Function Load_Map_Data_CSM(ByVal MapRoute As String, Optional ByVal Clien
 
     Load_Map_Data_CSM = True
 
-    Call Pestañas(MapRoute)
+    Call PestaÃ±as(MapRoute)
     Call DibujarMiniMapa
     engine.Light_Render_All
     
@@ -753,7 +753,7 @@ Sub CompletarForms()
       
     'Call Obtener_RGB(ColorAmb, Rojo, Verde, Azul)
   
-    'Colocamos el color de fondo pasandole a la función de vb RGB los valores
+    'Colocamos el color de fondo pasandole a la funciÃ³n de vb RGB los valores
     If Val(ColorAmb) <> &HFFFFFFFF Then
         FrmMain.Picture3.BackColor = Val(ColorAmb)
         FrmMain.LuzMapa = ColorAmb
@@ -1013,7 +1013,7 @@ Public Function Load_Map_Data_CSM_Fast_ConBloqueosViejos(ByVal MapRoute As Strin
     
     Load_Map_Data_CSM_Fast_ConBloqueosViejos = True
 
-    'Call Pestañas(MapRoute)
+    'Call PestaÃ±as(MapRoute)
     'Call DibujarMiniMapa
     'engine.Light_Render_All
     

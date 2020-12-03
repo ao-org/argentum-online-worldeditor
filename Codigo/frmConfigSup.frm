@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmConfigSup 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "Configuración Avanzada de Superficie "
+   Caption         =   "ConfiguraciÃ³n Avanzada de Superficie "
    ClientHeight    =   2820
    ClientLeft      =   45
    ClientTop       =   330

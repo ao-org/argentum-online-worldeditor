@@ -16,7 +16,7 @@ Attribute VB_Exposed = False
 ' Use it instead of GetVar when reading several values form the same file at once, otherwise it's not usefull.
 ' Based in the idea of AlejoLP and his clsIniReader.
 '
-' Designed and implemented by Juan Martín Sotuyo Dodero (Maraxus)
+' Designed and implemented by Juan MartÃ­n Sotuyo Dodero (Maraxus)
 ' (juansotuyo@gmail.com)
 '**************************************************************
 
@@ -42,7 +42,7 @@ Attribute VB_Exposed = False
 'It's particularly usefull when you can keep a whole file in memory such as NPCs.dat'
 ' Based in the idea of AlejoLP and his clsIniReader.
 '
-' @author Juan Martín Sotuyo Dodero (Maraxus) juansotuyo@gmail.com
+' @author Juan MartÃ­n Sotuyo Dodero (Maraxus) juansotuyo@gmail.com
 ' @version 1.0.0
 ' @date 20060501
 
@@ -99,7 +99,7 @@ Private MainNodes  As Long
 Private Sub Class_Initialize()
 
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 5/01/2006
     '
     '**************************************************************
@@ -111,7 +111,7 @@ End Sub
 
 Private Sub Class_Terminate()
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 5/01/2006
     '
     '**************************************************************
@@ -152,7 +152,7 @@ Public Sub Initialize(ByVal File As String)
     On Error Resume Next
 
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 5/01/2006
     'Opens the requested file and loads it's data into memory
     '**************************************************************
@@ -244,7 +244,7 @@ End Sub
 
 Private Sub SortChildNodes(ByRef Node As MainNode, ByVal first As Integer, ByVal last As Integer)
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 5/01/2006
     'Sorts the list of values in a given MainNode using quicksort,
     'this allows the use of Binary Search for faster searches
@@ -306,7 +306,7 @@ End Sub
 
 Private Sub SortMainNodes(ByVal first As Integer, ByVal last As Integer)
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 5/01/2006
     'Sorts the MainNodes list using quicksort,
     'this allows the use of Binary Search for faster searches
@@ -366,7 +366,7 @@ End Sub
 
 Public Function GetValue(ByVal Main As String, ByVal Key As String) As String
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 5/01/2006
     'Returns a value if the key and main node exist, or a nullstring otherwise
     '**************************************************************
@@ -407,7 +407,7 @@ End Function
 
 Private Function FindKey(ByRef Node As MainNode, ByVal Key As String) As Long
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 5/01/2006
     'Returns the index of the value which key matches the requested one,
     'or the negation of the position were it should be if not found
@@ -460,7 +460,7 @@ End Function
 
 Private Function FindMain(ByVal name As String) As Long
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 5/01/2006
     'Returns the index of the MainNode which name matches the requested one,
     'or the negation of the position were it should be if not found

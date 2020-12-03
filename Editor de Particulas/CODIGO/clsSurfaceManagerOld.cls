@@ -35,7 +35,7 @@ Private Declare Function GetTickCount Lib "kernel32" () As Long
 
 Private Sub Class_Terminate()
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 '
 '**************************************************************
@@ -69,10 +69,10 @@ End If
             Dimension = .Dimension
             Set GetTexture = .texture
         End With
-    Else    'Gr·fico no cargado
+    Else    'Gr√°fico no cargado
         'Vemos si puedo agregar uno a la lista
         If mMaxEntries = mCantidadGraficos Then
-            'Sacamos el que hace m·s que no usamos, y utilizamos el slot
+            'Sacamos el que hace m√°s que no usamos, y utilizamos el slot
             index = CrearGrafico(FileName, BorraMenosUsado())
             Dimension = mGraficos(index).Dimension
             Set GetTexture = mGraficos(index).texture
@@ -87,7 +87,7 @@ End Function
 
 Private Function ObtenerIndice(ByVal FileName As Integer) As Integer
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 'Busqueda binaria para hallar la texture deseada
 '**************************************************************
@@ -100,14 +100,14 @@ Private Function ObtenerIndice(ByVal FileName As Integer) As Integer
     Do While min <= max
         mid = (min + max) / 2
         If FileName < mGraficos(mid).FileName Then
-            'El Ìndice no existe
+            'El √≠ndice no existe
             If max = mid Then
                 max = max - 1
             Else
                 max = mid
             End If
         ElseIf FileName > mGraficos(mid).FileName Then
-            'El Ìndice no existe
+            'El √≠ndice no existe
             If min = mid Then
                 min = min + 1
             Else
@@ -122,14 +122,14 @@ End Function
 
 Public Function Init(ByRef D3D8 As D3DX8, ByRef d3d_device As Direct3DDevice8, ByVal MaxMemory As Long, ByVal MaxEntries As Long) As Boolean
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 '
 '**************************************************************
     
     mMaxEntries = MaxEntries
     
-    If mMaxEntries < 1 Then 'por lo menos 1 gr·fico
+    If mMaxEntries < 1 Then 'por lo menos 1 gr√°fico
         Exit Function
     End If
     
@@ -145,7 +145,7 @@ End Function
 
 Public Sub BorrarTodo()
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 'Vacia la lista de graficos
 '**************************************************************
@@ -161,13 +161,13 @@ End Sub
 
 Public Function Borrar(ByVal FileName As Integer) As Integer
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 'Borra un grafico
 '**************************************************************
     Dim indice As Long
     
-    'Obtenemos el Ïndice
+    'Obtenemos el √¨ndice
     indice = ObtenerIndice(FileName)
     
     'Lo eliminamos
@@ -178,10 +178,10 @@ Public Function Borrar(ByVal FileName As Integer) As Integer
         .size = 0
     End With
     
-    'Actualizamos el n˙mero de gr·ficos
+    'Actualizamos el n√∫mero de gr√°ficos
     mCantidadGraficos = mCantidadGraficos - 1
     
-    'Movemos para atr·s el resto de la lista
+    'Movemos para atr√°s el resto de la lista
     For indice = indice To mCantidadGraficos
         mGraficos(indice) = mGraficos(indice + 1)
     Next indice
@@ -192,7 +192,7 @@ End Function
 
 Private Function CrearGrafico(ByVal Archivo As Integer, Optional ByVal index As Integer = -1, Optional ByVal Extraido As Boolean = False) As Integer
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 '
 '**************************************************************
@@ -216,7 +216,7 @@ On Error GoTo ErrHandler
 #If debuging <> 1 Then
         If Not Extraido Then
             If Extract_File(Graphics, GrhPath, LTrim(str(Archivo)) & ".bmp", Windows_Temp_Dir, False) Then
-                'Cargamos el gr·fico y seteamos la Color Key
+                'Cargamos el gr√°fico y seteamos la Color Key
                 Set .texture = mD3D.CreateTextureFromFileEx(device, Windows_Temp_Dir & LTrim(str(Archivo)) & ".bmp", _
                     D3DX_DEFAULT, D3DX_DEFAULT, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, _
                     D3DX_FILTER_NONE, &HFF000000, ByVal 0, ByVal 0)
@@ -232,7 +232,7 @@ On Error GoTo ErrHandler
             End If
         Else
 
-            'Cargamos el gr·fico y seteamos la Color Key
+            'Cargamos el gr√°fico y seteamos la Color Key
             Set .texture = mD3D.CreateTextureFromFileEx(device, Windows_Temp_Dir & LTrim(str(Archivo)) & ".bmp", _
                 D3DX_DEFAULT, D3DX_DEFAULT, 1, 0, D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_FILTER_NONE, _
                 D3DX_FILTER_NONE, &HFF000000, ByVal 0, ByVal 0)
@@ -255,18 +255,18 @@ Debug.Print "Cargado "; LTrim(str(Archivo)) & ".bmp"
 
     End With
     
-    'Aumentamos la cantidad de gr·ficos
+    'Aumentamos la cantidad de gr√°ficos
     mCantidadGraficos = mCantidadGraficos + 1
         
     'Ordenamos la lista (al estar agregando de a un item no es mucho trabajo, y se compensa con la velocidad de busqueda)
     Call OrdenarGraficos(1, mCantidadGraficos)
     
-    'Devolvemos el Ïndice en que lo cargamos
+    'Devolvemos el √¨ndice en que lo cargamos
     CrearGrafico = ObtenerIndice(Archivo)
 Exit Function
 
 ErrHandler:
-    'OcurriÛ un error, la causa m·s probable es que el archivo no exista
+    'Ocurri√≥ un error, la causa m√°s probable es que el archivo no exista
 #If debuging <> 1 Then
     If General_File_Exists(Windows_Temp_Dir & Archivo & ".bmp", vbNormal) Then
         Delete_File Windows_Temp_Dir & Archivo & ".bmp"
@@ -279,9 +279,9 @@ End Function
 
 Private Sub OrdenarGraficos(ByVal primero As Integer, ByVal ultimo As Integer)
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
-'Ordenamos los gr·ficos por nombre usando QuickSort
+'Ordenamos los gr√°ficos por nombre usando QuickSort
 '**************************************************************
     Dim min As Integer      'Primer item de la lista
     Dim max As Integer      'Ultimo item de la lista
@@ -314,7 +314,7 @@ End Sub
 
 Private Function BorraMenosUsado() As Integer
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 'Borra el grafico menos usado. Devuelve el index del borrado para ser reutilizado
 'NO redimenciona la lista, estamos forzando a sacar uno para meter otro en su lugar
@@ -326,7 +326,7 @@ Private Function BorraMenosUsado() As Integer
     Valor = mGraficos(1).UltimoAcceso
     BorraMenosUsado = 1
     
-    'Buscamos cual es el que lleva m·s tiempo sin ser utilizado
+    'Buscamos cual es el que lleva m√°s tiempo sin ser utilizado
     For i = 1 To mCantidadGraficos
         If mGraficos(i).UltimoAcceso < Valor Then
             Valor = mGraficos(i).UltimoAcceso
@@ -347,7 +347,7 @@ End Function
 
 Public Property Get MaxEntries() As Integer
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 '
 '**************************************************************
@@ -356,7 +356,7 @@ End Property
 
 Public Property Let MaxEntries(ByVal vNewValue As Integer)
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 '
 '**************************************************************
@@ -365,7 +365,7 @@ End Property
 
 Public Property Get CantidadGraficos() As Integer
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 '
 '**************************************************************
@@ -374,7 +374,7 @@ End Property
 
 Public Sub BorraTimer()
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 'Cada un minuto revisamos que texturas se pueden eliminar
 '**************************************************************
@@ -390,7 +390,7 @@ Public Sub BorraTimer()
     For loopc = 1 To mCantidadGraficos
         'Revisar cuales usamos
         If (mGraficos(loopc).Dimension <= 32) Or (mGraficos(loopc).UltimoAcceso > TiempoActual - 60000) Then
-            'Si el offset est· seteado, movemos para atr·s la lista
+            'Si el offset est√° seteado, movemos para atr√°s la lista
             If offset Then
                 mGraficos(loopc - offset) = mGraficos(loopc)
             End If
@@ -404,13 +404,13 @@ Public Sub BorraTimer()
         End If
     Next loopc
     
-    'Actualizar el n˙mero de gr·ficos
+    'Actualizar el n√∫mero de gr√°ficos
     mCantidadGraficos = mCantidadGraficos - offset
 End Sub
 
 Public Function CargarGrafico(ByVal FileName As Integer) As Boolean
 '**************************************************************
-'Author: Augusto JosÈ Rando
+'Author: Augusto Jos√© Rando
 'Last Modify Date: 8/17/2005
 '
 '**************************************************************
@@ -421,10 +421,10 @@ Public Function CargarGrafico(ByVal FileName As Integer) As Boolean
 
     If ObtenerIndice(FileName) <> 0 Then
         CargarGrafico = False
-    Else    'Gr·fico no cargado
+    Else    'Gr√°fico no cargado
         'Vemos si puedo agregar uno a la lista
         If mMaxEntries = mCantidadGraficos Then
-            'Sacamos el que hace m·s que no usamos, y utilizamos el slot
+            'Sacamos el que hace m√°s que no usamos, y utilizamos el slot
             Call CrearGrafico(FileName, BorraMenosUsado())
             CargarGrafico = True
         Else

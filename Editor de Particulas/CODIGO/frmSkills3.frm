@@ -1212,10 +1212,10 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 'Argentum Online 0.12.1 MENDUZ DX8 VERSION www.noicoder.com
 '
-'Copyright (C) 2002 M醨quez Pablo Ignacio
+'Copyright (C) 2002 M谩rquez Pablo Ignacio
 'Copyright (C) 2002 Otto Perez
 'Copyright (C) 2002 Aaron Perkins
-'Copyright (C) 2002 Mat韆s Fernando Peque駉
+'Copyright (C) 2002 Mat铆as Fernando Peque帽o
 '
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the Affero General Public License;
@@ -1237,10 +1237,10 @@ Attribute VB_Exposed = False
 'You can contact me at:
 'morgolock@speedy.com.ar
 'www.geocities.com/gmorgolock
-'Calle 3 n鷐ero 983 piso 7 dto A
+'Calle 3 n煤mero 983 piso 7 dto A
 'La Plata - Pcia, Buenos Aires - Republica Argentina
-'C骴igo Postal 1900
-'Pablo Ignacio M醨quez
+'C贸digo Postal 1900
+'Pablo Ignacio M谩rquez
 
 Option Explicit
 
@@ -1277,7 +1277,7 @@ End Sub
 
 Private Sub Form_Load()
 
-Image1.Picture = LoadPicture(App.path & "\Graficos\Bot髇ok.jpg")
+Image1.Picture = LoadPicture(App.path & "\Graficos\Bot贸nok.jpg")
 
 
 'Nombres de los skills
@@ -1299,9 +1299,9 @@ ReDim flags(1 To NUMSKILLS)
 'Cargamos el jpg correspondiente
 For i = 0 To NUMSKILLS * 2 - 1
     If (i And &H1) = 0 Then
-        Command1(i).Picture = LoadPicture(App.path & "\Graficos\Bot髇M醩.jpg")
+        Command1(i).Picture = LoadPicture(App.path & "\Graficos\Bot贸nM谩s.jpg")
     Else
-        Command1(i).Picture = LoadPicture(App.path & "\Graficos\Bot髇Menos.jpg")
+        Command1(i).Picture = LoadPicture(App.path & "\Graficos\Bot贸nMenos.jpg")
     End If
 Next
 

@@ -1115,7 +1115,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
     
     If Button = vbRightButton Then
         ' Posicion
-        FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & ENDL & ENDL & "Posición " & tX & "," & tY
+        FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & ENDL & ENDL & "PosiciÃ³n " & tX & "," & tY
         
         ' Bloqueos
         If MapData(tX, tY).Blocked > 0 Then FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (BLOQ)"

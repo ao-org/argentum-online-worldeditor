@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmNewPassword 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "Cambiar Contraseña"
+   Caption         =   "Cambiar ContraseÃ±a"
    ClientHeight    =   3195
    ClientLeft      =   45
    ClientTop       =   330
@@ -50,7 +50,7 @@ Begin VB.Form frmNewPassword
       Width           =   4095
    End
    Begin VB.Label Label3 
-      Caption         =   "Confirmar contraseña nueva:"
+      Caption         =   "Confirmar contraseÃ±a nueva:"
       Height          =   255
       Left            =   293
       TabIndex        =   6
@@ -58,7 +58,7 @@ Begin VB.Form frmNewPassword
       Width           =   4095
    End
    Begin VB.Label Label2 
-      Caption         =   "Contraseña nueva:"
+      Caption         =   "ContraseÃ±a nueva:"
       Height          =   255
       Left            =   293
       TabIndex        =   5
@@ -66,7 +66,7 @@ Begin VB.Form frmNewPassword
       Width           =   4095
    End
    Begin VB.Label Label1 
-      Caption         =   "Contraseña anterior:"
+      Caption         =   "ContraseÃ±a anterior:"
       Height          =   255
       Left            =   293
       TabIndex        =   4
@@ -83,7 +83,7 @@ Option Explicit
 
 Private Sub Command1_Click()
     If Text2.Text <> Text3.Text Then
-        Call MsgBox("Las contraseñas no coinciden", vbCritical Or vbOKOnly Or vbApplicationModal Or vbDefaultButton1, "Cambiar Contraseña")
+        Call MsgBox("Las contraseÃ±as no coinciden", vbCritical Or vbOKOnly Or vbApplicationModal Or vbDefaultButton1, "Cambiar ContraseÃ±a")
         Exit Sub
     End If
     

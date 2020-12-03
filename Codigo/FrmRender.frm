@@ -91,10 +91,10 @@ Option Explicit
 ' Declaraciones del Api
       
 '*************************************************************
-' FunciÛn BitBlt para copiar la imagen del control en un picturebox
+' Funci√≥n BitBlt para copiar la imagen del control en un picturebox
 Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, ByVal X As Long, ByVal y As Long, ByVal nWidth As Long, ByVal nHeight As Long, ByVal hSrcDC As Long, ByVal xSrc As Long, ByVal ySrc As Long, ByVal dwRop As Long) As Long
       
-' Recupera la imagen del ·rea del control
+' Recupera la imagen del √°rea del control
 Private Declare Function GetWindowDC Lib "user32" (ByVal hWnd As Long) As Long
 
 Private Sub cmdAceptar_Click()
@@ -127,12 +127,12 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
           
     On Error Resume Next
 
-    ' Si da error es por que el control est· dentro de un Frame _
+    ' Si da error es por que el control est√° dentro de un Frame _
       ya que  los Frame no tiene  dicha propiedad
     Escala_Anterior = Control.Container.ScaleMode
           
     If Err.Number = 438 Then
-        ' Si el control est· en un Frame, convierte la escala
+        ' Si el control est√° en un Frame, convierte la escala
         Ancho = ScaleX(Control.Width, vbTwips, vbPixels)
         Alto = ScaleY(Control.Height, vbTwips, vbPixels)
     Else
@@ -146,10 +146,10 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
     ' limpia el error
     On Error GoTo 0
 
-    ' Captura el ·rea de pantalla correspondiente al control
+    ' Captura el √°rea de pantalla correspondiente al control
     hdc = GetWindowDC(Control.hWnd)
     
-    ' Copia esa ·rea al picturebox
+    ' Copia esa √°rea al picturebox
     If ToWorldMap2 Then
         Call BitBlt(Destino.hdc, 0 - 50, 0 - 50, Ancho - 50, Alto - 50, hdc, 0, 0, vbSrcCopy)
     Else
@@ -166,7 +166,7 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
     On Error Resume Next
 
     If Err.Number = 0 Then
-        ' Si el control no est· en un  Frame, restaura la escala del contenedor
+        ' Si el control no est√° en un  Frame, restaura la escala del contenedor
         Control.Container.ScaleMode = Escala_Anterior
 
     End If

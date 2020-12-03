@@ -84,7 +84,7 @@ Begin VB.Form frmAbout
    Begin VB.Label lblVersion 
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   "Versión"
+      Caption         =   "VersiÃ³n"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   11.25
@@ -104,7 +104,7 @@ Begin VB.Form frmAbout
    Begin VB.Label lblCred 
       Alignment       =   2  'Center
       BackStyle       =   0  'Transparent
-      Caption         =   "Basado en códigos de BaronSoft, Dunga, Maraxus, Morgolock y menduz"
+      Caption         =   "Basado en cÃ³digos de BaronSoft, Dunga, Maraxus, Morgolock y menduz"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   8.25
@@ -271,7 +271,7 @@ Private Sub Form_Load()
     On Error GoTo Form_Load_Err
     
     Me.Caption = "Acerca de " & App.Title
-    lblVersion.Caption = "Versión " & App.Major & "." & App.Minor & "." & App.Revision
+    lblVersion.Caption = "VersiÃ³n " & App.Major & "." & App.Minor & "." & App.Revision
     lblTitle.Caption = App.Title
 
     

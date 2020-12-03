@@ -52,8 +52,8 @@ Public Ambiente              As String
 Public AmbienteNoche         As Integer
 Public ColorAmb              As String
 
-Public Const MSGMod          As String = "Este mapa há sido modificado." & vbCrLf & "Si no lo guardas perderas todos los cambios ¿Deseas guardarlo?"
-Public Const MSGDang         As String = "CUIDADO! Este comando puede arruinar el mapa." & vbCrLf & "¿Estas seguro que desea continuar?"
+Public Const MSGMod          As String = "Este mapa hÃ¡ sido modificado." & vbCrLf & "Si no lo guardas perderas todos los cambios Â¿Deseas guardarlo?"
+Public Const MSGDang         As String = "CUIDADO! Este comando puede arruinar el mapa." & vbCrLf & "Â¿Estas seguro que desea continuar?"
 
 Public Const ENDL            As String * 2 = vbCrLf
 '[Loopzer]

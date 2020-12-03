@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmActualizarIndices 
    BorderStyle     =   4  'Fixed ToolWindow
-   Caption         =   "Actualizar Ìndices"
+   Caption         =   "Actualizar √≠ndices"
    ClientHeight    =   2775
    ClientLeft      =   45
    ClientTop       =   390
@@ -104,7 +104,7 @@ Begin VB.Form frmActualizarIndices
       Width           =   2295
    End
    Begin VB.CommandButton Botones 
-      Caption         =   "Actualizar superficies"
+      Caption         =   "ActualizarIndices.ini"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   8.25
@@ -122,7 +122,7 @@ Begin VB.Form frmActualizarIndices
       Width           =   2295
    End
    Begin VB.CommandButton Botones 
-      Caption         =   "Actualizar gr·ficos"
+      Caption         =   "Actualizar gr√°ficos.ind"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   8.25

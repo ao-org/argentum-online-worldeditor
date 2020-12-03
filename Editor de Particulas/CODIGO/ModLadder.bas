@@ -162,7 +162,7 @@ Public Sub CargarParticulas()
 'Coded by OneZero (onezero_ss@hotmail.com)
 'Last Modified: 6/4/03
 'Loads the Particles.ini file to the ComboBox
-'Edited by Juan Martín Sotuyo Dodero to add speed and life
+'Edited by Juan MartÃ­n Sotuyo Dodero to add speed and life
 '*************************************
     Dim loopc As Long
     Dim i As Long
@@ -243,7 +243,7 @@ Public Sub CargarParticulasBinary()
 'Coded by OneZero (onezero_ss@hotmail.com)
 'Last Modified: 6/4/03
 'Loads the Particles.ini file to the ComboBox
-'Edited by Juan Martín Sotuyo Dodero to add speed and life
+'Edited by Juan MartÃ­n Sotuyo Dodero to add speed and life
 '*************************************
     Dim loopc As Long
     Dim i As Long
@@ -288,7 +288,7 @@ End Sub
 
 Public Function General_Field_Read(ByVal field_pos As Long, ByVal Text As String, ByVal delimiter As String) As String
 '*****************************************************************
-'Author: Juan Martín Sotuyo Dodero
+'Author: Juan MartÃ­n Sotuyo Dodero
 'Last Modify Date: 11/15/2004
 'Gets a field from a delimited string
 '*****************************************************************

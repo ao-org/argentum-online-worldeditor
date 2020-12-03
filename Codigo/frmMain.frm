@@ -87,7 +87,7 @@ Begin VB.Form FrmMain
    End
    Begin VB.Frame Frame1 
       BackColor       =   &H80000000&
-      Caption         =   "Opción Grh"
+      Caption         =   "OpciÃ³n Grh"
       Height          =   1095
       Left            =   16200
       TabIndex        =   173
@@ -862,7 +862,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -876,7 +875,7 @@ Begin VB.Form FrmMain
    End
    Begin VB.Frame Frame2 
       BackColor       =   &H80000000&
-      Caption         =   "Información del Mapa"
+      Caption         =   "InformaciÃ³n del Mapa"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -3564,7 +3563,7 @@ Begin VB.Form FrmMain
       Width           =   2055
       _ExtentX        =   3625
       _ExtentY        =   661
-      Caption         =   "&Información del Mapa"
+      Caption         =   "&InformaciÃ³n del Mapa"
       CapAlign        =   2
       BackStyle       =   2
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -3979,17 +3978,17 @@ Begin VB.Form FrmMain
       End
    End
    Begin VB.Menu mnuEdicion 
-      Caption         =   "&Edición"
+      Caption         =   "&EdiciÃ³n"
       Begin VB.Menu mnuCortar 
-         Caption         =   "C&ortar Selección"
+         Caption         =   "C&ortar SelecciÃ³n"
          Shortcut        =   ^X
       End
       Begin VB.Menu mnuCopiar 
-         Caption         =   "&Copiar Selección"
+         Caption         =   "&Copiar SelecciÃ³n"
          Shortcut        =   ^C
       End
       Begin VB.Menu mnuPegar 
-         Caption         =   "&Pegar Selección"
+         Caption         =   "&Pegar SelecciÃ³n"
          Shortcut        =   ^V
       End
       Begin VB.Menu mnuPegarCasa 
@@ -3997,15 +3996,15 @@ Begin VB.Form FrmMain
          Shortcut        =   ^H
       End
       Begin VB.Menu mnuBloquearS 
-         Caption         =   "&Bloquear Selección"
+         Caption         =   "&Bloquear SelecciÃ³n"
          Shortcut        =   ^B
       End
       Begin VB.Menu mnuRealizarOperacion 
-         Caption         =   "&Realizar Operación en Selección"
+         Caption         =   "&Realizar OperaciÃ³n en SelecciÃ³n"
          Shortcut        =   ^D
       End
       Begin VB.Menu mnuDeshacerPegado 
-         Caption         =   "Deshacer P&egado de Selección"
+         Caption         =   "Deshacer P&egado de SelecciÃ³n"
          Shortcut        =   ^S
       End
       Begin VB.Menu mnuLineEdicion0 
@@ -4020,7 +4019,7 @@ Begin VB.Form FrmMain
          Checked         =   -1  'True
       End
       Begin VB.Menu mnuInfoMap 
-         Caption         =   "&Información del Mapa"
+         Caption         =   "&InformaciÃ³n del Mapa"
       End
       Begin VB.Menu mnuLineEdicion1 
          Caption         =   "-"
@@ -4112,15 +4111,15 @@ Begin VB.Form FrmMain
          Caption         =   "Auto-Completar &Superficies"
       End
       Begin VB.Menu mnuAutoCapturarSuperficie 
-         Caption         =   "Auto-C&apturar información de la Superficie"
+         Caption         =   "Auto-C&apturar informaciÃ³n de la Superficie"
          Checked         =   -1  'True
       End
       Begin VB.Menu mnuAutoCapturarTranslados 
-         Caption         =   "Auto-&Capturar información de los Translados"
+         Caption         =   "Auto-&Capturar informaciÃ³n de los Translados"
          Checked         =   -1  'True
       End
       Begin VB.Menu mnuAutoGuardarMapas 
-         Caption         =   "Configuración de Auto-&Guardar Mapas"
+         Caption         =   "ConfiguraciÃ³n de Auto-&Guardar Mapas"
       End
    End
    Begin VB.Menu mnuVer 
@@ -4248,8 +4247,11 @@ Begin VB.Form FrmMain
          Caption         =   "Optimi&zar Mapa"
          Shortcut        =   ^O
       End
+      Begin VB.Menu mnuEditarIndices 
+         Caption         =   "Editar Indices.ini"
+      End
       Begin VB.Menu mnuActualizarIndices 
-         Caption         =   "Actualizar índices..."
+         Caption         =   "Actualizar Ã­ndices..."
       End
    End
    Begin VB.Menu mnuObjSc 
@@ -4277,7 +4279,7 @@ Begin VB.Form FrmMain
          Caption         =   "Borrar bordes negros"
       End
       Begin VB.Menu abrirmapn 
-         Caption         =   "Abrir mapa N°"
+         Caption         =   "Abrir mapa NÂ°"
       End
       Begin VB.Menu vergraficoslistado 
          Caption         =   "Ver Graficos"
@@ -4324,7 +4326,7 @@ Begin VB.Form FrmMain
          Caption         =   "Particulas"
       End
       Begin VB.Menu MiniMap_ndemapa 
-         Caption         =   "N° de mapa"
+         Caption         =   "NÂ° de mapa"
       End
       Begin VB.Menu Dibujarmini 
          Caption         =   "Dibujar"
@@ -5988,6 +5990,12 @@ mnuActualizarIndices_Click_Err:
     
 End Sub
 
+Private Sub mnuEditarIndices_Click()
+Shell "C:\WINDOWS\System32\notepad.exe " & App.Path & "\..\Recursos\init\indices.ini", vbNormalFocus
+
+
+End Sub
+
 Private Sub mnuPegarCasa_Click()
     Dim Mapa As Integer
     Dim MapaOld As String
@@ -6013,7 +6021,7 @@ Call CopiarSeleccionCasa
 Dialog.FileName = PATH_Save & NameMap_Save & MapaOld & ".csm"
 modMapIO.AbrirMapa Dialog.FileName
 
-Call modEdicion.Deshacer_Add("Pegar Selección")
+Call modEdicion.Deshacer_Add("Pegar SelecciÃ³n")
 Call PegarSeleccionCasa
 End Sub
 
@@ -7219,7 +7227,7 @@ Private Sub mnuBloquearS_Click()
     
     On Error GoTo mnuBloquearS_Click_Err
     
-    Call modEdicion.Deshacer_Add("Bloquear Selección")
+    Call modEdicion.Deshacer_Add("Bloquear SelecciÃ³n")
     Call BlockearSeleccion
 
     
@@ -7296,7 +7304,7 @@ Private Sub mnuCortar_Click()
     
     On Error GoTo mnuCortar_Click_Err
     
-    Call modEdicion.Deshacer_Add("Cortar Selección")
+    Call modEdicion.Deshacer_Add("Cortar SelecciÃ³n")
     Call CortarSeleccion
 
     
@@ -7335,7 +7343,7 @@ Private Sub mnuDeshacerPegado_Click()
     
     On Error GoTo mnuDeshacerPegado_Click_Err
     
-    Call modEdicion.Deshacer_Add("Deshacer Pegado de Selección")
+    Call modEdicion.Deshacer_Add("Deshacer Pegado de SelecciÃ³n")
     Call DePegar
 
     
@@ -7761,7 +7769,7 @@ Private Sub mnuPegar_Click()
     
     On Error GoTo mnuPegar_Click_Err
     
-    Call modEdicion.Deshacer_Add("Pegar Selección")
+    Call modEdicion.Deshacer_Add("Pegar SelecciÃ³n")
     Call PegarSeleccion
 
     
@@ -8161,7 +8169,7 @@ Private Sub mnuRealizarOperacion_Click()
     On Error GoTo mnuRealizarOperacion_Click_Err
     
 
-    Call modEdicion.Deshacer_Add("Realizar Operación en Selección")
+    Call modEdicion.Deshacer_Add("Realizar OperaciÃ³n en SelecciÃ³n")
     mnuAutoCompletarSuperficies.Checked = False
 
     Call AccionSeleccion
@@ -8597,7 +8605,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     On Error GoTo Form_QueryUnload_Err
     
 
-    ' Guardar configuración
+    ' Guardar configuraciÃ³n
     Rem WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "GuardarConfig", IIf(FrmMain.mnuGuardarUltimaConfig.Checked = True, "1", "0")
 
     WriteVar IniPath & "WorldEditor.ini", "PATH", "UltimoMapa", Dialog.FileName
@@ -8643,7 +8651,7 @@ Private Sub Npcalazarpormapa_Click()
     Dim y        As Byte
     Dim i        As Byte
 
-    tmp = InputBox("¿Cuantos npcs?", "Ingresar npcs al azar por todo el mapa.")
+    tmp = InputBox("Â¿Cuantos npcs?", "Ingresar npcs al azar por todo el mapa.")
 
     If tmp = "" Then Exit Sub
 
@@ -8692,7 +8700,7 @@ Private Sub objalazar_Click()
     cantidad = InputBox("Ingrese la cantidad de objetos a mapear")
 
     If cantidad <= 0 Then Exit Sub
-    bloquear = InputBox("¿Desea bloquear los obejtos? (1= SI | 0 = NO")
+    bloquear = InputBox("Â¿Desea bloquear los obejtos? (1= SI | 0 = NO")
 
     If bloquear > 1 Then Exit Sub
     objeto = FrmMain.cNumFunc(2).Text
@@ -9024,7 +9032,7 @@ Private Sub SaveAllMiniMap_Click()
     On Error GoTo SaveAllMiniMap_Click_Err
     
 
-    If MsgBox("Esta funcion generara todos los minimap de nuevo. ¿Esta seguro que desea continuar?", vbExclamation + vbYesNo) = vbYes Then
+    If MsgBox("Esta funcion generara todos los minimap de nuevo. Â¿Esta seguro que desea continuar?", vbExclamation + vbYesNo) = vbYes Then
         Timer4.Enabled = True
 
     End If

@@ -22,7 +22,7 @@ Begin VB.Form frmConnect
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
    Begin VB.CommandButton downloadServer 
-      Caption         =   "Descargar código del servidor"
+      Caption         =   "Descargar cÃ³digo del servidor"
       Height          =   375
       Left            =   240
       TabIndex        =   3
@@ -152,10 +152,10 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 'Argentum Online 0.12.1 MENDUZ DX8 VERSION www.noicoder.com
 '
-'Copyright (C) 2002 Márquez Pablo Ignacio
+'Copyright (C) 2002 MÃ¡rquez Pablo Ignacio
 'Copyright (C) 2002 Otto Perez
 'Copyright (C) 2002 Aaron Perkins
-'Copyright (C) 2002 Matías Fernando Pequeño
+'Copyright (C) 2002 MatÃ­as Fernando PequeÃ±o
 '
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the Affero General Public License;
@@ -177,17 +177,17 @@ Attribute VB_Exposed = False
 'You can contact me at:
 'morgolock@speedy.com.ar
 'www.geocities.com/gmorgolock
-'Calle 3 número 983 piso 7 dto A
+'Calle 3 nÃºmero 983 piso 7 dto A
 'La Plata - Pcia, Buenos Aires - Republica Argentina
-'Código Postal 1900
-'Pablo Ignacio Márquez
+'CÃ³digo Postal 1900
+'Pablo Ignacio MÃ¡rquez
 '
-'Matías Fernando Pequeño
+'MatÃ­as Fernando PequeÃ±o
 'matux@fibertel.com.ar
 'www.noland-studios.com.ar
 'Acoyte 678 Piso 17 Dto B
 'Capital Federal, Buenos Aires - Republica Argentina
-'Código Postal 1405
+'CÃ³digo Postal 1405
 
 Option Explicit
 
@@ -195,13 +195,13 @@ Private Sub downloadServer_Click()
 '***********************************
 'IMPORTANTE!
 '
-'No debe eliminarse la posibilidad de bajar el código de sus servidor de esta forma.
-'Caso contrario estarían violando la licencia Affero GPL y con ella derechos de autor,
+'No debe eliminarse la posibilidad de bajar el cÃ³digo de sus servidor de esta forma.
+'Caso contrario estarÃ­an violando la licencia Affero GPL y con ella derechos de autor,
 'incurriendo de esta forma en un delito punible por ley.
 '
-'Argentum Online es libre, es de todos. Mantengamoslo así. Si tanto te gusta el juego y querés los
-'cambios que hacemos nosotros, compartí los tuyos. Es un cambio justo. Si no estás de acuerdo,
-'no uses nuestro código, pues nadie te obliga o bien utiliza una versión anterior a la 0.12.0.
+'Argentum Online es libre, es de todos. Mantengamoslo asÃ­. Si tanto te gusta el juego y querÃ©s los
+'cambios que hacemos nosotros, compartÃ­ los tuyos. Es un cambio justo. Si no estÃ¡s de acuerdo,
+'no uses nuestro cÃ³digo, pues nadie te obliga o bien utiliza una versiÃ³n anterior a la 0.12.0.
 '***********************************
     Call ShellExecute(0, "Open", "http://downloads.sourceforge.net/morgoao/AOServerSrc0.12.1.zip?use_mirror=osdn", "", App.path, 0)
 End Sub
@@ -264,13 +264,13 @@ Private Sub Form_Load()
 
  '[CODE]:MatuX
  '
- '  El código para mostrar la versión se genera acá para
+ '  El cÃ³digo para mostrar la versiÃ³n se genera acÃ¡ para
  ' evitar que por X razones luego desaparezca, como suele
  ' pasar a veces :)
     Version.Caption = "v" & App.Major & "." & App.Minor & " Build: " & App.Revision
  '[END]'
 
-'Recordatorio para cumplir la licencia, por si borrás el botón sin leer el code...
+'Recordatorio para cumplir la licencia, por si borrÃ¡s el botÃ³n sin leer el code...
 Dim i As Long
 
 For i = 0 To Me.Controls.Count - 1
@@ -280,8 +280,8 @@ For i = 0 To Me.Controls.Count - 1
 Next i
 
 If i = Me.Controls.Count Then
-    MsgBox "No debe eliminarse la posibilidad de bajar el código de sus servidor. Caso contrario estarían violando la licencia Affero GPL y con ella derechos de autor, incurriendo de esta forma en un delito punible por ley." & vbCrLf & vbCrLf & vbCrLf & _
-            "Argentum Online es libre, es de todos. Mantengamoslo así. Si tanto te gusta el juego y querés los cambios que hacemos nosotros, compartí los tuyos. Es un cambio justo. Si no estás de acuerdo, no uses nuestro código, pues nadie te obliga o bien utiliza una versión anterior a la 0.12.0.", vbCritical Or vbApplicationModal
+    MsgBox "No debe eliminarse la posibilidad de bajar el cÃ³digo de sus servidor. Caso contrario estarÃ­an violando la licencia Affero GPL y con ella derechos de autor, incurriendo de esta forma en un delito punible por ley." & vbCrLf & vbCrLf & vbCrLf & _
+            "Argentum Online es libre, es de todos. Mantengamoslo asÃ­. Si tanto te gusta el juego y querÃ©s los cambios que hacemos nosotros, compartÃ­ los tuyos. Es un cambio justo. Si no estÃ¡s de acuerdo, no uses nuestro cÃ³digo, pues nadie te obliga o bien utiliza una versiÃ³n anterior a la 0.12.0.", vbCritical Or vbApplicationModal
 End If
 
 End Sub
@@ -292,7 +292,7 @@ Call Audio.PlayWave(SND_CLICK)
 
 If ServersRecibidos Then
     If Not IsIp(IPTxt) And CurServer <> 0 Then
-        If MsgBox("Atencion, está intentando conectarse a un servidor no oficial, NoLand Studios no se hace responsable de los posibles problemas que estos servidores presenten. ¿Desea continuar?", vbYesNo) = vbNo Then
+        If MsgBox("Atencion, estÃ¡ intentando conectarse a un servidor no oficial, NoLand Studios no se hace responsable de los posibles problemas que estos servidores presenten. Â¿Desea continuar?", vbYesNo) = vbNo Then
             If CurServer <> 0 Then
                 IPTxt = ServersLst(CurServer).Ip
                 PortTxt = ServersLst(CurServer).Puerto
