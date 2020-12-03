@@ -14,7 +14,7 @@ Public Sub RegistrarError(ByVal Numero As Long, ByVal Descripcion As String, ByV
 'Author: Jopi
 'Guarda una descripcion detallada del error en Errores.log
 '**********************************************************
-    On Error Resume Next
+On Error GoTo EH:
 
     'Si lo del parametro Componente es ES IGUAL, al Componente del anterior error...
     If Componente = HistorialError.Componente And _
@@ -22,25 +22,23 @@ Public Sub RegistrarError(ByVal Numero As Long, ByVal Descripcion As String, ByV
         
         'Agregamos el error al historial.
         HistorialError.Contador = HistorialError.Contador + 1
-        HistorialError.Componente = Componente
-        HistorialError.ErrorCode = Numero
+        
+        'Si ya recibimos error en el mismo componente 10 veces, es bastante probable que estemos en un bucle
+        'x lo que no hace falta registrar el error.
+        If HistorialError.Contador = 10 Then Exit Sub
         
     Else 'Si NO es igual, reestablecemos el contador.
 
         HistorialError.Contador = 0
-        HistorialError.ErrorCode = 0
-        HistorialError.Componente = vbNullString
+        HistorialError.ErrorCode = Numero
+        HistorialError.Componente = Componente
             
     End If
-    
-    'Si ya recibimos error en el mismo componente 10 veces, es bastante probable que estemos en un bucle
-    'x lo que no hace falta registrar el error.
-    If HistorialError.Contador = 10 Then Exit Sub
     
     'Registramos el error en Errores.log
     Dim File As Integer: File = FreeFile
         
-    Open App.Path & "\Errores.log" For Append As #File
+    Open App.Path & "\logs\Errores.log" For Append As #File
     
         Print #File, "Error: " & Numero
         Print #File, "Descripcion: " & Descripcion
@@ -60,5 +58,17 @@ Public Sub RegistrarError(ByVal Numero As Long, ByVal Descripcion As String, ByV
                 "Descripcion: " & Descripcion & vbNewLine & _
                 "Componente: " & Componente & vbNewLine & _
                 "Fecha y Hora: " & Date$ & "-" & Time$ & vbNewLine
-
+    
+    Exit Sub
+    
+EH:
+    
+    Close #File
+    
+    Debug.Print "Error: " & Numero & vbNewLine & _
+                "Descripcion: " & Descripcion & vbNewLine & _
+                "Componente: " & Componente & vbNewLine & _
+                "Fecha y Hora: " & Date$ & "-" & Time$ & vbNewLine
+    
 End Sub
+

@@ -162,15 +162,15 @@ Public Sub CargarIndicesDeGraficos()
     
     #If Compresion = 1 Then
 
-        If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT", "minimap.dat", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de recursos (minimap.dat)!"
+        If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT", "minimap.bin", Windows_Temp_Dir, False) Then
+            Err.Description = "¡No se puede cargar el archivo de recursos (minimap.bin)!"
             GoTo ErrorHandler
 
         End If
     
-        Open Windows_Temp_Dir & "minimap.dat" For Binary Access Read As #handle
+        Open Windows_Temp_Dir & "minimap.bin" For Binary Access Read As #handle
     #Else
-        Open App.Path & "\..\Recursos\init\minimap.dat" For Binary Access Read As #handle
+        Open App.Path & "\..\Recursos\init\minimap.bin" For Binary Access Read As #handle
     #End If
 
     Dim Count As Long
@@ -187,7 +187,7 @@ Public Sub CargarIndicesDeGraficos()
     Close #handle
     
     #If Compresion = 1 Then
-        Delete_File Windows_Temp_Dir & "minimap.dat"
+        Delete_File Windows_Temp_Dir & "minimap.bin"
     #End If
 
     Exit Sub
