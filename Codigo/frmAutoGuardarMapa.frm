@@ -196,7 +196,7 @@ Private Sub cmdAceptar_Click()
     'Last modified: 20/05/06
     '*************************************************
     If IsNumeric(cmbMinutos.Text) = False Then
-        MsgBox "Los minutos deben ingresarse de forma númerica.", vbCritical + vbOKOnly
+        MsgBox "Los minutos deben ingresarse de forma nÃºmerica.", vbCritical + vbOKOnly
         Exit Sub
     ElseIf Val(cmbMinutos.Text) < 5 Or Val(cmbMinutos.Text) > 120 Then
         MsgBox "Los minutos ingresados son invalidos." & vbCrLf & "Solo estan permitidos los valores de entre 5 y 120 minutos inclusive.", vbCritical + vbOKOnly

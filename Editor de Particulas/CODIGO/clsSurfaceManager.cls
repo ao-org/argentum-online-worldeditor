@@ -42,7 +42,7 @@ Private Declare Function GetTickCount Lib "kernel32" () As Long
 
 Private Sub Class_Terminate()
 '**************************************************************
-'Author: Juan Martín Sotuyo Dodero
+'Author: Juan MartÃ­n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 '
 '**************************************************************
@@ -88,7 +88,7 @@ End Function
 
 Public Function Init(ByRef D3D8 As D3DX8, ByRef d3d_device As Direct3DDevice8, ByVal MaxMemory As Long) As Boolean
 '**************************************************************
-'Author: Juan Martín Sotuyo Dodero
+'Author: Juan MartÃ­n Sotuyo Dodero
 'Last Modify Date: 5/04/2005
 '
 '**************************************************************
@@ -104,7 +104,7 @@ End Function
 
 Private Function CrearGrafico(ByVal Archivo As Integer, ByRef texwidth As Long, ByRef textheight As Long) As Direct3DTexture8
 '**************************************************************
-'Author: Juan Martín Sotuyo Dodero
+'Author: Juan MartÃ­n Sotuyo Dodero
 'menduz was here
 '
 '**************************************************************

@@ -37,7 +37,7 @@ End Property
 
 Public Sub RemoveDialogs()
 '***************************************************
-'Author: Juan Martín Sotuyo Dodero (Maraxus)
+'Author: Juan MartÃ­n Sotuyo Dodero (Maraxus)
 'Last Modification: 04/02/07
 'Removes all dialogs
 '***************************************************
@@ -55,7 +55,7 @@ End Sub
 
 Public Property Get CantidadDialogos() As Byte
 '***************************************************
-'Author: Juan Martín Sotuyo Dodero (Maraxus)
+'Author: Juan MartÃ­n Sotuyo Dodero (Maraxus)
 'Last Modification: 04/01/07
 'Retrieves the number of dialogs to be displayed on screen
 '***************************************************
@@ -84,7 +84,7 @@ End Sub
 
 Public Sub PushBackText(ByVal s As String, ByVal color As Long)
 '***************************************************
-'Author: Juan Martín Sotuyo Dodero (Maraxus)
+'Author: Juan MartÃ­n Sotuyo Dodero (Maraxus)
 'Last Modification: 04/07/08
 'Splits dialogs into lines fitting properly the render area and inserts them
 '***************************************************

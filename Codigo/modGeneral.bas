@@ -256,7 +256,7 @@ Private Sub CargarMapIni()
         UserPos.y = 50
         PantallaX = 19
         PantallaY = 22
-        MsgBox "Falta el archivo 'WorldEditor.ini' de configuración.", vbInformation
+        MsgBox "Falta el archivo 'WorldEditor.ini' de configuraciÃ³n.", vbInformation
         Exit Sub
 
     End If
@@ -304,7 +304,7 @@ Private Sub CargarMapIni()
     FrmMain.cVerTriggers.value = FrmMain.mnuVerTriggers.Checked
     FrmMain.cVerBloqueos.value = FrmMain.mnuVerBloqueos.Checked
 
-    ' Tamaño de visualizacion
+    ' TamaÃ±o de visualizacion
     PantallaX = Val(Leer.GetValue("MOSTRAR", "PantallaX"))
     PantallaY = Val(Leer.GetValue("MOSTRAR", "PantallaY"))
 
@@ -312,7 +312,7 @@ Private Sub CargarMapIni()
     If PantallaY > 32 Or PantallaY <= 2 Then PantallaY = 32
 
     ' [GS] 02/10/06
-    ' Tamaño de visualizacion en el cliente
+    ' TamaÃ±o de visualizacion en el cliente
     ClienteHeight = Val(Leer.GetValue("MOSTRAR", "ClienteHeight"))
     ClienteWidth = Val(Leer.GetValue("MOSTRAR", "ClienteWidth"))
 
@@ -358,7 +358,7 @@ Public Sub CambioDeVideo()
 
     If ModoDeVideo.dmPelsWidth < 1024 Or ModoDeVideo.dmPelsHeight < 768 Then
 
-        Select Case MsgBox("La aplicacion necesita una resolucion minima de 1024 X 768 ,¿Acepta el Cambio de resolucion?", vbInformation + vbOKCancel, "World Editor")
+        Select Case MsgBox("La aplicacion necesita una resolucion minima de 1024 X 768 ,Â¿Acepta el Cambio de resolucion?", vbInformation + vbOKCancel, "World Editor")
 
             Case vbOK
                 ModoDeVideo.dmPelsWidth = 1024
@@ -457,7 +457,7 @@ Public Sub Main()
     DoEvents
 
     'frmCargando.SetFocus
-    frmCargando.X.Caption = "Iniciando Ventana de Edición..."
+    frmCargando.X.Caption = "Iniciando Ventana de EdiciÃ³n..."
     DoEvents
 
     If LenB(Dir(App.Path & "\manual\index.html", vbArchive)) = 0 Then
@@ -718,7 +718,7 @@ End Sub
 
 Private Sub LoadClientSetup()
     '**************************************************************
-    'Author: Juan Martín Sotuyo Dodero (Maraxus)
+    'Author: Juan MartÃ­n Sotuyo Dodero (Maraxus)
     'Last Modify Date: 26/05/2006
     '26/05/2005 - GS . DirIndex
     '**************************************************************

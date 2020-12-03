@@ -26,7 +26,7 @@ Begin VB.Form frmCargando
       Width           =   6120
       Begin VB.Label Label1 
          BackStyle       =   0  'Transparent
-         Caption         =   "RevoluciónAo Map editor"
+         Caption         =   "RevoluciÃ³nAo Map editor"
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   15.75
@@ -84,7 +84,7 @@ Begin VB.Form frmCargando
       Height          =   480
       Left            =   4995
       Picture         =   "frmCargando.frx":628A
-      ToolTipText     =   "Función de Trigger"
+      ToolTipText     =   "FunciÃ³n de Trigger"
       Top             =   1440
       Visible         =   0   'False
       Width           =   480

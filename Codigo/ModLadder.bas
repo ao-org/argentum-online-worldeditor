@@ -69,7 +69,7 @@ End Sub
 
 Public Function General_Get_Temp_Dir() As String
     '**************************************************************
-    'Author: Augusto José Rando
+    'Author: Augusto JosÃ© Rando
     'Last Modify Date: 6/11/2005
     'Gets windows temporary directory
     '**************************************************************
@@ -112,7 +112,7 @@ Sub AddtoRichTextBox(ByRef RichTextBox As RichTextBox, ByVal Text As String, Opt
     'Text box MUST be multiline and have a 3D
     'apperance!
     'Pablo (ToxicWaste) 01/26/2007 : Now the list refeshes properly.
-    'Juan Martín Sotuyo Dodero (Maraxus) 03/29/2007 : Replaced ToxicWaste's code for extra performance.
+    'Juan MartÃ­n Sotuyo Dodero (Maraxus) 03/29/2007 : Replaced ToxicWaste's code for extra performance.
     '******************************************r
     With RichTextBox
 

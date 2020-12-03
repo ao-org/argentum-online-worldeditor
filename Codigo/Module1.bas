@@ -11,7 +11,7 @@ Public Declare Function SetPixel Lib "gdi32" (ByVal hdc As Long, ByVal X As Long
 
 Public Function General_Field_Read(ByVal field_pos As Long, ByVal Text As String, ByVal delimiter As String) As String
     '*****************************************************************
-    'Author: Juan Martín Sotuyo Dodero
+    'Author: Juan MartÃ­n Sotuyo Dodero
     'Last Modify Date: 11/15/2004
     'Gets a field from a delimited string
     '*****************************************************************
@@ -212,7 +212,7 @@ Public Sub CargarParticulasBinary()
     'Coded by OneZero (onezero_ss@hotmail.com)
     'Last Modified: 6/4/03
     'Loads the Particles.ini file to the ComboBox
-    'Edited by Juan Martín Sotuyo Dodero to add speed and life
+    'Edited by Juan MartÃ­n Sotuyo Dodero to add speed and life
     '*************************************
     
     On Error GoTo CargarParticulasBinary_Err
@@ -234,7 +234,7 @@ Public Sub CargarParticulasBinary()
     #If Compresion = 1 Then
 
         If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT\", "particles.ind", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de particles.ind!"
+            Err.Description = "Â¡No se puede cargar el archivo de particles.ind!"
             MsgBox Err.Description
 
         End If
@@ -313,7 +313,7 @@ Public Sub CargarParticulas()
     'Coded by OneZero (onezero_ss@hotmail.com)
     'Last Modified: 6/4/03
     'Loads the Particles.ini file to the ComboBox
-    'Edited by Juan Martín Sotuyo Dodero to add speed and life
+    'Edited by Juan MartÃ­n Sotuyo Dodero to add speed and life
     '*************************************
     
     On Error GoTo CargarParticulas_Err
@@ -330,7 +330,7 @@ Public Sub CargarParticulas()
     #If Compresion = 1 Then
 
         If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT\", "particles.ini", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de particles.ini!"
+            Err.Description = "Â¡No se puede cargar el archivo de particles.ini!"
             MsgBox Err.Description
 
         End If

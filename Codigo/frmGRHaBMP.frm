@@ -75,7 +75,7 @@ Begin VB.Form frmGRHaBMP
    End
    Begin VB.Label Label1 
       BackStyle       =   0  'Transparent
-      Caption         =   "Número de BMP:"
+      Caption         =   "NÃºmero de BMP:"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   12
@@ -93,7 +93,7 @@ Begin VB.Form frmGRHaBMP
    End
    Begin VB.Label Label2 
       BackStyle       =   0  'Transparent
-      Caption         =   "Número de GRH:"
+      Caption         =   "NÃºmero de GRH:"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   12

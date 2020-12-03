@@ -11,7 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'MOTOR GR¡FICO ESCRITO(mayormente) POR MENDUZ@NOICODER.COM
+'MOTOR GR√ÅFICO ESCRITO(mayormente) POR MENDUZ@NOICODER.COM
 Option Explicit
 
 
@@ -203,7 +203,7 @@ Private Type particle_group
     move_y2 As Integer
     Rgb_List(0 To 3) As Long
     
-    'Added by Juan MartÌn Sotuyo Dodero
+    'Added by Juan Mart√≠n Sotuyo Dodero
     speed As Single
     life_counter As Long
     
@@ -255,7 +255,7 @@ Dim bump_map_powa As Boolean
 
 
 
-#Const HARDCODED = False 'True ' == M¡S FPS ^^
+#Const HARDCODED = False 'True ' == M√ÅS FPS ^^
 
 
 
@@ -789,7 +789,7 @@ Sub RenderScreen(ByVal tilex As Integer, ByVal tiley As Integer, ByVal PixelOffs
 '**************************************************************
 'Author: Aaron Perkins
 'Last Modify Date: 8/14/2007
-'Last modified by: Juan MartÌn Sotuyo Dodero (Maraxus)
+'Last modified by: Juan Mart√≠n Sotuyo Dodero (Maraxus)
 'Renders everything to the viewport
     Dim ScreenX             As Integer  'Keeps track of where to place tile on screen
     Dim ScreenY             As Integer  'Keeps track of where to place tile on screen               As Integer
@@ -833,7 +833,7 @@ Public Function Grh_Info_Get(ByVal grh_index As Long, ByRef file_path As String,
 End Function
 Private Function Convert_Tile_To_View_X(ByVal X As Integer) As Integer
 '**************************************************************
-'Author: Aaron Perkins - Modified by Juan MartÌn Sotuyo Dodero
+'Author: Aaron Perkins - Modified by Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 10/07/2002
 'Convert tile position into position in view area
 '**************************************************************
@@ -846,7 +846,7 @@ End Function
 
 Private Function Convert_Tile_To_View_Y(ByVal Y As Integer) As Integer
 '**************************************************************
-'Author: Aaron Perkins - Modified by Juan MartÌn Sotuyo Dodero
+'Author: Aaron Perkins - Modified by Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 10/07/2002
 'Convert tile position into position in view area
 '**************************************************************
@@ -892,7 +892,7 @@ Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, B
                                 Optional ByRef Textures_Width As Long, Optional ByRef Textures_Height As Long, Optional ByVal angle As Single)
 '**************************************************************
 'Author: Aaron Perkins
-'Modified by Juan MartÌn Sotuyo Dodero
+'Modified by Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 11/17/2002
 '
 ' * v1      * v3
@@ -1000,7 +1000,7 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal GrhIndex As Long, ByVal des
 'Author: Aaron Perkins
 'Last Modify Date: 5/15/2003
 'Copies the Textures allowing resizing
-'Modified by Juan MartÌn Sotuyo Dodero
+'Modified by Juan Mart√≠n Sotuyo Dodero
 '**************************************************************
     Static src_rect As RECT
     Static dest_rect As RECT
@@ -1071,7 +1071,7 @@ Public Sub Device_Box_Textured_Render(ByVal GrhIndex As Long, ByVal dest_x As In
                                             ByVal src_height As Integer, ByRef Rgb_List() As Long, ByVal src_x As Integer, _
                                             ByVal src_y As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero
+'Author: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 2/12/2004
 'Just copies the Textures
 '**************************************************************
@@ -1284,8 +1284,8 @@ Public Function Particle_Group_Create(ByVal map_x As Integer, ByVal map_y As Int
 'Modified by: Ryan Cain (Onezero)
 'Last Modify Date: 5/14/2003
 'Returns the particle_group_index if successful, else 0
-'Modified by Juan MartÌn Sotuyo Dodero
-'Modified by Augusto JosÈ Rando
+'Modified by Juan Mart√≠n Sotuyo Dodero
+'Modified by Augusto Jos√© Rando
 '**************************************************************
     
     If (map_x <> -1) And (map_y <> -1) Then
@@ -1423,7 +1423,7 @@ Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x 
 'Modified by: Ryan Cain (Onezero)
 'Last Modify Date: 5/15/2003
 'Makes a new particle effect
-'Modified by Juan MartÌn Sotuyo Dodero
+'Modified by Juan Mart√≠n Sotuyo Dodero
 '*****************************************************************
     'Update array size
     If particle_group_index > particle_group_last Then
@@ -1533,7 +1533,7 @@ Private Sub Char_Particle_Group_Make(ByVal particle_group_index As Long, ByVal c
 'Modified by: Ryan Cain (Onezero)
 'Last Modify Date: 5/15/2003
 'Makes a new particle effect
-'Modified by Juan MartÌn Sotuyo Dodero
+'Modified by Juan Mart√≠n Sotuyo Dodero
 '*****************************************************************
     'Update array size
     If particle_group_index > particle_group_last Then
@@ -1621,7 +1621,7 @@ Private Sub Particle_Group_Render(ByVal particle_group_index As Long, ByVal scre
 '*****************************************************************
 'Author: Aaron Perkins
 'Modified by: Ryan Cain (Onezero)
-'Modified by: Juan MartÌn Sotuyo Dodero
+'Modified by: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/15/2003
 'Renders a particle stream at a paticular screen point
 '*****************************************************************
@@ -1735,7 +1735,7 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
 '**************************************************************
 'Author: Aaron Perkins
 'Modified by: Ryan Cain (Onezero)
-'Modified by: Juan MartÌn Sotuyo Dodero
+'Modified by: Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 5/15/2003
 '**************************************************************
     If no_move = False Then
@@ -1801,7 +1801,7 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
 End Sub
 Public Function Particle_Type_Get(ByVal particle_index As Long) As Long
 '*****************************************************************
-'Author: Juan MartÌn Sotuyo Dodero (juansotuyo@hotmail.com)
+'Author: Juan Mart√≠n Sotuyo Dodero (juansotuyo@hotmail.com)
 'Last Modify Date: 8/27/2003
 'Returns the stream type of a particle stream
 '*****************************************************************
@@ -1811,7 +1811,7 @@ Public Function Particle_Type_Get(ByVal particle_index As Long) As Long
 End Function
 Public Function Engine_Meteo_Particle_Get() As Long
 '*****************************************************************
-'Author: Augusto JosÈ Rando
+'Author: Augusto Jos√© Rando
 'Last Modify Date: 6/11/2002
 '*****************************************************************
     Engine_Meteo_Particle_Get = meteo_particle
@@ -1831,7 +1831,7 @@ End Function
 
 Public Sub Engine_Meteo_Particle_Set(ByVal meteo_part As Long)
 '*****************************************************************
-'Author: Augusto JosÈ Rando
+'Author: Augusto Jos√© Rando
 'Last Modify Date: 6/11/2002
 '*****************************************************************
     
@@ -1845,9 +1845,9 @@ Public Sub Engine_Meteo_Particle_Set(ByVal meteo_part As Long)
 End Sub
 Private Sub Grh_Render_Advance(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen_y As Integer, ByVal Height As Integer, ByVal Width As Integer, ByRef Rgb_List() As Long, Optional ByVal h_center As Boolean, Optional ByVal v_center As Boolean, Optional ByVal alpha_blend As Boolean = False)
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero (juansotuyo@hotmail.com)
+'Author: Juan Mart√≠n Sotuyo Dodero (juansotuyo@hotmail.com)
 'Last Modify Date: 11/19/2003
-'Similar to Grh_Render, but let¥s you resize the Grh
+'Similar to Grh_Render, but let¬¥s you resize the Grh
 '**************************************************************
     Dim tile_width As Integer
     Dim tile_height As Integer
@@ -1890,7 +1890,7 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
 '**************************************************************
 'Author: Aaron Perkins
 'Last Modify Date: 2/28/2003
-'Modified by Juan MartÌn Sotuyo Dodero
+'Modified by Juan Mart√≠n Sotuyo Dodero
 'Added centering
 '**************************************************************
     Dim tile_width As Integer
@@ -1926,7 +1926,7 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
     If grh_index <= 0 Then Exit Sub
     If GrhData(grh_index).FileNum = 0 Then Exit Sub
         
-    'Modified by Augusto JosÈ Rando
+    'Modified by Augusto Jos√© Rando
     'Simplier function - according to basic ORE engine
     If h_centered Then
         If GrhData(Grh.GrhIndex).TileWidth <> 1 Then
@@ -1952,7 +1952,7 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
 End Sub
 Private Function Grh_Check(ByVal grh_index As Long) As Boolean
 '**************************************************************
-'Author: Aaron Perkins - Modified by Juan MartÌn Sotuyo Dodero
+'Author: Aaron Perkins - Modified by Juan Mart√≠n Sotuyo Dodero
 'Last Modify Date: 1/04/2003
 '
 '**************************************************************

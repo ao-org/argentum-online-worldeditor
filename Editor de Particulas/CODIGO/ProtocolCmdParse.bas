@@ -1,7 +1,7 @@
 Attribute VB_Name = "ProtocolCmdParse"
 'Argentum Online
 '
-'Copyright (C) 2006 Juan MartÌn Sotuyo Dodero (Maraxus)
+'Copyright (C) 2006 Juan Mart√≠n Sotuyo Dodero (Maraxus)
 'Copyright (C) 2006 Alejandro Santos (AlejoLp)
 
 '
@@ -118,7 +118,7 @@ Public Sub ParseUserCommand(ByVal RawCommand As String)
         CantidadArgumentos = 0
     End If
     
-    ' Sacar cartel APESTA!! (y es ilÛgico, est·s diciendo una pausa/espacio  :rolleyes: )
+    ' Sacar cartel APESTA!! (y es il√≥gico, est√°s diciendo una pausa/espacio  :rolleyes: )
     If Comando = "" Then Comando = " "
     
    

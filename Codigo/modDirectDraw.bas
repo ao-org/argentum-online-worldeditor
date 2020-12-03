@@ -594,7 +594,7 @@ Sub Grh_Render_To_Hdc(ByVal desthDC As Long, grh_index As Long, ByVal screen_x A
     'Last Modify Date: 8/30/2004
     'This method is SLOW... Don't use in a loop if you care about
     'speed!
-    'Modified by Juan Martín Sotuyo Dodero
+    'Modified by Juan MartÃ­n Sotuyo Dodero
     '*************************************************************
     
     Dim file_path  As String
@@ -618,7 +618,7 @@ Sub Grh_Render_To_Hdc(ByVal desthDC As Long, grh_index As Long, ByVal screen_x A
     #If Compresion = 1 Then
 
         If Not Extract_File(Graphics, App.Path & "\..\Recursos\OUTPUT", GrhData(grh_index).FileNum & ".png", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el bmp numero" & Archivo & "!"
+            Err.Description = "Â¡No se puede cargar el bmp numero" & Archivo & "!"
             Call AddtoRichTextBox(FrmMain.RichTextBox1, Err.Description, 255, 255, 255, False, True, False)
 
         End If

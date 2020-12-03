@@ -204,7 +204,7 @@ Public Sub Engine_Draw_Box(ByVal X As Integer, ByVal y As Integer, ByVal Width A
     On Error GoTo Engine_Draw_Box_Err
     
 
-    ' / Author: Ezequiel Ju·rez (Standelf)
+    ' / Author: Ezequiel Ju√°rez (Standelf)
     ' / Note: Extract to Blisse AO, modified by Dunkansdk
 
     Dim b_Rect           As RECT

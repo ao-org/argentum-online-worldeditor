@@ -521,7 +521,7 @@ Private Sub ActalizarTranslados()
         For X = XMinMapSize To XMaxMapSize
 
             If MapData(X, y).TileExit.Map > 0 Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " nos traslada a la posición " & MapData(X, y).TileExit.X & "," & MapData(X, y).TileExit.y & " del Mapa " & MapData(X, y).TileExit.Map
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " nos traslada a la posiciÃ³n " & MapData(X, y).TileExit.X & "," & MapData(X, y).TileExit.y & " del Mapa " & MapData(X, y).TileExit.Map
 
                 If ((X < 20 And MapData(X, y).TileExit.X < 20) Or (X > 80 And MapData(X, y).TileExit.X > 80)) And (X <> MapData(X, y).TileExit.X) Then
                     txtInfo.Text = txtInfo.Text & " (X sospechoso)"

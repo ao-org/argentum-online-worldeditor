@@ -14,7 +14,7 @@ Attribute VB_Exposed = False
 '**************************************************************
 ' clsAudio.cls - Controls all audio using DirectSound and DirectMusic
 '
-' Designed and implemented by Juan Martín Sotuyo Dodero (Maraxus)
+' Designed and implemented by Juan MartÃ­n Sotuyo Dodero (Maraxus)
 ' (juansotuyo@hotmail.com)
 '**************************************************************
 
@@ -34,16 +34,16 @@ Attribute VB_Exposed = False
 'Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 '**************************************************************************
 
-'16/03/2004 - Juan Martín Sotuyo Dodero (Maraxus) - (juansotuyo@gmail.com)
+'16/03/2004 - Juan MartÃ­n Sotuyo Dodero (Maraxus) - (juansotuyo@gmail.com)
 '   - First Release
 '
-'03/03/2007 - Juan Martín Sotuyo Dodero (Maraxus) - (juansotuyo@gmail.com)
+'03/03/2007 - Juan MartÃ­n Sotuyo Dodero (Maraxus) - (juansotuyo@gmail.com)
 '   - Add: Sound and Music activation / deactivation from within the class.
 '   - Add: Documentation
 '   - Change: Volume is no longer the dB amplification / atenuation to be
 '           applied but a percentage for easier interaction with user.
 '
-'30/03/2008 - Juan Martín Sotuyo Dodero (Maraxus) - (juansotuyo@gmail.com)
+'30/03/2008 - Juan MartÃ­n Sotuyo Dodero (Maraxus) - (juansotuyo@gmail.com)
 '   - Add: 3D-like sound effects by altering frequency to emulate Doppler effect,
 '           volume to emulate distance and panning for position.
 
@@ -52,7 +52,7 @@ Attribute VB_Exposed = False
 ' Controls all audio using DirectSound and DirectMusic 7.
 '
 ' @file     clsAudio.cls
-' @author   Juan Martín Sotuyo Dodero (Maraxus) juansotuyo@gmail.com
+' @author   Juan MartÃ­n Sotuyo Dodero (Maraxus) juansotuyo@gmail.com
 ' @version  1.2.0
 ' @date     20070303
 
@@ -257,7 +257,7 @@ End Function
  
 Private Function InitializedirectMusic(ByRef Dx As DirectX8, ByVal hWnd As Long) As Boolean
 '***************************************************
-'Author: Juan Martín Sotuyo Dodero (Maraxus)
+'Author: Juan MartÃ­n Sotuyo Dodero (Maraxus)
 'Last Modification: 16/03/04
 'Initialize DM. Returns false if music isn't supported by HW
 '***************************************************

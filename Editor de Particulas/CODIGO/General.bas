@@ -19,7 +19,7 @@ Sub AddtoRichTextBox(ByRef RichTextBox As RichTextBox, ByVal Text As String, Opt
 'Text box MUST be multiline and have a 3D
 'apperance!
 'Pablo (ToxicWaste) 01/26/2007 : Now the list refeshes properly.
-'Juan MartÌn Sotuyo Dodero (Maraxus) 03/29/2007 : Replaced ToxicWaste's code for extra performance.
+'Juan Mart√≠n Sotuyo Dodero (Maraxus) 03/29/2007 : Replaced ToxicWaste's code for extra performance.
 '******************************************r
     With RichTextBox
         If Len(.Text) > 1000 Then
@@ -58,12 +58,12 @@ End Sub
 
 
 
-'TODO : Si bien nunca estuvo allÌ, el mapa es algo independiente o a lo sumo dependiente del engine, no va ac·!!!
+'TODO : Si bien nunca estuvo all√≠, el mapa es algo independiente o a lo sumo dependiente del engine, no va ac√°!!!
 
 Function ReadField(ByVal Pos As Integer, ByRef Text As String, ByVal SepASCII As Byte) As String
 '*****************************************************************
 'Gets a field from a delimited string
-'Author: Juan MartÌn Sotuyo Dodero (Maraxus)
+'Author: Juan Mart√≠n Sotuyo Dodero (Maraxus)
 'Last Modify Date: 11/15/2004
 '*****************************************************************
     Dim i As Long
@@ -88,7 +88,7 @@ End Function
 Function FieldCount(ByRef Text As String, ByVal SepASCII As Byte) As Long
 '*****************************************************************
 'Gets the number of fields in a delimited string
-'Author: Juan MartÌn Sotuyo Dodero (Maraxus)
+'Author: Juan Mart√≠n Sotuyo Dodero (Maraxus)
 'Last Modify Date: 07/29/2007
 '*****************************************************************
     Dim Count As Long
@@ -139,7 +139,7 @@ Sub Main()
     DirGraficos = App.Path & "\..\recursos\Graficos\"
    
     
-    AddtoRichTextBox frmCargando.Status, "Iniciando motor gr·fico... ", 255, 255, 255, 1
+    AddtoRichTextBox frmCargando.Status, "Iniciando motor gr√°fico... ", 255, 255, 255, 1
     LoadGrhData
    ' Call CargarParticulas
     Call CargarParticulasBinary
@@ -186,7 +186,7 @@ End Function
 
 Public Sub CloseClient()
 '**************************************************************
-'Author: Juan MartÌn Sotuyo Dodero (Maraxus)
+'Author: Juan Mart√≠n Sotuyo Dodero (Maraxus)
 'Last Modify Date: 8/14/2007
 'Frees all used resources, cleans up and leaves
 '**************************************************************

@@ -87,7 +87,7 @@ Begin VB.Form FrmArboles
       Width           =   1695
    End
    Begin VB.Label Label5 
-      Caption         =   "Index n°4:"
+      Caption         =   "Index nÂ°4:"
       Height          =   255
       Left            =   120
       TabIndex        =   9
@@ -95,7 +95,7 @@ Begin VB.Form FrmArboles
       Width           =   975
    End
    Begin VB.Label Label4 
-      Caption         =   "Index n°3:"
+      Caption         =   "Index nÂ°3:"
       Height          =   255
       Left            =   120
       TabIndex        =   5
@@ -103,7 +103,7 @@ Begin VB.Form FrmArboles
       Width           =   975
    End
    Begin VB.Label Label3 
-      Caption         =   "Index n°2:"
+      Caption         =   "Index nÂ°2:"
       Height          =   255
       Left            =   120
       TabIndex        =   4
@@ -111,7 +111,7 @@ Begin VB.Form FrmArboles
       Width           =   975
    End
    Begin VB.Label Label2 
-      Caption         =   "Index n°1:"
+      Caption         =   "Index nÂ°1:"
       Height          =   255
       Left            =   120
       TabIndex        =   3

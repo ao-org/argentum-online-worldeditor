@@ -202,10 +202,10 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 'Argentum Online 0.12.1 MENDUZ DX8 VERSION www.noicoder.com
 '
-'Copyright (C) 2002 M醨quez Pablo Ignacio
+'Copyright (C) 2002 M谩rquez Pablo Ignacio
 'Copyright (C) 2002 Otto Perez
 'Copyright (C) 2002 Aaron Perkins
-'Copyright (C) 2002 Mat韆s Fernando Peque駉
+'Copyright (C) 2002 Mat铆as Fernando Peque帽o
 '
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the Affero General Public License;
@@ -227,10 +227,10 @@ Attribute VB_Exposed = False
 'You can contact me at:
 'morgolock@speedy.com.ar
 'www.geocities.com/gmorgolock
-'Calle 3 n鷐ero 983 piso 7 dto A
+'Calle 3 n煤mero 983 piso 7 dto A
 'La Plata - Pcia, Buenos Aires - Republica Argentina
-'C骴igo Postal 1900
-'Pablo Ignacio M醨quez
+'C贸digo Postal 1900
+'Pablo Ignacio M谩rquez
 
 
 
@@ -272,18 +272,18 @@ End Sub
 Private Sub Form_Load()
 'Cargamos la interfase
 'Me.Picture = LoadPicture(App.path & "\Graficos\comerciar.jpg")
-Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot髇Comprar.jpg")
-Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot髇vender.jpg")
+Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot贸nComprar.jpg")
+Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot贸nvender.jpg")
 
 End Sub
 
 Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 If Image1(0).Tag = 0 Then
-    Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot髇Comprar.jpg")
+    Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot贸nComprar.jpg")
     Image1(0).Tag = 1
 End If
 If Image1(1).Tag = 0 Then
-    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot髇vender.jpg")
+    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot贸nvender.jpg")
     Image1(1).Tag = 1
 End If
 End Sub
@@ -305,7 +305,7 @@ Select Case index
         If UserGLD >= Round(NPCInventory(List1(0).ListIndex + 1).Valor * Val(cantidad), 0) Then
             Call WriteCommerceBuy(List1(0).ListIndex + 1, cantidad.Text)
         Else
-            AddtoRichTextBox frmMain.RecTxt, "No ten閟 suficiente oro.", 2, 51, 223, 1, 1
+            AddtoRichTextBox frmMain.RecTxt, "No ten茅s suficiente oro.", 2, 51, 223, 1, 1
             Exit Sub
         End If
    
@@ -322,17 +322,17 @@ Private Sub Image1_MouseMove(index As Integer, Button As Integer, Shift As Integ
 Select Case index
     Case 0
         If Image1(0).Tag = 1 Then
-                Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot髇ComprarApretado.jpg")
+                Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot贸nComprarApretado.jpg")
                 Image1(0).Tag = 0
-                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot髇vender.jpg")
+                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot贸nvender.jpg")
                 Image1(1).Tag = 1
         End If
         
     Case 1
         If Image1(1).Tag = 1 Then
-                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot髇venderapretado.jpg")
+                Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot贸nvenderapretado.jpg")
                 Image1(1).Tag = 0
-                Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot髇Comprar.jpg")
+                Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot贸nComprar.jpg")
                 Image1(0).Tag = 1
         End If
         
@@ -426,11 +426,11 @@ End Sub
 '<-------------------------NUEVO-------------------------->
 Private Sub List1_MouseMove(index As Integer, Button As Integer, Shift As Integer, x As Single, y As Single)
 If Image1(0).Tag = 0 Then
-    Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot髇Comprar.jpg")
+    Image1(0).Picture = LoadPicture(App.path & "\Graficos\Bot贸nComprar.jpg")
     Image1(0).Tag = 1
 End If
 If Image1(1).Tag = 0 Then
-    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot髇vender.jpg")
+    Image1(1).Picture = LoadPicture(App.path & "\Graficos\Bot贸nvender.jpg")
     Image1(1).Tag = 1
 End If
 End Sub

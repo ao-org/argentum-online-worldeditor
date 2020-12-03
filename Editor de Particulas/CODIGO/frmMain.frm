@@ -634,7 +634,7 @@ Begin VB.Form frmMain
       Begin VB.Label Label7 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "Fricción:"
+         Caption         =   "FricciÃ³n:"
          Height          =   195
          Left            =   4320
          TabIndex        =   66
@@ -1225,7 +1225,7 @@ Begin VB.Form frmMain
             ImageVarType    =   2
          EndProperty
          BeginProperty Tab6 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
-            Caption         =   "Duración"
+            Caption         =   "DuraciÃ³n"
             ImageVarType    =   2
          EndProperty
          BeginProperty Tab7 {1EFB659A-857C-11D1-B16A-00C0F0283628} 

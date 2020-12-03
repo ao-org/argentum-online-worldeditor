@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmMapInfo 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "Información del Mapa"
+   Caption         =   "InformaciÃ³n del Mapa"
    ClientHeight    =   5415
    ClientLeft      =   45
    ClientTop       =   435
@@ -182,7 +182,7 @@ Begin VB.Form frmMapInfo
       Width           =   735
       _ExtentX        =   1296
       _ExtentY        =   582
-      Caption         =   "&Más"
+      Caption         =   "&MÃ¡s"
       CapAlign        =   2
       BackStyle       =   2
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -460,7 +460,7 @@ Begin VB.Form frmMapInfo
       Width           =   1215
    End
    Begin VB.Label Label6 
-      Caption         =   "Versión del Mapa:"
+      Caption         =   "VersiÃ³n del Mapa:"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   8.25

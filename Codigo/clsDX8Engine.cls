@@ -188,7 +188,7 @@ Private Type particle_group
     move_y2 As Integer
     rgb_list(0 To 3) As Long
     
-    'Added by Juan MartÌn Sotuyo Dodero
+    'Added by Juan Mart√≠n Sotuyo Dodero
     speed As Single
     life_counter As Long
     
@@ -224,7 +224,7 @@ Dim bump_map_supported    As Boolean
 Dim bump_map_powa         As Boolean
 'Sets a Grh animation to loop indefinitely.
 
-#Const HARDCODED = False 'True ' == M¡S FPS ^^
+#Const HARDCODED = False 'True ' == M√ÅS FPS ^^
 
 Public Function change_day_effect(ByVal o_r As Long, ByVal og As Long, ByVal ob As Long, ByVal r_ As Long, ByVal g_ As Long, ByVal b_ As Long) As Long
     
@@ -925,7 +925,7 @@ End Sub
 
 Public Function Map_Base_Light_Get() As Long
     '**************************************************************
-    'Author: Aaron Perkins - Modified by Augusto JosÈ Rando
+    'Author: Aaron Perkins - Modified by Augusto Jos√© Rando
     'Last Modify Date: 6/12/2005
     '
     '**************************************************************
@@ -969,7 +969,7 @@ End Function
 
 Public Function Map_Fill(ByVal grh_index As Long, ByVal LAYER As Byte, Optional ByVal light_base_color As Long = -1, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single) As Boolean
     '**************************************************************
-    'Author: Aaron Perkins - Modified by Juan MartÌn Sotuyo Dodero
+    'Author: Aaron Perkins - Modified by Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 1/04/2003
     '
     '**************************************************************
@@ -1057,7 +1057,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 8/14/2007
-    'Last modified by: Juan MartÌn Sotuyo Dodero (Maraxus)
+    'Last modified by: Juan Mart√≠n Sotuyo Dodero (Maraxus)
     'Renders everything to the viewport
     '**************************************************************
     
@@ -1531,7 +1531,7 @@ End Sub
 
 Private Function Convert_Tile_To_View_X(ByVal X As Integer) As Integer
     '**************************************************************
-    'Author: Aaron Perkins - Modified by Juan MartÌn Sotuyo Dodero
+    'Author: Aaron Perkins - Modified by Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 10/07/2002
     'Convert tile position into position in view area
     '**************************************************************
@@ -1555,7 +1555,7 @@ End Function
 
 Private Function Convert_Tile_To_View_Y(ByVal y As Integer) As Integer
     '**************************************************************
-    'Author: Aaron Perkins - Modified by Juan MartÌn Sotuyo Dodero
+    'Author: Aaron Perkins - Modified by Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 10/07/2002
     'Convert tile position into position in view area
     '**************************************************************
@@ -1631,7 +1631,7 @@ End Function
 Private Sub Geometry_Create_Box(ByRef verts() As TLVERTEX, ByRef dest As RECT, ByRef src As RECT, ByRef rgb_list() As Long, Optional ByRef Textures_Width As Long, Optional ByRef Textures_Height As Long, Optional ByVal angle As Single)
     '**************************************************************
     'Author: Aaron Perkins
-    'Modified by Juan MartÌn Sotuyo Dodero
+    'Modified by Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 11/17/2002
     '
     ' * v1      * v3
@@ -1755,7 +1755,7 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal des
     'Author: Aaron Perkins
     'Last Modify Date: 5/15/2003
     'Copies the Textures allowing resizing
-    'Modified by Juan MartÌn Sotuyo Dodero
+    'Modified by Juan Mart√≠n Sotuyo Dodero
     '**************************************************************
     
     On Error GoTo Device_Box_Textured_Render_Advance_Err
@@ -1838,7 +1838,7 @@ End Sub
 
 Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
     '**************************************************************
-    'Author: Juan MartÌn Sotuyo Dodero
+    'Author: Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 2/12/2004
     'Just copies the Textures
     '**************************************************************
@@ -1971,7 +1971,7 @@ End Sub
 
 Private Sub Char_Render(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, ByVal PixelOffsetY As Integer, ByVal X As Byte, ByVal y As Byte)
     '***************************************************
-    'Author: Juan MartÌn Sotuyo Dodero (Maraxus)
+    'Author: Juan Mart√≠n Sotuyo Dodero (Maraxus)
     'Last Modify Date: 12/03/04
     'Draw char's to screen without offcentering them
     '***************************************************
@@ -2108,7 +2108,7 @@ End Sub
 
 Public Sub SetCharacterFx(ByVal CharIndex As Integer, ByVal fX As Integer, ByVal Loops As Integer)
     '***************************************************
-    'Author: Juan MartÌn Sotuyo Dodero (Maraxus)
+    'Author: Juan Mart√≠n Sotuyo Dodero (Maraxus)
     'Last Modify Date: 12/03/04
     'Sets an FX to the character.
     '***************************************************
@@ -2356,7 +2356,7 @@ Public Function Light_Create(ByVal map_x As Integer, ByVal map_y As Integer, Opt
     'Author: Aaron Perkins
     'Last Modify Date: 10/07/2002
     'Returns the light_index if successful, else 0
-    'Edited by Juan MartÌn Sotuyo Dodero
+    'Edited by Juan Mart√≠n Sotuyo Dodero
     '**************************************************************
     If InMapBounds(map_x, map_y) Then
         'Make sure there is no light in the given map pos
@@ -2416,7 +2416,7 @@ End Function
 
 Public Function Light_Move_By_Head(ByVal light_index As Long, ByVal Heading As Byte) As Boolean
     '**************************************************************
-    'Author: Juan MartÌn Sotuyo Dodero
+    'Author: Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 15/05/2002
     'Returns true if successful, else false
     '**************************************************************
@@ -2845,7 +2845,7 @@ End Sub
 
 Private Sub Light_Erase(ByVal light_index As Long)
     '***************************************'
-    'Author: Juan MartÌn Sotuyo Dodero
+    'Author: Juan Mart√≠n Sotuyo Dodero
     'Last modified: 3/31/2003
     'Correctly erases a light
     '***************************************'
@@ -3020,9 +3020,9 @@ End Sub
 Private Sub Grh_Render_Advance(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen_y As Integer, ByVal Height As Integer, ByVal Width As Integer, ByRef rgb_list() As Long, Optional ByVal h_center As Boolean, Optional ByVal v_center As Boolean, Optional ByVal alpha_blend As Boolean = False)
 
     '**************************************************************
-    'Author: Juan MartÌn Sotuyo Dodero (juansotuyo@hotmail.com)
+    'Author: Juan Mart√≠n Sotuyo Dodero (juansotuyo@hotmail.com)
     'Last Modify Date: 11/19/2003
-    'Similar to Grh_Render, but let¥s you resize the Grh
+    'Similar to Grh_Render, but let¬¥s you resize the Grh
     '**************************************************************
     On Error Resume Next
 
@@ -3072,7 +3072,7 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 2/28/2003
-    'Modified by Juan MartÌn Sotuyo Dodero
+    'Modified by Juan Mart√≠n Sotuyo Dodero
     'Added centering
     '**************************************************************
     Dim tile_width  As Integer
@@ -3104,7 +3104,7 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
     If grh_index <= 0 Then Exit Sub
     If GrhData(grh_index).FileNum = 0 Then Exit Sub
         
-    'Modified by Augusto JosÈ Rando
+    'Modified by Augusto Jos√© Rando
     'Simplier function - according to basic ORE engine
     If h_centered Then
         If GrhData(Grh.grhindex).TileWidth <> 1 Then
@@ -3133,7 +3133,7 @@ Private Function Grh_Check(ByVal grh_index As Long) As Boolean
     
 
     '**************************************************************
-    'Author: Aaron Perkins - Modified by Juan MartÌn Sotuyo Dodero
+    'Author: Aaron Perkins - Modified by Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 1/04/2003
     '
     '**************************************************************
@@ -3158,7 +3158,7 @@ Private Function Char_Check(ByVal char_index As Integer) As Boolean
     
 
     '**************************************************************
-    'Author: Aaron Perkins - Modified by Juan MartÌn Sotuyo Dodero
+    'Author: Aaron Perkins - Modified by Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 1/04/2003
     '
     '**************************************************************
@@ -3262,8 +3262,8 @@ Public Function Particle_Group_Create(ByVal map_x As Integer, ByVal map_y As Int
     'Modified by: Ryan Cain (Onezero)
     'Last Modify Date: 5/14/2003
     'Returns the particle_group_index if successful, else 0
-    'Modified by Juan MartÌn Sotuyo Dodero
-    'Modified by Augusto JosÈ Rando
+    'Modified by Juan Mart√≠n Sotuyo Dodero
+    'Modified by Augusto Jos√© Rando
     '**************************************************************
     
     On Error GoTo Particle_Group_Create_Err
@@ -3446,7 +3446,7 @@ Private Sub Particle_Group_Make(ByVal particle_group_index As Long, ByVal map_x 
     'Modified by: Ryan Cain (Onezero)
     'Last Modify Date: 5/15/2003
     'Makes a new particle effect
-    'Modified by Juan MartÌn Sotuyo Dodero
+    'Modified by Juan Mart√≠n Sotuyo Dodero
     '*****************************************************************
 
     'Update array size
@@ -3556,7 +3556,7 @@ Private Sub Particle_Group_Render(ByVal particle_group_index As Long, ByVal scre
     '*****************************************************************
     'Author: Aaron Perkins
     'Modified by: Ryan Cain (Onezero)
-    'Modified by: Juan MartÌn Sotuyo Dodero
+    'Modified by: Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 5/15/2003
     'Renders a particle stream at a paticular screen point
     '*****************************************************************
@@ -3664,7 +3664,7 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
 
     'Author: Aaron Perkins
     'Modified by: Ryan Cain (Onezero)
-    'Modified by: Juan MartÌn Sotuyo Dodero
+    'Modified by: Juan Mart√≠n Sotuyo Dodero
     'Last Modify Date: 5/15/2003
     '**************************************************************
     If no_move = False Then
@@ -3748,7 +3748,7 @@ Public Function Particle_Type_Get(ByVal particle_Index As Long) As Long
     
 
     '*****************************************************************
-    'Author: Juan MartÌn Sotuyo Dodero (juansotuyo@hotmail.com)
+    'Author: Juan Mart√≠n Sotuyo Dodero (juansotuyo@hotmail.com)
     'Last Modify Date: 8/27/2003
     'Returns the stream type of a particle stream
     '*****************************************************************
