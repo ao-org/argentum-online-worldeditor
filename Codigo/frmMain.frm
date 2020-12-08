@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "Richtx32.ocx"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form FrmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H80000000&
@@ -18,6 +18,14 @@ Begin VB.Form FrmMain
    ScaleWidth      =   1622
    StartUpPosition =   1  'CenterOwner
    Visible         =   0   'False
+   Begin VB.CommandButton cmdFixLuces 
+      Caption         =   "Fix luces"
+      Height          =   375
+      Left            =   15240
+      TabIndex        =   186
+      Top             =   1080
+      Width           =   855
+   End
    Begin VB.CommandButton BloqAll 
       Caption         =   "X"
       Height          =   255
@@ -862,7 +870,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5473,11 +5480,11 @@ Private Sub Remplazograficos()
             ' End If
             '  End If
         
-            If MapData(X, y).Graphic(3).grhindex = txtGRH.Text Then
+            If MapData(X, y).Graphic(3).grhindex = TxtGrh.Text Then
                 MapData(X, y).Graphic(3).grhindex = TxtGrh2.Text
             
                 'InitGrh MapData(X, y).Graphic(2), 0
-                MapData(X, y).Graphic(2).grhindex = txtGRH.Text
+                MapData(X, y).Graphic(2).grhindex = TxtGrh.Text
                 InitGrh MapData(X, y).Graphic(2), TxtGrh2.Text
             
             End If
@@ -5530,6 +5537,34 @@ Command6_Click_Err:
     Call RegistrarError(Err.Number, Err.Description, "FrmMain.Command6_Click", Erl)
     Resume Next
     
+End Sub
+
+Private Sub cmdFixLuces_Click()
+    On Error Resume Next
+
+    Dim Folder As String
+
+    If shlShell Is Nothing Then
+        Set shlShell = New Shell32.Shell
+
+    End If
+
+    Set shlFolder = shlShell.BrowseForFolder(Me.hWnd, "Seleccione la carpeta de los mapas a convertir", 1)
+    
+    If shlFolder Is Nothing Then Exit Sub
+
+    FormatoIAO = True
+    
+    Dim Mapa As Long
+
+    For Mapa = 0 To shlFolder.Items.Count - 1
+        Call modMapIO.NuevoMapa
+        Call Load_Map_Data_CSM_Fast(shlFolder.Self.Path & "\" & shlFolder.Items.Item(Mapa))
+        If ColorAmb = &HFFFFFF Then ColorAmb = 0
+        Call Save_Map_Data(App.Path & "\Mapas Convertidos\" & shlFolder.Items.Item(Mapa))
+    Next
+
+    Set shlFolder = Nothing
 End Sub
 
 Private Sub copyauto_Click()
@@ -6810,17 +6845,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(1, lListado(Index).Text, Asc("-"))
-                picture1.Refresh
-                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                Picture1.Refresh
+                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(1, lListado(Index).Text, Asc("-"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(1, lListado(Index).Text, Asc("-"))
-                picture1.Refresh
+                Picture1.Refresh
             
-                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
