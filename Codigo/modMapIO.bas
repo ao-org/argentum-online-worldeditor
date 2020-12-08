@@ -226,7 +226,7 @@ Public Sub NuevoMapa()
             MapData(X, y).Graphic(4).grhindex = 0
 
             ' NPCs
-            If MapData(X, y).NPCIndex > 0 Then
+            If MapData(X, y).CharIndex > 0 Then
                 EraseChar MapData(X, y).CharIndex
                 MapData(X, y).NPCIndex = 0
 
@@ -897,9 +897,9 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     FrmMain.TxtMp3.Text = Mp3Music
 
     If Llueve Then
-        FrmMain.check1.value = 1
+        FrmMain.Check1.value = 1
     Else
-        FrmMain.check1.value = 0
+        FrmMain.Check1.value = 0
 
     End If
 
@@ -1078,12 +1078,12 @@ Public Sub MapInfo_Actualizar()
         frmMapInfo.b1.Enabled = True
         frmMapInfo.Text1.Enabled = True
         frmMapInfo.lvButtons_H1.Enabled = True
-        frmMapInfo.picture1.Enabled = True
-        frmMapInfo.check1.value = 0
+        frmMapInfo.Picture1.Enabled = True
+        frmMapInfo.Check1.value = 0
         frmMapInfo.Text1 = MapInfo.Light
-        frmMapInfo.picture1.BackColor = frmMapInfo.Text1
+        frmMapInfo.Picture1.BackColor = frmMapInfo.Text1
     Else
-        frmMapInfo.picture1.BackColor = &HFFFFFF
+        frmMapInfo.Picture1.BackColor = &HFFFFFF
         MapInfo.Light = 0
         frmMapInfo.r1.Enabled = False
         frmMapInfo.G1.Enabled = False
@@ -1091,8 +1091,8 @@ Public Sub MapInfo_Actualizar()
         frmMapInfo.Text1.Enabled = False
         frmMapInfo.Text1 = &HFFFFFF
         frmMapInfo.lvButtons_H1.Enabled = False
-        frmMapInfo.picture1.Enabled = False
-        frmMapInfo.check1.value = 1
+        frmMapInfo.Picture1.Enabled = False
+        frmMapInfo.Check1.value = 1
 
     End If
 
