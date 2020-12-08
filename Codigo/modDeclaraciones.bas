@@ -50,7 +50,7 @@ Public Mp3Music              As Integer
 Public MidiMusic             As Integer
 Public Ambiente              As String
 Public AmbienteNoche         As Integer
-Public ColorAmb              As String
+Public ColorAmb              As Long
 
 Public Const MSGMod          As String = "Este mapa há sido modificado." & vbCrLf & "Si no lo guardas perderas todos los cambios ¿Deseas guardarlo?"
 Public Const MSGDang         As String = "CUIDADO! Este comando puede arruinar el mapa." & vbCrLf & "¿Estas seguro que desea continuar?"

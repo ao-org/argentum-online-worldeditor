@@ -897,9 +897,9 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     FrmMain.TxtMp3.Text = Mp3Music
 
     If Llueve Then
-        FrmMain.Check1.value = 1
+        FrmMain.check1.value = 1
     Else
-        FrmMain.Check1.value = 0
+        FrmMain.check1.value = 0
 
     End If
 
@@ -1038,7 +1038,6 @@ Public Sub MapInfo_Cargar(ByVal Archivo As String)
     MapDat.music_numberLow = MapInfo.Music
     MapDat.zone = MapInfo.Zona
     MapDat.terrain = MapInfo.Terreno
-    ColorAmb = &HFFFFFF
 
     MidiMusic = MapDat.music_numberLow
     
@@ -1078,12 +1077,12 @@ Public Sub MapInfo_Actualizar()
         frmMapInfo.b1.Enabled = True
         frmMapInfo.Text1.Enabled = True
         frmMapInfo.lvButtons_H1.Enabled = True
-        frmMapInfo.Picture1.Enabled = True
-        frmMapInfo.Check1.value = 0
+        frmMapInfo.picture1.Enabled = True
+        frmMapInfo.check1.value = 0
         frmMapInfo.Text1 = MapInfo.Light
-        frmMapInfo.Picture1.BackColor = frmMapInfo.Text1
+        frmMapInfo.picture1.BackColor = frmMapInfo.Text1
     Else
-        frmMapInfo.Picture1.BackColor = &HFFFFFF
+        frmMapInfo.picture1.BackColor = &HFFFFFF
         MapInfo.Light = 0
         frmMapInfo.r1.Enabled = False
         frmMapInfo.G1.Enabled = False
@@ -1091,8 +1090,8 @@ Public Sub MapInfo_Actualizar()
         frmMapInfo.Text1.Enabled = False
         frmMapInfo.Text1 = &HFFFFFF
         frmMapInfo.lvButtons_H1.Enabled = False
-        frmMapInfo.Picture1.Enabled = False
-        frmMapInfo.Check1.value = 1
+        frmMapInfo.picture1.Enabled = False
+        frmMapInfo.check1.value = 1
 
     End If
 

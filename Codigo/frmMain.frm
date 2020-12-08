@@ -870,6 +870,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5059,20 +5060,22 @@ Private Sub Check3_MouseUp(Button As Integer, Shift As Integer, X As Single, y A
     On Error GoTo Check3_MouseUp_Err
     
 
-    If ColorAmb = &HFFFFFF Then
-        Picture3.Enabled = True
-        Call AddtoRichTextBox(FrmMain.RichTextBox1, "Luz del mapa segun climatologia desactivada", 255, 255, 255, False, True, False)
+    If ColorAmb <> 0 Then
+        Picture3.Enabled = False
+        Picture3.BackColor = vbBlack
+        Call AddtoRichTextBox(FrmMain.RichTextBox1, "La luz del mapa sera segun la climatologia.", 255, 255, 255, False, True, False)
         ColorAmb = 0 'Luz Base por defecto5
-        engine.Map_Base_Light_Set ColorAmb
-        LuzMapa.Text = &HFFFFFF
+        engine.Map_Base_Light_Set &HFFFFFFFF
+        LuzMapa.Text = 0
         LightA.LightRenderAll
 
     Else
-        Picture3.Enabled = False
+        Picture3.Enabled = True
         Picture3.BackColor = &HFFFFFF
-        engine.Map_Base_Light_Set &HFFFFFF 'Luz de trabajo.
-        ColorAmb = &HFFFFFF
-        Call AddtoRichTextBox(FrmMain.RichTextBox1, "La luz del mapa sera segun la climatologia.", 255, 255, 255, False, True, False)
+        engine.Map_Base_Light_Set &HFFFFFFFF 'Luz de trabajo.
+        ColorAmb = &HFFFFFFFF
+        LuzMapa.Text = Hex(&HFFFFFF)
+        Call AddtoRichTextBox(FrmMain.RichTextBox1, "Luz del mapa segun climatologia desactivada.", 255, 255, 255, False, True, False)
         LightA.LightRenderAll
 
     End If
@@ -5098,7 +5101,7 @@ Private Sub DiaNoche()
         Call AddtoRichTextBox(FrmMain.RichTextBox1, "Luz del mapa segun climatologia desactivada", 255, 255, 255, False, True, False)
         ColorAmb = &HFF8080AA 'Luz Base por defecto5
         engine.Map_Base_Light_Set ColorAmb
-        LuzMapa.Text = &HFFFFFF
+        LuzMapa.Text = Hex(&HFFFFFF)
         LightA.LightRenderAll
 
     Else
@@ -5480,11 +5483,11 @@ Private Sub Remplazograficos()
             ' End If
             '  End If
         
-            If MapData(X, y).Graphic(3).grhindex = txtGRH.Text Then
+            If MapData(X, y).Graphic(3).grhindex = TxtGrh.Text Then
                 MapData(X, y).Graphic(3).grhindex = TxtGrh2.Text
             
                 'InitGrh MapData(X, y).Graphic(2), 0
-                MapData(X, y).Graphic(2).grhindex = txtGRH.Text
+                MapData(X, y).Graphic(2).grhindex = TxtGrh.Text
                 InitGrh MapData(X, y).Graphic(2), TxtGrh2.Text
             
             End If
@@ -6849,17 +6852,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(1, lListado(Index).Text, Asc("-"))
-                picture1.Refresh
-                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                Picture1.Refresh
+                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(1, lListado(Index).Text, Asc("-"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(1, lListado(Index).Text, Asc("-"))
-                picture1.Refresh
+                Picture1.Refresh
             
-                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
@@ -8841,9 +8844,22 @@ Private Sub Picture3_Click()
     
     On Error GoTo Picture3_Click_Err
     
+    If ColorAmb = 0 Then Exit Sub
+    
     ColorAmb = Selected_Color()
     LuzMapa = ColorAmb
-    Picture3.BackColor = LuzMapa
+    
+    Dim BackC As Long
+    
+    Dim r, g, b As Byte
+    r = (LuzMapa And 16711680) / 65536
+    g = (LuzMapa And 65280) / 256
+    b = LuzMapa And 255
+    
+    BackC = RGB(r, g, b)
+    
+    Picture3.BackColor = BackC
+    LuzMapa.Text = Hex(LuzMapa)
 
     engine.Map_Base_Light_Set ColorAmb
     Call AddtoRichTextBox(FrmMain.RichTextBox1, "Luz de mapa aceptada. Luz: " & ColorAmb & ".", 255, 255, 255, False, True, False)

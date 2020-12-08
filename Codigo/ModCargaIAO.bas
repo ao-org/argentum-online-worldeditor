@@ -185,7 +185,7 @@ Public Function Load_Map_Data_CSM(ByVal MapRoute As String, Optional ByVal Clien
     
 
     'On Error GoTo ErrorHandler
-    ColorAmb = &HFFFFFF 'Luz Base por defecto
+    ColorAmb = 0 'Luz Base por defecto
     engine.Map_Base_Light_Set ColorAmb
 
     engine.Light_Remove_All
@@ -1041,13 +1041,22 @@ Sub CompletarForms()
     'Call Obtener_RGB(ColorAmb, Rojo, Verde, Azul)
   
     'Colocamos el color de fondo pasandole a la función de vb RGB los valores
-    If Val(ColorAmb) <> &HFFFFFFFF Then
-        FrmMain.Picture3.BackColor = Val(ColorAmb)
+    If Val(ColorAmb) <> 0 Then
+        Dim BackC As Long
+    
+        Dim r, g, b As Byte
+        r = (LuzMapa And 16711680) / 65536
+        g = (LuzMapa And 65280) / 256
+        b = LuzMapa And 255
+        
+        BackC = RGB(r, g, b)
+    
+        FrmMain.Picture3.BackColor = BackC
         FrmMain.LuzMapa = ColorAmb
         engine.Map_Base_Light_Set ColorAmb
         FrmMain.Check3.value = 0
     Else
-        ColorAmb = &HFFFFFF
+        'ColorAmb = &HFFFFFF
         FrmMain.LuzMapa = ColorAmb
         FrmMain.Picture3.BackColor = ColorAmb
         engine.Map_Base_Light_Set ColorAmb
