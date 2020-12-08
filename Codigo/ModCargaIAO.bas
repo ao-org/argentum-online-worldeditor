@@ -1022,7 +1022,7 @@ Sub CompletarForms()
     FrmMain.TxtMp3 = Mp3Music
     FrmMain.TxtWav = Ambiente
     FrmMain.ColorLuz = ColorAmb
-    FrmMain.Check1.value = IIf((MapDat.lluvia = 1), 1, 0)
+    FrmMain.check1.value = IIf((MapDat.lluvia = 1), 1, 0)
     FrmMain.Check2.value = IIf((Nieba = 1), 1, 0)
     FrmMain.niebla = IIf((nieblaV = 1), 1, 0)
     FrmMain.LuzMapa = ColorAmb
@@ -1045,14 +1045,14 @@ Sub CompletarForms()
         Dim BackC As Long
     
         Dim r, g, b As Byte
-        r = (LuzMapa And 16711680) / 65536
-        g = (LuzMapa And 65280) / 256
-        b = LuzMapa And 255
+        r = (ColorAmb And 16711680) / 65536
+        g = (ColorAmb And 65280) / 256
+        b = ColorAmb And 255
         
         BackC = RGB(r, g, b)
     
         FrmMain.Picture3.BackColor = BackC
-        FrmMain.LuzMapa = ColorAmb
+        FrmMain.LuzMapa.Text = Hex(ColorAmb)
         engine.Map_Base_Light_Set ColorAmb
         FrmMain.Check3.value = 0
     Else
