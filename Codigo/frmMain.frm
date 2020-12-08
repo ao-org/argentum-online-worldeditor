@@ -870,7 +870,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5559,12 +5558,14 @@ Private Sub cmdFixLuces_Click()
     Dim Mapa As Long
 
     For Mapa = 0 To shlFolder.Items.Count - 1
-        If LCase$(Right$(shlFolder.Items.Item(Mapa), 4)) <> ".csm" Then Exit Sub
+        If LCase$(Right$(shlFolder.Items.Item(Mapa), 4)) = ".csm" Then
     
-        Call modMapIO.NuevoMapa
-        Call Load_Map_Data_CSM_Fast(shlFolder.Self.Path & "\" & shlFolder.Items.Item(Mapa))
-        If ColorAmb = &HFFFFFF Then ColorAmb = 0
-        Call Save_Map_Data(App.Path & "\Mapas Convertidos\" & shlFolder.Items.Item(Mapa))
+            Call modMapIO.NuevoMapa
+            Call Load_Map_Data_CSM_Fast(shlFolder.Self.Path & "\" & shlFolder.Items.Item(Mapa))
+            If ColorAmb = &HFFFFFF Then ColorAmb = 0
+            Call Save_Map_Data(App.Path & "\Mapas Convertidos\" & shlFolder.Items.Item(Mapa))
+            
+        End If
     Next
 
     Set shlFolder = Nothing
