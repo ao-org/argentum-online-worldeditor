@@ -954,7 +954,11 @@ Public Function Map_Base_Light_Set(ByVal base_light As Long)
     '
     '**************************************************************
     If map_base_light <> base_light Then
-        map_base_light = base_light
+        If base_light = 0 Then
+            map_base_light = &HFFFFFFFF
+        Else
+            map_base_light = base_light
+        End If
         
     End If
 

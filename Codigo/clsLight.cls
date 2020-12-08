@@ -190,11 +190,15 @@ Private Sub LightRender(ByVal light_index As Integer)
    
     Dim XCoord       As Integer
     Dim YCoord       As Integer
+    
+    Dim Ambiental As Long
+    Ambiental = ColorAmb
+    If Ambiental = 0 Then Ambiental = -1
                              
     Dim r, g, b As Byte
-    b = (ColorAmb And 16711680) / 65536
-    g = (ColorAmb And 65280) / 256
-    r = ColorAmb And 255
+    b = (Ambiental And 16711680) / 65536
+    g = (Ambiental And 65280) / 256
+    r = Ambiental And 255
    
     AmbientColor.r = r
     AmbientColor.g = g

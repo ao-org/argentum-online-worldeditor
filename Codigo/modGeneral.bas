@@ -403,7 +403,7 @@ Public Sub Main()
     Windows_Temp_Dir = General_Get_Temp_Dir
     Call CargarMapIni
     Call IniciarCabecera(MiCabecera)
-    ColorAmb = -1 'Luz Base por defecto
+    ColorAmb = 0 'Luz Base por defecto
     FormatoIAO = True
 
     If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
