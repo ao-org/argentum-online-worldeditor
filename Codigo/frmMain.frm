@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "Richtx32.ocx"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form FrmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H80000000&
@@ -870,6 +870,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5564,7 +5565,11 @@ Private Sub cmdFixLuces_Click()
     
             Call modMapIO.NuevoMapa
             Call Load_Map_Data_CSM_Fast(shlFolder.Self.Path & "\" & shlFolder.Items.Item(Mapa))
-            If ColorAmb = &HFFFFFF Then ColorAmb = 0
+            If UCase$(MapInfo.Zona) = "DUNGEON" Then
+                ColorAmb = -1
+            Else
+                ColorAmb = 0
+            End If
             Call Save_Map_Data(App.Path & "\Mapas Convertidos\" & shlFolder.Items.Item(Mapa))
             
         End If
