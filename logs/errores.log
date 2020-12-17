@@ -3100,3 +3100,9 @@ Linea: 0
 Componente: clsDX8Engine.Particle_Group_Render
 Fecha y Hora: 12-16-2020-21:49:04
 
+Error: 9
+Descripcion: Subscript out of range
+Linea: 0
+Componente: modDirectDraw.EraseChar
+Fecha y Hora: 12-17-2020-09:55:19
+
