@@ -301,8 +301,8 @@ Private Sub CargarMapIni()
     FrmMain.mnuVerGrilla.Checked = Val(Leer.GetValue("MOSTRAR", "Grilla")) ' Grilla
     VerGrilla = FrmMain.mnuVerGrilla.Checked
     FrmMain.mnuVerBloqueos.Checked = Val(Leer.GetValue("MOSTRAR", "Bloqueos"))
-    FrmMain.cVerTriggers.value = FrmMain.mnuVerTriggers.Checked
-    FrmMain.cVerBloqueos.value = FrmMain.mnuVerBloqueos.Checked
+    FrmMain.cVerTriggers.Value = FrmMain.mnuVerTriggers.Checked
+    FrmMain.cVerBloqueos.Value = FrmMain.mnuVerBloqueos.Checked
 
     ' Tamaño de visualizacion
     PantallaX = Val(Leer.GetValue("MOSTRAR", "PantallaX"))
@@ -414,6 +414,8 @@ Public Sub Main()
     
     Call InitTileEngine(FrmMain.hWnd, FrmMain.MainViewShp.Top + 47, FrmMain.MainViewShp.Left + 4, 32, 32, PantallaX, PantallaY, 9)
     'Display form handle, View window offset from 0,0 of display form, Tile Size, Display size in tiles, Screen buffer
+    
+    Call modIndices.CargarMoldes
     
     Call modIndices.CargarIndicesDeGraficos
     frmCargando.X.Caption = "Cargando Indice de Superficies..."
@@ -543,7 +545,7 @@ GetVar_Err:
     
 End Function
 
-Public Sub WriteVar(File As String, Main As String, var As String, value As String)
+Public Sub WriteVar(File As String, Main As String, var As String, Value As String)
     '*************************************************
     'Author: Unkwown
     'Last modified: 20/05/06
@@ -551,7 +553,7 @@ Public Sub WriteVar(File As String, Main As String, var As String, value As Stri
     
     On Error GoTo WriteVar_Err
     
-    writeprivateprofilestring Main, var, value, File
+    writeprivateprofilestring Main, var, Value, File
 
     
     Exit Sub
@@ -586,7 +588,7 @@ Public Sub ToggleWalkMode()
 
         'MakeCharacter
         If LegalPos(UserPos.X, UserPos.y) Then
-            Call MakeChar(NextOpenChar(), 1, 1, SOUTH, UserPos.X, UserPos.y)
+            Call MakeChar(NextOpenChar(), 1, 1, south, UserPos.X, UserPos.y)
             UserCharIndex = MapData(UserPos.X, UserPos.y).CharIndex
             FrmMain.mnuModoCaminata.Checked = True
         Else
