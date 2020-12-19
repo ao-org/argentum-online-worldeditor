@@ -29,6 +29,18 @@ Attribute VB_Name = "modIndices"
 
 Option Explicit
 
+Private Type tMoldeCuerpo
+    X As Long
+    y As Long
+    Width As Long
+    Height As Long
+    DirCount(1 To 4) As Byte
+    TotalGrhs As Long
+End Type
+
+Private MoldesBodies() As tMoldeCuerpo
+Private BodiesHeading(1 To 4) As E_Heading
+
 ''
 ' Carga los indices de Graficos
 '
@@ -197,6 +209,60 @@ ErrorHandler:
 
 End Sub
 
+Sub CargarMoldes()
+
+    BodiesHeading(1) = E_Heading.south
+    BodiesHeading(2) = E_Heading.NORTH
+    BodiesHeading(3) = E_Heading.WEST
+    BodiesHeading(4) = E_Heading.EAST
+    
+    Dim Loader As clsIniManager
+    Set Loader = New clsIniManager
+    
+    #If Compresion = 1 Then
+
+        If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT\", "moldes.ini", Windows_Temp_Dir, False) Then
+            Err.Description = "¡No se puede cargar el archivo de moldes.ini!"
+            MsgBox Err.Description
+
+        End If
+
+        Call Loader.Initialize(Windows_Temp_Dir & "moldes.ini")
+    #Else
+        Call Loader.Initialize(App.Path & "\..\Recursos\init\moldes.ini")
+    #End If
+    
+    Dim NumMoldes As Integer
+    NumMoldes = Val(Loader.GetValue("INIT", "Moldes"))
+
+    ReDim MoldesBodies(1 To NumMoldes)
+    
+    Dim i As Integer, MoldeKey As String
+    
+    For i = 1 To NumMoldes
+        MoldeKey = "Molde" & i
+    
+        With MoldesBodies(i)
+            .X = Val(Loader.GetValue(MoldeKey, "X"))
+            .y = Val(Loader.GetValue(MoldeKey, "Y"))
+            .Width = Val(Loader.GetValue(MoldeKey, "Width"))
+            .Height = Val(Loader.GetValue(MoldeKey, "Height"))
+            .DirCount(1) = Val(Loader.GetValue(MoldeKey, "Dir1"))
+            .DirCount(2) = Val(Loader.GetValue(MoldeKey, "Dir2"))
+            .DirCount(3) = Val(Loader.GetValue(MoldeKey, "Dir3"))
+            .DirCount(4) = Val(Loader.GetValue(MoldeKey, "Dir4"))
+            .TotalGrhs = .DirCount(1) + .DirCount(2) + .DirCount(3) + .DirCount(4) + 4
+        End With
+    Next
+    
+    Set Loader = Nothing
+    
+    #If Compresion = 1 Then
+        Delete_File Windows_Temp_Dir & "moldes.ini"
+    #End If
+
+End Sub
+
 ''
 ' Carga los indices de Superficie
 '
@@ -232,13 +298,13 @@ Public Sub CargarIndicesSuperficie()
     FrmMain.lListado(0).Clear
 
     For i = 0 To MaxSup
-        SupData(i).name = Leer.GetValue("REFERENCIA" & i, "Nombre")
+        SupData(i).Name = Leer.GetValue("REFERENCIA" & i, "Nombre")
         SupData(i).Grh = Val(Leer.GetValue("REFERENCIA" & i, "GrhIndice"))
         SupData(i).Width = Val(Leer.GetValue("REFERENCIA" & i, "Ancho"))
         SupData(i).Height = Val(Leer.GetValue("REFERENCIA" & i, "Alto"))
         SupData(i).Block = IIf(Val(Leer.GetValue("REFERENCIA" & i, "Bloquear")) = 1, True, False)
         SupData(i).Capa = Val(Leer.GetValue("REFERENCIA" & i, "Capa"))
-        FrmMain.lListado(0).AddItem i & "- " & SupData(i).name
+        FrmMain.lListado(0).AddItem i & "- " & SupData(i).Name
     Next
     
     #If Compresion = 1 Then
@@ -280,7 +346,7 @@ Public Sub CargarIndicesOBJ()
     For Obj = 1 To NumOBJs
         frmCargando.X.Caption = "Cargando Datos de Objetos..." & Obj & "/" & NumOBJs
         DoEvents
-        ObjData(Obj).name = Leer.GetValue("OBJ" & Obj, "Name")
+        ObjData(Obj).Name = Leer.GetValue("OBJ" & Obj, "Name")
         ObjData(Obj).grhindex = Val(Leer.GetValue("OBJ" & Obj, "GrhIndex"))
         ObjData(Obj).ObjType = Val(Leer.GetValue("OBJ" & Obj, "ObjType"))
         ObjData(Obj).Ropaje = Val(Leer.GetValue("OBJ" & Obj, "NumRopaje"))
@@ -288,7 +354,7 @@ Public Sub CargarIndicesOBJ()
         ObjData(Obj).WeaponAnim = Val(Leer.GetValue("OBJ" & Obj, "Anim"))
         ObjData(Obj).Texto = Leer.GetValue("OBJ" & Obj, "Texto")
         ObjData(Obj).GrhSecundario = Val(Leer.GetValue("OBJ" & Obj, "GrhSec"))
-        FrmMain.lListado(3).AddItem Obj & "- " & ObjData(Obj).name
+        FrmMain.lListado(3).AddItem Obj & "- " & ObjData(Obj).Name
     Next Obj
 
     Exit Sub
@@ -353,56 +419,137 @@ Public Sub CargarIndicesDeCuerpos()
     
     On Error GoTo CargarIndicesDeCuerpos_Err
     
-    Dim n            As Integer
+    Dim Loader       As clsIniManager
+
     Dim i            As Long
-    Dim NumCuerpos   As Integer
-    Dim MisCuerpos() As tIndiceCuerpo
     
-    n = FreeFile()
+    Dim j            As Byte
+    
+    Dim k            As Integer
+    
+    Dim Heading      As Byte
+    
+    Dim BodyKey      As String
+    
+    Dim Std          As Byte
+
+    Dim NumCuerpos   As Integer
+    
+    Dim LastGrh      As Long
+    
+    Dim AnimStart    As Long
+    
+    Dim X            As Long
+    
+    Dim y            As Long
+    
+    Dim FileNum      As Long
+    
+    Set Loader = New clsIniManager
     
     #If Compresion = 1 Then
 
-        If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT\", "personajes.ind", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el archivo de personajes.ind!"
+        If Not Extract_File(Scripts, App.Path & "\..\Recursos\OUTPUT\", "cuerpos.dat", Windows_Temp_Dir, False) Then
+            Err.Description = "¡No se puede cargar el archivo de cuerpos.dat!"
             MsgBox Err.Description
 
         End If
 
-        Open Windows_Temp_Dir & "personajes.ind" For Binary Access Read As #n
+        Call Loader.Initialize(Windows_Temp_Dir & "cuerpos.dat")
     #Else
-        Open App.Path & "\..\Recursos\init\personajes.ind" For Binary Access Read As #n
+        Call Loader.Initialize(App.Path & "\..\Recursos\init\cuerpos.dat")
     #End If
     
-    'cabecera
-    Get #n, , MiCabecera
-    
-    'num de cabezas
-    Get #n, , NumCuerpos
+    NumCuerpos = Val(Loader.GetValue("INIT", "NumBodies"))
     
     'Resize array
-    ReDim BodyData(0 To NumCuerpos) As BodyData
-    ReDim MisCuerpos(0 To NumCuerpos) As tIndiceCuerpo
-    
+    ReDim Preserve BodyData(0 To NumCuerpos)
+
     For i = 1 To NumCuerpos
-        Get #n, , MisCuerpos(i)
-        
-        If MisCuerpos(i).Body(1) Then
-            InitGrh BodyData(i).Walk(1), MisCuerpos(i).Body(1), 0
-            InitGrh BodyData(i).Walk(2), MisCuerpos(i).Body(2), 0
-            InitGrh BodyData(i).Walk(3), MisCuerpos(i).Body(3), 0
-            InitGrh BodyData(i).Walk(4), MisCuerpos(i).Body(4), 0
+        BodyKey = "BODY" & i
+    
+        Std = Val(Loader.GetValue(BodyKey, "Std"))
+        BodyData(i).HeadOffset.X = Val(Loader.GetValue(BodyKey, "HeadOffsetX"))
+        BodyData(i).HeadOffset.y = Val(Loader.GetValue(BodyKey, "HeadOffsetY"))
+
+        If Std = 0 Then
+            InitGrh BodyData(i).Walk(1), Val(Loader.GetValue(BodyKey, "Walk1")), 0
+            InitGrh BodyData(i).Walk(2), Val(Loader.GetValue(BodyKey, "Walk2")), 0
+            InitGrh BodyData(i).Walk(3), Val(Loader.GetValue(BodyKey, "Walk3")), 0
+            InitGrh BodyData(i).Walk(4), Val(Loader.GetValue(BodyKey, "Walk4")), 0
             
-            BodyData(i).HeadOffset.X = MisCuerpos(i).HeadOffsetX
-            BodyData(i).HeadOffset.y = MisCuerpos(i).HeadOffsetY
+        Else
+            FileNum = Val(Loader.GetValue(BodyKey, "FileNum"))
+        
+            LastGrh = UBound(GrhData)
+
+            ' Agrego espacio para meter el body en GrhData
+            ReDim Preserve GrhData(1 To LastGrh + MoldesBodies(Std).TotalGrhs)
+            
+            MaxGrhs = UBound(GrhData)
+            
+            LastGrh = LastGrh + 1
+            X = MoldesBodies(Std).X
+            y = MoldesBodies(Std).y
+            
+            For j = 1 To 4
+                AnimStart = LastGrh
+            
+                For k = 1 To MoldesBodies(Std).DirCount(j)
+                    With GrhData(LastGrh)
+                        .FileNum = FileNum
+                        .NumFrames = 1
+                        .sX = X
+                        .sY = y
+                        .pixelWidth = MoldesBodies(Std).Width
+                        .pixelHeight = MoldesBodies(Std).Height
+                        
+                        .TileWidth = .pixelWidth / TilePixelHeight
+                        .TileHeight = .pixelHeight / TilePixelWidth
+        
+                        ReDim .Frames(1)
+                        .Frames(1) = LastGrh
+                    End With
+                    
+                    LastGrh = LastGrh + 1
+                    X = X + MoldesBodies(Std).Width
+                Next
+                
+                X = MoldesBodies(Std).X
+                y = y + MoldesBodies(Std).Height
+                
+                Heading = BodiesHeading(j)
+                
+                With GrhData(LastGrh)
+                    .NumFrames = MoldesBodies(Std).DirCount(j)
+                    .speed = .NumFrames / 0.018
+                    
+                    ReDim .Frames(1 To MoldesBodies(Std).DirCount(j))
+                    
+                    For k = 1 To MoldesBodies(Std).DirCount(j)
+                        .Frames(k) = AnimStart + k - 1
+                    Next
+                    
+                    .pixelWidth = GrhData(.Frames(1)).pixelWidth
+                    .pixelHeight = GrhData(.Frames(1)).pixelHeight
+                    .TileWidth = GrhData(.Frames(1)).TileWidth
+                    .TileHeight = GrhData(.Frames(1)).TileHeight
+                End With
+                
+                InitGrh BodyData(i).Walk(Heading), LastGrh, 0
+                
+                LastGrh = LastGrh + 1
+            Next
 
         End If
 
     Next i
-    
-    Close #n
+
     #If Compresion = 1 Then
-        Delete_File Windows_Temp_Dir & "personajes.ind"
+        Delete_File Windows_Temp_Dir & "cuerpos.dat"
     #End If
+
+    Set Loader = Nothing
 
     
     Exit Sub
@@ -514,13 +661,13 @@ Public Sub CargarIndicesNPC()
     Trabajando = "Dats\NPCs.dat"
 
     For NPC = 1 To NumNPCs
-        NpcData(NPC).name = Leer.GetValue("NPC" & NPC, "Name")
+        NpcData(NPC).Name = Leer.GetValue("NPC" & NPC, "Name")
         
         NpcData(NPC).Body = Val(Leer.GetValue("NPC" & NPC, "Body"))
         NpcData(NPC).Head = Val(Leer.GetValue("NPC" & NPC, "Head"))
         NpcData(NPC).Heading = Val(Leer.GetValue("NPC" & NPC, "Heading"))
 
-        If LenB(NpcData(NPC).name) <> 0 Then FrmMain.lListado(1).AddItem NPC & "- " & NpcData(NPC).name
+        If LenB(NpcData(NPC).Name) <> 0 Then FrmMain.lListado(1).AddItem NPC & "- " & NpcData(NPC).Name
     Next
 
     Exit Sub
