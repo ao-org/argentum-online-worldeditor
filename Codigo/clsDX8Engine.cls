@@ -492,7 +492,7 @@ Private Sub Font_Make(ByVal font_index As Long, ByVal Style As String, ByVal bol
     
     Dim font_desc As IFont
     Dim fnt       As New StdFont
-    fnt.name = Style
+    fnt.Name = Style
     fnt.Size = Size
     fnt.bold = bold
     fnt.italic = italic
@@ -604,8 +604,8 @@ Public Sub Engine_Init()
         .Windowed = True
         .SwapEffect = D3DSWAPEFFECT_COPY
         .BackBufferFormat = DispMode.Format
-        .BackBufferWidth = FrmMain.renderer.ScaleWidth
-        .BackBufferHeight = FrmMain.renderer.ScaleHeight
+        .BackBufferWidth = 3200
+        .BackBufferHeight = 3200
         .EnableAutoDepthStencil = 1
         .AutoDepthStencilFormat = D3DFMT_D16
         .hDeviceWindow = FrmMain.renderer.hWnd
@@ -650,6 +650,13 @@ Public Sub Engine_Init()
     D3DDevice.SetRenderState D3DRS_SRCBLEND, D3DBLEND_SRCALPHA
     D3DDevice.SetRenderState D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA
     D3DDevice.SetRenderState D3DRS_ALPHABLENDENABLE, True
+    
+    Dim viewport As D3DVIEWPORT8
+    viewport.Width = FrmMain.renderer.ScaleWidth
+    viewport.Height = FrmMain.renderer.ScaleHeight
+    viewport.MinZ = 1
+    viewport.MaxZ = -1
+    D3DDevice.SetViewport viewport
     
     Call SurfaceDB.Init(D3DX, D3DDevice, General_Get_Free_Ram_Bytes)
 
@@ -1013,6 +1020,16 @@ Public Sub Render()
 
         ' Call modPaneles.VistaPreviaDeSup
     End If
+    
+    Static RE            As RECT
+    
+    With RE
+        .Left = 0
+        .Top = 0
+        .Bottom = FrmMain.renderer.ScaleHeight
+        .Right = FrmMain.renderer.ScaleWidth
+
+    End With
 
     D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 1#, 0
 
@@ -1033,7 +1050,7 @@ Public Sub Render()
 
     D3DDevice.EndScene
 
-    D3DDevice.Present ByVal 0, ByVal 0, 0, ByVal 0
+    D3DDevice.Present RE, ByVal 0, 0, ByVal 0
 
     lFrameLimiter = GetTickCount
     FramesPerSecCounter = FramesPerSecCounter + 1
@@ -1212,15 +1229,15 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                     ' Pone Grh !
                     Sobre = -1
 
-                    If FrmMain.cSeleccionarSuperficie.value = True Then
+                    If FrmMain.cSeleccionarSuperficie.Value = True Then
                         Sobre = MapData(X, y).Graphic(bCapa).grhindex
 
-                        If frmConfigSup.MOSAICO.value = vbChecked Then
+                        If frmConfigSup.MOSAICO.Value = vbChecked Then
                             Dim aux As Long
                             Dim dy  As Integer
                             Dim dX  As Integer
 
-                            If frmConfigSup.DespMosaic.value = vbChecked Then
+                            If frmConfigSup.DespMosaic.Value = vbChecked Then
                                 dy = Val(frmConfigSup.DMLargo.Text)
                                 dX = Val(frmConfigSup.DMAncho.Text)
                             Else
@@ -2718,6 +2735,11 @@ Private Function Light_Next_Open() As Long
     '
     '*****************************************************************
     On Error GoTo ErrorHandler:
+    
+    If light_last = 0 Then
+        Light_Next_Open = 1
+        Exit Function
+    End If
 
     Dim loopc As Long
     
@@ -3821,6 +3843,13 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         .Right = 3200
 
     End With
+    
+    Dim viewport As D3DVIEWPORT8
+    viewport.Width = 3200
+    viewport.Height = 3200
+    viewport.MinZ = 1
+    viewport.MaxZ = -1
+    D3DDevice.SetViewport viewport
 
     Call D3DDevice.Clear(0, ByVal 0, D3DCLEAR_TARGET, 0, 0#, 0)
     
@@ -4064,6 +4093,12 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
     
     Call D3DDevice.EndScene
     Call D3DDevice.Present(RE, ByVal 0, FrmRender.picMap.hWnd, ByVal 0)
+
+    viewport.Width = FrmMain.renderer.ScaleWidth
+    viewport.Height = FrmMain.renderer.ScaleHeight
+    viewport.MinZ = 1
+    viewport.MaxZ = -1
+    D3DDevice.SetViewport viewport
     
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''Guardo la imagen''''''''''''''''''''''''''''
