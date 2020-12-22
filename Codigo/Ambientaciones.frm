@@ -591,6 +591,7 @@ Begin VB.Form AmbientacionesForm
       EndProperty
       Height          =   3570
       Left            =   120
+      Sorted          =   -1  'True
       TabIndex        =   1
       Top             =   480
       Width           =   2175
@@ -676,7 +677,7 @@ Private Sub Combo1_Click()
     For i = 1 To AmbientacionesTotal
 
         If Ambientaciones(i).tipo = Combo1.ListIndex + 1 Then
-            List1.AddItem i & "-" & Ambientaciones(i).Nombre
+            List1.AddItem Ambientaciones(i).Nombre & " - #" & i
 
         End If
 
@@ -706,7 +707,7 @@ Private Sub Command1_Click()
     cantidad = Text1.Text
 
     If cantidad <= 0 Then Exit Sub
-    bloquear = check1
+    bloquear = Check1
 
     D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
 
@@ -718,7 +719,7 @@ Private Sub Command1_Click()
 
             MapData(X, y).Blocked = bloquear
             MapData(X, y).Graphic(cCapas).grhindex = 1
-            InitGrh MapData(X, y).Graphic(cCapas), Ambientaciones(ReadField(1, List1.List(List1.ListIndex), Asc("-"))).grhindex
+            InitGrh MapData(X, y).Graphic(cCapas), Ambientaciones(ReadField(2, List1.List(List1.ListIndex), Asc("#"))).grhindex
         Else
             i = i - 1
 
@@ -767,16 +768,16 @@ Private Sub List1_Click()
 
     D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
     Dim Index As Long
-    Index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
-    Call Grh_Render_To_HdcPNG(AmbientacionesForm.picture1, Ambientaciones(Index).grhindex, 0, 0, False)
-    frmConfigSup.MOSAICO.value = vbUnchecked
+    Index = ReadField(2, List1.List(List1.ListIndex), Asc("#"))
+    Call Grh_Render_To_HdcPNG(AmbientacionesForm.Picture1, Ambientaciones(Index).grhindex, 0, 0, False)
+    frmConfigSup.MOSAICO.Value = vbUnchecked
     frmConfigSup.mAncho.Text = "0"
     frmConfigSup.mLargo.Text = "0"
     HotKeysAllow = False
-    Index = ReadField(1, List1.List(List1.ListIndex), Asc("-"))
+    Index = ReadField(2, List1.List(List1.ListIndex), Asc("#"))
     FrmMain.cGrh.Text = Ambientaciones(Index).grhindex
     modPaneles.VerFuncion 0, True
-    FrmMain.cSeleccionarSuperficie.value = True
+    FrmMain.cSeleccionarSuperficie.Value = True
     Call FrmMain.cSeleccionarSuperficie_Click
 
     

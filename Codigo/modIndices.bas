@@ -211,7 +211,7 @@ End Sub
 
 Sub CargarMoldes()
 
-    BodiesHeading(1) = E_Heading.south
+    BodiesHeading(1) = E_Heading.SOUTH
     BodiesHeading(2) = E_Heading.NORTH
     BodiesHeading(3) = E_Heading.WEST
     BodiesHeading(4) = E_Heading.EAST
@@ -299,12 +299,15 @@ Public Sub CargarIndicesSuperficie()
 
     For i = 0 To MaxSup
         SupData(i).Name = Leer.GetValue("REFERENCIA" & i, "Nombre")
-        SupData(i).Grh = Val(Leer.GetValue("REFERENCIA" & i, "GrhIndice"))
-        SupData(i).Width = Val(Leer.GetValue("REFERENCIA" & i, "Ancho"))
-        SupData(i).Height = Val(Leer.GetValue("REFERENCIA" & i, "Alto"))
-        SupData(i).Block = IIf(Val(Leer.GetValue("REFERENCIA" & i, "Bloquear")) = 1, True, False)
-        SupData(i).Capa = Val(Leer.GetValue("REFERENCIA" & i, "Capa"))
-        FrmMain.lListado(0).AddItem i & "- " & SupData(i).Name
+        
+        If LenB(SupData(i).Name) > 0 Then
+            SupData(i).Grh = Val(Leer.GetValue("REFERENCIA" & i, "GrhIndice"))
+            SupData(i).Width = Val(Leer.GetValue("REFERENCIA" & i, "Ancho"))
+            SupData(i).Height = Val(Leer.GetValue("REFERENCIA" & i, "Alto"))
+            SupData(i).Block = IIf(Val(Leer.GetValue("REFERENCIA" & i, "Bloquear")) = 1, True, False)
+            SupData(i).Capa = Val(Leer.GetValue("REFERENCIA" & i, "Capa"))
+            FrmMain.lListado(0).AddItem SupData(i).Name & " - #" & i
+        End If
     Next
     
     #If Compresion = 1 Then
@@ -347,14 +350,17 @@ Public Sub CargarIndicesOBJ()
         frmCargando.X.Caption = "Cargando Datos de Objetos..." & Obj & "/" & NumOBJs
         DoEvents
         ObjData(Obj).Name = Leer.GetValue("OBJ" & Obj, "Name")
-        ObjData(Obj).grhindex = Val(Leer.GetValue("OBJ" & Obj, "GrhIndex"))
-        ObjData(Obj).ObjType = Val(Leer.GetValue("OBJ" & Obj, "ObjType"))
-        ObjData(Obj).Ropaje = Val(Leer.GetValue("OBJ" & Obj, "NumRopaje"))
-        ObjData(Obj).Info = Leer.GetValue("OBJ" & Obj, "Info")
-        ObjData(Obj).WeaponAnim = Val(Leer.GetValue("OBJ" & Obj, "Anim"))
-        ObjData(Obj).Texto = Leer.GetValue("OBJ" & Obj, "Texto")
-        ObjData(Obj).GrhSecundario = Val(Leer.GetValue("OBJ" & Obj, "GrhSec"))
-        FrmMain.lListado(3).AddItem Obj & "- " & ObjData(Obj).Name
+        
+        If LenB(ObjData(Obj).Name) > 0 Then
+            ObjData(Obj).grhindex = Val(Leer.GetValue("OBJ" & Obj, "GrhIndex"))
+            ObjData(Obj).ObjType = Val(Leer.GetValue("OBJ" & Obj, "ObjType"))
+            ObjData(Obj).Ropaje = Val(Leer.GetValue("OBJ" & Obj, "NumRopaje"))
+            ObjData(Obj).Info = Leer.GetValue("OBJ" & Obj, "Info")
+            ObjData(Obj).WeaponAnim = Val(Leer.GetValue("OBJ" & Obj, "Anim"))
+            ObjData(Obj).Texto = Leer.GetValue("OBJ" & Obj, "Texto")
+            ObjData(Obj).GrhSecundario = Val(Leer.GetValue("OBJ" & Obj, "GrhSec"))
+            FrmMain.lListado(3).AddItem ObjData(Obj).Name & " - #" & Obj
+        End If
     Next Obj
 
     Exit Sub
@@ -667,7 +673,7 @@ Public Sub CargarIndicesNPC()
         NpcData(NPC).Head = Val(Leer.GetValue("NPC" & NPC, "Head"))
         NpcData(NPC).Heading = Val(Leer.GetValue("NPC" & NPC, "Heading"))
 
-        If LenB(NpcData(NPC).Name) <> 0 Then FrmMain.lListado(1).AddItem NPC & "- " & NpcData(NPC).Name
+        If LenB(NpcData(NPC).Name) <> 0 Then FrmMain.lListado(1).AddItem NpcData(NPC).Name & " - #" & NPC
     Next
 
     Exit Sub
