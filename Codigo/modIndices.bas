@@ -663,7 +663,7 @@ Public Sub CargarIndicesNPC()
     Call Leer.Initialize(App.Path & "\..\Recursos\dat\" & "\NPCs.dat")
     NumNPCs = Val(Leer.GetValue("INIT", "NumNPCs"))
     
-    ReDim NpcData(1000) As NpcData
+    ReDim NpcData(NumNPCs) As NpcData
     Trabajando = "Dats\NPCs.dat"
 
     For NPC = 1 To NumNPCs
