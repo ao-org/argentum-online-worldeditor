@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form FrmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H80000000&
@@ -870,6 +870,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5487,11 +5488,11 @@ Private Sub Remplazograficos()
             ' End If
             '  End If
         
-            If MapData(X, y).Graphic(3).grhindex = TxtGrh.Text Then
+            If MapData(X, y).Graphic(3).grhindex = txtGRH.Text Then
                 MapData(X, y).Graphic(3).grhindex = TxtGrh2.Text
             
                 'InitGrh MapData(X, y).Graphic(2), 0
-                MapData(X, y).Graphic(2).grhindex = TxtGrh.Text
+                MapData(X, y).Graphic(2).grhindex = txtGRH.Text
                 InitGrh MapData(X, y).Graphic(2), TxtGrh2.Text
             
             End If
@@ -5647,13 +5648,13 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
     On Error GoTo Form_KeyDown_Err
     
 
-    If KeyCode = vbKeySpace Then
-        If FrmBloques.Visible = True Then
-            Call InsertarBloque
-
-        End If
-
-    End If
+'    If KeyCode = vbKeySpace Then
+'        If FrmBloques.Visible = True Then
+'            Call InsertarBloque
+'
+'        End If
+'
+'    End If
 
     
     Exit Sub
@@ -6864,17 +6865,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
-                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                picture1.Refresh
+                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(2, lListado(Index).Text, Asc("#"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
+                picture1.Refresh
             
-                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
