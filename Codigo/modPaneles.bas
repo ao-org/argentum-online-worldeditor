@@ -67,14 +67,14 @@ Public Sub EstSelectPanel(ByVal Numero As Byte, ByVal Activado As Boolean)
                     End If
 
                 Case 2
-                    FrmMain.cVerBloqueos.Tag = CInt(FrmMain.cVerBloqueos.value)
-                    FrmMain.cVerBloqueos.value = True
-                    FrmMain.mnuVerBloqueos.Checked = FrmMain.cVerBloqueos.value
+                    FrmMain.cVerBloqueos.Tag = CInt(FrmMain.cVerBloqueos.Value)
+                    FrmMain.cVerBloqueos.Value = True
+                    FrmMain.mnuVerBloqueos.Checked = FrmMain.cVerBloqueos.Value
 
                 Case 6
-                    FrmMain.cVerTriggers.Tag = CInt(FrmMain.cVerTriggers.value)
-                    FrmMain.cVerTriggers.value = True
-                    FrmMain.mnuVerTriggers.Checked = FrmMain.cVerTriggers.value
+                    FrmMain.cVerTriggers.Tag = CInt(FrmMain.cVerTriggers.Value)
+                    FrmMain.cVerTriggers.Value = True
+                    FrmMain.mnuVerTriggers.Checked = FrmMain.cVerTriggers.Value
 
             End Select
 
@@ -104,14 +104,14 @@ Public Sub EstSelectPanel(ByVal Numero As Byte, ByVal Activado As Boolean)
                 Case 2
 
                     If LenB(FrmMain.cVerBloqueos.Tag) = 0 Then FrmMain.cVerBloqueos.Tag = 0
-                    FrmMain.cVerBloqueos.value = CBool(FrmMain.cVerBloqueos.Tag)
-                    FrmMain.mnuVerBloqueos.Checked = FrmMain.cVerBloqueos.value
+                    FrmMain.cVerBloqueos.Value = CBool(FrmMain.cVerBloqueos.Tag)
+                    FrmMain.mnuVerBloqueos.Checked = FrmMain.cVerBloqueos.Value
 
                 Case 6
 
                     If LenB(FrmMain.cVerTriggers.Tag) = 0 Then FrmMain.cVerTriggers.Tag = 0
-                    FrmMain.cVerTriggers.value = CBool(FrmMain.cVerTriggers.Tag)
-                    FrmMain.mnuVerTriggers.Checked = FrmMain.cVerTriggers.value
+                    FrmMain.cVerTriggers.Value = CBool(FrmMain.cVerTriggers.Tag)
+                    FrmMain.mnuVerTriggers.Checked = FrmMain.cVerTriggers.Value
 
             End Select
 
@@ -259,16 +259,16 @@ Public Sub VerFuncion(ByVal Numero As Byte, ByVal Ver As Boolean, Optional Norma
         vMostrando = Numero
 
         If Numero < 0 Or Numero > 8 Then Exit Sub
-        If FrmMain.SelectPanel(Numero).value = False Then
-            FrmMain.SelectPanel(Numero).value = True
+        If FrmMain.SelectPanel(Numero).Value = False Then
+            FrmMain.SelectPanel(Numero).Value = True
 
         End If
 
     Else
 
         If Numero < 0 Or Numero > 8 Then Exit Sub
-        If FrmMain.SelectPanel(Numero).value = True Then
-            FrmMain.SelectPanel(Numero).value = False
+        If FrmMain.SelectPanel(Numero).Value = True Then
+            FrmMain.SelectPanel(Numero).Value = False
 
         End If
 
@@ -332,11 +332,11 @@ Public Sub Filtrar(ByVal Numero As Byte)
         Select Case Numero
 
             Case 0 ' superficie
-                vDatos = SupData(i).name
+                vDatos = SupData(i).Name
                 NumI = i
 
             Case 1 ' NPCs
-                vDatos = NpcData(i + 1).name
+                vDatos = NpcData(i + 1).Name
                 NumI = i + 1
 
             Case 2 ' NPCs Hostiles
@@ -344,20 +344,23 @@ Public Sub Filtrar(ByVal Numero As Byte)
                 'vDatos = NpcData(i + 500).name
                 'NumI = i + 500
             Case 3 ' Objetos
-                vDatos = ObjData(i + 1).name
+                vDatos = ObjData(i + 1).Name
                 NumI = i + 1
 
         End Select
         
-        For j = 1 To Len(vDatos)
-
-            If UCase$(mid$(vDatos & str(i), j, Len(FrmMain.cFiltro(Numero).Text))) = UCase$(FrmMain.cFiltro(Numero).Text) Or LenB(FrmMain.cFiltro(Numero).Text) = 0 Then
-                FrmMain.lListado(Numero).AddItem NumI & "- " & vDatos
-                Exit For
-
-            End If
-
-        Next
+        If LenB(vDatos) > 0 Then
+        
+            For j = 1 To Len(vDatos)
+    
+                If UCase$(mid$(vDatos & str(i), j, Len(FrmMain.cFiltro(Numero).Text))) = UCase$(FrmMain.cFiltro(Numero).Text) Or LenB(FrmMain.cFiltro(Numero).Text) = 0 Then
+                    FrmMain.lListado(Numero).AddItem vDatos & " - #" & NumI
+                    Exit For
+    
+                End If
+    
+            Next
+        End If
     Next
 
     
@@ -381,11 +384,11 @@ Public Function DameGrhIndex(ByVal GrhIn As Long) As Long
     DameGrhIndex = SupData(GrhIn).Grh
 
     If SupData(GrhIn).Width > 0 Then
-        frmConfigSup.MOSAICO.value = vbChecked
+        frmConfigSup.MOSAICO.Value = vbChecked
         frmConfigSup.mAncho.Text = SupData(GrhIn).Width
         frmConfigSup.mLargo.Text = SupData(GrhIn).Height
     Else
-        frmConfigSup.MOSAICO.value = vbUnchecked
+        frmConfigSup.MOSAICO.Value = vbUnchecked
         frmConfigSup.mAncho.Text = "0"
         frmConfigSup.mLargo.Text = "0"
 
@@ -450,9 +453,10 @@ Public Sub VistaPreviaDeSup()
     Dim SR  As RECT, DR As RECT
     Dim aux As Long
     Dim Tem As Long
+    Dim W As Long, H As Long
 
     If CurrentGrh.grhindex = 0 Then Exit Sub
-    frmGrafico.ShowPic = frmGrafico.picture1
+    frmGrafico.ShowPic = frmGrafico.Picture1
 
     If frmConfigSup.MOSAICO = vbUnchecked Then
     
@@ -464,7 +468,13 @@ Public Sub VistaPreviaDeSup()
         SR.Top = GrhData(CurrentGrh.grhindex).sY
         SR.Bottom = SR.Top + (GrhData(CurrentGrh.grhindex).pixelHeight)
         SR.Right = SR.Left + (GrhData(CurrentGrh.grhindex).pixelWidth)
-        aux = Val(FrmMain.cGrh.Text) + (((1 + 1) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((1 + 1) Mod frmConfigSup.mAncho.Text)
+        
+        H = frmConfigSup.mLargo.Text
+        If H <= 0 Then H = 1
+        W = frmConfigSup.mAncho.Text
+        If W <= 0 Then W = 1
+        
+        aux = Val(FrmMain.cGrh.Text) + (((1 + 1) Mod H) * W) + ((1 + 1) Mod W)
         Call Grh_Render_To_Hdc(frmGrafico.ShowPic.hdc, (aux), 0, 0, False)
     Else
     

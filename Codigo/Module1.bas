@@ -257,7 +257,7 @@ Public Sub CargarParticulasBinary()
     'fill StreamData array with info from Particles.ini
     For loopc = 1 To ParticulasTotales
         Get #n, , StreamData(loopc)
-        FrmMain.ListaParticulas.AddItem loopc & "- " & StreamData(loopc).name
+        FrmMain.ListaParticulas.AddItem StreamData(loopc).Name & " - #" & loopc
     Next loopc
     
     Close #n
@@ -292,7 +292,7 @@ Public Sub CargarParticulasBinary()
             StreamData(loopc).colortint(ColorSet - 1).b = General_Field_Read(3, TempSet, ",")
         Next ColorSet
         
-        FrmMain.ListaParticulas.AddItem loopc & "- " & StreamData(loopc).name
+        FrmMain.ListaParticulas.AddItem StreamData(loopc).Name & " - #" & loopc
     Next loopc
         
     #If Compresion = 1 Then
@@ -347,7 +347,7 @@ Public Sub CargarParticulas()
     
     'fill StreamData array with info from Particles.ini
     For loopc = 1 To ParticulasTotales
-        StreamData(loopc).name = General_Var_Get(StreamFile, Val(loopc), "Name")
+        StreamData(loopc).Name = General_Var_Get(StreamFile, Val(loopc), "Name")
         StreamData(loopc).NumOfParticles = General_Var_Get(StreamFile, Val(loopc), "NumOfParticles")
         StreamData(loopc).X1 = General_Var_Get(StreamFile, Val(loopc), "X1")
         StreamData(loopc).Y1 = General_Var_Get(StreamFile, Val(loopc), "Y1")
@@ -398,7 +398,7 @@ Public Sub CargarParticulas()
             StreamData(loopc).colortint(ColorSet - 1).b = General_Field_Read(3, TempSet, ",")
         Next ColorSet
         
-        FrmMain.ListaParticulas.AddItem loopc & "- " & StreamData(loopc).name
+        FrmMain.ListaParticulas.AddItem StreamData(loopc).Name & " - #" & loopc
     Next loopc
         
     #If Compresion = 1 Then
