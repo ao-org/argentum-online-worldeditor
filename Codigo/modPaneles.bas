@@ -456,7 +456,7 @@ Public Sub VistaPreviaDeSup()
     Dim W As Long, H As Long
 
     If CurrentGrh.grhindex = 0 Then Exit Sub
-    frmGrafico.ShowPic = frmGrafico.Picture1
+    frmGrafico.ShowPic = frmGrafico.picture1
 
     If frmConfigSup.MOSAICO = vbUnchecked Then
     

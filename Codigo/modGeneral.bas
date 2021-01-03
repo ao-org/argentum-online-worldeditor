@@ -304,6 +304,8 @@ Private Sub CargarMapIni()
     FrmMain.cVerTriggers.Value = FrmMain.mnuVerTriggers.Checked
     FrmMain.cVerBloqueos.Value = FrmMain.mnuVerBloqueos.Checked
 
+
+
     ' Tamaño de visualizacion
     PantallaX = Val(Leer.GetValue("MOSTRAR", "PantallaX"))
     PantallaY = Val(Leer.GetValue("MOSTRAR", "PantallaY"))
@@ -319,6 +321,54 @@ Private Sub CargarMapIni()
     If ClienteHeight <= 0 Then ClienteHeight = 13
     If ClienteWidth <= 0 Then ClienteWidth = 17
 
+        If FrmMain.cVerBloqueos.Value = False Then
+            FrmMain.LvBOpcion(0).BackColor = &H80000000
+        Else
+            FrmMain.LvBOpcion(0).BackColor = &H80FF80
+        End If
+    
+        If FrmMain.cVerTriggers.Value = False Then
+            FrmMain.LvBOpcion(1).BackColor = &H80000000
+        Else
+            FrmMain.LvBOpcion(1).BackColor = &H80FF80
+        End If
+        
+        If FrmMain.mnuVerCapa1.Checked = False Then
+            FrmMain.LvBOpcion(4).BackColor = &H80000000
+        Else
+            FrmMain.LvBOpcion(4).BackColor = &H80FF80
+        End If
+        
+        If FrmMain.mnuVerCapa2.Checked = False Then
+            FrmMain.LvBOpcion(5).BackColor = &H80000000
+        Else
+            FrmMain.LvBOpcion(5).BackColor = &H80FF80
+        End If
+    
+        If FrmMain.mnuVerCapa3.Checked = False Then
+            FrmMain.LvBOpcion(6).BackColor = &H80000000
+        Else
+            FrmMain.LvBOpcion(6).BackColor = &H80FF80
+        End If
+        
+        If FrmMain.mnuVerCapa4.Checked = False Then
+            FrmMain.LvBOpcion(7).BackColor = &H80000000
+        Else
+            FrmMain.LvBOpcion(7).BackColor = &H80FF80
+        End If
+    
+        If FrmMain.mnuVerObjetos.Checked = False Then
+            FrmMain.LvBOpcion(2).BackColor = &H80000000
+        Else
+            FrmMain.LvBOpcion(2).BackColor = &H80FF80
+        End If
+        
+        If FrmMain.mnuVerTriggers.Checked = False Then
+            FrmMain.LvBOpcion(3).BackColor = &H80000000
+        Else
+            FrmMain.LvBOpcion(3).BackColor = &H80FF80
+        End If
+    
     Exit Sub
 Fallo:
     MsgBox "ERROR " & Err.Number & " en WorldEditor.ini" & vbCrLf & Err.Description, vbCritical
@@ -588,7 +638,7 @@ Public Sub ToggleWalkMode()
 
         'MakeCharacter
         If LegalPos(UserPos.X, UserPos.y) Then
-            Call MakeChar(NextOpenChar(), 1, 1, south, UserPos.X, UserPos.y)
+            Call MakeChar(NextOpenChar(), 1, 1, SOUTH, UserPos.X, UserPos.y)
             UserCharIndex = MapData(UserPos.X, UserPos.y).CharIndex
             FrmMain.mnuModoCaminata.Checked = True
         Else
