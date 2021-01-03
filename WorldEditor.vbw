@@ -1,5 +1,5 @@
 FrmMain = 0, 0, 787, 901, , 359, 109, 1557, 772, C
-modGeneral = 52, 52, 1312, 593, Z
+modGeneral = 52, 52, 1312, 593, 
 modDeclaraciones = 78, 78, 1338, 619, C
 modDirectDraw = 200, 200, 1540, 677, 
 frmGrafico = 0, 0, 0, 0, C, 175, 175, 1373, 838, C
@@ -28,7 +28,7 @@ frmRenderer = 0, 0, 0, 0, C, 125, 125, 1323, 788, C
 modRenderer = 0, 0, 0, 0, C
 cDIBSection = 0, 0, 0, 0, C
 frmGRHaBMP = 208, 208, 1468, 749, C, 150, 150, 1348, 813, C
-clsDX8Engine = 27, 0, 776, 580, 
+clsDX8Engine = 27, 0, 776, 580, Z
 modDX8Requires = 0, 0, 0, 0, C
 clsTexManager = 182, 182, 1442, 723, C
 Module1 = 100, 100, 1298, 763, C
