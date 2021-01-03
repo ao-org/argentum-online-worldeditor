@@ -3,7 +3,6 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form FrmMain 
    Appearance      =   0  'Flat
-   BackColor       =   &H80000000&
    Caption         =   "TxtWav.Text = ""508-509"""
    ClientHeight    =   15015
    ClientLeft      =   465
@@ -870,7 +869,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5711,29 +5709,75 @@ Private Sub LvBOpcion_Click(Index As Integer)
         Case 0
             cVerBloqueos.Value = (cVerBloqueos.Value = False)
             mnuVerBloqueos.Checked = cVerBloqueos.Value
+            
+                If mnuVerBloqueos.Checked = False Then
+                    LvBOpcion(0).BackColor = &H80000000
+                Else
+                    LvBOpcion(0).BackColor = &H80FF80
+                End If
 
         Case 1
             mnuVerTranslados.Checked = (mnuVerTranslados.Checked = False)
+            
+                If mnuVerTranslados.Checked = False Then
+                    LvBOpcion(1).BackColor = &H80000000
+                Else
+                    LvBOpcion(1).BackColor = &H80FF80
+                End If
 
         Case 2
             mnuVerObjetos.Checked = (mnuVerObjetos.Checked = False)
+            
+                If mnuVerObjetos.Checked = False Then
+                    LvBOpcion(2).BackColor = &H80000000
+                Else
+                    LvBOpcion(2).BackColor = &H80FF80
+                End If
 
         Case 3
             cVerTriggers.Value = (cVerTriggers.Value = False)
             mnuVerTriggers.Checked = cVerTriggers.Value
+            
+                If mnuVerTriggers.Checked = False Then
+                    LvBOpcion(3).BackColor = &H80000000
+                Else
+                    LvBOpcion(3).BackColor = &H80FF80
+                End If
 
         Case 4
             mnuVerCapa1.Checked = (mnuVerCapa1.Checked = False)
+            
+                If mnuVerCapa1.Checked = False Then
+                    LvBOpcion(4).BackColor = &H80000000
+                Else
+                    LvBOpcion(4).BackColor = &H80FF80
+                End If
 
         Case 5
             mnuVerCapa2.Checked = (mnuVerCapa2.Checked = False)
-
+            
+                If mnuVerCapa2.Checked = False Then
+                    LvBOpcion(5).BackColor = &H80000000
+                Else
+                    LvBOpcion(5).BackColor = &H80FF80
+                End If
         Case 6
             mnuVerCapa3.Checked = (mnuVerCapa3.Checked = False)
-
+            
+                If mnuVerCapa3.Checked = False Then
+                    LvBOpcion(6).BackColor = &H80000000
+                Else
+                    LvBOpcion(6).BackColor = &H80FF80
+                End If
+                
         Case 7
             mnuVerCapa4.Checked = (mnuVerCapa4.Checked = False)
-
+            
+                If mnuVerCapa4.Checked = False Then
+                    LvBOpcion(7).BackColor = &H80000000
+                Else
+                    LvBOpcion(7).BackColor = &H80FF80
+                End If
         Case 8
             Call frmOptimizar.cOptimizar_Click
             'Norte
