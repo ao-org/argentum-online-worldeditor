@@ -102,6 +102,22 @@ Begin VB.Form FrmMain
       TabIndex        =   173
       Top             =   0
       Width           =   5775
+      Begin VB.TextBox txtCapaD 
+         Height          =   285
+         Left            =   3360
+         TabIndex        =   188
+         Text            =   "1"
+         Top             =   210
+         Width           =   495
+      End
+      Begin VB.TextBox txtCapaN 
+         Height          =   285
+         Left            =   2400
+         TabIndex        =   187
+         Text            =   "1"
+         Top             =   210
+         Width           =   495
+      End
       Begin VB.TextBox TxtGrh2 
          Height          =   285
          Left            =   4320
@@ -173,9 +189,9 @@ Begin VB.Form FrmMain
       Begin WorldEditor.lvButtons_H LvBOpcion 
          Height          =   375
          Index           =   21
-         Left            =   2280
+         Left            =   2400
          TabIndex        =   177
-         Top             =   480
+         Top             =   600
          Width           =   1815
          _ExtentX        =   3201
          _ExtentY        =   661
@@ -871,6 +887,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -1623,7 +1640,7 @@ Begin VB.Form FrmMain
       Index           =   0
       Left            =   6240
       TabIndex        =   35
-      Top             =   0
+      Top             =   30
       Width           =   900
       _ExtentX        =   1588
       _ExtentY        =   1826
@@ -5475,7 +5492,12 @@ Private Sub Remplazograficos()
 
     Dim y As Integer
     Dim X As Integer
-
+    Dim C As Integer
+    Dim D As Integer
+    
+    C = txtCapaN.Text
+    D = txtCapaD.Text
+    
     For y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
     
@@ -5488,12 +5510,12 @@ Private Sub Remplazograficos()
             ' End If
             '  End If
         
-            If MapData(X, y).Graphic(3).grhindex = txtGRH.Text Then
-                MapData(X, y).Graphic(3).grhindex = TxtGrh2.Text
+            If MapData(X, y).Graphic(C).grhindex = txtGRH.Text Then
+                MapData(X, y).Graphic(D).grhindex = TxtGrh2.Text
             
-                'InitGrh MapData(X, y).Graphic(2), 0
-                MapData(X, y).Graphic(2).grhindex = txtGRH.Text
-                InitGrh MapData(X, y).Graphic(2), TxtGrh2.Text
+'                'InitGrh MapData(X, y).Graphic(2), 0
+'                MapData(X, y).Graphic(2).grhindex = TxtGrh.Text
+'                InitGrh MapData(X, y).Graphic(2), TxtGrh2.Text
             
             End If
         
