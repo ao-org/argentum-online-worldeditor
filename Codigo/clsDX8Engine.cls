@@ -1365,13 +1365,6 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
           
                 End If
                 
-                'Layer 3 *****************************************
-                If .Graphic(3).grhindex <> 0 And VerCapa3 Then
-
-                    Call Draw_Grh(.Graphic(3), PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, , X, y)
-
-                End If
-                
                 'If MapData(X, Y).Graphic(7).grhindex <> 1 Then
                             
                 'Call Draw_Grh(MapData(X, Y).Graphic(7), _
@@ -1391,6 +1384,31 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     Next y
 
     ScreenY = minYOffset - 5
+    
+    
+    ScreenY = minYOffset - TileBufferSize
+
+    For y = miny To maxy
+        ScreenX = minXOffset - TileBufferSize
+
+        For X = minx To maxx
+            PixelOffsetXTemp = ScreenX * 32 + PixelOffsetX
+            PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
+    
+            'Layer 3 *****************************************
+            If MapData(X, y).Graphic(3).grhindex <> 0 And VerCapa3 Then
+                Call Draw_Grh(MapData(X, y).Graphic(3), PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, , X, y)
+
+            End If
+    
+            ScreenX = ScreenX + 1
+        Next X
+
+        ScreenY = ScreenY + 1
+    Next y
+
+    ScreenY = minYOffset - 5
+
     
     ScreenY = minYOffset - TileBufferSize
 
