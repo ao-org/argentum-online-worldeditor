@@ -161,7 +161,7 @@ Private Type tMapDat
     restrict_mode As String
     music_numberHi As Long
     music_numberLow As Long
-    seguro As Byte
+    Seguro As Byte
     zone As String
     terrain As String
     ambient As String
@@ -1022,19 +1022,46 @@ Sub CompletarForms()
     FrmMain.TxtMp3 = Mp3Music
     FrmMain.TxtWav = Ambiente
     FrmMain.ColorLuz = ColorAmb
-    FrmMain.check1.value = IIf((MapDat.lluvia = 1), 1, 0)
-    FrmMain.Check2.value = IIf((Nieba = 1), 1, 0)
+    FrmMain.Check1.Value = IIf((MapDat.lluvia = 1), 1, 0)
+    FrmMain.Check2.Value = IIf((Nieba = 1), 1, 0)
     FrmMain.niebla = IIf((nieblaV = 1), 1, 0)
     FrmMain.LuzMapa = ColorAmb
     FrmMain.txtnamemapa = MapDat.map_name
-    FrmMain.txtMapRestringir = MapDat.restrict_mode
+    
+    'FrmMain.txtMapRestringir = MapDat.restrict_mode
+
+    ' Si es un string, es porque usa el sistema viejo.
+    ' Lo pasamos al nuevo.
+    If Not IsNumeric(MapDat.restrict_mode) Then
+        ' El único que se usaba era "NEWBIE"
+        If UCase$(MapDat.restrict_mode) = "NEWBIE" Then
+            MapDat.restrict_mode = "1"
+        Else
+            MapDat.restrict_mode = "0"
+        End If
+    End If
+    
+    ' Usamos los flags
+    Dim Flags As Byte
+    Flags = Val(MapDat.restrict_mode)
+    
+    Dim i As Byte
+    For i = FrmMain.MapFlags.LBound To FrmMain.MapFlags.UBound
+        If (Flags And 2 ^ i) <> 0 Then
+            FrmMain.MapFlags(i).Value = vbChecked
+        Else
+            FrmMain.MapFlags(i).Value = vbUnchecked
+        End If
+    Next
+    
+    
     FrmMain.txtMapTerreno = MapDat.terrain
     FrmMain.txtMapZona = MapDat.zone
     'If MapDat.seguro = 1 Then
     ' MsgBox "Mapa seguro"
     ' End If
-    FrmMain.Check4.value = MapDat.seguro
-    FrmMain.Check5.value = MapDat.backup_mode
+    FrmMain.Seguro.Value = MapDat.Seguro
+    FrmMain.BackUp.Value = MapDat.backup_mode
     
     ' Dim Rojo As Byte, Verde As Byte, Azul As Byte &HFFFFFF
       
@@ -1054,13 +1081,13 @@ Sub CompletarForms()
         FrmMain.Picture3.BackColor = BackC
         FrmMain.LuzMapa.Text = Hex(ColorAmb)
         engine.Map_Base_Light_Set ColorAmb
-        FrmMain.Check3.value = 0
+        FrmMain.Check3.Value = 0
     Else
         'ColorAmb = &HFFFFFF
         FrmMain.LuzMapa = ColorAmb
         FrmMain.Picture3.BackColor = ColorAmb
         engine.Map_Base_Light_Set ColorAmb
-        FrmMain.Check3.value = 1
+        FrmMain.Check3.Value = 1
 
     End If
     
