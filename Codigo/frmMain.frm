@@ -846,7 +846,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5412,8 +5411,7 @@ Private Sub Remplazograficos()
     Dim c As Integer
     Dim D As Integer
     
-    c = txtCapaN.Text
-    D = txtCapaD.Text
+
     
     For y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
@@ -5427,14 +5425,14 @@ Private Sub Remplazograficos()
             ' End If
             '  End If
         
-            If MapData(X, y).Graphic(c).grhindex = txtGRH.Text Then
-                MapData(X, y).Graphic(D).grhindex = TxtGrh2.Text
+'            If MapData(X, y).Graphic(c).grhindex = txtGRH.Text Then
+'                MapData(X, y).Graphic(D).grhindex = TxtGrh2.Text
             
 '                'InitGrh MapData(X, y).Graphic(2), 0
 '                MapData(X, y).Graphic(2).grhindex = TxtGrh.Text
 '                InitGrh MapData(X, y).Graphic(2), TxtGrh2.Text
             
-            End If
+'            End If
         
             '        If MapData(X, y).Graphic(3).grhindex = 12445 Then
             '            MapData(X, y).Graphic(3).grhindex = 0
@@ -6805,17 +6803,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
-                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                picture1.Refresh
+                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(2, lListado(Index).Text, Asc("#"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
+                picture1.Refresh
             
-                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
