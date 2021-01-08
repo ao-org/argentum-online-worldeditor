@@ -59,6 +59,7 @@ Class=clsLight; Codigo\clsLight.cls
 Form=Codigo\frmActualizarIndices.frm
 Module=Logs; Codigo\Logs.bas
 Class=clsIniManager; Codigo\clsIniManager.cls
+Form=Codigo\frmRemplazo.frm
 IconForm="FrmMain"
 Startup="Sub Main"
 HelpFile=""
