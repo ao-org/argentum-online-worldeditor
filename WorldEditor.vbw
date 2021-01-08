@@ -51,3 +51,4 @@ clsLight = 0, 0, 0, 0, C
 frmActualizarIndices = 150, 150, 1348, 813, C, 25, 25, 1223, 688, C
 Logs = 175, 175, 1515, 626, C
 clsIniManager = 0, 0, 0, 0, C
+frmRemplazo = 0, 0, 0, 0, C, 0, 0, 1298, 460, C

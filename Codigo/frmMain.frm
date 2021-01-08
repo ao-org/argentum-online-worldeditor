@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form FrmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H80000000&
@@ -22,7 +22,7 @@ Begin VB.Form FrmMain
       Caption         =   "X"
       Height          =   255
       Left            =   2040
-      TabIndex        =   181
+      TabIndex        =   179
       Top             =   5040
       Visible         =   0   'False
       Width           =   255
@@ -33,7 +33,7 @@ Begin VB.Form FrmMain
       Height          =   255
       Index           =   2
       Left            =   2040
-      TabIndex        =   180
+      TabIndex        =   178
       Top             =   4680
       Value           =   1  'Checked
       Visible         =   0   'False
@@ -46,7 +46,7 @@ Begin VB.Form FrmMain
       Height          =   255
       Index           =   1
       Left            =   1440
-      TabIndex        =   179
+      TabIndex        =   177
       Top             =   5040
       Value           =   1  'Checked
       Visible         =   0   'False
@@ -58,7 +58,7 @@ Begin VB.Form FrmMain
       Height          =   255
       Index           =   0
       Left            =   2040
-      TabIndex        =   178
+      TabIndex        =   176
       Top             =   5400
       Value           =   1  'Checked
       Visible         =   0   'False
@@ -70,7 +70,7 @@ Begin VB.Form FrmMain
       Height          =   255
       Index           =   3
       Left            =   2400
-      TabIndex        =   177
+      TabIndex        =   175
       Top             =   5040
       Value           =   1  'Checked
       Visible         =   0   'False
@@ -80,7 +80,7 @@ Begin VB.Form FrmMain
       Caption         =   "Convertir bloqueos"
       Height          =   375
       Left            =   20280
-      TabIndex        =   176
+      TabIndex        =   174
       Top             =   1200
       Visible         =   0   'False
       Width           =   1575
@@ -93,38 +93,6 @@ Begin VB.Form FrmMain
       TabIndex        =   169
       Top             =   0
       Width           =   5775
-      Begin VB.TextBox txtCapaD 
-         Height          =   285
-         Left            =   3360
-         TabIndex        =   183
-         Text            =   "1"
-         Top             =   210
-         Width           =   495
-      End
-      Begin VB.TextBox txtCapaN 
-         Height          =   285
-         Left            =   2400
-         TabIndex        =   182
-         Text            =   "1"
-         Top             =   210
-         Width           =   495
-      End
-      Begin VB.TextBox TxtGrh2 
-         Height          =   285
-         Left            =   4320
-         TabIndex        =   175
-         Text            =   "1"
-         Top             =   720
-         Width           =   1215
-      End
-      Begin VB.TextBox TxtGrh 
-         Height          =   285
-         Left            =   4320
-         TabIndex        =   174
-         Text            =   "1"
-         Top             =   240
-         Width           =   1215
-      End
       Begin WorldEditor.lvButtons_H LvBOpcion 
          Height          =   375
          Index           =   18
@@ -878,6 +846,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -921,7 +890,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   4
          Left            =   120
-         TabIndex        =   188
+         TabIndex        =   184
          Top             =   6360
          Width           =   1815
       End
@@ -940,7 +909,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   3
          Left            =   1200
-         TabIndex        =   187
+         TabIndex        =   183
          Top             =   6120
          Width           =   855
       End
@@ -959,7 +928,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   2
          Left            =   1200
-         TabIndex        =   186
+         TabIndex        =   182
          Top             =   5880
          Width           =   825
       End
@@ -978,7 +947,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   0
          Left            =   120
-         TabIndex        =   185
+         TabIndex        =   181
          Top             =   5880
          Width           =   1095
       End
@@ -997,7 +966,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   1
          Left            =   120
-         TabIndex        =   184
+         TabIndex        =   180
          Top             =   6120
          Width           =   1095
       End
@@ -5458,7 +5427,7 @@ Private Sub Remplazograficos()
             ' End If
             '  End If
         
-            If MapData(X, y).Graphic(c).grhindex = TxtGrh.Text Then
+            If MapData(X, y).Graphic(c).grhindex = txtGRH.Text Then
                 MapData(X, y).Graphic(D).grhindex = TxtGrh2.Text
             
 '                'InitGrh MapData(X, y).Graphic(2), 0
@@ -5798,7 +5767,7 @@ Private Sub LvBOpcion_Click(Index As Integer)
             Call InsertarBloque
 
         Case 21
-            Call Remplazograficos
+            Call frmRemplazo.Show
         
     End Select
 
