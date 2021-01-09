@@ -176,6 +176,8 @@ Private Type tMapDat
 
 End Type
 
+Public LoadingMap As Boolean
+
 Private MapSize As tMapSize
 Public MapDat   As tMapDat
 
@@ -1017,6 +1019,8 @@ End Sub
 Sub CompletarForms()
 
     On Error Resume Next
+    
+    LoadingMap = True
 
     FrmMain.TxtMidi = MidiMusic
     FrmMain.TxtMp3 = Mp3Music
@@ -1090,6 +1094,8 @@ Sub CompletarForms()
         FrmMain.Check3.Value = 1
 
     End If
+    
+    LoadingMap = False
     
 End Sub
 
