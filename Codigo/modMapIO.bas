@@ -250,7 +250,7 @@ Public Sub NuevoMapa()
     Next y
 
     MapInfo.MapVersion = 0
-    MapInfo.name = "Nuevo Mapa"
+    MapInfo.Name = "Nuevo Mapa"
     MapInfo.Music = 0
     MapInfo.PK = True
     MapInfo.MagiaSinEfecto = 0
@@ -298,6 +298,7 @@ Public Sub MapaV2_Guardar(ByVal SaveAs As String)
 
     If FormatoIAO Then
         Save_Map_Data (SaveAs)
+        MapInfo.Changed = 0
         Exit Sub
 
     End If
@@ -868,16 +869,16 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     'FrmMain.lblMapVersion.Caption = MapInfo.MapVersion
 
     If Nieba Then
-        FrmMain.Check2.value = 1
+        FrmMain.Check2.Value = 1
     Else
-        FrmMain.Check2.value = 0
+        FrmMain.Check2.Value = 0
 
     End If
 
     If nieblaV Then
-        FrmMain.niebla.value = 1
+        FrmMain.niebla.Value = 1
     Else
-        FrmMain.niebla.value = 0
+        FrmMain.niebla.Value = 0
 
     End If
 
@@ -897,9 +898,9 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     FrmMain.TxtMp3.Text = Mp3Music
 
     If Llueve Then
-        FrmMain.check1.value = 1
+        FrmMain.check1.Value = 1
     Else
-        FrmMain.check1.value = 0
+        FrmMain.check1.Value = 0
 
     End If
 
@@ -950,7 +951,7 @@ Public Sub MapInfo_Guardar(ByVal Archivo As String)
 
     End If
 
-    Call WriteVar(Archivo, MapTitulo, "Name", MapInfo.name)
+    Call WriteVar(Archivo, MapTitulo, "Name", MapInfo.Name)
     Call WriteVar(Archivo, MapTitulo, "MusicNum", MapInfo.Music)
     Call WriteVar(Archivo, MapTitulo, "MagiaSinefecto", Val(MapInfo.MagiaSinEfecto))
     Call WriteVar(Archivo, MapTitulo, "InviSinEfecto", Val(MapInfo.InviSinEfecto))
@@ -1011,7 +1012,7 @@ Public Sub MapInfo_Cargar(ByVal Archivo As String)
     Archivo = Right(Archivo, Len(Archivo) - (Len(Path)))
     MapTitulo = UCase(Left(Archivo, Len(Archivo) - 4))
 
-    MapInfo.name = Leer.GetValue(MapTitulo, "Name")
+    MapInfo.Name = Leer.GetValue(MapTitulo, "Name")
     MapInfo.Music = Leer.GetValue(MapTitulo, "MusicNum")
     MapInfo.MagiaSinEfecto = Val(Leer.GetValue(MapTitulo, "MagiaSinEfecto"))
     MapInfo.InviSinEfecto = Val(Leer.GetValue(MapTitulo, "InviSinEfecto"))
@@ -1032,7 +1033,7 @@ Public Sub MapInfo_Cargar(ByVal Archivo As String)
     MapInfo.BackUp = Val(Leer.GetValue(MapTitulo, "BACKUP"))
     
     'FORMATO IAO
-    MapDat.map_name = MapInfo.name
+    MapDat.map_name = MapInfo.Name
     MapDat.backup_mode = MapInfo.BackUp
     MapDat.restrict_mode = MapInfo.Restringir
     MapDat.music_numberLow = MapInfo.Music
@@ -1058,17 +1059,17 @@ Public Sub MapInfo_Actualizar()
     On Error Resume Next
 
     ' Mostrar en Formularios
-    frmMapInfo.txtMapNombre.Text = MapInfo.name
+    frmMapInfo.txtMapNombre.Text = MapInfo.Name
     frmMapInfo.txtMapMusica.Text = MapInfo.Music
     frmMapInfo.txtMapTerreno.Text = MapInfo.Terreno
     frmMapInfo.txtMapZona.Text = MapInfo.Zona
  
-    frmMapInfo.chkMapBackup.value = MapInfo.BackUp
-    frmMapInfo.chkMapMagiaSinEfecto.value = MapInfo.MagiaSinEfecto
-    frmMapInfo.chkMapInviSinEfecto.value = MapInfo.InviSinEfecto
-    frmMapInfo.chkMapResuSinEfecto.value = MapInfo.ResuSinEfecto
-    frmMapInfo.chkMapNoEncriptarMP.value = MapInfo.NoEncriptarMP
-    frmMapInfo.chkMapPK.value = IIf(MapInfo.PK = True, 1, 0)
+    frmMapInfo.chkMapBackup.Value = MapInfo.BackUp
+    frmMapInfo.chkMapMagiaSinEfecto.Value = MapInfo.MagiaSinEfecto
+    frmMapInfo.chkMapInviSinEfecto.Value = MapInfo.InviSinEfecto
+    frmMapInfo.chkMapResuSinEfecto.Value = MapInfo.ResuSinEfecto
+    frmMapInfo.chkMapNoEncriptarMP.Value = MapInfo.NoEncriptarMP
+    frmMapInfo.chkMapPK.Value = IIf(MapInfo.PK = True, 1, 0)
     frmMapInfo.txtMapVersion = MapInfo.MapVersion
 
     If MapInfo.Light <> vbNullString Then
@@ -1078,7 +1079,7 @@ Public Sub MapInfo_Actualizar()
         frmMapInfo.Text1.Enabled = True
         frmMapInfo.lvButtons_H1.Enabled = True
         frmMapInfo.picture1.Enabled = True
-        frmMapInfo.check1.value = 0
+        frmMapInfo.check1.Value = 0
         frmMapInfo.Text1 = MapInfo.Light
         frmMapInfo.picture1.BackColor = frmMapInfo.Text1
     Else
@@ -1091,7 +1092,7 @@ Public Sub MapInfo_Actualizar()
         frmMapInfo.Text1 = &HFFFFFF
         frmMapInfo.lvButtons_H1.Enabled = False
         frmMapInfo.picture1.Enabled = False
-        frmMapInfo.check1.value = 1
+        frmMapInfo.check1.Value = 1
 
     End If
 

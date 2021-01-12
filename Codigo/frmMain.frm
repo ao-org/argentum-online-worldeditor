@@ -1,11 +1,11 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "richtx32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form FrmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H80000000&
    Caption         =   "TxtWav.Text = ""508-509"""
-   ClientHeight    =   15015
+   ClientHeight    =   14610
    ClientLeft      =   465
    ClientTop       =   855
    ClientWidth     =   24330
@@ -13,7 +13,7 @@ Begin VB.Form FrmMain
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    Picture         =   "frmMain.frx":628A
-   ScaleHeight     =   1001
+   ScaleHeight     =   974
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   1622
    StartUpPosition =   1  'CenterOwner
@@ -846,7 +846,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -4996,10 +4995,11 @@ Fallo:
 
 End Sub
 
-Private Sub Check1_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Check1_Click()
     
     On Error GoTo Check1_MouseUp_Err
     
+    If LoadingMap Then Exit Sub
 
     If MapDat.lluvia = 0 Then
 
@@ -5077,10 +5077,11 @@ Check2_MouseUp_Err:
     
 End Sub
 
-Private Sub Check3_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Check3_Click()
     
     On Error GoTo Check3_MouseUp_Err
     
+    If LoadingMap Then Exit Sub
 
     If ColorAmb <> 0 Then
         Picture3.Enabled = False
@@ -5149,6 +5150,8 @@ Private Sub Seguro_Click()
     
     On Error GoTo Check4_MouseUp_Err
     
+    If LoadingMap Then Exit Sub
+    
 
     If MapDat.Seguro = 1 Then
         MapDat.Seguro = 0
@@ -5158,6 +5161,8 @@ Private Sub Seguro_Click()
         Call AddtoRichTextBox(FrmMain.RichTextBox1, "Mapa seguro.", 255, 255, 255, False, True, False)
 
     End If
+    
+    MapInfo.Changed = 1
 
     
     Exit Sub
@@ -5172,6 +5177,8 @@ Private Sub BackUp_Click()
     
     On Error GoTo Check5_MouseUp_Err
     
+    If LoadingMap Then Exit Sub
+    
 
     If MapDat.backup_mode = 1 Then
         MapDat.backup_mode = 0
@@ -5181,6 +5188,8 @@ Private Sub BackUp_Click()
         Call AddtoRichTextBox(FrmMain.RichTextBox1, "Backup de mapa activado.", 255, 255, 255, False, True, False)
 
     End If
+    
+    MapInfo.Changed = 1
 
     
     Exit Sub
@@ -6808,17 +6817,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
-                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                picture1.Refresh
+                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(2, lListado(Index).Text, Asc("#"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
+                picture1.Refresh
             
-                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
@@ -9177,12 +9186,12 @@ Public Sub ObtenerNombreArchivo(ByVal Guardar As Boolean)
             .DialogTitle = "Guardar"
             .DefaultExt = ".txt"
             .FileName = vbNullString
-            .Flags = cdlOFNPathMustExist
+            .FLAGS = cdlOFNPathMustExist
             .ShowSave
         Else
             .DialogTitle = "Cargar"
             .FileName = vbNullString
-            .Flags = cdlOFNFileMustExist
+            .FLAGS = cdlOFNFileMustExist
             .ShowOpen
 
         End If

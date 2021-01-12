@@ -1026,7 +1026,7 @@ Sub CompletarForms()
     FrmMain.TxtMp3 = Mp3Music
     FrmMain.TxtWav = Ambiente
     FrmMain.ColorLuz = ColorAmb
-    FrmMain.Check1.Value = IIf((MapDat.lluvia = 1), 1, 0)
+    FrmMain.check1.Value = IIf((MapDat.lluvia = 1), 1, 0)
     FrmMain.Check2.Value = IIf((Nieba = 1), 1, 0)
     FrmMain.niebla = IIf((nieblaV = 1), 1, 0)
     FrmMain.LuzMapa = ColorAmb
@@ -1046,12 +1046,12 @@ Sub CompletarForms()
     End If
     
     ' Usamos los flags
-    Dim Flags As Byte
-    Flags = Val(MapDat.restrict_mode)
+    Dim FLAGS As Byte
+    FLAGS = Val(MapDat.restrict_mode)
     
     Dim i As Byte
     For i = FrmMain.MapFlags.LBound To FrmMain.MapFlags.UBound
-        If (Flags And 2 ^ i) <> 0 Then
+        If (FLAGS And 2 ^ i) <> 0 Then
             FrmMain.MapFlags(i).Value = vbChecked
         Else
             FrmMain.MapFlags(i).Value = vbUnchecked
