@@ -167,9 +167,9 @@ Private Type tMapDat
     ambient As String
     base_light As Long
     letter_grh As Long
-    extra1 As Long
+    level As Long
     extra2 As Long
-    extra3 As String
+    salida As String
     lluvia As Byte
     nieve As Byte
     niebla As Byte
@@ -1026,7 +1026,7 @@ Sub CompletarForms()
     FrmMain.TxtMp3 = Mp3Music
     FrmMain.TxtWav = Ambiente
     FrmMain.ColorLuz = ColorAmb
-    FrmMain.check1.Value = IIf((MapDat.lluvia = 1), 1, 0)
+    FrmMain.Check1.Value = IIf((MapDat.lluvia = 1), 1, 0)
     FrmMain.Check2.Value = IIf((Nieba = 1), 1, 0)
     FrmMain.niebla = IIf((nieblaV = 1), 1, 0)
     FrmMain.LuzMapa = ColorAmb
@@ -1092,9 +1092,23 @@ Sub CompletarForms()
         FrmMain.Picture3.BackColor = ColorAmb
         engine.Map_Base_Light_Set ColorAmb
         FrmMain.Check3.Value = 1
-
     End If
     
+    FrmMain.lvlMin.Text = MapDat.level And &HFF
+    FrmMain.lvlMax.Text = (MapDat.level And &HFF00) / &H100
+    
+    If LenB(MapDat.salida) <> 0 Then
+        Dim Fields() As String
+        Fields = Split(MapDat.salida, "-")
+        FrmMain.OutMap.Text = Val(Fields(0))
+        FrmMain.OutX.Text = Val(Fields(1))
+        FrmMain.OutY.Text = Val(Fields(2))
+    Else
+        FrmMain.OutMap.Text = "0"
+        FrmMain.OutX.Text = "0"
+        FrmMain.OutY.Text = "0"
+    End If
+
     LoadingMap = False
     
 End Sub
