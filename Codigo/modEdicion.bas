@@ -31,7 +31,7 @@ Option Explicit
 
 Public maskBloqueo As Byte
 
-Public Sub General_Var_Write(ByVal File As String, ByVal Main As String, ByVal var As String, ByVal value As String)
+Public Sub General_Var_Write(ByVal File As String, ByVal Main As String, ByVal var As String, ByVal Value As String)
     '*****************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 10/07/2002
@@ -40,7 +40,7 @@ Public Sub General_Var_Write(ByVal File As String, ByVal Main As String, ByVal v
     
     On Error GoTo General_Var_Write_Err
     
-    writeprivateprofilestring Main, var, value, File
+    writeprivateprofilestring Main, var, Value, File
 
     
     Exit Sub
@@ -375,12 +375,12 @@ Public Sub Superficie_Azar()
             X = RandomNumber(10, 90)
             y = RandomNumber(10, 90)
 
-            If frmConfigSup.MOSAICO.value = vbChecked Then
+            If frmConfigSup.MOSAICO.Value = vbChecked Then
                 Dim aux As Long
                 Dim dy  As Integer
                 Dim dX  As Integer
 
-                If frmConfigSup.DespMosaic.value = vbChecked Then
+                If frmConfigSup.DespMosaic.Value = vbChecked Then
                     dy = Val(frmConfigSup.DMLargo)
                     dX = Val(frmConfigSup.DMAncho.Text)
                 Else
@@ -392,7 +392,7 @@ Public Sub Superficie_Azar()
                 If FrmMain.mnuAutoCompletarSuperficies.Checked = False Then
                     aux = Val(FrmMain.cGrh.Text) + (((y + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((X + dX) Mod frmConfigSup.mAncho.Text)
 
-                    If FrmMain.cInsertarBloqueo.value = True Then
+                    If FrmMain.cInsertarBloqueo.Value = True Then
                         MapData(X, y).Blocked = &HF
                     Else
                         MapData(X, y).Blocked = 0
@@ -411,7 +411,7 @@ Public Sub Superficie_Azar()
                         For j = 1 To frmConfigSup.mAncho.Text
                             aux = Val(FrmMain.cGrh.Text) + desptile
                          
-                            If FrmMain.cInsertarBloqueo.value = True Then
+                            If FrmMain.cInsertarBloqueo.Value = True Then
                                 MapData(tXX, tYY).Blocked = &HF
                             Else
                                 MapData(tXX, tYY).Blocked = 0
@@ -470,11 +470,11 @@ Public Sub Superficie_Bordes()
 
             If X < MinXBorder Or X > MaxXBorder Or y < MinYBorder Or y > MaxYBorder Then
 
-                If frmConfigSup.MOSAICO.value = vbChecked Then
+                If frmConfigSup.MOSAICO.Value = vbChecked Then
                     Dim aux As Long
                     aux = Val(FrmMain.cGrh.Text) + ((y Mod frmConfigSup.mLargo) * frmConfigSup.mAncho) + (X Mod frmConfigSup.mAncho)
 
-                    If FrmMain.cInsertarBloqueo.value = True Then
+                    If FrmMain.cInsertarBloqueo.Value = True Then
                         MapData(X, y).Blocked = &HF
                     Else
                         MapData(X, y).Blocked = 0
@@ -487,7 +487,7 @@ Public Sub Superficie_Bordes()
                 Else
 
                     'Else Place graphic
-                    If FrmMain.cInsertarBloqueo.value = True Then
+                    If FrmMain.cInsertarBloqueo.Value = True Then
                         MapData(X, y).Blocked = &HF
                     Else
                         MapData(X, y).Blocked = 0
@@ -562,7 +562,7 @@ Public Sub Superficie_Todo()
     For y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
 
-            If frmConfigSup.MOSAICO.value = vbChecked Then
+            If frmConfigSup.MOSAICO.Value = vbChecked Then
                 Dim aux As Long
                 aux = Val(FrmMain.cGrh.Text) + ((y Mod frmConfigSup.mLargo) * frmConfigSup.mAncho) + (X Mod frmConfigSup.mAncho)
                 MapData(X, y).Graphic(Val(FrmMain.cCapas.Text)).grhindex = aux
@@ -1136,9 +1136,9 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         ' NPCs
         If MapData(tX, tY).NPCIndex > 0 Then
             If MapData(tX, tY).NPCIndex > 499 Then
-                FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (NPC-Hostil: " & MapData(tX, tY).NPCIndex & " - " & NpcData(MapData(tX, tY).NPCIndex).name & ")"
+                FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (NPC-Hostil: " & MapData(tX, tY).NPCIndex & " - " & NpcData(MapData(tX, tY).NPCIndex).Name & ")"
             Else
-                FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (NPC: " & MapData(tX, tY).NPCIndex & " - " & NpcData(MapData(tX, tY).NPCIndex).name & ")"
+                FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (NPC: " & MapData(tX, tY).NPCIndex & " - " & NpcData(MapData(tX, tY).NPCIndex).Name & ")"
 
             End If
 
@@ -1146,14 +1146,14 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         
         ' OBJs
         If MapData(tX, tY).OBJInfo.objindex > 0 Then
-            FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (Obj: " & MapData(tX, tY).OBJInfo.objindex & " - " & ObjData(MapData(tX, tY).OBJInfo.objindex).name & " - Cant.:" & MapData(tX, tY).OBJInfo.Amount & ")"
+            FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (Obj: " & MapData(tX, tY).OBJInfo.objindex & " - " & ObjData(MapData(tX, tY).OBJInfo.objindex).Name & " - Cant.:" & MapData(tX, tY).OBJInfo.Amount & ")"
 
         End If
         
         ' Capas
         FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & ENDL & "Capa1: " & MapData(tX, tY).Graphic(1).grhindex & " - Capa2: " & MapData(tX, tY).Graphic(2).grhindex & " - Capa3: " & MapData(tX, tY).Graphic(3).grhindex & " - Capa4: " & MapData(tX, tY).Graphic(4).grhindex
 
-        If FrmMain.mnuAutoCapturarSuperficie.Checked = True And FrmMain.cSeleccionarSuperficie.value = False Then
+        If FrmMain.mnuAutoCapturarSuperficie.Checked = True And FrmMain.cSeleccionarSuperficie.Value = False Then
             If MapData(tX, tY).Graphic(4).grhindex <> 0 Then
                 FrmMain.cCapas.Text = 4
                 FrmMain.cGrh.Text = MapData(tX, tY).Graphic(4).grhindex
@@ -1187,7 +1187,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
     If Button = vbLeftButton Then
             
         'Erase 2-3
-        If FrmMain.cQuitarEnTodasLasCapas.value = True Then
+        If FrmMain.cQuitarEnTodasLasCapas.Value = True Then
             modEdicion.Deshacer_Add "Quitar Todas las Capas (2/3)" ' Hago deshacer
             MapInfo.Changed = 1 'Set changed flag
 
@@ -1201,7 +1201,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         End If
     
         'Borrar "esta" Capa
-        If FrmMain.cQuitarEnEstaCapa.value = True Then
+        If FrmMain.cQuitarEnEstaCapa.Value = True Then
             If Val(FrmMain.cCapas.Text) = 1 Then
                 If MapData(tX, tY).Graphic(1).grhindex <> 1 Then
                     modEdicion.Deshacer_Add "Quitar Capa 1" ' Hago deshacer
@@ -1223,14 +1223,14 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         End If
     
         '************** Place grh
-        If FrmMain.cSeleccionarSuperficie.value = True Then
+        If FrmMain.cSeleccionarSuperficie.Value = True Then
             
-            If frmConfigSup.MOSAICO.value = vbChecked Then
+            If frmConfigSup.MOSAICO.Value = vbChecked Then
                 Dim aux As Long
                 Dim dy  As Integer
                 Dim dX  As Integer
 
-                If frmConfigSup.DespMosaic.value = vbChecked Then
+                If frmConfigSup.DespMosaic.Value = vbChecked Then
                     dy = Val(frmConfigSup.DMLargo)
                     dX = Val(frmConfigSup.DMAncho.Text)
                 Else
@@ -1244,7 +1244,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
                     MapInfo.Changed = 1 'Set changed flag
                     aux = Val(FrmMain.cGrh.Text) + (((tY + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((tX + dX) Mod frmConfigSup.mAncho.Text)
 
-                    If MapData(tX, tY).Graphic(Val(FrmMain.cCapas.Text)).grhindex <> aux Or MapData(tX, tY).Blocked <> FrmMain.SelectPanel(2).value Then
+                    If MapData(tX, tY).Graphic(Val(FrmMain.cCapas.Text)).grhindex <> aux Or MapData(tX, tY).Blocked <> FrmMain.SelectPanel(2).Value Then
                         MapData(tX, tY).Graphic(Val(FrmMain.cCapas.Text)).grhindex = aux
                         InitGrh MapData(tX, tY).Graphic(Val(FrmMain.cCapas.Text)), aux
 
@@ -1279,7 +1279,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
             Else
 
                 'Else Place graphic
-                If MapData(tX, tY).Blocked <> FrmMain.SelectPanel(2).value Or MapData(tX, tY).Graphic(Val(FrmMain.cCapas.Text)).grhindex <> Val(FrmMain.cGrh.Text) Then
+                If MapData(tX, tY).Blocked <> FrmMain.SelectPanel(2).Value Or MapData(tX, tY).Graphic(Val(FrmMain.cCapas.Text)).grhindex <> Val(FrmMain.cGrh.Text) Then
                     modEdicion.Deshacer_Add "Quitar Superficie en Capa " & FrmMain.cCapas.Text ' Hago deshacer
                     MapInfo.Changed = 1 'Set changed flag
                     MapData(tX, tY).Graphic(Val(FrmMain.cCapas.Text)).grhindex = Val(FrmMain.cGrh.Text)
@@ -1295,7 +1295,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         End If
 
         '************** Place blocked tile
-        If FrmMain.cInsertarBloqueo.value = True Then
+        If FrmMain.cInsertarBloqueo.Value = True Then
             If MapData(tX, tY).Blocked <> maskBloqueo Then
                 modEdicion.Deshacer_Add "Insertar Bloqueo" ' Hago deshacer
                 MapInfo.Changed = 1 'Set changed flag
@@ -1303,7 +1303,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
                 
             End If
 
-        ElseIf FrmMain.cQuitarBloqueo.value = True Then
+        ElseIf FrmMain.cQuitarBloqueo.Value = True Then
 
             If MapData(tX, tY).Blocked <> 0 Then
                 modEdicion.Deshacer_Add "Quitar Bloqueo" ' Hago deshacer
@@ -1315,8 +1315,8 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         End If
     
         '************** Place exit
-        If FrmMain.cInsertarTrans.value = True Then
-            If Cfg_TrOBJ > 0 And Cfg_TrOBJ <= NumOBJs And FrmMain.cInsertarTransOBJ.value = True Then
+        If FrmMain.cInsertarTrans.Value = True Then
+            If Cfg_TrOBJ > 0 And Cfg_TrOBJ <= NumOBJs And FrmMain.cInsertarTransOBJ.Value = True Then
                 If ObjData(Cfg_TrOBJ).ObjType = 19 Then
                     modEdicion.Deshacer_Add "Insertar Objeto de Translado" ' Hago deshacer
                     MapInfo.Changed = 1 'Set changed flag
@@ -1340,7 +1340,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
             End If
 
-            If FrmMain.cUnionManual.value = True Then
+            If FrmMain.cUnionManual.Value = True Then
                 modEdicion.Deshacer_Add "Insertar Translado de Union Manual' Hago deshacer"
                 MapInfo.Changed = 1 'Set changed flag
                 MapData(tX, tY).TileExit.Map = Val(FrmMain.tTMapa.Text)
@@ -1372,7 +1372,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
             End If
 
-        ElseIf FrmMain.cQuitarTrans.value = True Then
+        ElseIf FrmMain.cQuitarTrans.Value = True Then
             modEdicion.Deshacer_Add "Quitar Translado" ' Hago deshacer
             MapInfo.Changed = 1 'Set changed flag
             MapData(tX, tY).TileExit.Map = 0
@@ -1382,7 +1382,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         End If
     
         '************** Place NPC
-        If FrmMain.cInsertarFunc(0).value = True Then
+        If FrmMain.cInsertarFunc(0).Value = True Then
             If FrmMain.cNumFunc(0).Text > 0 Then
                 NPCIndex = FrmMain.cNumFunc(0).Text
 
@@ -1399,7 +1399,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
             End If
 
-        ElseIf FrmMain.cInsertarFunc(1).value = True Then
+        ElseIf FrmMain.cInsertarFunc(1).Value = True Then
 
             If FrmMain.cNumFunc(1).Text > 0 Then
                 NPCIndex = FrmMain.cNumFunc(1).Text
@@ -1417,7 +1417,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
             End If
 
-        ElseIf FrmMain.cQuitarFunc(0).value = True Or FrmMain.cQuitarFunc(1).value = True Then
+        ElseIf FrmMain.cQuitarFunc(0).Value = True Or FrmMain.cQuitarFunc(1).Value = True Then
 
             If MapData(tX, tY).NPCIndex > 0 Then
                 modEdicion.Deshacer_Add "Quitar NPC" ' Hago deshacer
@@ -1434,7 +1434,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         End If
     
         ' ***************** Control de Funcion de Objetos *****************
-        If FrmMain.cInsertarFunc(2).value = True Then ' Insertar Objeto
+        If FrmMain.cInsertarFunc(2).Value = True Then ' Insertar Objeto
             If FrmMain.cNumFunc(2).Text > 0 Then
                 objindex = FrmMain.cNumFunc(2).Text
 
@@ -1457,7 +1457,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
             End If
 
-        ElseIf FrmMain.cQuitarFunc(2).value = True Then ' Quitar Objeto
+        ElseIf FrmMain.cQuitarFunc(2).Value = True Then ' Quitar Objeto
 
             If MapData(tX, tY).OBJInfo.objindex <> 0 Or MapData(tX, tY).OBJInfo.Amount <> 0 Then
                 modEdicion.Deshacer_Add "Quitar Objeto" ' Hago deshacer
@@ -1474,7 +1474,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         End If
         
         ' ***************** Control de Funcion de Triggers *****************
-        If FrmMain.cInsertarTrigger.value = True Then ' Insertar Trigger
+        If FrmMain.cInsertarTrigger.Value = True Then ' Insertar Trigger
             If TriggerBox < 10 Then
                 TriggerBox = FrmMain.lListado(4).ListIndex
 
@@ -1487,7 +1487,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
             End If
 
-        ElseIf FrmMain.cQuitarTrigger.value = True Then ' Quitar Trigger
+        ElseIf FrmMain.cQuitarTrigger.Value = True Then ' Quitar Trigger
 
             If MapData(tX, tY).Trigger <> 0 Then
                 modEdicion.Deshacer_Add "Quitar Trigger" ' Hago deshacer
@@ -1499,19 +1499,24 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         End If
         
         'Ladder
-        If FrmMain.insertarParticula.value = True Then
-            General_Particle_Create CLng(FrmMain.ListaParticulas.ListIndex + 1), tX, tY
-            MapData(tX, tY).particle_Index = CLng(FrmMain.ListaParticulas.ListIndex + 1)
+        If FrmMain.insertarParticula.Value = True Then
+        Dim particulaindex As Integer
+        
+        particulaindex = ReadField(2, FrmMain.ListaParticulas.List(FrmMain.ListaParticulas.ListIndex), Asc("#"))
+        
+            General_Particle_Create CLng(particulaindex), tX, tY
+            
+            MapData(tX, tY).particle_Index = CLng(particulaindex)
 
         End If
         
-        If FrmMain.quitarparticula.value = True Then
+        If FrmMain.quitarparticula.Value = True Then
             MapData(tX, tY).particle_group = 0
             MapData(tX, tY).particle_Index = 0
 
         End If
         
-        If FrmMain.insertarLuz.value = True Then
+        If FrmMain.insertarLuz.Value = True Then
             MapData(tX, tY).luz.Rango = FrmMain.RangoLuz
             MapData(tX, tY).luz.color = CLng(FrmMain.ColorLuz)
             
@@ -1530,7 +1535,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
     
         End If
         
-        If FrmMain.QuitarLuz.value = True Then
+        If FrmMain.QuitarLuz.Value = True Then
         
             Dim rangoS As Byte
         
