@@ -6,8 +6,8 @@ Begin VB.Form FrmMain
    BackColor       =   &H80000000&
    Caption         =   "TxtWav.Text = ""508-509"""
    ClientHeight    =   14610
-   ClientLeft      =   465
-   ClientTop       =   855
+   ClientLeft      =   2085
+   ClientTop       =   750
    ClientWidth     =   24330
    Icon            =   "frmMain.frx":0000
    KeyPreview      =   -1  'True
@@ -16,7 +16,6 @@ Begin VB.Form FrmMain
    ScaleHeight     =   974
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   1622
-   StartUpPosition =   1  'CenterOwner
    Visible         =   0   'False
    Begin VB.PictureBox renderer 
       Appearance      =   0  'Flat
@@ -169,6 +168,32 @@ Begin VB.Form FrmMain
          _ExtentX        =   3201
          _ExtentY        =   661
          Caption         =   "Remplazo Grh"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Tahoma"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
+      End
+      Begin WorldEditor.lvButtons_H LvBOpcion 
+         Height          =   375
+         Index           =   22
+         Left            =   2400
+         TabIndex        =   193
+         Top             =   240
+         Width           =   3255
+         _ExtentX        =   5741
+         _ExtentY        =   661
+         Caption         =   "Limpiar Luz,Particula,Trigger's"
          CapAlign        =   2
          BackStyle       =   2
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -860,6 +885,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5928,7 +5954,10 @@ Private Sub LvBOpcion_Click(Index As Integer)
 
         Case 21
             Call frmRemplazo.Show
-        
+        Case 22
+            Call Todas_las_Particulas_Click
+            Call Todas_las_luces_Click
+            Call mnuQuitarTriggers_Click
     End Select
 
     
@@ -6969,17 +6998,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
-                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                picture1.Refresh
+                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(2, lListado(Index).Text, Asc("#"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
+                picture1.Refresh
             
-                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
