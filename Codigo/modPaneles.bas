@@ -245,7 +245,7 @@ Public Sub VerFuncion(ByVal Numero As Byte, ByVal Ver As Boolean, Optional Norma
             FrmMain.numerodeparticula.Visible = Ver
             FrmMain.quitarparticula.Visible = Ver
             FrmMain.ListaParticulas.Visible = Ver
-            mnuVerParticulas.Checked = True
+            FrmMain.mnuVerParticulas.Checked = True
     
         Case 8 ' Luces
             FrmMain.Label8.Visible = Ver
@@ -253,7 +253,7 @@ Public Sub VerFuncion(ByVal Numero As Byte, ByVal Ver As Boolean, Optional Norma
             FrmMain.RangoLuz.Visible = Ver
             FrmMain.QuitarLuz.Visible = Ver
             FrmMain.LuzColor.Visible = Ver
-            mnuVerLuces.Checked = True
+            FrmMain.mnuVerLuces.Checked = True
 
     End Select
 
