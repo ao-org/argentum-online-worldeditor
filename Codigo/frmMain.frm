@@ -885,7 +885,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -3647,7 +3646,7 @@ Begin VB.Form FrmMain
       Index           =   7
       Left            =   12000
       TabIndex        =   89
-      Top             =   30
+      Top             =   0
       Width           =   900
       _ExtentX        =   1588
       _ExtentY        =   1826
@@ -6921,6 +6920,10 @@ Private Sub insertarParticula_Click()
     On Error GoTo insertarParticula_Click_Err
     
 
+    'Call modEdicion.Deshacer_Add("Insertar Particula")
+    
+    modEdicion.Deshacer_Add "Insertar Particula" ' Hago deshacer
+    
     If insertarParticula.Value = True Then
         quitarparticula.Enabled = False
     Else
@@ -9273,6 +9276,7 @@ Public Sub SelectPanel_Click(Index As Integer)
     Next
 
     If mnuAutoQuitarFunciones.Checked = True Then Call mnuQuitarFunciones_Click
+
     Call VerFuncion(Index, SelectPanel(Index).Value)
 
     

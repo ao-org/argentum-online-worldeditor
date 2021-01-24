@@ -227,7 +227,7 @@ End Type
 
 Type SupData
 
-    name As String
+    Name As String
     Grh As Long
     Width As Byte
     Height As Byte
@@ -241,7 +241,7 @@ Public SupData() As SupData
 
 Public Type NpcData
 
-    name As String
+    Name As String
     Body As Integer
     Head As Integer
     Heading As Byte
@@ -254,7 +254,7 @@ Public NpcData() As NpcData
 
 Public Type ObjData
 
-    name As String 'Nombre del obj
+    Name As String 'Nombre del obj
     ObjType As Integer 'Tipo enum que determina cuales son las caract del obj
     grhindex As Long ' Indice del grafico que representa el obj
     GrhSecundario As Integer
@@ -282,7 +282,7 @@ Public dLastWalk   As Double
 Public Type MapInfo
 
     Music As String
-    name As String
+    Name As String
     MapVersion As Integer
     PK As Boolean
     MagiaSinEfecto As Byte
@@ -437,7 +437,7 @@ Public MaxYBorder                                                               
 Public Const MAX_INVENORY_OBJS                                                                    As Integer = 10000
 
 ' Deshacer
-Public Const maxDeshacer                                                                          As Integer = 10
+Public Const maxDeshacer                                                                          As Integer = 30
 Public MapData_Deshacer(1 To maxDeshacer, XMinMapSize To XMaxMapSize, YMinMapSize To YMaxMapSize) As MapBlock
 
 Type tDeshacerInfo
@@ -569,7 +569,7 @@ End Type
 
 Public Type Stream
 
-    name As String
+    Name As String
     NumOfParticles As Long
     NumGrhs As Long
     id As Long
