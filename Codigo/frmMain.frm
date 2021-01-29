@@ -885,6 +885,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -4709,6 +4710,11 @@ Private Sub abrirmapn_Click()
     Mapa = Val(InputBox("Ingrese el numero de mapa qe desea abrir."))
 
     If Mapa <> 0 Then
+        If MapInfo.Changed = 1 Then
+            If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
+                modMapIO.GuardarMapa Dialog.FileName
+            End If
+        End If
 
         Dialog.FileName = PATH_Save & NameMap_Save & Mapa & ".csm"
 
