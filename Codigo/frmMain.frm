@@ -885,7 +885,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5903,8 +5902,9 @@ Private Sub LvBOpcion_Click(Index As Integer)
             Form2.Command5_Click
             
         Case 9
+            Call frmOptimizar.cOptimizar_Click
             frmUnionAdyacente.Show
-
+    
         Case 10
             Form2.Show , FrmMain
 
