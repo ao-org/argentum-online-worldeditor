@@ -885,6 +885,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -7110,11 +7111,11 @@ Private Sub MapPest_Click(Index As Integer)
     If Index = 5 And Timer4.Enabled = True Then
 
         Dim arch As String
-        arch = "C:\MiniMap\translados.ini"
-        Call WriteVar(arch, MapPest(4).Caption, "Abajo", CLng(MapData(50, 94).TileExit.Map))
-        Call WriteVar(arch, MapPest(4).Caption, "Arriba", CLng(MapData(50, 7).TileExit.Map))
-        Call WriteVar(arch, MapPest(4).Caption, "Izquierda", CLng(MapData(9, 50).TileExit.Map))
-        Call WriteVar(arch, MapPest(4).Caption, "Derecha", CLng(MapData(92, 50).TileExit.Map))
+        arch = App.Path & "\..\Recursos\MiniMap\translados.ini"
+        Call WriteVar(arch, MapPest(4).Caption, "Abajo", CLng(MapData(50, 91).TileExit.Map))
+        Call WriteVar(arch, MapPest(4).Caption, "Arriba", CLng(MapData(50, 10).TileExit.Map))
+        Call WriteVar(arch, MapPest(4).Caption, "Izquierda", CLng(MapData(13, 50).TileExit.Map))
+        Call WriteVar(arch, MapPest(4).Caption, "Derecha", CLng(MapData(88, 50).TileExit.Map))
     
         SavePicture MiniMapas2.image, App.Path & "\recursos\minimapas\" & MapPest(4).Caption & ".png"
 

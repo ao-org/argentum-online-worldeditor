@@ -165,7 +165,7 @@ Public Sub Command1_Click()
     
     On Error GoTo Command1_Click_Err
     
-    Call VerMapaTraslado
+    'Call VerMapaTraslado
 
     SeleccionIX = 1
     SeleccionFX = 100
@@ -432,12 +432,11 @@ Private Sub VerMapaTraslado()
     'Izquierda
     X = 13
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For y = (11) To (90)
 
         If MapData(X, y).TileExit.Map > 0 Then
             lblMapaOeste.Caption = MapData(X, y).TileExit.Map
             Exit For
-
         End If
 
     Next
@@ -445,12 +444,11 @@ Private Sub VerMapaTraslado()
     'arriba
     y = 10
 
-    For X = (MinXBorder + 1) To (MaxXBorder - 1)
+    For X = (14) To (87)
 
         If MapData(X, y).TileExit.Map > 0 Then
             lblMapaNorte.Caption = MapData(X, y).TileExit.Map
             Exit For
-
         End If
 
     Next
@@ -458,12 +456,11 @@ Private Sub VerMapaTraslado()
     'Derecha
     X = 88
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For y = (11) To (90)
 
         If MapData(X, y).TileExit.Map > 0 Then
             lblMapaEste.Caption = MapData(X, y).TileExit.Map
             Exit For
-
         End If
 
     Next
@@ -471,12 +468,11 @@ Private Sub VerMapaTraslado()
     'Abajo
     y = 91
 
-    For X = (MinXBorder + 1) To (MaxXBorder - 1)
+    For X = (14) To (87)
 
         If MapData(X, y).TileExit.Map > 0 Then
             lblMapaSur.Caption = MapData(X, y).TileExit.Map
             Exit For
-
         End If
 
     Next
@@ -497,11 +493,8 @@ Private Sub Form_Load()
     Call VerMapaTraslado
 
     If lblMapaSur.Caption = "Sur" Then Form2.Command4.Visible = False
-
     If lblMapaEste.Caption = "Este" Then Form2.Command3.Visible = False
-
     If lblMapaOeste.Caption = "Oeste" Then Form2.Command2.Visible = False
-
     If lblMapaOeste.Caption = "Norte" Then Form2.Command1.Visible = False
 
     
