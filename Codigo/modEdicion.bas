@@ -309,26 +309,38 @@ Public Sub Bloquear_Bordes()
     Next y
 
     ' Bloqueo las 4 esquinitas ReyarB
-    MapData(13, 10).Blocked = &HF
-    MapData(13, 91).Blocked = &HF
-    MapData(88, 10).Blocked = &HF
-    MapData(88, 91).Blocked = &HF
+    If MapData(13, 10).TileExit.Map = 0 Then
+       MapData(13, 10).Blocked = &HF
+    End If
     
-    MapData(13, 10).TileExit.Map = 0
-    MapData(13, 10).TileExit.X = 0
-    MapData(13, 10).TileExit.y = 0
+    If MapData(13, 91).TileExit.Map = 0 Then
+        MapData(13, 91).Blocked = &HF
+    End If
     
-    MapData(13, 91).TileExit.Map = 0
-    MapData(13, 91).TileExit.X = 0
-    MapData(13, 91).TileExit.y = 0
+    If MapData(88, 10).TileExit.Map = 0 Then
+        MapData(88, 10).Blocked = &HF
+    End If
     
-    MapData(88, 10).TileExit.Map = 0
-    MapData(88, 10).TileExit.X = 0
-    MapData(8, 10).TileExit.y = 0
-
-    MapData(88, 91).TileExit.Map = 0
-    MapData(88, 91).TileExit.X = 0
-    MapData(88, 91).TileExit.y = 0
+    If MapData(88, 91).TileExit.Map = 0 Then
+        MapData(88, 91).Blocked = &HF
+    End If
+    
+    
+'    MapData(13, 10).TileExit.Map = 0
+'    MapData(13, 10).TileExit.X = 0
+'    MapData(13, 10).TileExit.y = 0
+'
+'    MapData(13, 91).TileExit.Map = 0
+'    MapData(13, 91).TileExit.X = 0
+'    MapData(13, 91).TileExit.y = 0
+'
+'    MapData(88, 10).TileExit.Map = 0
+'    MapData(88, 10).TileExit.X = 0
+'    MapData(8, 10).TileExit.y = 0
+'
+'    MapData(88, 91).TileExit.Map = 0
+'    MapData(88, 91).TileExit.X = 0
+'    MapData(88, 91).TileExit.y = 0
 
     Call DibujarMiniMapa
 
