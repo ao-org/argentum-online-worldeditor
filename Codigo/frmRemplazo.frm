@@ -274,7 +274,7 @@ Begin VB.Form frmRemplazo
       Top             =   240
       Width           =   4335
       Begin VB.OptionButton OptTodoEl 
-         Caption         =   "Todo el Mundo"
+         Caption         =   "Mismo Grafico"
          Height          =   255
          Index           =   0
          Left            =   2400
@@ -283,7 +283,7 @@ Begin VB.Form frmRemplazo
          Width           =   1575
       End
       Begin VB.OptionButton OptEsteMapa 
-         Caption         =   "Este mapa"
+         Caption         =   "Otro Grafico"
          Height          =   255
          Index           =   0
          Left            =   2400
@@ -536,7 +536,7 @@ Private Sub LvBDeshacer_Click(Index As Integer)
                    End If
                 Next X
             Next y
-            
+            MapInfo.Changed = 1
         Case 3
             O = txt(7).Text
             D = txt(5).Text
@@ -552,6 +552,33 @@ Private Sub LvBDeshacer_Click(Index As Integer)
                    End If
                 Next X
             Next y
-        
+            MapInfo.Changed = 1
         End Select
+End Sub
+
+Private Sub OptEsteMapa_Click(Index As Integer)
+    
+    If OptEsteMapa(0).Value = True Then
+'        txt(0).Visible = True
+'        lblX(0).Visible = True
+    End If
+
+End Sub
+
+Private Sub OptTodoEl_Click(Index As Integer)
+
+    If OptTodoEl(0).Value = True Then
+        txt(0).Text = txt(3).Text
+'        txt(0).Visible = False
+'        lblX(0).Visible = False
+      Else
+'        txt(0).Visible = True
+'        lblX(0).Visible = True
+    End If
+
+End Sub
+
+Private Sub txt_Change(Index As Integer)
+     If OptTodoEl(0).Value = True Then txt(0).Text = txt(3).Text
+
 End Sub
