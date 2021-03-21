@@ -102,7 +102,6 @@ Private Sub cmdAceptar_Click()
     On Error GoTo cmdAceptar_Click_Err
     
     Call engine.MapCapture(False, False)
-
     
     Exit Sub
 
@@ -151,9 +150,11 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
     
     ' Copia esa área al picturebox
     If ToWorldMap2 Then
-        Call BitBlt(Destino.hdc, 0 - 50, 0 - 50, Ancho - 50, Alto - 50, hdc, 0, 0, vbSrcCopy)
+        Call BitBlt(Destino.hdc, 0 - 50, 0 - 50, Ancho - 50, Alto - 50, hdc, 0, 0, vbSrcCopy) '
+        Call BitBlt(Destino.hdc, 0, 0, Ancho, Alto, hdc, 0, 0, vbSrcCopy)
     Else
         Call BitBlt(Destino.hdc, 0, 0, 3000, 3000, hdc, 0, 0, vbSrcCopy)
+        
 
     End If
     

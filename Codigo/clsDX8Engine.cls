@@ -1078,7 +1078,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 8/14/2007
-    'Last modified by: Juan Martín Sotuyo Dodero (Maraxus)
+    'Last modified by: Juan Martín Sotuyo Dodero (Maraxus) ver ReyarB
     'Renders everything to the viewport
     '**************************************************************
     
@@ -1137,7 +1137,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     
     If maxx > XMaxMapSize Then maxx = XMaxMapSize
     
-    'If we can, we render around the view area to make it smoother
+    'If we can, we render around the view area to make it smoother ver ReyarB
     If screenminY > YMinMapSize Then
         screenminY = screenminY - 1
     Else
@@ -3993,8 +3993,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
     Else
     
         'Draw floor layer
-        For y = 1 To 100
-            For X = 1 To 100
+        For y = 11 To 90
+            For X = 14 To 87
             
                 'Layer 1 **********************************
                 If MapData(X, y).Graphic(1).grhindex <> 0 Then
@@ -4008,8 +4008,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         Next y
         
         'Draw floor layer 2
-        For y = 1 To 100
-            For X = 1 To 100
+        For y = 11 To 90
+            For X = 14 To 87
             
                 'Layer 2 **********************************
                 If (MapData(X, y).Graphic(2).grhindex <> 0) And VerCapa2 Then
@@ -4022,8 +4022,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         Next y
     
         'Draw Transparent Layers
-        For y = 1 To 100
-            For X = 1 To 100
+        For y = 11 To 90
+            For X = 14 To 87
                     
                 PixelOffsetXTemp = (X - 1) * 32 + TilePixelWidth
                 PixelOffsetYTemp = (y - 1) * 32 + TilePixelHeight
@@ -4052,8 +4052,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         Next y
         
         'Draw layer 4
-        For y = 1 To 100
-            For X = 1 To 100
+        For y = 11 To 90
+            For X = 14 To 87
 
                 With MapData(X, y)
                 
@@ -4073,8 +4073,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         Next y
     
         'Draw trans, bloqs, triggers and select tiles
-        For y = 1 To 100
-            For X = 1 To 100
+        For y = 11 To 90
+            For X = 14 To 87
 
                 With MapData(X, y)
                     PixelOffsetXTemp = (X - 1) * 32 + TilePixelWidth

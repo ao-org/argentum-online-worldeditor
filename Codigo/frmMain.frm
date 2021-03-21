@@ -9091,8 +9091,9 @@ Private Sub render_mapa_Click()
     
     On Error GoTo render_mapa_Click_Err
     
-    Radio = Val(InputBox("Escriba la escala de 1 a 5 en la que generemos su mapa", "la escala se multiplica x 32"))
-
+    'Radio = Val(InputBox("Escriba la escala de 1 a 5 en la que generemos su mapa", "la escala se multiplica x 32"))
+    Radio = 1
+    
     If Radio = 0 Then Radio = 1
     If Radio >= 5 Then Radio = 5
 

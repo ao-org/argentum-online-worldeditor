@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin VB.Form frmRemplazo 
    Caption         =   "Remplazo de graficos"
-   ClientHeight    =   3945
+   ClientHeight    =   2025
    ClientLeft      =   9360
    ClientTop       =   6195
-   ClientWidth     =   8985
+   ClientWidth     =   4575
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -15,8 +15,8 @@ Begin VB.Form frmRemplazo
       Strikethrough   =   0   'False
    EndProperty
    LinkTopic       =   "Form4"
-   ScaleHeight     =   3945
-   ScaleWidth      =   8985
+   ScaleHeight     =   2025
+   ScaleWidth      =   4575
    ShowInTaskbar   =   0   'False
    Begin VB.CommandButton cmdSalir 
       Caption         =   "Salir"
@@ -269,9 +269,9 @@ Begin VB.Form frmRemplazo
       Caption         =   "Grafico"
       Height          =   1695
       Index           =   0
-      Left            =   240
+      Left            =   120
       TabIndex        =   0
-      Top             =   240
+      Top             =   120
       Width           =   4335
       Begin VB.OptionButton OptTodoEl 
          Caption         =   "Mismo Grafico"
