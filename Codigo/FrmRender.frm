@@ -16,23 +16,6 @@ Begin VB.Form FrmRender
    ScaleWidth      =   1338
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
-   Begin VB.CommandButton cmd300x300 
-      Caption         =   "Minimapa de 1000 x 1000"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   360
-      Left            =   8640
-      TabIndex        =   3
-      Top             =   120
-      Width           =   6210
-   End
    Begin VB.PictureBox picMap 
       Appearance      =   0  'Flat
       AutoRedraw      =   -1  'True
@@ -114,11 +97,6 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, ByVal X As L
 ' Recupera la imagen del área del control
 Private Declare Function GetWindowDC Lib "user32" (ByVal hWnd As Long) As Long
 
-Private Sub cmd300x300_Click()
-
-    Call engine.MapCapture(True, True)
-
-End Sub
 
 Private Sub cmdAceptar_Click()
     
