@@ -3857,14 +3857,14 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
     With RE
         .Left = 0
         .Top = 0
-        .Bottom = 3200
-        .Right = 3200
+        .Bottom = 3200 'ver ReyarB 3200
+        .Right = 3200 'ver ReyarB 3200
 
     End With
     
     Dim viewport As D3DVIEWPORT8
-    viewport.Width = 3200
-    viewport.Height = 3200
+    viewport.Width = 3200 'ver ReyarB 3200
+    viewport.Height = 3200 'ver ReyarB 3200
     viewport.MinZ = 1
     viewport.MaxZ = -1
     D3DDevice.SetViewport viewport
@@ -3875,8 +3875,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
     
     If ToWorldMapJPG Then
     
-        For y = 10 To 91
-            For X = 10 To 91
+        For y = 1 To 100
+            For X = 1 To 100
             
                 'Layer 1 **********************************
                 If MapData(X, y).Graphic(1).grhindex <> 0 Then
@@ -3890,8 +3890,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         Next y
         
         'Draw floor layer 2
-        For y = 10 To 91
-            For X = 10 To 91
+        For y = 1 To 100
+            For X = 1 To 100
             
                 'Layer 2 **********************************
                 If (MapData(X, y).Graphic(2).grhindex <> 0) And VerCapa2 Then
@@ -3905,8 +3905,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         Next y
     
         'Draw Transparent Layers
-        For y = 10 To 91
-            For X = 10 To 91
+        For y = 1 To 100
+            For X = 1 To 100
                     
                 PixelOffsetXTemp = (X - 1) * 32 + TilePixelWidth
                 PixelOffsetYTemp = (y - 1) * 32 + TilePixelHeight
@@ -3935,8 +3935,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         Next y
         
         'Draw layer 4
-        For y = 10 To 91
-            For X = 10 To 91
+        For y = 1 To 100
+            For X = 1 To 100
 
                 With MapData(X, y)
                 
@@ -3956,8 +3956,8 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
         Next y
     
         'Draw trans, bloqs, triggers and select tiles
-        For y = 10 To 91
-            For X = 10 To 91
+        For y = 1 To 100
+            For X = 1 To 100
 
                 With MapData(X, y)
                     PixelOffsetXTemp = (X - 1) * 32 + TilePixelWidth
