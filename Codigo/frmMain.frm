@@ -9091,14 +9091,14 @@ Private Sub render_mapa_Click()
     
     On Error GoTo render_mapa_Click_Err
     
-    'Radio = Val(InputBox("Escriba la escala de 1 a 5 en la que generemos su mapa", "la escala se multiplica x 32"))
+    'Radio = Val(InputBox("Escriba la escala de 1 a 5 en la que generemos su mapa", "la escala se multiplica x 32")) 'ver ReyarB
     Radio = 1
     
     If Radio = 0 Then Radio = 1
     If Radio >= 5 Then Radio = 5
 
-    FrmRender.picMap.Width = (Radio * 1000)
-    FrmRender.picMap.Height = (Radio * 1000)
+    FrmRender.picMap.Width = 800 '(Radio * 1000) ' ver ReyarB 1000
+    FrmRender.picMap.Height = 800 '(Radio * 1000) ' ver ReyarB 1000
 
     FrmRender.Show
 

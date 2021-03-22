@@ -16,6 +16,23 @@ Begin VB.Form FrmRender
    ScaleWidth      =   1338
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
+   Begin VB.CommandButton cmd300x300 
+      Caption         =   "Minimapa de 1000 x 1000"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   360
+      Left            =   8640
+      TabIndex        =   3
+      Top             =   120
+      Width           =   6210
+   End
    Begin VB.PictureBox picMap 
       Appearance      =   0  'Flat
       AutoRedraw      =   -1  'True
@@ -97,6 +114,12 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, ByVal X As L
 ' Recupera la imagen del área del control
 Private Declare Function GetWindowDC Lib "user32" (ByVal hWnd As Long) As Long
 
+Private Sub cmd300x300_Click()
+
+    Call engine.MapCapture(True, True)
+
+End Sub
+
 Private Sub cmdAceptar_Click()
     
     On Error GoTo cmdAceptar_Click_Err
@@ -150,7 +173,7 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
     
     ' Copia esa área al picturebox
     If ToWorldMap2 Then
-        Call BitBlt(Destino.hdc, 0 - 50, 0 - 50, Ancho - 50, Alto - 50, hdc, 0, 0, vbSrcCopy) '
+        'Call BitBlt(Destino.hdc, 0 - 50, 0 - 50, Ancho - 50, Alto - 50, hdc, 0, 0, vbSrcCopy) '
         Call BitBlt(Destino.hdc, 0, 0, Ancho, Alto, hdc, 0, 0, vbSrcCopy)
     Else
         Call BitBlt(Destino.hdc, 0, 0, 3000, 3000, hdc, 0, 0, vbSrcCopy)
