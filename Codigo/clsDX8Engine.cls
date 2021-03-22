@@ -4133,7 +4133,7 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ToWorldMapJPG As Boolean)
     'SavePicture FrmRender.picMap, "C:\imagen.bmp"
     SavePicture FrmRender.picMap.Picture, App.Path & "\Render\" & FrmMain.MapPest(4).Caption & ".bmp"
     
-    Call SavePicture(FrmRender.picMap, App.Path & "\Render\" & NumMap_Save & ".bmp")
+    'Call SavePicture(FrmRender.picMap, App.Path & "\Render\" & NumMap_Save & ".bmp")
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         
     
