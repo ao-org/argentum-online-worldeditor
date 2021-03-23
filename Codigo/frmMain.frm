@@ -885,6 +885,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -7007,17 +7008,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                picture1.Refresh
-                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                Picture1.Refresh
+                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(2, lListado(Index).Text, Asc("#"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                picture1.Refresh
+                Picture1.Refresh
             
-                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
@@ -7096,6 +7097,10 @@ LuzColor_Click_Err:
     Call RegistrarError(Err.Number, Err.Description, "FrmMain.LuzColor_Click", Erl)
     Resume Next
     
+End Sub
+
+Public Sub NextMap()
+    Call MapPest_Click(5)
 End Sub
 
 Private Sub MapPest_Click(Index As Integer)
@@ -9095,9 +9100,6 @@ Private Sub render_mapa_Click()
     
     If Radio = 0 Then Radio = 1
     If Radio >= 5 Then Radio = 5
-
-    FrmRender.picMap.Width = 800 '(Radio * 1000) ' ver ReyarB 1000
-    FrmRender.picMap.Height = 800 '(Radio * 1000) ' ver ReyarB 1000
 
     FrmRender.Show
 

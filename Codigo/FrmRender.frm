@@ -3,36 +3,74 @@ Begin VB.Form FrmRender
    Appearance      =   0  'Flat
    BackColor       =   &H00E0E0E0&
    BorderStyle     =   4  'Fixed ToolWindow
-   Caption         =   "Form4"
-   ClientHeight    =   13830
+   ClientHeight    =   12810
    ClientLeft      =   45
    ClientTop       =   390
-   ClientWidth     =   20070
+   ClientWidth     =   12495
    LinkTopic       =   "Form4"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   922
+   ScaleHeight     =   854
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   1338
-   ShowInTaskbar   =   0   'False
-   StartUpPosition =   3  'Windows Default
+   ScaleWidth      =   833
+   StartUpPosition =   1  'CenterOwner
+   Begin VB.Timer SaveAll 
+      Enabled         =   0   'False
+      Interval        =   1
+      Left            =   8520
+      Top             =   120
+   End
+   Begin VB.CommandButton Command3 
+      Caption         =   "Renderizar todos los mapas"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   9000
+      TabIndex        =   4
+      Top             =   120
+      Width           =   3135
+   End
+   Begin VB.CommandButton Command2 
+      Caption         =   "Renderizar sin bordes bordes"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   315
+      Left            =   3480
+      TabIndex        =   3
+      Top             =   120
+      Width           =   3135
+   End
    Begin VB.PictureBox picMap 
       Appearance      =   0  'Flat
       AutoRedraw      =   -1  'True
       BackColor       =   &H80000005&
       BorderStyle     =   0  'None
       ForeColor       =   &H80000008&
-      Height          =   12435
+      Height          =   12000
       Left            =   240
-      ScaleHeight     =   829
+      ScaleHeight     =   800
       ScaleMode       =   3  'Pixel
-      ScaleWidth      =   1093
+      ScaleWidth      =   800
       TabIndex        =   2
       Top             =   600
-      Width           =   16395
+      Width           =   12000
    End
    Begin VB.CommandButton cmdAceptar 
-      Caption         =   "Renderizar"
+      Caption         =   "Renderizar con bordes"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   9.75
@@ -46,7 +84,7 @@ Begin VB.Form FrmRender
       Left            =   240
       TabIndex        =   1
       Top             =   120
-      Width           =   6615
+      Width           =   3135
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Salir"
@@ -102,7 +140,7 @@ Private Sub cmdAceptar_Click()
     
     On Error GoTo cmdAceptar_Click_Err
     
-    Call engine.MapCapture(False, False)
+    Call engine.MapCapture(False, True)
     
     Exit Sub
 
@@ -190,3 +228,32 @@ Command1_Click_Err:
     
 End Sub
 
+Private Sub Command2_Click()
+    Call engine.MapCapture(False, False)
+End Sub
+
+Private Sub Command3_Click()
+    Dim FileName As String
+    FileName = PATH_Save & NameMap_Save & "1.csm"
+
+    If FileExist(FileName, vbArchive) = False Then
+        Unload Me
+        MsgBox "Primero abre algún mapa de la carpeta a convertir.", vbOKOnly, "Error"
+        Exit Sub
+    End If
+    
+    Call AbrirMapa(FileName)
+
+    SaveAll.Enabled = True
+End Sub
+
+Private Sub SaveAll_Timer()
+    Call engine.MapCapture(False, False)
+
+    If Not FrmMain.MapPest(5).Visible Then
+        SaveAll.Enabled = False
+        Exit Sub
+    End If
+
+    Call FrmMain.NextMap
+End Sub
