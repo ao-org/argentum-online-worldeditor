@@ -885,7 +885,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -5249,25 +5248,28 @@ Private Sub DiaNoche()
     
 
     mnuVerParticulas_Click
-
-    If ColorAmb = &HFFFFFF Then
-        Picture3.Enabled = True
-        Call AddtoRichTextBox(FrmMain.RichTextBox1, "Luz del mapa segun climatologia desactivada", 255, 255, 255, False, True, False)
-        ColorAmb = &HFF8080AA 'Luz Base por defecto5
-        engine.Map_Base_Light_Set ColorAmb
-        LuzMapa.Text = Hex(&HFFFFFF)
+    
+    
+        If ColorAmb <> 0 Then
+        Picture3.Enabled = False
+        Picture3.BackColor = vbBlack
+        Call AddtoRichTextBox(FrmMain.RichTextBox1, "La luz del mapa sera segun la climatologia.", 255, 255, 255, False, True, False)
+        ColorAmb = 0 'Luz Base por defecto5
+        engine.Map_Base_Light_Set &HFFFFFFFF
+        LuzMapa.Text = 0
         LightA.LightRenderAll
 
     Else
-        Picture3.Enabled = False
+        Picture3.Enabled = True
         Picture3.BackColor = &HFFFFFF
-        engine.Map_Base_Light_Set &HFFFFFF 'Luz de trabajo.
-        ColorAmb = &HFFFFFF
-        Call AddtoRichTextBox(FrmMain.RichTextBox1, "La luz del mapa sera segun la climatologia.", 255, 255, 255, False, True, False)
+        engine.Map_Base_Light_Set &HFF8080AA 'Luz de trabajo.
+        ColorAmb = &HFFFFFFFF
+        LuzMapa.Text = Hex(&HFFFFFF)
+        Call AddtoRichTextBox(FrmMain.RichTextBox1, "Luz del mapa segun climatologia desactivada.", 255, 255, 255, False, True, False)
         LightA.LightRenderAll
 
     End If
-    
+   
     
     Exit Sub
 
@@ -7008,17 +7010,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
-                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                picture1.Refresh
+                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(2, lListado(Index).Text, Asc("#"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
+                picture1.Refresh
             
-                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
