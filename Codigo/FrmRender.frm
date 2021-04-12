@@ -38,7 +38,7 @@ Begin VB.Form FrmRender
       Width           =   3135
    End
    Begin VB.CommandButton Command2 
-      Caption         =   "Renderizar sin bordes bordes"
+      Caption         =   "Renderizar sin bordes"
       BeginProperty Font 
          Name            =   "Arial"
          Size            =   9.75
