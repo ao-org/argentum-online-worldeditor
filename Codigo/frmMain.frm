@@ -5774,7 +5774,7 @@ Label16_Click_Err:
 End Sub
 
 Private Sub LuzMapa_Change()
-    MapInfo.Changed = 1
+    'MapInfo.Changed = 1
 End Sub
 
 Private Sub LvBOpcion_Click(Index As Integer)
@@ -5966,6 +5966,7 @@ Private Sub LvBOpcion_Click(Index As Integer)
             Call Todas_las_Particulas_Click
             Call Todas_las_luces_Click
             Call mnuQuitarTriggers_Click
+            Call DiaNoche
     End Select
 
     
