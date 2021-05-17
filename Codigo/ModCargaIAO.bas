@@ -886,7 +886,7 @@ Public Function Save_Map_Data(ByVal MapRoute As String) As Boolean
 
                 End If
             
-                If .TileExit.Map > 0 Then
+                If .TileExit.Map <> 0 Then
                     MH.NumeroTE = MH.NumeroTE + 1
                     ReDim Preserve TEs(1 To MH.NumeroTE)
                     TEs(MH.NumeroTE).DestM = .TileExit.Map

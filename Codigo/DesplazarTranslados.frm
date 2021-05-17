@@ -210,7 +210,7 @@ Public Sub Command1_Click()
     For X = 13 To 87
         For y = ActualYSuperior To ActualYSuperior
 
-            If MapData(X, y).TileExit.Map > 0 Then
+            If MapData(X, y).TileExit.Map <> 0 Then
                 MapData(X, DesplazadaYSuperior).TileExit.Map = MapData(X, y).TileExit.Map
                 MapData(X, DesplazadaYSuperior).TileExit.X = MapData(X, y).TileExit.X
                 MapData(X, DesplazadaYSuperior).TileExit.y = DestinoSuperior
@@ -226,7 +226,7 @@ Public Sub Command1_Click()
     For X = 13 To 87
         For y = ActualYInferior To ActualYInferior
 
-            If MapData(X, y).TileExit.Map > 0 Then
+            If MapData(X, y).TileExit.Map <> 0 Then
                 MapData(X, DesplazadaYInferior).TileExit.Map = MapData(X, y).TileExit.Map
                 MapData(X, DesplazadaYInferior).TileExit.X = MapData(X, y).TileExit.X
                 MapData(X, DesplazadaYInferior).TileExit.y = DestinoYInferior
@@ -242,7 +242,7 @@ Public Sub Command1_Click()
     For X = ActualXIzquierda To ActualXIzquierda
         For y = 11 To 90
 
-            If MapData(X, y).TileExit.Map > 0 Then
+            If MapData(X, y).TileExit.Map <> 0 Then
                 MapData(DesplazadaXIzquierda, y).TileExit.Map = MapData(X, y).TileExit.Map
                 MapData(DesplazadaXIzquierda, y).TileExit.X = DestinoIzquierda
                 MapData(DesplazadaXIzquierda, y).TileExit.y = MapData(X, y).TileExit.y
@@ -258,7 +258,7 @@ Public Sub Command1_Click()
     For X = ActualXDerecha To ActualXDerecha
         For y = 11 To 90
 
-            If MapData(X, y).TileExit.Map > 0 Then
+            If MapData(X, y).TileExit.Map <> 0 Then
                 MapData(DesplazadaXDerecha, y).TileExit.Map = MapData(X, y).TileExit.Map
                 MapData(DesplazadaXDerecha, y).TileExit.X = DestinoDerecha
                 MapData(DesplazadaXDerecha, y).TileExit.y = MapData(X, y).TileExit.y

@@ -434,7 +434,7 @@ Private Sub VerMapaTraslado()
 
     For y = (11) To (90)
 
-        If MapData(X, y).TileExit.Map > 0 Then
+        If MapData(X, y).TileExit.Map <> 0 Then
             lblMapaOeste.Caption = MapData(X, y).TileExit.Map
             Exit For
         End If
@@ -446,7 +446,7 @@ Private Sub VerMapaTraslado()
 
     For X = (14) To (87)
 
-        If MapData(X, y).TileExit.Map > 0 Then
+        If MapData(X, y).TileExit.Map <> 0 Then
             lblMapaNorte.Caption = MapData(X, y).TileExit.Map
             Exit For
         End If
@@ -458,7 +458,7 @@ Private Sub VerMapaTraslado()
 
     For y = (11) To (90)
 
-        If MapData(X, y).TileExit.Map > 0 Then
+        If MapData(X, y).TileExit.Map <> 0 Then
             lblMapaEste.Caption = MapData(X, y).TileExit.Map
             Exit For
         End If
@@ -470,7 +470,7 @@ Private Sub VerMapaTraslado()
 
     For X = (14) To (87)
 
-        If MapData(X, y).TileExit.Map > 0 Then
+        If MapData(X, y).TileExit.Map <> 0 Then
             lblMapaSur.Caption = MapData(X, y).TileExit.Map
             Exit For
         End If

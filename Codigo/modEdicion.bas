@@ -871,7 +871,7 @@ Public Sub Quitar_Translados()
     For y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
 
-            If MapData(X, y).TileExit.Map > 0 Then
+            If MapData(X, y).TileExit.Map <> 0 Then
                 MapData(X, y).TileExit.Map = 0
                 MapData(X, y).TileExit.X = 0
                 MapData(X, y).TileExit.y = 0
@@ -1133,7 +1133,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
         If MapData(tX, tY).Blocked > 0 Then FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (BLOQ)"
         
         ' Translados
-        If MapData(tX, tY).TileExit.Map > 0 Then
+        If MapData(tX, tY).TileExit.Map <> 0 Then
             If FrmMain.mnuAutoCapturarTranslados.Checked = True Then
                 FrmMain.tTMapa.Text = MapData(tX, tY).TileExit.Map
                 FrmMain.tTX.Text = MapData(tX, tY).TileExit.X
