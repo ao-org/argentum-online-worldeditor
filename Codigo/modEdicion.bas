@@ -1340,7 +1340,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
 
             End If
 
-            If Val(FrmMain.tTMapa.Text) < 0 Or Val(FrmMain.tTMapa.Text) > 9000 Then
+            If Val(FrmMain.tTMapa.Text) < -1 Or Val(FrmMain.tTMapa.Text) > 9000 Then
                 MsgBox "Valor de Mapa invalido", vbCritical + vbOKOnly
                 Exit Sub
             ElseIf Val(FrmMain.tTX.Text) < 0 Or Val(FrmMain.tTX.Text) > 100 Then
