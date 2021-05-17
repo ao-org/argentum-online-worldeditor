@@ -322,7 +322,7 @@ Private Sub ActalizarObjetos()
         For X = XMinMapSize To XMaxMapSize
 
             If MapData(X, y).OBJInfo.objindex > 0 Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & MapData(X, y).OBJInfo.Amount & " del Objeto " & MapData(X, y).OBJInfo.objindex & " - " & ObjData(MapData(X, y).OBJInfo.objindex).name
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & MapData(X, y).OBJInfo.Amount & " del Objeto " & MapData(X, y).OBJInfo.objindex & " - " & ObjData(MapData(X, y).OBJInfo.objindex).Name
 
             End If
 
@@ -358,9 +358,9 @@ Private Sub ActalizarNPCs()
 
             If MapData(X, y).NPCIndex > 0 Then
                 If MapData(X, y).NPCIndex >= 500 Then
-                    txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & NpcData(MapData(X, y).NPCIndex).name & " (Hostil)"
+                    txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & NpcData(MapData(X, y).NPCIndex).Name & " (Hostil)"
                 Else
-                    txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & NpcData(MapData(X, y).NPCIndex).name
+                    txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " tiene " & NpcData(MapData(X, y).NPCIndex).Name
 
                 End If
 
@@ -520,7 +520,7 @@ Private Sub ActalizarTranslados()
     For y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
 
-            If MapData(X, y).TileExit.Map > 0 Then
+            If MapData(X, y).TileExit.Map <> 0 Then
                 txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & y & " nos traslada a la posición " & MapData(X, y).TileExit.X & "," & MapData(X, y).TileExit.y & " del Mapa " & MapData(X, y).TileExit.Map
 
                 If ((X < 20 And MapData(X, y).TileExit.X < 20) Or (X > 80 And MapData(X, y).TileExit.X > 80)) And (X <> MapData(X, y).TileExit.X) Then
