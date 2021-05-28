@@ -1068,7 +1068,7 @@ Private Sub cmdAplicar_Click()
     '*************************************************
     On Error Resume Next
 
-    Dim y As Integer
+    Dim Y As Integer
     Dim X As Integer
 
     If Not MapaCargado Then
@@ -1080,20 +1080,20 @@ Private Sub cmdAplicar_Click()
 
     ' ARRIBA
     If Mapa(0).Text > -1 And Aplicar(0).Value = 1 Then
-        y = PosLim(1).Text
+        Y = PosLim(1).Text
 
         For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
 
-            If MapData(X, y).Blocked = 0 Then
-                MapData(X, y).TileExit.Map = Mapa(0).Text
+            If MapData(X, Y).Blocked = 0 Then
+                MapData(X, Y).TileExit.Map = Mapa(0).Text
 
                 If Mapa(0).Text = 0 Then
-                    MapData(X, y).TileExit.X = 0
-                    MapData(X, y).TileExit.y = 0
+                    MapData(X, Y).TileExit.X = 0
+                    MapData(X, Y).TileExit.Y = 0
                 Else
-                    MapData(X, y).TileExit.X = X
-                    MapData(X, y).TileExit.y = PosLim(4).Text
-
+                    MapData(X, Y).TileExit.X = X
+                    MapData(X, Y).TileExit.Y = PosLim(4).Text
+                    MapInfo.Changed = 1
                 End If
 
             End If
@@ -1106,17 +1106,18 @@ Private Sub cmdAplicar_Click()
     If Mapa(1).Text > -1 And Aplicar(1).Value = 1 Then
         X = PosLim(2).Text
 
-        For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+        For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
 
-            If MapData(X, y).Blocked = 0 Then
-                MapData(X, y).TileExit.Map = Mapa(1).Text
+            If MapData(X, Y).Blocked = 0 Then
+                MapData(X, Y).TileExit.Map = Mapa(1).Text
 
                 If Mapa(1).Text = 0 Then
-                    MapData(X, y).TileExit.X = 0
-                    MapData(X, y).TileExit.y = 0
+                    MapData(X, Y).TileExit.X = 0
+                    MapData(X, Y).TileExit.Y = 0
                 Else
-                    MapData(X, y).TileExit.X = PosLim(6).Text
-                    MapData(X, y).TileExit.y = y
+                    MapData(X, Y).TileExit.X = PosLim(6).Text
+                    MapData(X, Y).TileExit.Y = Y
+                    MapInfo.Changed = 1
 
                 End If
 
@@ -1128,20 +1129,20 @@ Private Sub cmdAplicar_Click()
 
     ' ABAJO
     If Mapa(2).Text > -1 And Aplicar(2).Value = 1 Then
-        y = PosLim(0).Text
+        Y = PosLim(0).Text
 
         For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
 
-            If MapData(X, y).Blocked = 0 Then
-                MapData(X, y).TileExit.Map = Mapa(2).Text
+            If MapData(X, Y).Blocked = 0 Then
+                MapData(X, Y).TileExit.Map = Mapa(2).Text
 
                 If Mapa(2).Text = 0 Then
-                    MapData(X, y).TileExit.X = 0
-                    MapData(X, y).TileExit.y = 0
+                    MapData(X, Y).TileExit.X = 0
+                    MapData(X, Y).TileExit.Y = 0
                 Else
-                    MapData(X, y).TileExit.X = X
-                    MapData(X, y).TileExit.y = PosLim(5).Text
-
+                    MapData(X, Y).TileExit.X = X
+                    MapData(X, Y).TileExit.Y = PosLim(5).Text
+                    MapInfo.Changed = 1
                 End If
 
             End If
@@ -1154,18 +1155,18 @@ Private Sub cmdAplicar_Click()
     If Mapa(3).Text > -1 And Aplicar(3).Value = 1 Then
         X = PosLim(3).Text
 
-        For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+        For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
 
-            If MapData(X, y).Blocked = 0 Then
-                MapData(X, y).TileExit.Map = Mapa(3).Text
+            If MapData(X, Y).Blocked = 0 Then
+                MapData(X, Y).TileExit.Map = Mapa(3).Text
 
                 If Mapa(3).Text = 0 Then
-                    MapData(X, y).TileExit.X = 0
-                    MapData(X, y).TileExit.y = 0
+                    MapData(X, Y).TileExit.X = 0
+                    MapData(X, Y).TileExit.Y = 0
                 Else
-                    MapData(X, y).TileExit.X = PosLim(7).Text
-                    MapData(X, y).TileExit.y = y
-
+                    MapData(X, Y).TileExit.X = PosLim(7).Text
+                    MapData(X, Y).TileExit.Y = Y
+                    MapInfo.Changed = 1
                 End If
 
             End If
@@ -1176,9 +1177,8 @@ Private Sub cmdAplicar_Click()
 
     'Set changed flag
     'ver ReyarB bloqueo bordes
-    Call modEdicion.Bloquear_Bordes
-
-    MapInfo.Changed = 1
+    'Call modEdicion.Bloquear_Bordes
+    
     DoEvents
     Unload Me
 
@@ -1193,7 +1193,6 @@ Private Sub cmdCancelar_Click()
     On Error GoTo cmdCancelar_Click_Err
     
     Unload Me
-
     
     Exit Sub
 
@@ -1235,16 +1234,16 @@ Private Sub LeerMapaExit()
     On Error Resume Next
 
     Dim X As Integer
-    Dim y As Integer
+    Dim Y As Integer
 
     ' ARRIBA
     Mapa(0).Text = 0
-    y = PosLim(1).Text
+    Y = PosLim(1).Text
 
     For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Mapa(0).Text = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Mapa(0).Text = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -1256,10 +1255,10 @@ Private Sub LeerMapaExit()
     Mapa(1).Text = 0
     X = PosLim(2).Text
 
-    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+    For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Mapa(1).Text = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Mapa(1).Text = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -1269,12 +1268,12 @@ Private Sub LeerMapaExit()
 
     ' ABAJO
     Mapa(2).Text = 0
-    y = PosLim(0).Text
+    Y = PosLim(0).Text
 
     For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Mapa(2).Text = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Mapa(2).Text = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -1286,10 +1285,10 @@ Private Sub LeerMapaExit()
     Mapa(3).Text = 0
     X = PosLim(3).Text
 
-    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+    For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Mapa(3).Text = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Mapa(3).Text = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -1512,16 +1511,16 @@ Private Sub PosLim_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
     If PosLim(Index).Text > 99 Then PosLim(Index) = 99
     If PosLim(Index).Text < 1 Then PosLim(Index) = 1
 
-    Dim y As Integer
+    Dim Y As Integer
     Dim X As Integer
 
     ' ARRIBA
-    y = PosLim(1).Text
+    Y = PosLim(1).Text
 
     For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Mapa(0).Text = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Mapa(0).Text = MapData(X, Y).TileExit.Map
             Aplicar(0).Value = 0
             Exit For
 
@@ -1532,10 +1531,10 @@ Private Sub PosLim_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
     ' DERECHA
     X = PosLim(2).Text
 
-    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+    For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Mapa(1).Text = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Mapa(1).Text = MapData(X, Y).TileExit.Map
             Aplicar(1).Value = 0
             Exit For
 
@@ -1544,12 +1543,12 @@ Private Sub PosLim_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
     Next
 
     ' ABAJO
-    y = PosLim(0).Text
+    Y = PosLim(0).Text
 
     For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Mapa(2).Text = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Mapa(2).Text = MapData(X, Y).TileExit.Map
             Aplicar(2).Value = 0
             Exit For
 
@@ -1560,10 +1559,10 @@ Private Sub PosLim_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
     ' IZQUIERDA
     X = PosLim(3).Text
 
-    For y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
+    For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Mapa(3).Text = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Mapa(3).Text = MapData(X, Y).TileExit.Map
             Aplicar(3).Value = 0
             Exit For
 
