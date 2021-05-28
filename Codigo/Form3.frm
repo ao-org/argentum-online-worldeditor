@@ -173,15 +173,15 @@ Public Sub HacerTranslados()
     Label5.Caption = MapaActual
 
     Dim X As Integer
-    Dim y As Integer
+    Dim Y As Integer
 
     'Izquierda
     X = 13
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label1.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label1.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -189,12 +189,12 @@ Public Sub HacerTranslados()
     Next
     
     'arriba
-    y = 10
+    Y = 10
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label2.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label2.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -204,10 +204,10 @@ Public Sub HacerTranslados()
     'Derecha
     X = 88
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label3.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label3.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -215,12 +215,12 @@ Public Sub HacerTranslados()
     Next
     
     'Abajo
-    y = 91
+    Y = 91
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label4.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label4.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -289,10 +289,10 @@ Public Sub HacerTranslados()
     'Izquierda
     X = 13
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label1.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label1.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -300,12 +300,12 @@ Public Sub HacerTranslados()
     Next
     
     'arriba
-    y = 10
+    Y = 10
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label2.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label2.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -315,10 +315,10 @@ Public Sub HacerTranslados()
     'Derecha
     X = 88
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label3.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label3.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -326,12 +326,12 @@ Public Sub HacerTranslados()
     Next
     
     'Abajo
-    y = 91
+    Y = 91
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label4.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label4.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -390,10 +390,10 @@ Public Sub HacerTranslados()
     'Izquierda
     X = 13
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label1.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label1.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -401,12 +401,12 @@ Public Sub HacerTranslados()
     Next
     
     'arriba
-    y = 10
+    Y = 10
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label2.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label2.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -416,10 +416,10 @@ Public Sub HacerTranslados()
     'Derecha
     X = 88
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label3.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label3.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -427,12 +427,12 @@ Public Sub HacerTranslados()
     Next
     
     'Abajo
-    y = 91
+    Y = 91
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label4.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label4.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -488,10 +488,10 @@ Public Sub HacerTranslados()
     'Izquierda
     X = 13
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label1.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label1.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -499,12 +499,12 @@ Public Sub HacerTranslados()
     Next
     
     'arriba
-    y = 10
+    Y = 10
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label2.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label2.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -514,10 +514,10 @@ Public Sub HacerTranslados()
     'Derecha
     X = 88
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label3.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label3.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -525,12 +525,12 @@ Public Sub HacerTranslados()
     Next
     
     'Abajo
-    y = 91
+    Y = 91
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label4.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label4.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
@@ -601,7 +601,7 @@ Private Sub Form_Load()
     
 
     Dim X           As Integer
-    Dim y           As Integer
+    Dim Y           As Integer
     
     Dim ObtenerMapa As String
     
@@ -609,56 +609,52 @@ Private Sub Form_Load()
     
     Label5.Caption = ReadField(3, ObtenerMapa, Asc("a"))
     
-    'Label1.Caption = MapData(13, 50).TileExit.Map  'Izquierda
-    ' Oeste
+
     X = 13
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label1.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label1.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
 
     Next
     
-    'Label2.Caption = MapData(50, 10).TileExit.Map  'arriba
-    ' Norte
-    y = 10
+
+    Y = 10
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label2.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label2.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
 
     Next
     
-    'Label3.Caption = MapData(88, 49).TileExit.Map 'Derecha
-    'Este
+
     X = 88
 
-    For y = (MinYBorder + 1) To (MaxYBorder - 1)
+    For Y = (MinYBorder + 1) To (MaxYBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label3.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label3.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If
 
     Next
     
-    'Label4.Caption = MapData(50, 91).TileExit.Map 'Abajo
-    ' Sur
-    y = 91
+
+    Y = 91
 
     For X = (MinXBorder + 1) To (MaxXBorder - 1)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            Label4.Caption = MapData(X, y).TileExit.Map
+        If MapData(X, Y).TileExit.Map <> 0 Then
+            Label4.Caption = MapData(X, Y).TileExit.Map
             Exit For
 
         End If

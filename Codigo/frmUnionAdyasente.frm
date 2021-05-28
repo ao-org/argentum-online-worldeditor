@@ -12,14 +12,6 @@ Begin VB.Form frmUnionAdyacente
    ScaleHeight     =   5235
    ScaleWidth      =   6165
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton Command1 
-      Caption         =   "Auto Completar"
-      Height          =   375
-      Left            =   2280
-      TabIndex        =   41
-      Top             =   0
-      Width           =   1455
-   End
    Begin VB.CheckBox AutoMapeo 
       BackColor       =   &H00E0E0E0&
       Caption         =   "Auto-Mapeo"
@@ -499,7 +491,7 @@ Begin VB.Form frmUnionAdyacente
       EndProperty
       Height          =   375
       Left            =   2400
-      TabIndex        =   43
+      TabIndex        =   42
       Top             =   1920
       Width           =   1215
    End
@@ -508,7 +500,7 @@ Begin VB.Form frmUnionAdyacente
       Height          =   255
       Index           =   0
       Left            =   2520
-      TabIndex        =   42
+      TabIndex        =   41
       Top             =   1560
       Width           =   1095
    End
@@ -1298,24 +1290,7 @@ Private Sub LeerMapaExit()
 
 End Sub
 
-Private Sub Command1_Click()
-    
-    On Error GoTo Command1_Click_Err
-    
 
-    Mapa(0).Text = FrmMain.Label3 '- 10 'arriba
-    Mapa(1).Text = FrmMain.Label1 '+ 1 'derecha
-    Mapa(2).Text = FrmMain.Label4 '+ 10 'abajo
-    Mapa(3).Text = FrmMain.Label2 '- 1 ' izquierda
-
-    
-    Exit Sub
-
-Command1_Click_Err:
-    Call RegistrarError(Err.Number, Err.Description, "frmUnionAdyacente.Command1_Click", Erl)
-    Resume Next
-    
-End Sub
 
 Private Sub Form_Load()
     '*************************************************
