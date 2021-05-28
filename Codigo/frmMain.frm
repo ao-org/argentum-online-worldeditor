@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form FrmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H80000000&
@@ -885,7 +885,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -4575,7 +4574,7 @@ Private Sub PonerAlAzar(ByVal n As Integer, T As Byte)
     
     Dim objindex As Long
     Dim NPCIndex As Long
-    Dim X, y, i
+    Dim X, Y, i
     Dim Head    As Integer
     Dim Body    As Integer
     Dim Heading As Byte
@@ -4586,32 +4585,32 @@ Private Sub PonerAlAzar(ByVal n As Integer, T As Byte)
 
     Do While i > 0
         X = CInt(RandomNumber(XMinMapSize, XMaxMapSize - 1))
-        y = CInt(RandomNumber(YMinMapSize, YMaxMapSize - 1))
+        Y = CInt(RandomNumber(YMinMapSize, YMaxMapSize - 1))
     
         Select Case T
 
             Case 0
 
-                If MapData(X, y).OBJInfo.objindex = 0 Then
+                If MapData(X, Y).OBJInfo.objindex = 0 Then
                     i = i - 1
 
                     If cInsertarBloqueo.Value = True Then
-                        MapData(X, y).Blocked = 1
+                        MapData(X, Y).Blocked = 1
                     Else
-                        MapData(X, y).Blocked = 0
+                        MapData(X, Y).Blocked = 0
 
                     End If
 
                     If cNumFunc(2).Text > 0 Then
                         objindex = cNumFunc(2).Text
-                        InitGrh MapData(X, y).ObjGrh, ObjData(objindex).grhindex
-                        MapData(X, y).OBJInfo.objindex = objindex
-                        MapData(X, y).OBJInfo.Amount = Val(cCantFunc(2).Text)
+                        InitGrh MapData(X, Y).ObjGrh, ObjData(objindex).grhindex
+                        MapData(X, Y).OBJInfo.objindex = objindex
+                        MapData(X, Y).OBJInfo.Amount = Val(cCantFunc(2).Text)
 
                         Select Case ObjData(objindex).ObjType ' GS
 
                             Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
-                                MapData(X, y).Graphic(3) = MapData(X, y).ObjGrh
+                                MapData(X, Y).Graphic(3) = MapData(X, Y).ObjGrh
 
                         End Select
 
@@ -4621,7 +4620,7 @@ Private Sub PonerAlAzar(ByVal n As Integer, T As Byte)
 
             Case 1
 
-                If MapData(X, y).Blocked = 0 Then
+                If MapData(X, Y).Blocked = 0 Then
                     i = i - 1
 
                     If cNumFunc(T - 1).Text > 0 Then
@@ -4629,8 +4628,8 @@ Private Sub PonerAlAzar(ByVal n As Integer, T As Byte)
                         Body = NpcData(NPCIndex).Body
                         Head = NpcData(NPCIndex).Head
                         Heading = NpcData(NPCIndex).Heading
-                        Call MakeChar(NextOpenChar(), Body, Head, Heading, CInt(X), CInt(y))
-                        MapData(X, y).NPCIndex = NPCIndex
+                        Call MakeChar(NextOpenChar(), Body, Head, Heading, CInt(X), CInt(Y))
+                        MapData(X, Y).NPCIndex = NPCIndex
 
                     End If
 
@@ -4638,7 +4637,7 @@ Private Sub PonerAlAzar(ByVal n As Integer, T As Byte)
 
             Case 2
 
-                If MapData(X, y).Blocked = 0 Then
+                If MapData(X, Y).Blocked = 0 Then
                     i = i - 1
 
                     If cNumFunc(T - 1).Text >= 0 Then
@@ -4646,8 +4645,8 @@ Private Sub PonerAlAzar(ByVal n As Integer, T As Byte)
                         Body = NpcData(NPCIndex).Body
                         Head = NpcData(NPCIndex).Head
                         Heading = NpcData(NPCIndex).Heading
-                        Call MakeChar(NextOpenChar(), Body, Head, Heading, CInt(X), CInt(y))
-                        MapData(X, y).NPCIndex = NPCIndex
+                        Call MakeChar(NextOpenChar(), Body, Head, Heading, CInt(X), CInt(Y))
+                        MapData(X, Y).NPCIndex = NPCIndex
 
                     End If
 
@@ -4672,14 +4671,14 @@ Private Sub bloqqq_Click()
     On Error GoTo bloqqq_Click_Err
     
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
     Dim i As Long
 
     For X = 1 To 100
-        For y = 1 To 100
+        For Y = 1 To 100
 
-            If MapData(X, y).Graphic(1).grhindex = 1 Then
-                MapData(X, y).Blocked = 1
+            If MapData(X, Y).Graphic(1).grhindex = 1 Then
+                MapData(X, Y).Blocked = 1
 
             End If
 
@@ -4689,7 +4688,7 @@ Private Sub bloqqq_Click()
             '  MapData(x, y).Graphic(3).grhindex = 738
             
             ' End If
-        Next y
+        Next Y
     Next X
 
     
@@ -4847,19 +4846,19 @@ Private Sub blqspaciosvacios_Click()
     On Error GoTo blqspaciosvacios_Click_Err
     
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
     Dim i As Long
 
-    For y = YMinMapSize To YMaxMapSize
+    For Y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
 
-            If MapData(X, y).Graphic(1).grhindex = 0 Or MapData(X, y).Graphic(1).grhindex = 1 Then
-                MapData(X, y).Blocked = 1
+            If MapData(X, Y).Graphic(1).grhindex = 0 Or MapData(X, Y).Graphic(1).grhindex = 1 Then
+                MapData(X, Y).Blocked = 1
 
             End If
 
         Next X
-    Next y
+    Next Y
 
     Call DibujarMiniMapa
 
@@ -4877,49 +4876,49 @@ Private Sub borrarnegros_Click()
     On Error GoTo borrarnegros_Click_Err
     
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
     Dim i As Long
 
-    For y = YMinMapSize To YMaxMapSize
+    For Y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
 
-            If MapData(X, y).Graphic(2).grhindex = 7284 Or MapData(X, y).Graphic(2).grhindex = 7303 Or MapData(X, y).Graphic(2).grhindex = 7304 _
-               Or MapData(X, y).Graphic(2).grhindex = 7308 Or MapData(X, y).Graphic(2).grhindex = 7310 Or MapData(X, y).Graphic(2).grhindex = 7315 Or MapData(X, y).Graphic(2).grhindex = 7316 _
-               Or MapData(X, y).Graphic(2).grhindex = 7306 Or MapData(X, y).Graphic(2).grhindex = 7328 Or MapData(X, y).Graphic(2).grhindex = 7327 Or MapData(X, y).Graphic(2).grhindex = 7357 _
-               Or MapData(X, y).Graphic(2).grhindex = 29382 Or MapData(X, y).Graphic(2).grhindex = 29384 Or MapData(X, y).Graphic(2).grhindex = 29383 Or MapData(X, y).Graphic(2).grhindex = 7290 Or MapData(X, y).Graphic(2).grhindex = 7291 Or MapData(X, y).Graphic(2).grhindex = 7358 Or MapData(X, y).Graphic(2).grhindex = 7376 _
-               Or MapData(X, y).Graphic(2).grhindex = 7313 Or MapData(X, y).Graphic(2).grhindex = 7314 _
-               Or MapData(X, y).Graphic(2).grhindex = 29379 Or MapData(X, y).Graphic(2).grhindex = 29649 Or MapData(X, y).Graphic(2).grhindex = 29393 Or MapData(X, y).Graphic(2).grhindex = 29401 Or MapData(X, y).Graphic(2).grhindex = 29403 Or MapData(X, y).Graphic(2).grhindex = 29366 Or MapData(X, y).Graphic(2).grhindex = 29388 Or MapData(X, y).Graphic(2).grhindex = 29390 Or MapData(X, y).Graphic(2).grhindex = 29392 Or MapData(X, y).Graphic(2).grhindex = 29395 Or MapData(X, y).Graphic(2).grhindex = 29396 Or MapData(X, y).Graphic(2).grhindex = 29399 Or MapData(X, y).Graphic(2).grhindex = 29398 Or MapData(X, y).Graphic(2).grhindex = 29397 Or MapData(X, y).Graphic(2).grhindex = 29407 Or MapData(X, y).Graphic(2).grhindex = 29408 Or MapData(X, y).Graphic(2).grhindex = 29409 Or MapData(X, y).Graphic(2).grhindex = 29410 Or MapData(X, y).Graphic(2).grhindex = 29373 Or MapData(X, y).Graphic(2).grhindex = 29372 _
-               Or MapData(X, y).Graphic(2).grhindex = 7321 Or MapData(X, y).Graphic(2).grhindex = 7297 Or MapData(X, y).Graphic(2).grhindex = 7300 Or MapData(X, y).Graphic(2).grhindex = 7301 _
-               Or MapData(X, y).Graphic(2).grhindex = 7302 Or MapData(X, y).Graphic(2).grhindex = 29619 Or MapData(X, y).Graphic(2).grhindex = 7311 _
-               Or MapData(X, y).Graphic(2).grhindex = 29612 Or MapData(X, y).Graphic(2).grhindex = 29630 Or MapData(X, y).Graphic(2).grhindex = 29618 Or MapData(X, y).Graphic(2).grhindex = 29634 Or MapData(X, y).Graphic(2).grhindex = 29625 Or MapData(X, y).Graphic(2).grhindex = 29628 Or MapData(X, y).Graphic(2).grhindex = 29629 Or MapData(X, y).Graphic(2).grhindex = 29631 Or MapData(X, y).Graphic(2).grhindex = 29632 Or MapData(X, y).Graphic(2).grhindex = 29637 Or MapData(X, y).Graphic(2).grhindex = 29638 Or MapData(X, y).Graphic(2).grhindex = 29640 Or MapData(X, y).Graphic(2).grhindex = 29642 Or MapData(X, y).Graphic(2).grhindex = 29643 Or MapData(X, y).Graphic(2).grhindex = 29645 Or MapData(X, y).Graphic(2).grhindex = 29646 Or MapData(X, y).Graphic(2).grhindex = 29655 Or MapData(X, y).Graphic(2).grhindex = 29656 Or MapData(X, y).Graphic(2).grhindex = 29647 Or MapData(X, y).Graphic(2).grhindex = 29648 Or MapData(X, y).Graphic(2).grhindex = 29651 Or MapData(X, y).Graphic(2).grhindex = 29653 _
-               Or MapData(X, y).Graphic(2).grhindex = 7325 Or MapData(X, y).Graphic(2).grhindex = 7326 Or MapData(X, y).Graphic(2).grhindex = 7354 _
-               Or MapData(X, y).Graphic(2).grhindex = 7373 Or MapData(X, y).Graphic(2).grhindex = 7371 Or MapData(X, y).Graphic(2).grhindex = 7365 _
-               Or MapData(X, y).Graphic(2).grhindex = 29597 Or MapData(X, y).Graphic(2).grhindex = 29595 Or MapData(X, y).Graphic(2).grhindex = 29596 _
-               Or MapData(X, y).Graphic(2).grhindex = 29571 Or MapData(X, y).Graphic(2).grhindex = 29608 Or MapData(X, y).Graphic(2).grhindex = 29607 _
-               Or MapData(X, y).Graphic(2).grhindex = 29588 Or MapData(X, y).Graphic(2).grhindex = 29590 Or MapData(X, y).Graphic(2).grhindex = 29583 _
-               Or MapData(X, y).Graphic(2).grhindex = 29584 Or MapData(X, y).Graphic(2).grhindex = 29586 _
-               Or MapData(X, y).Graphic(2).grhindex = 7369 Or MapData(X, y).Graphic(2).grhindex = 7367 Or MapData(X, y).Graphic(2).grhindex = 7352 _
-               Or MapData(X, y).Graphic(2).grhindex = 7375 Or MapData(X, y).Graphic(2).grhindex = 7351 Or MapData(X, y).Graphic(2).grhindex = 7368 _
-               Or MapData(X, y).Graphic(2).grhindex = 7332 Or MapData(X, y).Graphic(2).grhindex = 7339 Or MapData(X, y).Graphic(2).grhindex = 7366 _
-               Or MapData(X, y).Graphic(2).grhindex = 7360 Or MapData(X, y).Graphic(2).grhindex = 7338 Or MapData(X, y).Graphic(2).grhindex = 7363 Or MapData(X, y).Graphic(2).grhindex = 29582 Or MapData(X, y).Graphic(2).grhindex = 29581 Or MapData(X, y).Graphic(2).grhindex = 29580 _
-               Or MapData(X, y).Graphic(2).grhindex = 29593 Or MapData(X, y).Graphic(2).grhindex = 29594 Or MapData(X, y).Graphic(2).grhindex = 29570 _
-               Or MapData(X, y).Graphic(2).grhindex = 29599 Or MapData(X, y).Graphic(2).grhindex = 29601 Or MapData(X, y).Graphic(2).grhindex = 29591 _
-               Or MapData(X, y).Graphic(2).grhindex = 7349 Or MapData(X, y).Graphic(2).grhindex = 7348 Or MapData(X, y).Graphic(2).grhindex = 7345 _
-               Or MapData(X, y).Graphic(2).grhindex = 29606 Or MapData(X, y).Graphic(2).grhindex = 29605 Or MapData(X, y).Graphic(2).grhindex = 29577 _
-               Or MapData(X, y).Graphic(2).grhindex = 7350 Or MapData(X, y).Graphic(2).grhindex = 7362 Or MapData(X, y).Graphic(2).grhindex = 7338 _
-               Or MapData(X, y).Graphic(2).grhindex = 7317 Or MapData(X, y).Graphic(2).grhindex = 7319 Or MapData(X, y).Graphic(2).grhindex = 8272 Or MapData(X, y).Graphic(2).grhindex = 8263 Then
+            If MapData(X, Y).Graphic(2).grhindex = 7284 Or MapData(X, Y).Graphic(2).grhindex = 7303 Or MapData(X, Y).Graphic(2).grhindex = 7304 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7308 Or MapData(X, Y).Graphic(2).grhindex = 7310 Or MapData(X, Y).Graphic(2).grhindex = 7315 Or MapData(X, Y).Graphic(2).grhindex = 7316 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7306 Or MapData(X, Y).Graphic(2).grhindex = 7328 Or MapData(X, Y).Graphic(2).grhindex = 7327 Or MapData(X, Y).Graphic(2).grhindex = 7357 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29382 Or MapData(X, Y).Graphic(2).grhindex = 29384 Or MapData(X, Y).Graphic(2).grhindex = 29383 Or MapData(X, Y).Graphic(2).grhindex = 7290 Or MapData(X, Y).Graphic(2).grhindex = 7291 Or MapData(X, Y).Graphic(2).grhindex = 7358 Or MapData(X, Y).Graphic(2).grhindex = 7376 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7313 Or MapData(X, Y).Graphic(2).grhindex = 7314 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29379 Or MapData(X, Y).Graphic(2).grhindex = 29649 Or MapData(X, Y).Graphic(2).grhindex = 29393 Or MapData(X, Y).Graphic(2).grhindex = 29401 Or MapData(X, Y).Graphic(2).grhindex = 29403 Or MapData(X, Y).Graphic(2).grhindex = 29366 Or MapData(X, Y).Graphic(2).grhindex = 29388 Or MapData(X, Y).Graphic(2).grhindex = 29390 Or MapData(X, Y).Graphic(2).grhindex = 29392 Or MapData(X, Y).Graphic(2).grhindex = 29395 Or MapData(X, Y).Graphic(2).grhindex = 29396 Or MapData(X, Y).Graphic(2).grhindex = 29399 Or MapData(X, Y).Graphic(2).grhindex = 29398 Or MapData(X, Y).Graphic(2).grhindex = 29397 Or MapData(X, Y).Graphic(2).grhindex = 29407 Or MapData(X, Y).Graphic(2).grhindex = 29408 Or MapData(X, Y).Graphic(2).grhindex = 29409 Or MapData(X, Y).Graphic(2).grhindex = 29410 Or MapData(X, Y).Graphic(2).grhindex = 29373 Or MapData(X, Y).Graphic(2).grhindex = 29372 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7321 Or MapData(X, Y).Graphic(2).grhindex = 7297 Or MapData(X, Y).Graphic(2).grhindex = 7300 Or MapData(X, Y).Graphic(2).grhindex = 7301 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7302 Or MapData(X, Y).Graphic(2).grhindex = 29619 Or MapData(X, Y).Graphic(2).grhindex = 7311 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29612 Or MapData(X, Y).Graphic(2).grhindex = 29630 Or MapData(X, Y).Graphic(2).grhindex = 29618 Or MapData(X, Y).Graphic(2).grhindex = 29634 Or MapData(X, Y).Graphic(2).grhindex = 29625 Or MapData(X, Y).Graphic(2).grhindex = 29628 Or MapData(X, Y).Graphic(2).grhindex = 29629 Or MapData(X, Y).Graphic(2).grhindex = 29631 Or MapData(X, Y).Graphic(2).grhindex = 29632 Or MapData(X, Y).Graphic(2).grhindex = 29637 Or MapData(X, Y).Graphic(2).grhindex = 29638 Or MapData(X, Y).Graphic(2).grhindex = 29640 Or MapData(X, Y).Graphic(2).grhindex = 29642 Or MapData(X, Y).Graphic(2).grhindex = 29643 Or MapData(X, Y).Graphic(2).grhindex = 29645 Or MapData(X, Y).Graphic(2).grhindex = 29646 Or MapData(X, Y).Graphic(2).grhindex = 29655 Or MapData(X, Y).Graphic(2).grhindex = 29656 Or MapData(X, Y).Graphic(2).grhindex = 29647 Or MapData(X, Y).Graphic(2).grhindex = 29648 Or MapData(X, Y).Graphic(2).grhindex = 29651 Or MapData(X, Y).Graphic(2).grhindex = 29653 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7325 Or MapData(X, Y).Graphic(2).grhindex = 7326 Or MapData(X, Y).Graphic(2).grhindex = 7354 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7373 Or MapData(X, Y).Graphic(2).grhindex = 7371 Or MapData(X, Y).Graphic(2).grhindex = 7365 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29597 Or MapData(X, Y).Graphic(2).grhindex = 29595 Or MapData(X, Y).Graphic(2).grhindex = 29596 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29571 Or MapData(X, Y).Graphic(2).grhindex = 29608 Or MapData(X, Y).Graphic(2).grhindex = 29607 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29588 Or MapData(X, Y).Graphic(2).grhindex = 29590 Or MapData(X, Y).Graphic(2).grhindex = 29583 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29584 Or MapData(X, Y).Graphic(2).grhindex = 29586 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7369 Or MapData(X, Y).Graphic(2).grhindex = 7367 Or MapData(X, Y).Graphic(2).grhindex = 7352 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7375 Or MapData(X, Y).Graphic(2).grhindex = 7351 Or MapData(X, Y).Graphic(2).grhindex = 7368 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7332 Or MapData(X, Y).Graphic(2).grhindex = 7339 Or MapData(X, Y).Graphic(2).grhindex = 7366 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7360 Or MapData(X, Y).Graphic(2).grhindex = 7338 Or MapData(X, Y).Graphic(2).grhindex = 7363 Or MapData(X, Y).Graphic(2).grhindex = 29582 Or MapData(X, Y).Graphic(2).grhindex = 29581 Or MapData(X, Y).Graphic(2).grhindex = 29580 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29593 Or MapData(X, Y).Graphic(2).grhindex = 29594 Or MapData(X, Y).Graphic(2).grhindex = 29570 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29599 Or MapData(X, Y).Graphic(2).grhindex = 29601 Or MapData(X, Y).Graphic(2).grhindex = 29591 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7349 Or MapData(X, Y).Graphic(2).grhindex = 7348 Or MapData(X, Y).Graphic(2).grhindex = 7345 _
+               Or MapData(X, Y).Graphic(2).grhindex = 29606 Or MapData(X, Y).Graphic(2).grhindex = 29605 Or MapData(X, Y).Graphic(2).grhindex = 29577 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7350 Or MapData(X, Y).Graphic(2).grhindex = 7362 Or MapData(X, Y).Graphic(2).grhindex = 7338 _
+               Or MapData(X, Y).Graphic(2).grhindex = 7317 Or MapData(X, Y).Graphic(2).grhindex = 7319 Or MapData(X, Y).Graphic(2).grhindex = 8272 Or MapData(X, Y).Graphic(2).grhindex = 8263 Then
                 Rem 7357 Or 7358 Or 7375 Or 7376 Or 22590 Or 22588 Or 22594 Or 22595 Or 22582 Or 22583 Then
-                MapData(X, y).Graphic(2).grhindex = 0
+                MapData(X, Y).Graphic(2).grhindex = 0
 
             End If
         
-            If MapData(X, y).Graphic(1).grhindex = 0 Then
-                MapData(X, y).Graphic(1).grhindex = 1
+            If MapData(X, Y).Graphic(1).grhindex = 0 Then
+                MapData(X, Y).Graphic(1).grhindex = 1
 
             End If
 
         Next X
-    Next y
+    Next Y
 
     Call DibujarMiniMapa
     Call mnuGuardarMapa_Click
@@ -5183,7 +5182,7 @@ Check11_Click_Err:
     
 End Sub
 
-Private Sub Check2_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Check2_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     
     On Error GoTo Check2_MouseUp_Err
     
@@ -5450,19 +5449,19 @@ Private Sub Command14_Click()
     
     On Error GoTo Command14_Click_Err
     
-    Dim y As Integer
+    Dim Y As Integer
     Dim X As Integer
 
-    For y = YMinMapSize To YMaxMapSize
+    For Y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
 
-            If MapData(X, y).particle_Index = 180 Then
-                MapData(X, y).particle_Index = 0
+            If MapData(X, Y).particle_Index = 180 Then
+                MapData(X, Y).particle_Index = 0
 
             End If
 
         Next X
-    Next y
+    Next Y
 
     
     Exit Sub
@@ -5477,16 +5476,16 @@ Private Sub Command15_Click()
     
     On Error GoTo Command15_Click_Err
     
-    Dim y As Long
+    Dim Y As Long
     Dim X As Long
 
-    For y = YMinMapSize To YMaxMapSize
+    For Y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
             'If MapData(X, Y).NPCIndex = Text1 Then
             '     MapData(X, Y).NPCIndex = Text2
             'End If
         Next X
-    Next y
+    Next Y
 
     modMapIO.GuardarMapa Dialog.FileName
 
@@ -5602,14 +5601,14 @@ Private Sub Remplazograficos()
     On Error GoTo Remplazograficos_Err
     
 
-    Dim y As Integer
+    Dim Y As Integer
     Dim X As Integer
     Dim c As Integer
     Dim D As Integer
     
 
     
-    For y = YMinMapSize To YMaxMapSize
+    For Y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
     
             ' If MapData(X, y).OBJInfo.objindex > 0 Then
@@ -5649,7 +5648,7 @@ Private Sub Remplazograficos()
             ' Next num
         
         Next X
-    Next y
+    Next Y
 
     
     Exit Sub
@@ -6227,7 +6226,7 @@ Call modEdicion.Deshacer_Add("Pegar Selección")
 Call PegarSeleccionCasa
 End Sub
 
-Private Sub niebla_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub niebla_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     
     On Error GoTo niebla_MouseUp_Err
     
@@ -6895,12 +6894,12 @@ Form_Load_Err:
     
 End Sub
 
-Private Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 
     'If Seleccionando Then CopiarSeleccion
 End Sub
 
-Private Sub Frame2_DragDrop(Source As Control, X As Single, y As Single)
+Private Sub Frame2_DragDrop(Source As Control, X As Single, Y As Single)
 
     Rem Estado Climatico
 End Sub
@@ -7012,17 +7011,17 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
-                Call Grh_Render_To_Hdc(Picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                picture1.Refresh
+                Call Grh_Render_To_Hdc(picture1.hdc, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(2, lListado(Index).Text, Asc("#"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Picture1.Refresh
+                picture1.Refresh
             
-                Call Grh_Render_To_Hdc(Picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(picture1.hdc, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
@@ -7045,7 +7044,7 @@ lListado_Click_Err:
     
 End Sub
 
-Private Sub lListado_MouseDown(Index As Integer, Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub lListado_MouseDown(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
     
     On Error GoTo lListado_MouseDown_Err
     
@@ -7068,7 +7067,7 @@ lListado_MouseDown_Err:
     
 End Sub
 
-Private Sub lListado_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub lListado_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
     '*************************************************
     'Author: ^[GS]^
     'Last modified: 22/05/06
@@ -7175,12 +7174,12 @@ MapPest_Click_Err:
     
 End Sub
 
-Private Sub MiniMap_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub MiniMap_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
     
     On Error GoTo MiniMap_MouseDown_Err
     
     UserPos.X = CByte(X)
-    UserPos.y = CByte(y)
+    UserPos.Y = CByte(Y)
     bRefreshRadar = True
 
     
@@ -8760,7 +8759,7 @@ mnuVerTriggers_Click_Err:
     
 End Sub
 
-Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
     
     On Error GoTo picRadar_MouseDown_Err
     
@@ -8771,10 +8770,10 @@ Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, X As Single,
     '*************************************************
     If X < 11 Then X = 11
     If X > 89 Then X = 89
-    If y < 10 Then y = 10
-    If y > 92 Then y = 92
+    If Y < 10 Then Y = 10
+    If Y > 92 Then Y = 92
     UserPos.X = X
-    UserPos.y = y
+    UserPos.Y = Y
     bRefreshRadar = True
 
     
@@ -8786,7 +8785,7 @@ picRadar_MouseDown_Err:
     
 End Sub
 
-Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     '*************************************************
     'Author: ^[GS]^
     'Last modified: 28/05/06
@@ -8795,7 +8794,7 @@ Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, X As Single,
     On Error GoTo picRadar_MouseMove_Err
     
     MiRadarX = X
-    MiRadarY = y
+    MiRadarY = Y
 
     
     Exit Sub
@@ -8829,7 +8828,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Triggers", IIf(FrmMain.mnuVerTriggers.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Grilla", IIf(FrmMain.mnuVerGrilla.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Bloqueos", IIf(FrmMain.mnuVerBloqueos.Checked = True, "1", "0")
-    WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "LastPos", UserPos.X & "-" & UserPos.y
+    WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "LastPos", UserPos.X & "-" & UserPos.Y
     WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "UtilizarDeshacer", IIf(FrmMain.mnuUtilizarDeshacer.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "AutoCapturarTrans", IIf(FrmMain.mnuAutoCapturarTranslados.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "AutoCapturarSup", IIf(FrmMain.mnuAutoCapturarSuperficie.Checked = True, "1", "0")
@@ -8858,7 +8857,7 @@ Private Sub Npcalazarpormapa_Click()
     Dim NPCIndex As Long
     Dim X        As Byte
     Dim tmp      As String
-    Dim y        As Byte
+    Dim Y        As Byte
     Dim i        As Byte
 
     tmp = InputBox("¿Cuantos npcs?", "Ingresar npcs al azar por todo el mapa.")
@@ -8867,18 +8866,18 @@ Private Sub Npcalazarpormapa_Click()
 
     For i = 1 To CLng(tmp)
         X = RandomNumber(15, 87)
-        y = RandomNumber(15, 87)
+        Y = RandomNumber(15, 87)
             
-        If MapData(X, y).Blocked = 0 Then
+        If MapData(X, Y).Blocked = 0 Then
 
             NPCIndex = FrmMain.cNumFunc(0).Text
                 
-            If NPCIndex <> MapData(X, y).NPCIndex Then
+            If NPCIndex <> MapData(X, Y).NPCIndex Then
                 modEdicion.Deshacer_Add "Insertar NPC" ' Hago deshacer
                 MapInfo.Changed = 1 'Set changed flag
              
-                Call MakeChar(NextOpenChar(), NpcData(NPCIndex).Body, NpcData(NPCIndex).Head, NpcData(NPCIndex).Heading, X, y)
-                MapData(X, y).NPCIndex = NPCIndex
+                Call MakeChar(NextOpenChar(), NpcData(NPCIndex).Body, NpcData(NPCIndex).Head, NpcData(NPCIndex).Heading, X, Y)
+                MapData(X, Y).NPCIndex = NPCIndex
 
             End If
 
@@ -8904,7 +8903,7 @@ Private Sub objalazar_Click()
     Dim bloquear As Byte
     Dim objeto   As Long
     Dim X        As Byte
-    Dim y        As Byte
+    Dim Y        As Byte
     Dim i        As Long
 
     cantidad = InputBox("Ingrese la cantidad de objetos a mapear")
@@ -8917,17 +8916,17 @@ Private Sub objalazar_Click()
 
     For i = 1 To cantidad
         X = RandomNumber(10, 91)
-        y = RandomNumber(8, 93)
+        Y = RandomNumber(8, 93)
 
-        If MapData(X, y).Graphic(1).grhindex < 1505 Or MapData(X, y).Graphic(1).grhindex > 1520 Then
+        If MapData(X, Y).Graphic(1).grhindex < 1505 Or MapData(X, Y).Graphic(1).grhindex > 1520 Then
             
             MapInfo.Changed = 1 'Set changed flag
                 
-            MapData(X, y).Blocked = bloquear * &HF
+            MapData(X, Y).Blocked = bloquear * &HF
         
-            InitGrh MapData(X, y).ObjGrh, ObjData(objeto).grhindex
-            MapData(X, y).OBJInfo.objindex = objeto
-            MapData(X, y).OBJInfo.Amount = 1
+            InitGrh MapData(X, Y).ObjGrh, ObjData(objeto).grhindex
+            MapData(X, Y).OBJInfo.objindex = objeto
+            MapData(X, Y).OBJInfo.Amount = 1
 
         End If
             
@@ -8948,10 +8947,10 @@ Private Sub Objeto_Click()
     
     On Error GoTo Objeto_Click_Err
     
-    Dim y As Integer
+    Dim Y As Integer
     Dim X As Integer
 
-    For y = YMinMapSize To YMaxMapSize
+    For Y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
             'If MapData(X, Y).OBJInfo.objindex = Text1 Then
             '         InitGrh MapData(X, Y).ObjGrh, 1
@@ -8959,7 +8958,7 @@ Private Sub Objeto_Click()
             '         MapData(X, Y).OBJInfo.Amount = 1
             ' End If
         Next X
-    Next y
+    Next Y
 
     
     Exit Sub
@@ -9171,7 +9170,7 @@ renderer_DblClick_Err:
     
 End Sub
 
-Private Sub renderer_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub renderer_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
     
     On Error GoTo renderer_MouseDown_Err
     
@@ -9199,13 +9198,13 @@ renderer_MouseDown_Err:
     
 End Sub
 
-Private Sub renderer_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub renderer_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     
     On Error GoTo renderer_MouseMove_Err
     
 
     MouseX = X
-    MouseY = y
+    MouseY = Y
 
     'Make sure map is loaded
     If Not MapaCargado Then Exit Sub
@@ -9466,14 +9465,14 @@ Private Sub Todas_las_luces_Click()
     On Error GoTo Todas_las_luces_Click_Err
     
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
     Dim i As Long
 
     For X = 1 To 100
-        For y = 1 To 100
+        For Y = 1 To 100
 
-            MapData(X, y).luz.Rango = 0
-        Next y
+            MapData(X, Y).luz.Rango = 0
+        Next Y
     Next X
 
     engine.Light_Remove_All
@@ -9493,13 +9492,13 @@ Private Sub Todas_las_Particulas_Click()
     On Error GoTo Todas_las_Particulas_Click_Err
     
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
     Dim i As Long
 
     For X = 1 To 100
-        For y = 1 To 100
-            MapData(X, y).particle_Index = 0
-        Next y
+        For Y = 1 To 100
+            MapData(X, Y).particle_Index = 0
+        Next Y
     Next X
 
     engine.Particle_Group_Remove_All
