@@ -283,7 +283,7 @@ Begin VB.Form frmRemplazo
          Width           =   1575
       End
       Begin VB.OptionButton OptEsteMapa 
-         Caption         =   "Otro Grafico"
+         Caption         =   "Este Mapa"
          Height          =   255
          Index           =   0
          Left            =   2400
@@ -435,7 +435,7 @@ Private Sub Remplazografico()
     On Error GoTo Remplazografico_Err
     
 
-    Dim y As Integer
+    Dim Y As Integer
     Dim X As Integer
     Dim c As Long
     Dim D As Long
@@ -506,7 +506,7 @@ Private Sub cmdSalir_Click()
 End Sub
 
 Private Sub LvBDeshacer_Click(Index As Integer)
-    Dim y As Integer
+    Dim Y As Integer
     Dim X As Integer
     Dim O As Long
     Dim D As Long
@@ -525,34 +525,36 @@ Private Sub LvBDeshacer_Click(Index As Integer)
             O = txt(7).Text
             D = txt(5).Text
             
-            For y = YMinMapSize To YMaxMapSize
+            For Y = YMinMapSize To YMaxMapSize
                 For X = XMinMapSize To XMaxMapSize
     
-                    If MapData(X, y).OBJInfo.objindex = 0 Then
-                        If MapData(X, y).Graphic(O).grhindex = txt(3).Text Then
-                            InitGrh MapData(X, y).Graphic(O), 0
-                            InitGrh MapData(X, y).Graphic(D), txt(0).Text
+                    'If MapData(X, y).OBJInfo.objindex = 0 Then
+                        If MapData(X, Y).Graphic(O).grhindex = txt(3).Text Then
+                            InitGrh MapData(X, Y).Graphic(O), 0
+                            InitGrh MapData(X, Y).Graphic(D), txt(0).Text
+                            MapInfo.Changed = 1
                         End If
-                   End If
+                   'End If
                 Next X
-            Next y
-            MapInfo.Changed = 1
+            Next Y
+
         Case 3
             O = txt(7).Text
             D = txt(5).Text
             
-            For y = YMinMapSize To YMaxMapSize
+            For Y = YMinMapSize To YMaxMapSize
                 For X = XMinMapSize To XMaxMapSize
     
-                    If MapData(X, y).OBJInfo.objindex = 0 Then
-                        If MapData(X, y).Graphic(D).grhindex = txt(0).Text Then
-                            InitGrh MapData(X, y).Graphic(D), 0
-                            InitGrh MapData(X, y).Graphic(O), txt(3).Text
+                    If MapData(X, Y).OBJInfo.objindex = 0 Then
+                        If MapData(X, Y).Graphic(D).grhindex = txt(0).Text Then
+                            InitGrh MapData(X, Y).Graphic(D), 0
+                            InitGrh MapData(X, Y).Graphic(O), txt(3).Text
+                            MapInfo.Changed = 1
                         End If
                    End If
                 Next X
-            Next y
-            MapInfo.Changed = 1
+            Next Y
+            
         End Select
 End Sub
 
