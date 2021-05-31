@@ -1184,7 +1184,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte)
                 FrmMain.cGrh.Text = MapData(tX, tY).Graphic(1).grhindex
 
             End If
-            frmRemplazo.txt(3).Text = FrmMain.cGrh.Text
+            frmRemplazo.GrhReplaceFrom.Text = FrmMain.cGrh.Text
         End If
         
         ' Limpieza

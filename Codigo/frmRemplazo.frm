@@ -1,10 +1,11 @@
 VERSION 5.00
 Begin VB.Form frmRemplazo 
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "Remplazo de graficos"
-   ClientHeight    =   2025
-   ClientLeft      =   9360
-   ClientTop       =   6195
-   ClientWidth     =   4575
+   ClientHeight    =   2535
+   ClientLeft      =   9345
+   ClientTop       =   6180
+   ClientWidth     =   8895
    BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.25
@@ -15,71 +16,60 @@ Begin VB.Form frmRemplazo
       Strikethrough   =   0   'False
    EndProperty
    LinkTopic       =   "Form4"
-   ScaleHeight     =   2025
-   ScaleWidth      =   4575
-   ShowInTaskbar   =   0   'False
-   Begin VB.CommandButton cmdSalir 
-      Caption         =   "Salir"
-      Height          =   840
-      Left            =   6960
-      TabIndex        =   28
-      Top             =   2760
-      Width           =   1935
-   End
-   Begin VB.Frame FraNpc 
-      Caption         =   "Npc"
-      Height          =   1695
-      Left            =   240
-      TabIndex        =   20
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
+   ScaleHeight     =   169
+   ScaleMode       =   3  'Pixel
+   ScaleWidth      =   593
+   Begin VB.Timer IterateMaps 
+      Enabled         =   0   'False
+      Interval        =   1
+      Left            =   7560
       Top             =   2040
-      Visible         =   0   'False
-      Width           =   4335
-      Begin VB.OptionButton OptTodoEl 
-         Caption         =   "Todo el Mundo"
-         Height          =   255
-         Index           =   2
-         Left            =   480
+   End
+   Begin VB.CheckBox AllMaps 
+      Caption         =   "Cambiar en todos los mapas"
+      Height          =   375
+      Left            =   4800
+      TabIndex        =   29
+      Top             =   2040
+      Width           =   2415
+   End
+   Begin VB.Frame Frame1 
+      Caption         =   "Triggers"
+      Height          =   855
+      Left            =   4680
+      TabIndex        =   22
+      Top             =   1080
+      Width           =   4095
+      Begin VB.TextBox TriggerReplaceFrom 
+         Alignment       =   2  'Center
+         Height          =   285
+         Left            =   960
          TabIndex        =   24
-         Top             =   240
-         Width           =   1455
+         Text            =   "1"
+         Top             =   330
+         Width           =   495
       End
-      Begin VB.OptionButton OptEsteMapa 
-         Caption         =   "Este mapa"
-         Height          =   255
-         Index           =   2
-         Left            =   480
+      Begin VB.TextBox TriggerReplaceTo 
+         Alignment       =   2  'Center
+         Height          =   285
+         Left            =   1800
          TabIndex        =   23
-         Top             =   480
-         Width           =   1455
-      End
-      Begin VB.TextBox txt 
-         Height          =   285
-         Index           =   8
-         Left            =   2280
-         TabIndex        =   22
          Text            =   "1"
-         Top             =   840
-         Width           =   1215
+         Top             =   330
+         Width           =   495
       End
-      Begin VB.TextBox txt 
-         Height          =   285
-         Index           =   9
-         Left            =   720
-         TabIndex        =   21
-         Text            =   "1"
-         Top             =   840
-         Width           =   1215
-      End
-      Begin WorldEditor.lvButtons_H LvBDeshacer 
+      Begin WorldEditor.lvButtons_H Reemplazar 
          Height          =   375
-         Index           =   1
-         Left            =   2400
+         Index           =   3
+         Left            =   2520
          TabIndex        =   25
-         Top             =   1200
-         Width           =   1815
-         _ExtentX        =   3201
+         Top             =   240
+         Width           =   1335
+         _ExtentX        =   2355
          _ExtentY        =   661
-         Caption         =   "Remplazo NPC"
+         Caption         =   "Remplazar"
          CapAlign        =   2
          BackStyle       =   2
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -96,16 +86,64 @@ Begin VB.Form frmRemplazo
          Value           =   0   'False
          cBack           =   -2147483633
       End
-      Begin WorldEditor.lvButtons_H LvBDeshacer 
+      Begin VB.Label lblGrafico 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "Trigger Nº"
+         Height          =   195
+         Index           =   3
+         Left            =   120
+         TabIndex        =   27
+         Top             =   360
+         Width           =   735
+      End
+      Begin VB.Label lblX 
+         AutoSize        =   -1  'True
+         BackStyle       =   0  'Transparent
+         Caption         =   "X"
+         Height          =   195
+         Index           =   3
+         Left            =   1560
+         TabIndex        =   26
+         Top             =   360
+         Width           =   90
+      End
+   End
+   Begin VB.Frame FraNpc 
+      Caption         =   "Npc"
+      Height          =   855
+      Left            =   120
+      TabIndex        =   16
+      Top             =   1560
+      Width           =   4455
+      Begin VB.TextBox NpcReplaceTo 
+         Alignment       =   2  'Center
+         Height          =   285
+         Left            =   1800
+         TabIndex        =   18
+         Text            =   "1"
+         Top             =   330
+         Width           =   735
+      End
+      Begin VB.TextBox NpcReplaceFrom 
+         Alignment       =   2  'Center
+         Height          =   285
+         Left            =   720
+         TabIndex        =   17
+         Text            =   "1"
+         Top             =   330
+         Width           =   735
+      End
+      Begin WorldEditor.lvButtons_H Reemplazar 
          Height          =   375
-         Index           =   5
-         Left            =   240
-         TabIndex        =   31
-         Top             =   1200
-         Width           =   1815
-         _ExtentX        =   3201
+         Index           =   2
+         Left            =   2760
+         TabIndex        =   19
+         Top             =   240
+         Width           =   1335
+         _ExtentX        =   2355
          _ExtentY        =   661
-         Caption         =   "Deshacer"
+         Caption         =   "Remplazar"
          CapAlign        =   2
          BackStyle       =   2
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -128,9 +166,9 @@ Begin VB.Form frmRemplazo
          Caption         =   "X"
          Height          =   195
          Index           =   2
-         Left            =   2040
-         TabIndex        =   27
-         Top             =   840
+         Left            =   1560
+         TabIndex        =   21
+         Top             =   360
          Width           =   90
       End
       Begin VB.Label lblGrafico 
@@ -140,92 +178,47 @@ Begin VB.Form frmRemplazo
          Height          =   195
          Index           =   2
          Left            =   120
-         TabIndex        =   26
-         Top             =   840
+         TabIndex        =   20
+         Top             =   360
          Width           =   495
       End
    End
    Begin VB.Frame FraObjetos 
       Caption         =   "Objetos"
-      Height          =   1695
+      Height          =   855
       Index           =   1
-      Left            =   4800
-      TabIndex        =   12
-      Top             =   240
-      Visible         =   0   'False
+      Left            =   4680
+      TabIndex        =   10
+      Top             =   120
       Width           =   4095
-      Begin VB.TextBox txt 
+      Begin VB.TextBox ObjReplaceFrom 
+         Alignment       =   2  'Center
          Height          =   285
-         Index           =   2
          Left            =   720
-         TabIndex        =   16
+         TabIndex        =   12
          Text            =   "1"
-         Top             =   840
-         Width           =   1215
+         Top             =   330
+         Width           =   735
       End
-      Begin VB.TextBox txt 
+      Begin VB.TextBox ObjReplaceTo 
+         Alignment       =   2  'Center
          Height          =   285
-         Index           =   1
-         Left            =   2280
-         TabIndex        =   15
+         Left            =   1800
+         TabIndex        =   11
          Text            =   "1"
-         Top             =   840
-         Width           =   1215
+         Top             =   330
+         Width           =   735
       End
-      Begin VB.OptionButton OptEsteMapa 
-         Caption         =   "Este mapa"
-         Height          =   255
+      Begin WorldEditor.lvButtons_H Reemplazar 
+         Height          =   375
          Index           =   1
-         Left            =   2280
-         TabIndex        =   14
-         Top             =   480
-         Width           =   1455
-      End
-      Begin VB.OptionButton OptTodoEl 
-         Caption         =   "Todo el Mundo"
-         Height          =   255
-         Index           =   1
-         Left            =   2280
+         Left            =   2760
          TabIndex        =   13
          Top             =   240
-         Width           =   1575
-      End
-      Begin WorldEditor.lvButtons_H LvBDeshacer 
-         Height          =   375
-         Index           =   0
-         Left            =   2160
-         TabIndex        =   17
-         Top             =   1200
-         Width           =   1815
-         _ExtentX        =   3201
+         Width           =   1215
+         _ExtentX        =   2143
          _ExtentY        =   661
-         Caption         =   "Remplazo Obj"
-         CapAlign        =   2
-         BackStyle       =   2
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Tahoma"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         cGradient       =   0
-         Mode            =   0
-         Value           =   0   'False
-         cBack           =   -2147483633
-      End
-      Begin WorldEditor.lvButtons_H LvBDeshacer 
-         Height          =   375
-         Index           =   4
-         Left            =   120
-         TabIndex        =   30
-         Top             =   1200
-         Width           =   1815
-         _ExtentX        =   3201
-         _ExtentY        =   661
-         Caption         =   "Deshacer"
+         Caption         =   "Remplazar"
          CapAlign        =   2
          BackStyle       =   2
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -249,8 +242,8 @@ Begin VB.Form frmRemplazo
          Height          =   195
          Index           =   1
          Left            =   120
-         TabIndex        =   19
-         Top             =   840
+         TabIndex        =   15
+         Top             =   360
          Width           =   495
       End
       Begin VB.Label lblX 
@@ -259,110 +252,74 @@ Begin VB.Form frmRemplazo
          Caption         =   "X"
          Height          =   195
          Index           =   1
-         Left            =   2040
-         TabIndex        =   18
-         Top             =   840
+         Left            =   1560
+         TabIndex        =   14
+         Top             =   360
          Width           =   90
       End
    End
    Begin VB.Frame FraObjetos 
       Caption         =   "Grafico"
-      Height          =   1695
+      Height          =   1335
       Index           =   0
       Left            =   120
       TabIndex        =   0
       Top             =   120
-      Width           =   4335
-      Begin VB.OptionButton OptTodoEl 
-         Caption         =   "Mismo Grafico"
+      Width           =   4455
+      Begin VB.CheckBox SameGrh 
+         Caption         =   "Mismo gráfico"
          Height          =   255
-         Index           =   0
-         Left            =   2400
-         TabIndex        =   11
-         Top             =   240
-         Width           =   1575
-      End
-      Begin VB.OptionButton OptEsteMapa 
-         Caption         =   "Este Mapa"
-         Height          =   255
-         Index           =   0
-         Left            =   2400
-         TabIndex        =   10
-         Top             =   480
+         Left            =   2520
+         TabIndex        =   28
+         Top             =   360
          Width           =   1455
       End
-      Begin VB.TextBox txt 
+      Begin VB.TextBox GrhReplaceTo 
+         Alignment       =   2  'Center
          Height          =   285
-         Index           =   0
-         Left            =   2280
+         Left            =   2040
          TabIndex        =   4
          Text            =   "1"
-         Top             =   840
-         Width           =   1215
+         Top             =   810
+         Width           =   975
       End
-      Begin VB.TextBox txt 
+      Begin VB.TextBox GrhReplaceFrom 
+         Alignment       =   2  'Center
          Height          =   285
-         Index           =   3
          Left            =   720
          TabIndex        =   3
          Text            =   "1"
-         Top             =   840
-         Width           =   1215
+         Top             =   810
+         Width           =   975
       End
-      Begin VB.TextBox txt 
+      Begin VB.TextBox HastaCapa 
+         Alignment       =   2  'Center
          Height          =   285
-         Index           =   5
          Left            =   1680
          TabIndex        =   2
          Text            =   "1"
-         Top             =   360
+         Top             =   330
          Width           =   495
       End
-      Begin VB.TextBox txt 
+      Begin VB.TextBox DesdeCapa 
+         Alignment       =   2  'Center
          Height          =   285
-         Index           =   7
          Left            =   840
          TabIndex        =   1
          Text            =   "1"
-         Top             =   360
+         Top             =   330
          Width           =   495
       End
-      Begin WorldEditor.lvButtons_H LvBDeshacer 
+      Begin WorldEditor.lvButtons_H Reemplazar 
          Height          =   375
-         Index           =   2
-         Left            =   2400
+         Index           =   0
+         Left            =   3120
          TabIndex        =   5
-         Top             =   1200
-         Width           =   1815
-         _ExtentX        =   3201
+         Top             =   720
+         Width           =   1215
+         _ExtentX        =   2143
          _ExtentY        =   661
-         Caption         =   "Remplazo Grh"
-         CapAlign        =   2
-         BackStyle       =   2
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Tahoma"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         cGradient       =   0
-         Mode            =   0
-         Value           =   0   'False
-         cBack           =   -2147483633
-      End
-      Begin WorldEditor.lvButtons_H LvBDeshacer 
-         Height          =   375
-         Index           =   3
-         Left            =   240
-         TabIndex        =   29
-         Top             =   1200
-         Width           =   1815
-         _ExtentX        =   3201
-         _ExtentY        =   661
-         Caption         =   "Deshacer"
+         Caption         =   "Remplazar"
          CapAlign        =   2
          BackStyle       =   2
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -385,7 +342,7 @@ Begin VB.Form frmRemplazo
          Caption         =   "X"
          Height          =   195
          Index           =   0
-         Left            =   2040
+         Left            =   1800
          TabIndex        =   9
          Top             =   840
          Width           =   90
@@ -415,13 +372,13 @@ Begin VB.Form frmRemplazo
       Begin VB.Label lblDeCapa 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "de Capa"
+         Caption         =   "De capa"
          Height          =   195
          Index           =   0
          Left            =   120
          TabIndex        =   6
          Top             =   360
-         Width           =   600
+         Width           =   585
       End
    End
 End
@@ -430,157 +387,187 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub Remplazografico()
-    
-    On Error GoTo Remplazografico_Err
-    
+Option Explicit
 
-    Dim Y As Integer
-    Dim X As Integer
-    Dim c As Long
-    Dim D As Long
-    
-    
-'    c = txtCapaN.Text
-'    D = txtCapaD.Text
-    
-'    For y = YMinMapSize To YMaxMapSize
-'        For X = XMinMapSize To XMaxMapSize
-    
-            ' If MapData(X, y).OBJInfo.objindex > 0 Then
-            '  If ObjData(MapData(X, y).OBJInfo.objindex).ObjType = 4 Then
-            '   If MapData(X, y).Graphic(3).grhindex = MapData(X, y).ObjGrh.grhindex Then MapData(X, y).Graphic(3).grhindex = 0
-            '   MapData(X, y).OBJInfo.objindex = 0
-            '   MapData(X, y).OBJInfo.Amount = 0
-            '   MapData(X, y).Blocked = 0
-            ' End If
-            '  End If
-        
-'            If MapData(X, y).Graphic(c).grhindex = txtGRH.Text Then
-'                InitGrh MapData(X, y).Graphic(c), 0  '.grhindex = 0
-'                InitGrh MapData(X, y).Graphic(D), TxtGrh2.Text
-            
-'                'InitGrh MapData(X, y).Graphic(2), 0
-'                MapData(X, y).Graphic(2).grhindex = TxtGrh.Text
-'                InitGrh MapData(X, y).Graphic(2), TxtGrh2.Text
-            
-'            End If
-        
-            '        If MapData(X, y).Graphic(3).grhindex = 12445 Then
-            '            MapData(X, y).Graphic(3).grhindex = 0
-            '            'InitGrh MapData(X, y).Graphic(2), 0
-            '            MapData(X, y).Graphic(2).grhindex = 12445
-            '            InitGrh MapData(X, y).Graphic(2), 12445
-            '        End If
-        
-            ' Dim num As Long
-        
-            ' For num = 943 To 950
-            '   If MapData(X, y).Graphic(3).grhindex = num Then
-            ' MapData(X, y).Graphic(3).grhindex = 0
-            'InitGrh MapData(X, y).Graphic(2), 0
-            'MapData(X, y).Graphic(2).grhindex = num
-            ' InitGrh MapData(X, y).Graphic(2), num
-            ' End If
-            ' Next num
-        
-'        Next X
-'    Next y
+Dim Replacing As Integer
 
-    
-    Exit Sub
-
-Remplazografico_Err:
-    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Remplazografico", Erl)
-    Resume Next
-    
+Private Sub DesdeCapa_Change()
+    DesdeCapa.Text = Val(DesdeCapa.Text)
 End Sub
 
-
-
-
-
-
-Private Sub cmdSalir_Click()
-    Unload Me
+Private Sub GrhReplaceFrom_Change()
+    GrhReplaceFrom.Text = Val(GrhReplaceFrom.Text)
+    
+    If SameGrh.Value = vbChecked Then
+        GrhReplaceTo.Text = GrhReplaceFrom.Text
+    End If
 End Sub
 
-Private Sub LvBDeshacer_Click(Index As Integer)
-    Dim Y As Integer
-    Dim X As Integer
-    Dim O As Long
-    Dim D As Long
-    
+Private Sub GrhReplaceTo_Change()
+    GrhReplaceTo.Text = Val(GrhReplaceTo.Text)
+End Sub
 
-    
+Private Sub HastaCapa_Change()
+    HastaCapa.Text = Val(HastaCapa.Text)
+End Sub
+
+Private Sub IterateMaps_Timer()
+    Call ReplaceOnMap(Replacing)
+
+    Call modMapIO.GuardarMapa(FrmMain.Dialog.FileName)
+
+    If Not FrmMain.MapPest(5).Visible Then
+        IterateMaps.Enabled = False
+        Exit Sub
+    End If
+
+    Call FrmMain.NextMap
+End Sub
+
+Private Sub NpcReplaceFrom_Change()
+    NpcReplaceFrom.Text = Val(NpcReplaceFrom.Text)
+End Sub
+
+Private Sub NpcReplaceTo_Change()
+    NpcReplaceTo.Text = Val(NpcReplaceTo.Text)
+End Sub
+
+Private Sub ObjReplaceFrom_Change()
+    ObjReplaceFrom.Text = Val(ObjReplaceFrom.Text)
+End Sub
+
+Private Sub ObjReplaceTo_Change()
+    ObjReplaceTo.Text = Val(ObjReplaceTo.Text)
+End Sub
+
+Private Sub Reemplazar_Click(Index As Integer)
+
+    If AllMaps.Value = vbChecked Then
+        If MsgBox("¿Está seguro que desea remplazar en todos los mapas?", vbYesNo, "Reemplazar") = vbYes Then
+            Dim FileName As String
+            FileName = PATH_Save & NameMap_Save & "1.csm"
+        
+            If FileExist(FileName, vbArchive) = False Then
+                Unload Me
+                MsgBox "Primero abre algún mapa de la carpeta a convertir.", vbOKOnly, "Error"
+                Exit Sub
+            End If
+            
+            Call AbrirMapa(FileName)
+
+            Replacing = Index
+
+            IterateMaps.Enabled = True
+        End If
+    Else
+        Call ReplaceOnMap(Index)
+    End If
+
+End Sub
+
+Private Sub SameGrh_Click()
+    If SameGrh.Value = vbChecked Then
+        GrhReplaceTo.Text = GrhReplaceFrom.Text
+        GrhReplaceTo.Enabled = False
+    Else
+        GrhReplaceTo.Enabled = True
+    End If
+End Sub
+
+Private Sub TriggerReplaceFrom_Change()
+    TriggerReplaceFrom.Text = Val(TriggerReplaceFrom.Text)
+End Sub
+
+Private Sub TriggerReplaceTo_Change()
+    TriggerReplaceTo.Text = Val(TriggerReplaceTo.Text)
+End Sub
+
+Private Sub ReplaceOnMap(ByVal Index As Integer)
+    Dim ValueFrom As Integer, ValueTo As Integer
+    Dim X As Integer, Y As Integer
+
     Select Case Index
 
         Case 0
+            ValueFrom = Val(GrhReplaceFrom.Text)
+            ValueTo = Val(GrhReplaceTo.Text)
+            
+            Dim LayerFrom As Integer, LayerTo As Integer
+            LayerFrom = Val(DesdeCapa.Text)
+            LayerTo = Val(HastaCapa.Text)
 
-        
+            For Y = YMinMapSize To YMaxMapSize
+                For X = XMinMapSize To XMaxMapSize
+
+                    With MapData(X, Y)
+                        If .Graphic(LayerFrom).grhindex = ValueFrom Then
+                            .Graphic(LayerFrom).grhindex = 0
+                            Call InitGrh(.Graphic(LayerTo), ValueTo)
+                        End If
+                    End With
+
+                Next X
+            Next Y
+            
         Case 1
-        
-        
+            ValueFrom = Val(ObjReplaceFrom.Text)
+            ValueTo = Val(ObjReplaceTo.Text)
+
+            For Y = YMinMapSize To YMaxMapSize
+                For X = XMinMapSize To XMaxMapSize
+
+                    With MapData(X, Y)
+                        If .OBJInfo.objindex = ValueFrom Then
+                            If ValueTo <> 0 Then
+                                Call InitGrh(.ObjGrh, ObjData(ValueTo).grhindex)
+                            Else
+                                .ObjGrh.grhindex = 0
+                            End If
+                            .OBJInfo.objindex = ValueTo
+                        End If
+                    End With
+
+                Next X
+            Next Y
+            
         Case 2
-            O = txt(7).Text
-            D = txt(5).Text
-            
+            ValueFrom = Val(NpcReplaceFrom.Text)
+            ValueTo = Val(NpcReplaceTo.Text)
+
             For Y = YMinMapSize To YMaxMapSize
                 For X = XMinMapSize To XMaxMapSize
-    
-                    'If MapData(X, y).OBJInfo.objindex = 0 Then
-                        If MapData(X, Y).Graphic(O).grhindex = txt(3).Text Then
-                            InitGrh MapData(X, Y).Graphic(O), 0
-                            InitGrh MapData(X, Y).Graphic(D), txt(0).Text
-                            MapInfo.Changed = 1
+
+                    With MapData(X, Y)
+                        If .NPCIndex = ValueFrom Then
+                            If ValueTo <> 0 Then
+                                Call MakeChar(NextOpenChar(), NpcData(ValueTo).Body, NpcData(ValueTo).Head, NpcData(ValueTo).Heading, X, Y)
+                            Else
+                                Call EraseChar(.CharIndex)
+                            End If
+                            .NPCIndex = ValueTo
                         End If
-                   'End If
+                    End With
+
                 Next X
             Next Y
-
+            
         Case 3
-            O = txt(7).Text
-            D = txt(5).Text
-            
+            ValueFrom = Val(TriggerReplaceFrom.Text)
+            ValueTo = Val(TriggerReplaceTo.Text)
+
             For Y = YMinMapSize To YMaxMapSize
                 For X = XMinMapSize To XMaxMapSize
-    
-                    If MapData(X, Y).OBJInfo.objindex = 0 Then
-                        If MapData(X, Y).Graphic(D).grhindex = txt(0).Text Then
-                            InitGrh MapData(X, Y).Graphic(D), 0
-                            InitGrh MapData(X, Y).Graphic(O), txt(3).Text
-                            MapInfo.Changed = 1
+
+                    With MapData(X, Y)
+                        If .Trigger = ValueFrom Then
+                            .Trigger = ValueTo
                         End If
-                   End If
+                    End With
+
                 Next X
             Next Y
-            
-        End Select
-End Sub
 
-Private Sub OptEsteMapa_Click(Index As Integer)
-    
-    If OptEsteMapa(0).Value = True Then
-'        txt(0).Visible = True
-'        lblX(0).Visible = True
-    End If
+    End Select
 
-End Sub
-
-Private Sub OptTodoEl_Click(Index As Integer)
-
-    If OptTodoEl(0).Value = True Then
-        txt(0).Text = txt(3).Text
-'        txt(0).Visible = False
-'        lblX(0).Visible = False
-      Else
-'        txt(0).Visible = True
-'        lblX(0).Visible = True
-    End If
-
-End Sub
-
-Private Sub txt_Change(Index As Integer)
-     If OptTodoEl(0).Value = True Then txt(0).Text = txt(3).Text
-
+    MapInfo.Changed = 1
 End Sub
