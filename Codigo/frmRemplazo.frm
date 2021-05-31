@@ -483,7 +483,7 @@ Private Sub TriggerReplaceTo_Change()
 End Sub
 
 Private Sub ReplaceOnMap(ByVal Index As Integer)
-    Dim ValueFrom As Integer, ValueTo As Integer
+    Dim ValueFrom As Long, ValueTo As Long
     Dim X As Integer, y As Integer
 
     Select Case Index
