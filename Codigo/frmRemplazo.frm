@@ -414,7 +414,7 @@ End Sub
 Private Sub IterateMaps_Timer()
     Call ReplaceOnMap(Replacing)
 
-    Call modMapIO.GuardarMapa(FrmMain.Dialog.FileName)
+    Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
 
     If Not FrmMain.MapPest(5).Visible Then
         IterateMaps.Enabled = False
@@ -484,7 +484,7 @@ End Sub
 
 Private Sub ReplaceOnMap(ByVal Index As Integer)
     Dim ValueFrom As Integer, ValueTo As Integer
-    Dim X As Integer, Y As Integer
+    Dim X As Integer, y As Integer
 
     Select Case Index
 
@@ -496,10 +496,10 @@ Private Sub ReplaceOnMap(ByVal Index As Integer)
             LayerFrom = Val(DesdeCapa.Text)
             LayerTo = Val(HastaCapa.Text)
 
-            For Y = YMinMapSize To YMaxMapSize
+            For y = YMinMapSize To YMaxMapSize
                 For X = XMinMapSize To XMaxMapSize
 
-                    With MapData(X, Y)
+                    With MapData(X, y)
                         If .Graphic(LayerFrom).grhindex = ValueFrom Then
                             .Graphic(LayerFrom).grhindex = 0
                             Call InitGrh(.Graphic(LayerTo), ValueTo)
@@ -507,16 +507,16 @@ Private Sub ReplaceOnMap(ByVal Index As Integer)
                     End With
 
                 Next X
-            Next Y
+            Next y
             
         Case 1
             ValueFrom = Val(ObjReplaceFrom.Text)
             ValueTo = Val(ObjReplaceTo.Text)
 
-            For Y = YMinMapSize To YMaxMapSize
+            For y = YMinMapSize To YMaxMapSize
                 For X = XMinMapSize To XMaxMapSize
 
-                    With MapData(X, Y)
+                    With MapData(X, y)
                         If .OBJInfo.objindex = ValueFrom Then
                             If ValueTo <> 0 Then
                                 Call InitGrh(.ObjGrh, ObjData(ValueTo).grhindex)
@@ -528,19 +528,19 @@ Private Sub ReplaceOnMap(ByVal Index As Integer)
                     End With
 
                 Next X
-            Next Y
+            Next y
             
         Case 2
             ValueFrom = Val(NpcReplaceFrom.Text)
             ValueTo = Val(NpcReplaceTo.Text)
 
-            For Y = YMinMapSize To YMaxMapSize
+            For y = YMinMapSize To YMaxMapSize
                 For X = XMinMapSize To XMaxMapSize
 
-                    With MapData(X, Y)
+                    With MapData(X, y)
                         If .NPCIndex = ValueFrom Then
                             If ValueTo <> 0 Then
-                                Call MakeChar(NextOpenChar(), NpcData(ValueTo).Body, NpcData(ValueTo).Head, NpcData(ValueTo).Heading, X, Y)
+                                Call MakeChar(NextOpenChar(), NpcData(ValueTo).Body, NpcData(ValueTo).Head, NpcData(ValueTo).Heading, X, y)
                             Else
                                 Call EraseChar(.CharIndex)
                             End If
@@ -549,23 +549,23 @@ Private Sub ReplaceOnMap(ByVal Index As Integer)
                     End With
 
                 Next X
-            Next Y
+            Next y
             
         Case 3
             ValueFrom = Val(TriggerReplaceFrom.Text)
             ValueTo = Val(TriggerReplaceTo.Text)
 
-            For Y = YMinMapSize To YMaxMapSize
+            For y = YMinMapSize To YMaxMapSize
                 For X = XMinMapSize To XMaxMapSize
 
-                    With MapData(X, Y)
+                    With MapData(X, y)
                         If .Trigger = ValueFrom Then
                             .Trigger = ValueTo
                         End If
                     End With
 
                 Next X
-            Next Y
+            Next y
 
     End Select
 
