@@ -384,7 +384,7 @@ setup_ambient_Err:
     
 End Sub
 
-Private Function GetElapsedTime() As Single
+Public Function GetElapsedTime() As Single
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 10/07/2002
@@ -1495,8 +1495,40 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                           PixelOffsetXTemp, PixelOffsetYTemp - 7, 1, 1, TmpRGB(), False, X, Y)
                     '
                     ' Else
-                            
-                    Text_Render font_list(1), str(MapData(X, y).Trigger), PixelOffsetYTemp, PixelOffsetXTemp, 70, 20, &HFFFFFFFF, DT_TOP Or DT_LEFT, True
+                    
+                    If str(MapData(X, y).Trigger) < 9 Then
+                        Grh.grhindex = str(MapData(X, y).Trigger) + 21452
+                        Grh.FrameCounter = 1
+                        Grh.Started = 0
+                        Call Draw_Grh(Grh, ScreenX, ScreenY, 1, 1, TmpRGB(), True, X, y)
+                    Else
+
+                        Dim cadena   As String
+
+                        Dim caracter As String
+
+                        Dim POSX     As Byte
+
+                        Dim jj       As Byte
+
+                        POSX = 0
+                        cadena = str(MapData(X, y).Trigger)
+                        
+                        For jj = 1 To Len(cadena)
+                            caracter = mid(cadena, jj, 1)
+
+                            If IsNumeric(caracter) Then
+                                Grh.grhindex = caracter + 21452
+                                Grh.FrameCounter = 1
+                                Grh.Started = 0
+                                Call Draw_Grh(Grh, PixelOffsetXTemp + POSX, PixelOffsetYTemp, 1, 1, TmpRGB(), False, X, y)
+                                POSX = POSX + 8
+
+                            End If
+
+                        Next jj
+
+                    End If
 
                 End If
 
