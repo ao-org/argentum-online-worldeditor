@@ -859,7 +859,7 @@ Public Sub AccionSeleccion()
 
     For X = 0 To SeleccionAncho - 1
         For y = 0 To SeleccionAlto - 1
-            ClickEdit vbLeftButton, SeleccionIX + X, SeleccionIY + y
+            ClickEdit vbLeftButton, SeleccionIX + X, SeleccionIY + y, False
         Next
     Next
     Seleccionando = False
@@ -1055,8 +1055,8 @@ Public Sub GenerarVista()
     
     On Error GoTo GenerarVista_Err
     
-    VerBlockeados = FrmMain.cVerBloqueos.value
-    VerTriggers = FrmMain.cVerTriggers.value
+    VerBlockeados = FrmMain.cVerBloqueos.Value
+    VerTriggers = FrmMain.cVerTriggers.Value
     VerCapa1 = FrmMain.mnuVerCapa1.Checked
     VerCapa2 = FrmMain.mnuVerCapa2.Checked
     VerCapa3 = FrmMain.mnuVerCapa3.Checked

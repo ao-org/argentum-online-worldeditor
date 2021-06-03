@@ -1485,54 +1485,34 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
             
             If VerTriggers Then
 
-                '   Grh.grhindex = Str(MapData(X, Y).Trigger) + 21452
-                '  Grh.FrameCounter = 1
-                '  Grh.Started = 0
                 If MapData(X, y).Trigger <> 0 Then
-                    '   If MapData(X, Y).Trigger < 7 Then
-                    ' engine.Text_Render_ext Str(MapData(X, Y).Trigger), PixelOffsetXTemp, PixelOffsetYTemp, 10, 10, &HFFFFFF, True, True
-                    '     Call Draw_Grh(Grh, _
-                          PixelOffsetXTemp, PixelOffsetYTemp - 7, 1, 1, TmpRGB(), False, X, Y)
-                    '
-                    ' Else
+
+                    Dim cadena   As String
+
+                    Dim caracter As String
+
+                    Dim POSX     As Byte
+
+                    Dim jj       As Byte
+
+                    POSX = 0
+                    cadena = str(MapData(X, y).Trigger)
                     
-                    If str(MapData(X, y).Trigger) < 9 Then
-                        Grh.grhindex = str(MapData(X, y).Trigger) + 21452
-                        Grh.FrameCounter = 1
-                        Grh.Started = 0
-                        Call Draw_Grh(Grh, ScreenX, ScreenY, 1, 1, TmpRGB(), True, X, y)
-                    Else
+                    For jj = 1 To Len(cadena)
+                        caracter = mid(cadena, jj, 1)
 
-                        Dim cadena   As String
+                        If IsNumeric(caracter) Then
+                            Grh.grhindex = caracter + 21452
+                            Grh.FrameCounter = 1
+                            Grh.Started = 0
+                            Call Draw_Grh(Grh, PixelOffsetXTemp - 6 + POSX, PixelOffsetYTemp - 12, 1, 1, TmpRGB(), False, X, y)
+                            POSX = POSX + 8
 
-                        Dim caracter As String
+                        End If
 
-                        Dim POSX     As Byte
-
-                        Dim jj       As Byte
-
-                        POSX = 0
-                        cadena = str(MapData(X, y).Trigger)
-                        
-                        For jj = 1 To Len(cadena)
-                            caracter = mid(cadena, jj, 1)
-
-                            If IsNumeric(caracter) Then
-                                Grh.grhindex = caracter + 21452
-                                Grh.FrameCounter = 1
-                                Grh.Started = 0
-                                Call Draw_Grh(Grh, PixelOffsetXTemp + POSX, PixelOffsetYTemp, 1, 1, TmpRGB(), False, X, y)
-                                POSX = POSX + 8
-
-                            End If
-
-                        Next jj
-
-                    End If
+                    Next jj
 
                 End If
-
-                ' End If
             End If
           
             If Seleccionando Then
