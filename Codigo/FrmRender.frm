@@ -135,6 +135,7 @@ Private Declare Function BitBlt Lib "gdi32" (ByVal hDestDC As Long, ByVal X As L
 ' Recupera la imagen del área del control
 Private Declare Function GetWindowDC Lib "user32" (ByVal hWnd As Long) As Long
 
+Dim handle As Integer
 
 Private Sub cmdAceptar_Click()
     
@@ -245,13 +246,52 @@ Private Sub Command3_Click()
     Call AbrirMapa(FileName)
 
     SaveAll.Enabled = True
+    
+    handle = FreeFile
+
+    Open "A:\bloqueos.txt" For Append As #handle
 End Sub
 
+Private Function IsBlock(ByVal X As Integer, ByVal y As Integer) As Boolean
+    If X - 1 < XMinMapSize Or X + 1 > XMaxMapSize Then
+        IsBlock = True
+        Exit Function
+    End If
+    
+    If y - 1 < YMinMapSize Or y + 1 > YMaxMapSize Then
+        IsBlock = True
+        Exit Function
+    End If
+    
+    IsBlock = (MapData(X, y).Blocked And &HF) = &HF
+    
+End Function
+
 Private Sub SaveAll_Timer()
-    Call engine.MapCapture(False, False)
+    'Call engine.MapCapture(False, False)
+    
+    
+    Dim X As Integer, y As Integer
+    
+    For y = YMinMapSize To YMaxMapSize
+        For X = XMinMapSize To XMaxMapSize
+
+            If MapData(X, y).NPCIndex Then
+                If NpcData(MapData(X, y).NPCIndex).Body = 0 Then
+                    Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: NPC BODY 0 "; MapData(X, y).NPCIndex
+                Else
+                    If BodyData(NpcData(MapData(X, y).NPCIndex).Body).Walk(1).grhindex = 0 Then
+                        Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: NPC BODY SIN GRH "; MapData(X, y).NPCIndex
+                    End If
+                End If
+            End If
+        
+        Next
+    Next
 
     If Not FrmMain.MapPest(5).Visible Then
         SaveAll.Enabled = False
+        Close #handle
         Exit Sub
     End If
 
