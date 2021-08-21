@@ -1121,10 +1121,12 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     maxx = screenmaxX + TileBufferSize
     
     'Make sure mins and maxs are allways in map bounds
+    '******************************************************
+    'Ultima modificacion 08/05/2020 por ReyarB
+    '******************************************************
     If miny < XMinMapSize Then
         minYOffset = YMinMapSize - miny
         miny = YMinMapSize
-
     End If
     
     If maxy > YMaxMapSize Then maxy = YMaxMapSize
@@ -1132,7 +1134,6 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     If minx < XMinMapSize Then
         minXOffset = XMinMapSize - minx
         minx = XMinMapSize
-
     End If
     
     If maxx > XMaxMapSize Then maxx = XMaxMapSize
@@ -1141,9 +1142,8 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     If screenminY > YMinMapSize Then
         screenminY = screenminY - 1
     Else
-        screenminY = 1
-        ScreenY = 1
-
+        screenminY = screenminY - 1
+        'ScreenY = 1
     End If
     
     If screenmaxY < YMaxMapSize Then screenmaxY = screenmaxY + 1
@@ -1151,9 +1151,8 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     If screenminX > XMinMapSize Then
         screenminX = screenminX - 1
     Else
-        screenminX = 1
-        ScreenX = 1
-
+        screenminX = screenminX - 1
+        'ScreenX = 1
     End If
     
     If screenmaxX < XMaxMapSize Then screenmaxX = screenmaxX + 1

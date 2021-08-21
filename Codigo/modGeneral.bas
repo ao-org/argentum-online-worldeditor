@@ -92,38 +92,68 @@ Public Sub CheckKeys()
     If HotKeysAllow = False Then Exit Sub
 
     If GetKeyState(vbKeyUp) < 0 Then
-        If UserPos.y < 15 Then Exit Sub ' 10
-        UserPos.y = UserPos.y - 1
+        If UserPos.y < 1 Then Exit Sub ' 15
+            If LegalPos(UserPos.X, UserPos.y - 1) And WalkMode = True Then
+                If dLastWalk + 50 > GetTickCount Then Exit Sub
+                UserPos.y = UserPos.y - 1
+                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
+                dLastWalk = GetTickCount
+            ElseIf WalkMode = False Then
+                UserPos.y = UserPos.y - 1
+                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
+            End If
         bRefreshRadar = True ' Radar
-        '  FrmMain.SetFocus
+        FrmMain.SetFocus
         Exit Sub
 
     End If
 
     If GetKeyState(vbKeyRight) < 0 Then
-        If UserPos.X > 82 Then Exit Sub ' 89
-
-        UserPos.X = UserPos.X + 1
+        If UserPos.X > XMaxMapSize Then Exit Sub ' 82
+            If LegalPos(UserPos.X + 1, UserPos.y) And WalkMode = True Then
+                If dLastWalk + 50 > GetTickCount Then Exit Sub
+                UserPos.X = UserPos.X + 1
+                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
+                dLastWalk = GetTickCount
+            ElseIf WalkMode = False Then
+                UserPos.X = UserPos.X + 1
+            End If
         bRefreshRadar = True ' Radar
-        '  FrmMain.SetFocus
+        FrmMain.SetFocus
         Exit Sub
 
     End If
 
     If GetKeyState(vbKeyDown) < 0 Then
-        If UserPos.y > 86 Then Exit Sub ' 92
-        UserPos.y = UserPos.y + 1
+        If UserPos.y > XMaxMapSize Then Exit Sub ' 86
+            If LegalPos(UserPos.X, UserPos.y + 1) And WalkMode = True Then
+                If dLastWalk + 50 > GetTickCount Then Exit Sub
+                UserPos.y = UserPos.y + 1
+                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
+                dLastWalk = GetTickCount
+            ElseIf WalkMode = False Then
+                UserPos.y = UserPos.y + 1
+            End If
+        
         bRefreshRadar = True ' Radar
-        '  FrmMain.SetFocus
+        FrmMain.SetFocus
         Exit Sub
 
     End If
 
     If GetKeyState(vbKeyLeft) < 0 Then
-        If UserPos.X < 20 Then Exit Sub ' 12
-        UserPos.X = UserPos.X - 1
+        If UserPos.X < 1 Then Exit Sub ' 20
+            If LegalPos(UserPos.X - 1, UserPos.y) And WalkMode = True Then
+                If dLastWalk + 50 > GetTickCount Then Exit Sub
+                UserPos.X = UserPos.X - 1
+                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
+                dLastWalk = GetTickCount
+            ElseIf WalkMode = False Then
+                UserPos.X = UserPos.X - 1
+            End If
+
         bRefreshRadar = True ' Radar
-        '  FrmMain.SetFocus
+        FrmMain.SetFocus
         Exit Sub
 
     End If
