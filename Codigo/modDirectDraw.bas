@@ -42,8 +42,8 @@ Sub ConvertCPtoTP(ByVal viewPortX As Integer, ByVal viewPortY As Integer, ByRef 
     '******************************************
     On Error Resume Next
 
-    If UserPos.X = 0 Then Exit Sub
-    If UserPos.y = 0 Then Exit Sub
+'    If UserPos.X = 0 Then Exit Sub
+'    If UserPos.y = 0 Then Exit Sub
     tX = UserPos.X + viewPortX \ 32 - FrmMain.renderer.ScaleWidth \ 64
     tY = UserPos.y + viewPortY \ 32 - FrmMain.renderer.ScaleHeight \ 64
     tX = tX - 1
@@ -123,11 +123,11 @@ Sub MakeChar(ByVal CharIndex As Integer, ByVal Body As Integer, ByVal Head As In
         'If the char wasn't allready active (we are rewritting it) don't increase char count
         If .active = 0 Then NumChars = NumChars + 1
         
-        .iHead = Head
-        .iBody = Body
+        '.iHead = Head
+        '.iBody = Body
+        
         .Head = HeadData(Head)
         .Body = BodyData(Body)
-        
         .Heading = Heading
         
         'Reset moving stats
@@ -359,17 +359,17 @@ Sub MoveCharbyPos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As I
         .scrollDirectionY = Sgn(addy)
         
         'parche para que no medite cuando camina
-        If .FxIndex = FxMeditar.CHICO Or .FxIndex = FxMeditar.GRANDE Or .FxIndex = FxMeditar.MEDIANO Or .FxIndex = FxMeditar.XGRANDE Or .FxIndex = FxMeditar.XXGRANDE Then
-            .FxIndex = 0
-
-        End If
-
+'        If .FxIndex = FxMeditar.CHICO Or .FxIndex = FxMeditar.GRANDE Or .FxIndex = FxMeditar.MEDIANO Or .FxIndex = FxMeditar.XGRANDE Or .FxIndex = FxMeditar.XXGRANDE Then
+'            .FxIndex = 0
+'
+'        End If
+    bRefreshRadar = True ' GS
     End With
     
-    If (nY < MinLimiteY) Or (nY > MaxLimiteY) Or (nX < MinLimiteX) Or (nX > MaxLimiteX) Then
-        Call EraseChar(CharIndex)
-
-    End If
+'    If (nY < MinLimiteY) Or (nY > MaxLimiteY) Or (nX < MinLimiteX) Or (nX > MaxLimiteX) Then
+'        Call EraseChar(CharIndex)
+'
+'    End If
 
 End Sub
 
@@ -410,15 +410,14 @@ Function LegalPos(X As Integer, y As Integer) As Boolean
     LegalPos = True
     
     'Check to see if its out of bounds
-    If X - 12 < 1 Or X - 12 > 100 Or y - 9 < 1 Or y - 9 > 100 Then
+    If X - 12 < YMinMapSize Or X - 12 > XMaxMapSize Or y - 9 < YMinMapSize Or y - 9 > YMaxMapSize Then
         LegalPos = False
         Exit Function
-
     End If
     
     'Check to see if its blocked
-    If X > 100 Then Exit Function
-    If y > 100 Then Exit Function
+    If X > XMaxMapSize Or X < XMinMapSize Then Exit Function
+    If y > YMaxMapSize Or y < YMinMapSize Then Exit Function
     
     'Check for character
     If MapData(X, y).CharIndex > 0 Then
@@ -428,7 +427,7 @@ Function LegalPos(X As Integer, y As Integer) As Boolean
     End If
     
     'Tile Bloqueado? (todo bloqueado)
-    If MapData(X, y).Blocked = &HF Then
+    If MapData(X, y).Blocked > 0 Then
         LegalPos = False
         Exit Function
 
