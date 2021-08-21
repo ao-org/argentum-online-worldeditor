@@ -1168,7 +1168,18 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
 
     If screenmaxX > 100 Then screenmaxX = 100
 
+    If screenminX < XMinMapSize Then
+        ScreenX = XMinMapSize - screenminX
+        screenminX = XMinMapSize
+    End If
+
+
+    If screenminY < YMinMapSize Then
+        ScreenY = YMinMapSize - screenminY
+        screenminY = YMinMapSize
+    End If
     'Draw floor layer
+    
     For y = screenminY To screenmaxY
     
         For X = screenminX To screenmaxX
