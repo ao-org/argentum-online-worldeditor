@@ -98,9 +98,6 @@ Public Sub CheckKeys()
                 UserPos.y = UserPos.y - 1
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
                 dLastWalk = GetTickCount
-            ElseIf WalkMode = True Then
-                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
-                dLastWalk = GetTickCount
             ElseIf WalkMode = False Then
                 UserPos.y = UserPos.y - 1
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
@@ -116,9 +113,6 @@ Public Sub CheckKeys()
             If LegalPos(UserPos.X + 1, UserPos.y) And WalkMode = True Then
                 If dLastWalk + 50 > GetTickCount Then Exit Sub
                 UserPos.X = UserPos.X + 1
-                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
-                dLastWalk = GetTickCount
-            ElseIf WalkMode = True Then
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
                 dLastWalk = GetTickCount
             ElseIf WalkMode = False Then
@@ -137,9 +131,6 @@ Public Sub CheckKeys()
                 UserPos.y = UserPos.y + 1
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
                 dLastWalk = GetTickCount
-            ElseIf WalkMode = True Then
-                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
-                dLastWalk = GetTickCount
             ElseIf WalkMode = False Then
                 UserPos.y = UserPos.y + 1
             End If
@@ -155,9 +146,6 @@ Public Sub CheckKeys()
             If LegalPos(UserPos.X - 1, UserPos.y) And WalkMode = True Then
                 If dLastWalk + 50 > GetTickCount Then Exit Sub
                 UserPos.X = UserPos.X - 1
-                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
-                dLastWalk = GetTickCount
-            ElseIf WalkMode = True Then
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
                 dLastWalk = GetTickCount
             ElseIf WalkMode = False Then
