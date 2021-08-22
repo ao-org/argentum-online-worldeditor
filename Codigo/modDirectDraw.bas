@@ -319,35 +319,30 @@ Sub MoveCharbyPos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As I
         X = .Pos.X
         y = .Pos.y
         
-        MapData(X, y).CharIndex = 0
-        
+               
         addx = nX - X
         addy = nY - y
         
         If Sgn(addx) = 1 Then
             nHeading = E_Heading.EAST
-
         End If
         
         If Sgn(addx) = -1 Then
             nHeading = E_Heading.WEST
-
         End If
         
         If Sgn(addy) = -1 Then
             nHeading = E_Heading.NORTH
-
         End If
         
         If Sgn(addy) = 1 Then
             nHeading = E_Heading.SOUTH
-
         End If
         
         MapData(nX, nY).CharIndex = CharIndex
-        
         .Pos.X = nX
         .Pos.y = nY
+        MapData(X, y).CharIndex = 0
         
         .MoveOffsetX = -1 * (TilePixelWidth * addx)
         .MoveOffsetY = -1 * (TilePixelHeight * addy)
@@ -357,20 +352,10 @@ Sub MoveCharbyPos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As I
         
         .scrollDirectionX = Sgn(addx)
         .scrollDirectionY = Sgn(addy)
-        
-        'parche para que no medite cuando camina
-'        If .FxIndex = FxMeditar.CHICO Or .FxIndex = FxMeditar.GRANDE Or .FxIndex = FxMeditar.MEDIANO Or .FxIndex = FxMeditar.XGRANDE Or .FxIndex = FxMeditar.XXGRANDE Then
-'            .FxIndex = 0
-'
-'        End If
+
     bRefreshRadar = True ' GS
     End With
     
-'    If (nY < MinLimiteY) Or (nY > MaxLimiteY) Or (nX < MinLimiteX) Or (nX > MaxLimiteX) Then
-'        Call EraseChar(CharIndex)
-'
-'    End If
-
 End Sub
 
 Function NextOpenChar() As Integer
