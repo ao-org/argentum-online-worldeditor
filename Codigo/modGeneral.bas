@@ -100,7 +100,6 @@ Public Sub CheckKeys()
                 dLastWalk = GetTickCount
             ElseIf WalkMode = False Then
                 UserPos.y = UserPos.y - 1
-                MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
             End If
         bRefreshRadar = True ' Radar
         FrmMain.SetFocus
