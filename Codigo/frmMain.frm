@@ -4332,6 +4332,9 @@ Begin VB.Form FrmMain
       Begin VB.Menu mnuVerTriggers 
          Caption         =   "...Tri&gger's"
       End
+      Begin VB.Menu mnuVerMarco 
+         Caption         =   "...Marco"
+      End
       Begin VB.Menu mnuVerGrilla 
          Caption         =   "...Gri&lla"
       End
@@ -5325,6 +5328,21 @@ Private Sub lvlMin_Change()
     MapDat.level = (MapDat.level And &HFFFFFF00) Or Val(lvlMin.Text)
     
     MapInfo.Changed = 1
+End Sub
+
+Private Sub mnuVerMarco_Click()
+
+    On Error GoTo mnuVerMarco_Click_Err
+    
+    VerMarco = (VerMarco = False)
+    mnuVerMarco.Checked = VerMarco
+
+    
+    Exit Sub
+
+mnuVerMarco_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.mnuVerMarco_Click", Erl)
+    Resume Next
 End Sub
 
 Private Sub OutMap_Change()
@@ -8846,6 +8864,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Objetos", IIf(FrmMain.mnuVerObjetos.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "NPCs", IIf(FrmMain.mnuVerNPCs.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Triggers", IIf(FrmMain.mnuVerTriggers.Checked = True, "1", "0")
+    WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Marco", IIf(FrmMain.mnuVerMarco.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Grilla", IIf(FrmMain.mnuVerGrilla.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Bloqueos", IIf(FrmMain.mnuVerBloqueos.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "LastPos", UserPos.X & "-" & UserPos.y

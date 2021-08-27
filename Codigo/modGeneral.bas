@@ -327,7 +327,9 @@ Private Sub CargarMapIni()
     FrmMain.mnuVerObjetos.Checked = Val(Leer.GetValue("MOSTRAR", "Objetos"))
     FrmMain.mnuVerNPCs.Checked = Val(Leer.GetValue("MOSTRAR", "NPCs"))
     FrmMain.mnuVerTriggers.Checked = Val(Leer.GetValue("MOSTRAR", "Triggers"))
+    FrmMain.mnuVerMarco.Checked = Val(Leer.GetValue("MOSTRAR", "Marco")) ' Marco
     FrmMain.mnuVerGrilla.Checked = Val(Leer.GetValue("MOSTRAR", "Grilla")) ' Grilla
+    VerMarco = FrmMain.mnuVerMarco.Checked
     VerGrilla = FrmMain.mnuVerGrilla.Checked
     FrmMain.mnuVerBloqueos.Checked = Val(Leer.GetValue("MOSTRAR", "Bloqueos"))
     FrmMain.cVerTriggers.Value = FrmMain.mnuVerTriggers.Checked
@@ -485,7 +487,7 @@ Public Sub Main()
     ColorAmb = 0 'Luz Base por defecto
     FormatoIAO = True
 
-    If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
+    If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.Picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
     frmCargando.verX = "v" & App.Major & "." & App.Minor & "." & App.Revision
     frmCargando.Show
     frmCargando.SetFocus

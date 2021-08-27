@@ -79,6 +79,7 @@ Public DeSeleccionMap()      As MapBlock
 
 Public VerBlockeados         As Boolean
 Public VerTriggers           As Boolean
+Public VerMarco              As Boolean ' Marco
 Public VerGrilla             As Boolean ' grilla
 Public VerCapa1              As Boolean
 Public VerCapa2              As Boolean
