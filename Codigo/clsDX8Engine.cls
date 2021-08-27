@@ -1579,7 +1579,9 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                 'Engine_Draw_Box 32 * A, 32 * b, 30, 30, D3DColorARGB(10, 255, 255, 255)
             Next b
         Next A
-    Else
+    End If
+    
+    If VerMarco Then
                 Call Draw_GrhIndex(2476, 212, 128)
     End If
 
