@@ -265,6 +265,7 @@ Public Type ObjData
     ShieldAnim As Integer ' Apunta a una anim de escudo
     Texto As String
     Cerrada As Byte
+    Subtipo As Byte
 
 End Type
 

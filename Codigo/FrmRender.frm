@@ -335,7 +335,10 @@ End Sub
 
 Private Sub SaveAllErrores_Timer()
      
-    Dim X As Integer, y As Integer
+    Dim X As Integer, y As Integer, BordeX As Integer, BordeY As Integer
+    
+    BordeX = 13
+    BordeY = 10
     
     For y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
@@ -350,7 +353,6 @@ Private Sub SaveAllErrores_Timer()
                 If NpcData(MapData(X, y).NPCIndex).Body = 0 Then
                     Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: NPC BODY 0 "; MapData(X, y).NPCIndex
                 Else
-
                     If BodyData(NpcData(MapData(X, y).NPCIndex).Body).Walk(1).grhindex = 0 Then
                         Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: NPC BODY SIN GRH "; MapData(X, y).NPCIndex
                     End If
@@ -358,8 +360,9 @@ Private Sub SaveAllErrores_Timer()
             End If
             
             If MapData(X, y).OBJInfo.objindex Then
-                If ObjData(MapData(X, y).OBJInfo.objindex).ObjType = 6 Then
-                    If X > XMinMapSize And X < XMaxMapSize And y > YMinMapSize And y < YMaxMapSize Then
+                If ObjData(MapData(X, y).OBJInfo.objindex).ObjType = 6 And ObjData(MapData(X, y).OBJInfo.objindex).Subtipo = 0 Then
+                
+                    If X > (XMinMapSize + BordeX) And X < (XMaxMapSize - BordeX) And y > (YMinMapSize + BordeY) And y < (YMaxMapSize - BordeY) Then
                         If Not IsBlock(X + 1, y) And Not ((MapData(X + 1, y).Blocked And 1) <> 0 And (MapData(X + 1, y + 1).Blocked And 4) <> 0) Then
                             Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO TOTAL"
                         End If
@@ -399,6 +402,191 @@ Private Sub SaveAllErrores_Timer()
                         End If
                     End If
                 End If
+                
+                If ObjData(MapData(X, y).OBJInfo.objindex).ObjType = 6 And ObjData(MapData(X, y).OBJInfo.objindex).Subtipo = 2 Then
+                
+                    If X > (XMinMapSize + BordeX) And X < (XMaxMapSize - BordeX) And y > (YMinMapSize + BordeY) And y < (YMaxMapSize - BordeY) Then
+                    
+                        If Not IsBlock(X + 2, y - 1) And Not ((MapData(X + 2, y - 1).Blocked And 1) <> 0 And (MapData(X + 2, y + 2).Blocked And 4) <> 0) Then
+                            Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 2 & ", " & y - 1 & " ::::::::::::::::::: FALTA BLOQUEO TOTAL"
+                        End If
+                        
+                        If Not IsBlock(X - 2, y - 1) And Not ((MapData(X - 2, y - 1).Blocked And 1) <> 0 And (MapData(X - 2, y + 2).Blocked And 4) <> 0) Then
+                            Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 2 & ", " & y - 1 & " ::::::::::::::::::: FALTA BLOQUEO TOTAL"
+                        End If
+                    
+                        If ObjData(MapData(X, y).OBJInfo.objindex).Cerrada = 1 Then
+                                                                           
+                            If (MapData(X - 1, y - 1).Blocked And 1) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y - 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X, y - 1).Blocked And 1) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y - 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                                                                                    
+                            If (MapData(X + 1, y - 1).Blocked And 1) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y - 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X - 1, y).Blocked And 4) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X, y).Blocked And 4) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X + 1, y).Blocked And 4) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                        Else
+                            If (MapData(X, y - 1).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y - 1 & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X - 1, y - 1).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y - 1 & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X - 1, y).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X + 1, y - 1).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y - 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X + 1, y).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X, y).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                        End If
+                    End If
+                End If
+
+                If ObjData(MapData(X, y).OBJInfo.objindex).ObjType = 6 And ObjData(MapData(X, y).OBJInfo.objindex).Subtipo = 3 Then
+                
+                    If X > (XMinMapSize + BordeX) And X < (XMaxMapSize - BordeX) And y > (YMinMapSize + BordeY) And y < (YMaxMapSize - BordeY) Then
+                    
+                        If Not IsBlock(X + 2, y) And Not ((MapData(X + 2, y).Blocked And 1) <> 0 And (MapData(X + 2, y).Blocked And 4) <> 0) Then
+                            Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 2 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO TOTAL"
+                        End If
+                        
+                        If Not IsBlock(X - 2, y) And Not ((MapData(X - 2, y).Blocked And 1) <> 0 And (MapData(X - 2, y).Blocked And 4) <> 0) Then
+                            Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 2 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO TOTAL"
+                        End If
+                    
+                        If ObjData(MapData(X, y).OBJInfo.objindex).Cerrada = 1 Then
+                                                                           
+                            If (MapData(X - 1, y).Blocked And 1) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X, y).Blocked And 1) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                                                                                    
+                            If (MapData(X + 1, y).Blocked And 1) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X - 1, y + 1).Blocked And 4) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y + 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X, y + 1).Blocked And 4) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y + 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X + 1, y + 1).Blocked And 4) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y + 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                        Else
+                            If (MapData(X, y).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X - 1, y).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X - 1, y + 1).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y + 1&; " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X + 1, y).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X + 1, y + 1).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y + 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X, y + 1).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y + 1 & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                        End If
+                    End If
+                End If
+
+                If ObjData(MapData(X, y).OBJInfo.objindex).ObjType = 6 And ObjData(MapData(X, y).OBJInfo.objindex).Subtipo = 4 Then
+                    If X > (XMinMapSize + BordeX) And X < (XMaxMapSize - BordeX) And y > (YMinMapSize + BordeY) And y < (YMaxMapSize - BordeY) Then
+                    
+                        If Not IsBlock(X + 1, y) And Not ((MapData(X + 1, y).Blocked And 1) <> 0 And (MapData(X + 1, y).Blocked And 4) <> 0) Then
+                            Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO TOTAL"
+                        End If
+                        
+                        If Not IsBlock(X - 1, y) And Not ((MapData(X - 1, y).Blocked And 1) <> 0 And (MapData(X - 1, y).Blocked And 4) <> 0) Then
+                            Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO TOTAL"
+                        End If
+                    
+                        If ObjData(MapData(X, y).OBJInfo.objindex).Cerrada = 1 Then
+                            
+                            If (MapData(X, y).Blocked And 1) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X, y + 1).Blocked And 4) = 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y + 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                        Else
+                            If (MapData(X, y).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X - 1, y).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X - 1, y + 1).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X - 1 & ", " & y + 1&; " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X + 1, y).Blocked And 1) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X + 1, y + 1).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X + 1 & ", " & y + 1 & " ::::::::::::::::::: FALTA BLOQUEO PARCIAL"
+                            End If
+                            
+                            If (MapData(X, y + 1).Blocked And 4) <> 0 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y + 1 & " ::::::::::::::::::: HAY BLOQUEO PARCIAL"
+                            End If
+                        End If
+                    End If
+
+                    
+                End If
+
+
             End If
         Next
     Next

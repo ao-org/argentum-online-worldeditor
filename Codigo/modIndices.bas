@@ -562,6 +562,7 @@ Public Sub CargarIndicesOBJ()
             ObjData(Obj).Texto = Leer.GetValue("OBJ" & Obj, "Texto")
             ObjData(Obj).GrhSecundario = Val(Leer.GetValue("OBJ" & Obj, "GrhSec"))
             ObjData(Obj).Cerrada = Val(Leer.GetValue("OBJ" & Obj, "Cerrada"))
+            ObjData(Obj).Subtipo = Val(Leer.GetValue("OBJ" & Obj, "Subtipo"))
             FrmMain.lListado(3).AddItem ObjData(Obj).Name & " - #" & Obj
         End If
     Next Obj
