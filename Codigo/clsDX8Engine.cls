@@ -847,13 +847,13 @@ Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, B
 
     Dim CurrentGrhIndex As Long
 
-    If Grh.GrhIndex = 0 Then Exit Sub
+    If Grh.grhindex = 0 Then Exit Sub
     If animate Then
         If Grh.Started = 1 Then
-            Grh.FrameCounter = Grh.FrameCounter + (timerElapsedTime * GrhData(Grh.GrhIndex).NumFrames / Grh.speed)
+            Grh.FrameCounter = Grh.FrameCounter + (timerElapsedTime * GrhData(Grh.grhindex).NumFrames / Grh.speed)
 
-            If Grh.FrameCounter > GrhData(Grh.GrhIndex).NumFrames Then
-                Grh.FrameCounter = (Grh.FrameCounter Mod GrhData(Grh.GrhIndex).NumFrames) + 1
+            If Grh.FrameCounter > GrhData(Grh.grhindex).NumFrames Then
+                Grh.FrameCounter = (Grh.FrameCounter Mod GrhData(Grh.grhindex).NumFrames) + 1
                 
                 If Grh.Loops <> -1 Then
                     If Grh.Loops > 0 Then
@@ -871,14 +871,14 @@ Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, B
 
     End If
     
-    If GrhData(Grh.GrhIndex).NumFrames = 0 Then
-        Call AddtoRichTextBox(FrmMain.RichTextBox1, "Hay un error en el grh " & Grh.GrhIndex & " (" & map_x & ", " & map_y & ")", 255, 100, 100, False, False, False)
+    If GrhData(Grh.grhindex).NumFrames = 0 Then
+        Call AddtoRichTextBox(FrmMain.RichTextBox1, "Hay un error en el grh " & Grh.grhindex & " (" & map_x & ", " & map_y & ")", 255, 100, 100, False, False, False)
         Exit Sub
 
     End If
     
     'Figure out what frame to draw (always 1 if not animated)
-    CurrentGrhIndex = GrhData(Grh.GrhIndex).Frames(Grh.FrameCounter)
+    CurrentGrhIndex = GrhData(Grh.grhindex).Frames(Grh.FrameCounter)
 
     If CurrentGrhIndex = 0 Then
         Dim ix As Byte
@@ -887,27 +887,27 @@ Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, B
         For iy = 1 To 100
             For ix = 1 To 100
 
-                If MapData(ix, iy).Graphic(1).GrhIndex = Grh.GrhIndex Then
+                If MapData(ix, iy).Graphic(1).grhindex = Grh.grhindex Then
                     '  Debug.Print "El tile que falla es: " & ix & "-" & iy
-                    MapData(ix, iy).Graphic(1).GrhIndex = 0
+                    MapData(ix, iy).Graphic(1).grhindex = 0
 
                 End If
 
-                If MapData(ix, iy).Graphic(2).GrhIndex = Grh.GrhIndex Then
+                If MapData(ix, iy).Graphic(2).grhindex = Grh.grhindex Then
                     '   Debug.Print "El tile que falla es: " & ix & "-" & iy
-                    MapData(ix, iy).Graphic(2).GrhIndex = 0
+                    MapData(ix, iy).Graphic(2).grhindex = 0
 
                 End If
 
-                If MapData(ix, iy).Graphic(3).GrhIndex = Grh.GrhIndex Then
+                If MapData(ix, iy).Graphic(3).grhindex = Grh.grhindex Then
                     '    Debug.Print "El tile que falla es: " & ix & "-" & iy
-                    MapData(ix, iy).Graphic(3).GrhIndex = 0
+                    MapData(ix, iy).Graphic(3).grhindex = 0
 
                 End If
         
-                If MapData(ix, iy).Graphic(4).GrhIndex = Grh.GrhIndex Then
+                If MapData(ix, iy).Graphic(4).grhindex = Grh.grhindex Then
                     '    Debug.Print "El tile que falla es: " & ix & "-" & iy
-                    MapData(ix, iy).Graphic(4).GrhIndex = 0
+                    MapData(ix, iy).Graphic(4).grhindex = 0
 
                 End If
 
@@ -923,7 +923,7 @@ Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, B
 
         End If
 
-        If GrhData(Grh.GrhIndex).TileHeight <> 1 Then
+        If GrhData(Grh.grhindex).TileHeight <> 1 Then
             y = y - Int(GrhData(CurrentGrhIndex).TileHeight * 32) + 32
 
         End If
@@ -1067,7 +1067,7 @@ End Sub
 Sub ShowNextFrame()
     
     On Error GoTo ShowNextFrame_Err
-    
+
     Call RenderScreen(UserPos.X - AddtoUserPos.X, UserPos.y - AddtoUserPos.y, 0, 0)
 
     
@@ -1204,7 +1204,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                     For i = 1 To y
                         For j = 1 To X
                             ' MapData(j, i).Marcado = True
-                            MapData(j, i).Graphic(RenderLayer + 4).GrhIndex = 1
+                            MapData(j, i).Graphic(RenderLayer + 4).grhindex = 1
                             InitGrh MapData(j, i).Graphic(RenderLayer + 4), 1
 
                         Next
@@ -1216,7 +1216,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                     For i = RenderY To 100
                         For j = RenderX To 100
                             ' MapData(j, i).Marcado = True
-                            MapData(j, i).Graphic(RenderLayer + 4).GrhIndex = 1
+                            MapData(j, i).Graphic(RenderLayer + 4).grhindex = 1
                             InitGrh MapData(j, i).Graphic(RenderLayer + 4), 1
 
                         Next
@@ -1228,7 +1228,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                     For i = y To y + RenderY - 1
                         For j = X To X + RenderX - 1
                             ' MapData(j, i).Marcado = True
-                            MapData(j, i).Graphic(RenderLayer + 4).GrhIndex = grha
+                            MapData(j, i).Graphic(RenderLayer + 4).grhindex = grha
                             InitGrh MapData(j, i).Graphic(RenderLayer + 4), grha
 
                             If Cont < RenderY * RenderX Then
@@ -1245,7 +1245,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                     Sobre = -1
 
                     If FrmMain.cSeleccionarSuperficie.Value = True Then
-                        Sobre = MapData(X, y).Graphic(bCapa).GrhIndex
+                        Sobre = MapData(X, y).Graphic(bCapa).grhindex
 
                         If frmConfigSup.MOSAICO.Value = vbChecked Then
                             Dim aux As Long
@@ -1264,8 +1264,8 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                             If FrmMain.mnuAutoCompletarSuperficies.Checked = False Then
                                 aux = Val(FrmMain.cGrh.Text) + (((y + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((X + dX) Mod frmConfigSup.mAncho.Text)
 
-                                If MapData(X, y).Graphic(bCapa).GrhIndex <> aux Then
-                                    MapData(X, y).Graphic(bCapa).GrhIndex = aux
+                                If MapData(X, y).Graphic(bCapa).grhindex <> aux Then
+                                    MapData(X, y).Graphic(bCapa).grhindex = aux
                                     InitGrh MapData(X, y).Graphic(bCapa), aux
 
                                 End If
@@ -1273,8 +1273,8 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                             Else
                                 aux = Val(FrmMain.cGrh.Text) + (((y + dy) Mod frmConfigSup.mLargo.Text) * frmConfigSup.mAncho.Text) + ((X + dX) Mod frmConfigSup.mAncho.Text)
 
-                                If MapData(X, y).Graphic(bCapa).GrhIndex <> aux Then
-                                    MapData(X, y).Graphic(bCapa).GrhIndex = aux
+                                If MapData(X, y).Graphic(bCapa).grhindex <> aux Then
+                                    MapData(X, y).Graphic(bCapa).grhindex = aux
                                     InitGrh MapData(X, y).Graphic(bCapa), aux
 
                                 End If
@@ -1283,8 +1283,8 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
 
                         Else
 
-                            If MapData(X, y).Graphic(bCapa).GrhIndex <> Val(FrmMain.cGrh.Text) Then
-                                MapData(X, y).Graphic(bCapa).GrhIndex = Val(FrmMain.cGrh.Text)
+                            If MapData(X, y).Graphic(bCapa).grhindex <> Val(FrmMain.cGrh.Text) Then
+                                MapData(X, y).Graphic(bCapa).grhindex = Val(FrmMain.cGrh.Text)
                                 InitGrh MapData(X, y).Graphic(bCapa), Val(FrmMain.cGrh.Text)
 
                             End If
@@ -1309,7 +1309,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
 
             End If
             
-            If MapData(X, y).Graphic(5).GrhIndex <> 1 Then
+            If MapData(X, y).Graphic(5).grhindex <> 1 Then
                             
                 Call Draw_Grh(MapData(X, y).Graphic(5), (ScreenX - 1) * 32 + PixelOffsetX, (ScreenY - 1) * 32 + PixelOffsetY, 0, 1, MapData(X, y).light_value, False, X, y)
                         
@@ -1320,8 +1320,8 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
             '******************************************
             
             If Sobre >= 0 Then
-                If MapData(X, y).Graphic(bCapa).GrhIndex <> Sobre Then
-                    MapData(X, y).Graphic(bCapa).GrhIndex = Sobre
+                If MapData(X, y).Graphic(bCapa).grhindex <> Sobre Then
+                    MapData(X, y).Graphic(bCapa).grhindex = Sobre
                     InitGrh MapData(X, y).Graphic(bCapa), Sobre
 
                 End If
@@ -1353,12 +1353,12 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
             With MapData(X, y)
 
                 '******************************************
-                If MapData(X, y).Graphic(2).GrhIndex <> 0 And VerCapa2 Then
+                If MapData(X, y).Graphic(2).grhindex <> 0 And VerCapa2 Then
                     Call Draw_Grh(MapData(X, y).Graphic(2), PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, False, X, y)
 
                 End If
                 
-                If MapData(X, y).Graphic(6).GrhIndex <> 1 Then
+                If MapData(X, y).Graphic(6).grhindex <> 1 Then
                             
                     Call Draw_Grh(MapData(X, y).Graphic(6), (ScreenX - 1) * 32 + PixelOffsetX, (ScreenY - 1) * 32 + PixelOffsetY, 0, 1, MapData(X, y).light_value, False, X, y)
                         
@@ -1411,7 +1411,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
             PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
     
             'Layer 3 *****************************************
-            If MapData(X, y).Graphic(3).GrhIndex <> 0 And VerCapa3 Then
+            If MapData(X, y).Graphic(3).grhindex <> 0 And VerCapa3 Then
                 Call Draw_Grh(MapData(X, y).Graphic(3), PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, , X, y)
 
             End If
@@ -1465,7 +1465,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
             PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
                     
             'Layer 4 *****************************************
-            If MapData(X, y).Graphic(4).GrhIndex <> 0 And (FrmMain.mnuVerCapa4.Checked = True) Then
+            If MapData(X, y).Graphic(4).grhindex <> 0 And (FrmMain.mnuVerCapa4.Checked = True) Then
                 Call Draw_Grh(MapData(X, y).Graphic(4), ScreenX * 32 + PixelOffsetX, ScreenY * 32 + PixelOffsetY, 1, 1, MapData(X, y).light_value, AlphaTecho, X, y)
 
             End If
@@ -1478,7 +1478,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                 For i = 1 To 4 ' Headings
 
                     If (MapData(X, y).Blocked And HeadingIt) <> 0 Then
-                        Grh.GrhIndex = 1150 + i
+                        Grh.grhindex = 1150 + i
                         Grh.FrameCounter = 1
                         Grh.Started = 0
                         Call Draw_Grh(Grh, PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), False, X, y)
@@ -1491,7 +1491,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
             End If
             
             If MapData(X, y).TileExit.Map <> 0 And VerTranslados Then
-                Grh.GrhIndex = 3
+                Grh.grhindex = 3
                 Grh.FrameCounter = 1
                 Grh.Started = 0
                 Call Draw_Grh(Grh, PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, TmpRGB(), True, X, y)
@@ -1517,7 +1517,7 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                         caracter = mid(cadena, jj, 1)
 
                         If IsNumeric(caracter) Then
-                            Grh.GrhIndex = caracter + 21452
+                            Grh.grhindex = caracter + 21452
                             Grh.FrameCounter = 1
                             Grh.Started = 0
                             Call Draw_Grh(Grh, PixelOffsetXTemp - 6 + POSX, PixelOffsetYTemp - 12, 1, 1, TmpRGB(), False, X, y)
@@ -1820,7 +1820,7 @@ Geometry_Create_Box_Err:
     
 End Sub
 
-Private Sub Device_Box_Textured_Render_Advance(ByVal GrhIndex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, ByVal dest_width As Integer, Optional ByVal dest_height As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
+Private Sub Device_Box_Textured_Render_Advance(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, ByVal dest_width As Integer, Optional ByVal dest_height As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 5/15/2003
@@ -1836,8 +1836,8 @@ Private Sub Device_Box_Textured_Render_Advance(ByVal GrhIndex As Long, ByVal des
     Static d3dTextures         As D3D8Textures
     Static light_value(0 To 3) As Long
 
-    If GrhIndex = 0 Then Exit Sub
-    Set d3dTextures.texture = SurfaceDB.GetTexture(GrhData(GrhIndex).FileNum, d3dTextures.texwidth, d3dTextures.texheight)
+    If grhindex = 0 Then Exit Sub
+    Set d3dTextures.texture = SurfaceDB.GetTexture(GrhData(grhindex).FileNum, d3dTextures.texwidth, d3dTextures.texheight)
     
     light_value(0) = rgb_list(0)
     light_value(1) = rgb_list(1)
@@ -1906,7 +1906,7 @@ Device_Box_Textured_Render_Advance_Err:
     
 End Sub
 
-Public Sub Device_Box_Textured_Render(ByVal GrhIndex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
+Public Sub Device_Box_Textured_Render(ByVal grhindex As Long, ByVal dest_x As Integer, ByVal dest_y As Integer, ByVal src_width As Integer, ByVal src_height As Integer, ByRef rgb_list() As Long, ByVal src_x As Integer, ByVal src_y As Integer, Optional ByVal alpha_blend As Boolean, Optional ByVal angle As Single)
     '**************************************************************
     'Author: Juan Martín Sotuyo Dodero
     'Last Modify Date: 2/12/2004
@@ -1921,8 +1921,8 @@ Public Sub Device_Box_Textured_Render(ByVal GrhIndex As Long, ByVal dest_x As In
     Static d3dTextures         As D3D8Textures
     Static light_value(0 To 3) As Long
     
-    If GrhIndex = 0 Then Exit Sub
-    Set d3dTextures.texture = SurfaceDB.GetTexture(GrhData(GrhIndex).FileNum, d3dTextures.texwidth, d3dTextures.texheight)
+    If grhindex = 0 Then Exit Sub
+    Set d3dTextures.texture = SurfaceDB.GetTexture(GrhData(grhindex).FileNum, d3dTextures.texwidth, d3dTextures.texheight)
 
     light_value(0) = rgb_list(0)
     light_value(1) = rgb_list(1)
@@ -2075,7 +2075,7 @@ Private Sub Char_Render(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, 
         PixelOffsetX = PixelOffsetX + .MoveOffsetX
         PixelOffsetY = PixelOffsetY + .MoveOffsetY
            
-        If .Body.Walk(.Heading).GrhIndex Then
+        If .Body.Walk(.Heading).grhindex Then
 
             Dim colorz(3) As Long
             'Draw Body
@@ -2085,16 +2085,16 @@ Private Sub Char_Render(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, 
             colorz(2) = MapData(X, y).light_value(2)
             colorz(3) = MapData(X, y).light_value(3)
     
-             If .Body.Walk(.Heading).GrhIndex Then
+             If .Body.Walk(.Heading).grhindex Then
                Call Draw_Grh(.Body.Walk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
 
-            If .Head.Head(.Heading).GrhIndex Then Call Draw_Grh(.Head.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.y, 1, 0, MapData(X, y).light_value, False, X, y)
+            If .Head.Head(.Heading).grhindex Then Call Draw_Grh(.Head.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.y, 1, 0, MapData(X, y).light_value, False, X, y)
 
-            If .Casco.Head(.Heading).GrhIndex Then Call Draw_Grh(.Casco.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.y, 1, 0, MapData(X, y).light_value, False, X, y)
+            If .Casco.Head(.Heading).grhindex Then Call Draw_Grh(.Casco.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.y, 1, 0, MapData(X, y).light_value, False, X, y)
 
-            If .Arma.WeaponWalk(.Heading).GrhIndex Then Call Draw_Grh(.Arma.WeaponWalk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
+            If .Arma.WeaponWalk(.Heading).grhindex Then Call Draw_Grh(.Arma.WeaponWalk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
 
-            If .Escudo.ShieldWalk(.Heading).GrhIndex Then Call Draw_Grh(.Escudo.ShieldWalk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
+            If .Escudo.ShieldWalk(.Heading).grhindex Then Call Draw_Grh(.Escudo.ShieldWalk(.Heading), PixelOffsetX, PixelOffsetY, 1, 1, MapData(X, y).light_value, False, X, y)
             'Draw name over head
             
         End If
@@ -3109,7 +3109,7 @@ Private Sub Grh_Render_Advance(ByRef Grh As Grh, ByVal screen_x As Integer, ByVa
     If Grh.Started Then
         Grh.FrameCounter = Grh.FrameCounter + (timerTicksPerFrame * Grh.speed)
 
-        If Grh.FrameCounter > GrhData(Grh.GrhIndex).NumFrames Then
+        If Grh.FrameCounter > GrhData(Grh.grhindex).NumFrames Then
             'If Grh.noloop Then
             '    Grh.FrameCounter = GrhData(Grh.GrhIndex).NumFrames
             'Else
@@ -3122,16 +3122,16 @@ Private Sub Grh_Render_Advance(ByRef Grh As Grh, ByVal screen_x As Integer, ByVa
     
     'Figure out what frame to draw (always 1 if not animated)
     If Grh.FrameCounter = 0 Then Grh.FrameCounter = 1
-    grh_index = GrhData(Grh.GrhIndex).Frames(Grh.FrameCounter)
+    grh_index = GrhData(Grh.grhindex).Frames(Grh.FrameCounter)
     
     'Center Grh over X, Y pos
-    If GrhData(Grh.GrhIndex).TileWidth <> 1 Then
-        screen_x = screen_x - Int(GrhData(Grh.GrhIndex).TileWidth * (32 \ 2)) + 32 \ 2
+    If GrhData(Grh.grhindex).TileWidth <> 1 Then
+        screen_x = screen_x - Int(GrhData(Grh.grhindex).TileWidth * (32 \ 2)) + 32 \ 2
 
     End If
     
-    If GrhData(Grh.GrhIndex).TileHeight <> 1 Then
-        screen_y = screen_y - Int(GrhData(Grh.GrhIndex).TileHeight * 32) + 32
+    If GrhData(Grh.grhindex).TileHeight <> 1 Then
+        screen_y = screen_y - Int(GrhData(Grh.grhindex).TileHeight * 32) + 32
 
     End If
     
@@ -3154,13 +3154,13 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
     Dim tile_height As Integer
     Dim grh_index   As Long
     
-    If Grh.GrhIndex = 0 Then Exit Sub
+    If Grh.grhindex = 0 Then Exit Sub
         
     'Animation
     If Grh.Started Then
         Grh.FrameCounter = Grh.FrameCounter + (timerTicksPerFrame * Grh.speed)
 
-        If Grh.FrameCounter > GrhData(Grh.GrhIndex).NumFrames Then
+        If Grh.FrameCounter > GrhData(Grh.grhindex).NumFrames Then
             'If Grh.noloop Then
             '    Grh.FrameCounter = GrhData(Grh.GrhIndex).NumFrames
             'Else
@@ -3173,8 +3173,8 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
 
     'Figure out what frame to draw (always 1 if not animated)
     If Grh.FrameCounter = 0 Then Grh.FrameCounter = 1
-    If Not Grh_Check(Grh.GrhIndex) Then Exit Sub
-    grh_index = GrhData(Grh.GrhIndex).Frames(Grh.FrameCounter)
+    If Not Grh_Check(Grh.grhindex) Then Exit Sub
+    grh_index = GrhData(Grh.grhindex).Frames(Grh.FrameCounter)
 
     If grh_index <= 0 Then Exit Sub
     If GrhData(grh_index).FileNum = 0 Then Exit Sub
@@ -3182,16 +3182,16 @@ Private Sub Grh_Render(ByRef Grh As Grh, ByVal screen_x As Integer, ByVal screen
     'Modified by Augusto José Rando
     'Simplier function - according to basic ORE engine
     If h_centered Then
-        If GrhData(Grh.GrhIndex).TileWidth <> 1 Then
-            screen_x = screen_x - Int(GrhData(Grh.GrhIndex).TileWidth * (32 \ 2)) + 32 \ 2
+        If GrhData(Grh.grhindex).TileWidth <> 1 Then
+            screen_x = screen_x - Int(GrhData(Grh.grhindex).TileWidth * (32 \ 2)) + 32 \ 2
 
         End If
 
     End If
     
     If v_centered Then
-        If GrhData(Grh.GrhIndex).TileHeight <> 1 Then
-            screen_y = screen_y - Int(GrhData(Grh.GrhIndex).TileHeight * 32) + 32
+        If GrhData(Grh.grhindex).TileHeight <> 1 Then
+            screen_y = screen_y - Int(GrhData(Grh.grhindex).TileHeight * 32) + 32
 
         End If
 
@@ -3795,7 +3795,7 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
 
     'Draw i
     If grh_resize = True Then
-        If temp_particle.Grh.GrhIndex Then
+        If temp_particle.Grh.grhindex Then
             Grh_Render_Advance temp_particle.Grh, temp_particle.X + screen_x, temp_particle.y + screen_y, grh_resizex, grh_resizey, rgb_list(), True, True, alpha_blend
             Exit Sub
 
@@ -3803,7 +3803,7 @@ Private Sub Particle_Render(ByRef temp_particle As Particle, ByVal screen_x As I
 
     End If
 
-    If temp_particle.Grh.GrhIndex Then
+    If temp_particle.Grh.grhindex Then
         Grh_Render temp_particle.Grh, temp_particle.X + screen_x, temp_particle.y + screen_y, rgb_list(), True, True, alpha_blend
 
     End If
@@ -3901,7 +3901,7 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
         For X = 1 To 100
         
             'Layer 1 **********************************
-            If MapData(X, y).Graphic(1).GrhIndex <> 0 Then
+            If MapData(X, y).Graphic(1).grhindex <> 0 Then
                 Call Draw_Grh(MapData(X, y).Graphic(1), (X - 1) * 32 + TilePixelWidth - 35, (y - 1) * 32 + TilePixelHeight - 35, 0, 1, MapData(X, y).light_value())
 
             End If
@@ -3916,7 +3916,7 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
         For X = 1 To 100
         
             'Layer 2 **********************************
-            If (MapData(X, y).Graphic(2).GrhIndex <> 0) And VerCapa2 Then
+            If (MapData(X, y).Graphic(2).grhindex <> 0) And VerCapa2 Then
                 Call Draw_Grh(MapData(X, y).Graphic(2), (X - 1) * 32 + TilePixelWidth - 35, (y - 1) * 32 + TilePixelHeight - 35, 1, 1, MapData(X, y).light_value())
 
             End If
@@ -3936,7 +3936,7 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
             With MapData(X, y)
             
                 'Object Layer **********************************
-                If (.ObjGrh.GrhIndex <> 0) And VerObjetos Then
+                If (.ObjGrh.grhindex <> 0) And VerObjetos Then
                     Call Draw_Grh(.ObjGrh, PixelOffsetXTemp - 35, PixelOffsetYTemp - 35, 1, 1, MapData(X, y).light_value())
 
                 End If
@@ -3944,7 +3944,7 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
                 '***********************************************
             
                 'Layer 3 *****************************************
-                If (.Graphic(3).GrhIndex <> 0) And VerCapa3 Then
+                If (.Graphic(3).grhindex <> 0) And VerCapa3 Then
                     Call Draw_Grh(.Graphic(3), PixelOffsetXTemp - 35, PixelOffsetYTemp - 35, 1, 1, MapData(X, y).light_value())
 
                 End If
@@ -3963,7 +3963,7 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
             With MapData(X, y)
             
                 'Layer 4 **********************************
-                If (.Graphic(4).GrhIndex <> 0) And VerCapa4 Then
+                If (.Graphic(4).grhindex <> 0) And VerCapa4 Then
                     
                     'Draw
                     Call Draw_Grh(.Graphic(4), (X - 1) * 32 + TilePixelWidth - 35, (y - 1) * 32 + TilePixelHeight - 35, 1, 1, MapData(X, y).light_value())
@@ -3990,7 +3990,7 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
                 Grh.Started = 0
 
                 If (.TileExit.Map <> 0) And VerTranslados Then
-                    Grh.GrhIndex = 3
+                    Grh.grhindex = 3
                 
                     Call Draw_Grh(Grh, PixelOffsetXTemp - 35, PixelOffsetYTemp - 35, 1, 0, MapData(X, y).light_value())
 
@@ -3998,7 +3998,7 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
             
                 'Show blocked tiles
                 If (.Blocked = 1) And VerBlockeados Then
-                    Grh.GrhIndex = 4
+                    Grh.grhindex = 4
                     Call Draw_Grh(Grh, PixelOffsetXTemp - 35, PixelOffsetYTemp - 35, 1, 0, MapData(X, y).light_value())
 
                 End If

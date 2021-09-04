@@ -561,6 +561,7 @@ Public Sub CargarIndicesOBJ()
             ObjData(Obj).WeaponAnim = Val(Leer.GetValue("OBJ" & Obj, "Anim"))
             ObjData(Obj).Texto = Leer.GetValue("OBJ" & Obj, "Texto")
             ObjData(Obj).GrhSecundario = Val(Leer.GetValue("OBJ" & Obj, "GrhSec"))
+            ObjData(Obj).Cerrada = Val(Leer.GetValue("OBJ" & Obj, "Cerrada"))
             FrmMain.lListado(3).AddItem ObjData(Obj).Name & " - #" & Obj
         End If
     Next Obj

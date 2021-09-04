@@ -94,7 +94,7 @@ Public Sub CheckKeys()
     If GetKeyState(vbKeyUp) < 0 Then
         If UserPos.y < 1 Then Exit Sub ' 15
             If LegalPos(UserPos.X, UserPos.y - 1) And WalkMode = True Then
-                If dLastWalk + 50 > GetTickCount Then Exit Sub
+                If dLastWalk + 100 > GetTickCount Then Exit Sub
                 UserPos.y = UserPos.y - 1
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
                 dLastWalk = GetTickCount
@@ -110,7 +110,7 @@ Public Sub CheckKeys()
     If GetKeyState(vbKeyRight) < 0 Then
         If UserPos.X > XMaxMapSize Then Exit Sub ' 82
             If LegalPos(UserPos.X + 1, UserPos.y) And WalkMode = True Then
-                If dLastWalk + 50 > GetTickCount Then Exit Sub
+                If dLastWalk + 100 > GetTickCount Then Exit Sub
                 UserPos.X = UserPos.X + 1
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
                 dLastWalk = GetTickCount
@@ -126,7 +126,7 @@ Public Sub CheckKeys()
     If GetKeyState(vbKeyDown) < 0 Then
         If UserPos.y > XMaxMapSize Then Exit Sub ' 86
             If LegalPos(UserPos.X, UserPos.y + 1) And WalkMode = True Then
-                If dLastWalk + 50 > GetTickCount Then Exit Sub
+                If dLastWalk + 100 > GetTickCount Then Exit Sub
                 UserPos.y = UserPos.y + 1
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
                 dLastWalk = GetTickCount
@@ -143,7 +143,7 @@ Public Sub CheckKeys()
     If GetKeyState(vbKeyLeft) < 0 Then
         If UserPos.X < 1 Then Exit Sub ' 20
             If LegalPos(UserPos.X - 1, UserPos.y) And WalkMode = True Then
-                If dLastWalk + 50 > GetTickCount Then Exit Sub
+                If dLastWalk + 100 > GetTickCount Then Exit Sub
                 UserPos.X = UserPos.X - 1
                 MoveCharbyPos UserCharIndex, UserPos.X, UserPos.y
                 dLastWalk = GetTickCount
@@ -487,7 +487,7 @@ Public Sub Main()
     ColorAmb = 0 'Luz Base por defecto
     FormatoIAO = True
 
-    If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.Picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
+    If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
     frmCargando.verX = "v" & App.Major & "." & App.Minor & "." & App.Revision
     frmCargando.Show
     frmCargando.SetFocus
