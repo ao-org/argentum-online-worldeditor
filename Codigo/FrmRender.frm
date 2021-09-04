@@ -345,22 +345,22 @@ Private Sub SaveAllErrores_Timer()
     BordeY = 8
     
     If FrmMain.txtnamemapa.Text = "" Then
-        Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Esta mapa no tiene Nombre."
+        Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Este mapa no tiene Nombre."
     End If
     
     If (FrmMain.txtMapZona.Text = "CAMPO" And FrmMain.txtMapTerreno.Text = "BOSQUE") And FrmMain.check1.Value = 0 Then
-         Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Esta mapa es Campo de Bosque y no llueve?"
+         Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Este mapa es Campo de Bosque y no llueve?"
          If FrmMain.check1.Value = 0 Then
             Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Deberia tener luz Climatica?"
          End If
     End If
     
     If (FrmMain.txtMapZona.Text = "CAMPO" And FrmMain.txtMapTerreno.Text = "NIEVE") And FrmMain.Check2.Value = 0 Then
-         Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Esta mapa es Campo con Nieve y no cae Nieve?"
+         Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Este mapa es Campo con Nieve y no cae Nieve?"
     End If
     
     If FrmMain.txtMapZona.Text = "DUNGEON" And FrmMain.check1.Value = 1 Then
-         Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Esta mapa es dungueon y llueve"
+         Print #handle, FrmMain.MapPest(4).Caption & " :::: " & "Este mapa es dungueon y llueve"
     End If
     
     If FrmMain.lvlMax > 0 Then
