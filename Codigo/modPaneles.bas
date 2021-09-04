@@ -427,7 +427,7 @@ Public Sub fPreviewGrh(ByVal GrhIn As Long)
     End If
 
     'Change CurrentGrh
-    CurrentGrh.grhindex = GrhIn
+    CurrentGrh.GrhIndex = GrhIn
     CurrentGrh.Started = 1
     CurrentGrh.FrameCounter = 1
 
@@ -455,56 +455,59 @@ Public Sub VistaPreviaDeSup()
     Dim SR  As RECT, DR As RECT
     Dim aux As Long
     Dim Tem As Long
-    Dim W As Long, H As Long
+    Dim w As Long, h As Long
 
-    If CurrentGrh.grhindex = 0 Then Exit Sub
-    frmGrafico.ShowPic = frmGrafico.picture1
+    If CurrentGrh.GrhIndex = 0 Then Exit Sub
+    frmGrafico.ShowPic = frmGrafico.Picture1
 
     If frmConfigSup.MOSAICO = vbUnchecked Then
     
         DR.Left = 0
         DR.Top = 0
-        DR.Bottom = (GrhData(CurrentGrh.grhindex).pixelHeight)
-        DR.Right = (GrhData(CurrentGrh.grhindex).pixelWidth)
-        SR.Left = GrhData(CurrentGrh.grhindex).sX
-        SR.Top = GrhData(CurrentGrh.grhindex).sY
-        SR.Bottom = SR.Top + (GrhData(CurrentGrh.grhindex).pixelHeight)
-        SR.Right = SR.Left + (GrhData(CurrentGrh.grhindex).pixelWidth)
+        DR.Bottom = (GrhData(CurrentGrh.GrhIndex).pixelHeight)
+        DR.Right = (GrhData(CurrentGrh.GrhIndex).pixelWidth)
+        SR.Left = GrhData(CurrentGrh.GrhIndex).sX
+        SR.Top = GrhData(CurrentGrh.GrhIndex).sY
+        SR.Bottom = SR.Top + (GrhData(CurrentGrh.GrhIndex).pixelHeight)
+        SR.Right = SR.Left + (GrhData(CurrentGrh.GrhIndex).pixelWidth)
         
-        H = frmConfigSup.mLargo.Text
-        If H <= 0 Then H = 1
-        W = frmConfigSup.mAncho.Text
-        If W <= 0 Then W = 1
+        h = frmConfigSup.mLargo.Text
+        If h <= 0 Then h = 1
+        w = frmConfigSup.mAncho.Text
+        If w <= 0 Then w = 1
         
-        aux = Val(FrmMain.cGrh.Text) + (((1 + 1) Mod H) * W) + ((1 + 1) Mod W)
-        Call Grh_Render_To_Hdc(frmGrafico.ShowPic.hdc, (aux), 0, 0, False)
+        aux = Val(FrmMain.cGrh.Text) + (((1 + 1) Mod h) * w) + ((1 + 1) Mod w)
+        Call Grh_Render_To_Hdc(FrmMain.PreviewGrh, (aux), 0, 0, False)
     Else
     
-        Dim X    As Integer, y As Integer, j As Integer, i As Integer
+        Dim X As Integer, y As Integer, j As Integer, i As Integer
+        Dim ww As Integer, hh As Integer
         Dim Cont As Integer
+        
+        hh = Val(frmConfigSup.mLargo)
+        ww = Val(frmConfigSup.mAncho)
+        
+        Call D3DDevice.Clear(0, ByVal 0, D3DCLEAR_TARGET, 0, 1#, 0)
 
-        For i = 1 To CInt(Val(frmConfigSup.mLargo))
-            For j = 1 To CInt(Val(frmConfigSup.mAncho))
+        For i = 1 To hh
+            For j = 1 To ww
                 DR.Left = (j - 1) * 32
                 DR.Top = (i - 1) * 32
                 DR.Right = j * 32
                 DR.Bottom = i * 32
-                SR.Left = GrhData(CurrentGrh.grhindex).sX
-                SR.Top = GrhData(CurrentGrh.grhindex).sY
-                SR.Right = SR.Left + GrhData(CurrentGrh.grhindex).pixelWidth
-                SR.Bottom = SR.Top + GrhData(CurrentGrh.grhindex).pixelHeight
-                Call Grh_Render_To_Hdc(frmGrafico.ShowPic.hdc, (CurrentGrh.grhindex), j * 32, i * 32)
+                SR.Left = GrhData(CurrentGrh.GrhIndex).sX
+                SR.Top = GrhData(CurrentGrh.GrhIndex).sY
+                SR.Right = SR.Left + GrhData(CurrentGrh.GrhIndex).pixelWidth
+                SR.Bottom = SR.Top + GrhData(CurrentGrh.GrhIndex).pixelHeight
+                Call Grh_Render_To_HdcSinBorrar(FrmMain.PreviewGrh, (CurrentGrh.GrhIndex), j * 32, i * 32)
 
-                If Cont < CInt(Val(frmConfigSup.mLargo)) * CInt(Val(frmConfigSup.mAncho)) Then Cont = Cont + 1
-                CurrentGrh.grhindex = CurrentGrh.grhindex + 1
+                If Cont < hh * ww Then Cont = Cont + 1
+                CurrentGrh.GrhIndex = CurrentGrh.GrhIndex + 1
             Next
         Next
  
-        CurrentGrh.grhindex = CurrentGrh.grhindex - Cont
+        CurrentGrh.GrhIndex = CurrentGrh.GrhIndex - Cont
 
     End If
-
-    frmGrafico.ShowPic.Picture = frmGrafico.ShowPic.image
-    FrmMain.PreviewGrh = frmGrafico.ShowPic
  
 End Sub

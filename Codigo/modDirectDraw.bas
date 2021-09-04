@@ -26,7 +26,9 @@ Private Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Long) As Lon
 
 Public BodyData() As BodyData
 Public HeadData() As HeadData
-'MOTOR DX8 POR LADDER
+
+Public COLOR_WHITE(3) As Long
+
 ''
 ' modDirectDraw
 '
@@ -211,19 +213,19 @@ Sub ResetCharInfo(ByVal CharIndex As Integer)
 
 End Sub
 
-Public Sub InitGrh(ByRef Grh As Grh, ByVal grhindex As Long, Optional ByVal Started As Byte = 2)
+Public Sub InitGrh(ByRef Grh As Grh, ByVal GrhIndex As Long, Optional ByVal Started As Byte = 2)
 
     '*****************************************************************
     'Sets up a grh. MUST be done before rendering
     '*****************************************************************
     On Error Resume Next
 
-    Grh.grhindex = grhindex
+    Grh.GrhIndex = GrhIndex
 
-    If Grh.grhindex = 0 Then Exit Sub
+    If Grh.GrhIndex = 0 Then Exit Sub
     
     If Started = 2 Then
-        If GrhData(Grh.grhindex).NumFrames > 1 Then
+        If GrhData(Grh.GrhIndex).NumFrames > 1 Then
             Grh.Started = 1
         Else
             Grh.Started = 0
@@ -233,7 +235,7 @@ Public Sub InitGrh(ByRef Grh As Grh, ByVal grhindex As Long, Optional ByVal Star
     Else
 
         'Make sure the graphic can be started
-        If GrhData(Grh.grhindex).NumFrames = 1 Then Started = 0
+        If GrhData(Grh.GrhIndex).NumFrames = 1 Then Started = 0
         Grh.Started = Started
 
     End If
@@ -246,7 +248,7 @@ Public Sub InitGrh(ByRef Grh As Grh, ByVal grhindex As Long, Optional ByVal Star
     End If
     
     Grh.FrameCounter = 1
-    Grh.speed = GrhData(Grh.grhindex).speed
+    Grh.speed = GrhData(Grh.GrhIndex).speed
 
 End Sub
 
@@ -479,12 +481,12 @@ InMapBounds_Err:
     
 End Function
 
-Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal grhindex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal alpha As Integer = False)
+Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal GrhIndex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
     
     On Error GoTo Grh_Render_To_Hdcok_Err
     
 
-    If grhindex = 0 Then Exit Sub
+    If GrhIndex = 0 Then Exit Sub
 
     'Public Sub Draw_Grh_Picture(ByVal grh As Long, ByVal pic As PictureBox, _
      ByVal X As Integer, ByVal Y As Integer, _
@@ -510,7 +512,7 @@ Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal grhindex As Long, 
 
     D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
     D3DDevice.BeginScene
-    engine.Device_Box_Textured_Render grhindex, screen_x, screen_y, GrhData(grhindex).pixelWidth, GrhData(grhindex).pixelHeight, s, GrhData(grhindex).sX, GrhData(grhindex).sY, alpha, 0
+    engine.Device_Box_Textured_Render GrhIndex, screen_x, screen_y, GrhData(GrhIndex).pixelWidth, GrhData(GrhIndex).pixelHeight, s, GrhData(GrhIndex).sX, GrhData(GrhIndex).sY, Alpha, 0
                            
     D3DDevice.EndScene
     D3DDevice.Present Piture, ByVal 0, pic.hWnd, ByVal 0
@@ -524,12 +526,12 @@ Grh_Render_To_Hdcok_Err:
     
 End Sub
 
-Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal grhindex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal alpha As Integer = False)
+Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal GrhIndex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
     
     On Error GoTo Grh_Render_To_HdcPNG_Err
     
 
-    If grhindex = 0 Then Exit Sub
+    If GrhIndex = 0 Then Exit Sub
 
     'Public Sub Draw_Grh_Picture(ByVal grh As Long, ByVal pic As PictureBox, _
      ByVal X As Integer, ByVal Y As Integer, _
@@ -555,7 +557,7 @@ Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal grhindex As Long,
 
     ' D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
     D3DDevice.BeginScene
-    engine.Device_Box_Textured_Render grhindex, screen_x, screen_y, GrhData(grhindex).pixelWidth, GrhData(grhindex).pixelHeight, s, GrhData(grhindex).sX, GrhData(grhindex).sY, alpha, 0
+    engine.Device_Box_Textured_Render GrhIndex, screen_x, screen_y, GrhData(GrhIndex).pixelWidth, GrhData(GrhIndex).pixelHeight, s, GrhData(GrhIndex).sX, GrhData(GrhIndex).sY, Alpha, 0
                            
     D3DDevice.EndScene
     D3DDevice.Present Piture, ByVal 0, pic.hWnd, ByVal 0
@@ -569,85 +571,72 @@ Grh_Render_To_HdcPNG_Err:
     
 End Sub
 
-Sub Grh_Render_To_Hdc(ByVal desthDC As Long, grh_index As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional transparent As Boolean = False)
-
-    On Error Resume Next
-
-    '**************************************************************
-    'Author: Aaron Perkins
-    'Last Modify Date: 8/30/2004
-    'This method is SLOW... Don't use in a loop if you care about
-    'speed!
-    'Modified by Juan Martín Sotuyo Dodero
-    '*************************************************************
+Public Sub Grh_Render_To_Hdc(ByRef pic As PictureBox, ByVal GrhIndex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False, Optional ByVal ClearColor As Long = &O0)
     
-    Dim file_path  As String
-    Dim src_x      As Integer
-    Dim src_y      As Integer
-    Dim src_width  As Integer
-    Dim src_height As Integer
-    Dim hdcsrc     As Long
-    Dim MaskDC     As Long
-    Dim PrevObj    As Long
-    Dim PrevObj2   As Long
-
-    If grh_index <= 0 Then Exit Sub
-
-    'If it's animated switch grh_index to first frame
-    If GrhData(grh_index).NumFrames <> 1 Then
-        grh_index = GrhData(grh_index).Frames(1)
-
-    End If
+    On Error GoTo Grh_Render_To_Hdc_Err
     
-    #If Compresion = 1 Then
 
-        If Not Extract_File(Graphics, App.Path & "\..\Recursos\OUTPUT", GrhData(grh_index).FileNum & ".png", Windows_Temp_Dir, False) Then
-            Err.Description = "¡No se puede cargar el bmp numero" & Archivo & "!"
-            Call AddtoRichTextBox(FrmMain.RichTextBox1, Err.Description, 255, 255, 255, False, True, False)
+    If GrhIndex = 0 Then Exit Sub
 
-        End If
+    Static Picture As RECT
 
-        file_path = Windows_Temp_Dir & GrhData(grh_index).FileNum & ".png"
-    #Else
-        file_path = App.Path & "\..\Recursos\Graficos\" & GrhData(grh_index).FileNum & ".png"
-    #End If
-        
-    src_x = GrhData(grh_index).sX
-    src_y = GrhData(grh_index).sY
-    src_width = GrhData(grh_index).pixelWidth
-    src_height = GrhData(grh_index).pixelHeight
-            
-    hdcsrc = CreateCompatibleDC(desthDC)
-    Call ConvertFileImage(file_path, App.Path & "\temp\" & GrhData(grh_index).FileNum & ".jpg", 100)
-        
-    PrevObj = SelectObject(hdcsrc, LoadPicture(App.Path & "\temp\" & GrhData(grh_index).FileNum & ".jpg"))
-        
-    If transparent = False Then
-        BitBlt desthDC, screen_x, screen_y, src_width, src_height, hdcsrc, src_x, src_y, vbSrcCopy
-    Else
-        MaskDC = CreateCompatibleDC(desthDC)
-            
-        PrevObj2 = SelectObject(MaskDC, LoadPicture(App.Path & "\temp\" & GrhData(grh_index).FileNum & ".jpg"))
-            
-        'Render tranparently
-        BitBlt desthDC, screen_x, screen_y, src_width, src_height, MaskDC, src_x, src_y, vbSrcAnd
-        BitBlt desthDC, screen_x, screen_y, src_width, src_height, hdcsrc, src_x, src_y, vbSrcPaint
-            
-        Call DeleteObject(SelectObject(MaskDC, PrevObj2))
-            
-        DeleteDC MaskDC
+    With Picture
+        .Left = 0
+        .Top = 0
 
-    End If
-        
-    Call DeleteObject(SelectObject(hdcsrc, PrevObj))
-    DeleteDC hdcsrc
-        
-    #If Compresion = 1 Then
-        Delete_File file_path
-    #End If
-    Kill App.Path & "\temp\" & GrhData(grh_index).FileNum & ".jpg"
+        .Bottom = pic.ScaleHeight
+        .Right = pic.ScaleWidth
+
+    End With
+
+    Call D3DDevice.BeginScene
+    Call D3DDevice.Clear(0, ByVal 0, D3DCLEAR_TARGET, ClearColor, 1#, 0)
+    
+    engine.Device_Box_Textured_Render GrhIndex, screen_x, screen_y, GrhData(GrhIndex).pixelWidth, GrhData(GrhIndex).pixelHeight, COLOR_WHITE, GrhData(GrhIndex).sX, GrhData(GrhIndex).sY, Alpha, 0
+
+    Call D3DDevice.EndScene
+    Call D3DDevice.Present(Picture, ByVal 0, pic.hWnd, ByVal 0)
+    
     
     Exit Sub
+
+Grh_Render_To_Hdc_Err:
+    Call RegistrarError(Err.Number, Err.Description, "Grh_Render_To_Hdc", Erl)
+    Resume Next
+
+End Sub
+
+Public Sub Grh_Render_To_HdcSinBorrar(ByRef pic As PictureBox, ByVal GrhIndex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
+    
+    On Error GoTo Grh_Render_To_HdcSinBorrar_Err
+    
+
+    If GrhIndex = 0 Then Exit Sub
+
+    Static Picture As RECT
+
+    With Picture
+        .Left = 0
+        .Top = 0
+
+        .Bottom = pic.ScaleHeight
+        .Right = pic.ScaleWidth
+
+    End With
+
+    Call D3DDevice.BeginScene
+    
+    engine.Device_Box_Textured_Render GrhIndex, screen_x, screen_y, GrhData(GrhIndex).pixelWidth, GrhData(GrhIndex).pixelHeight, COLOR_WHITE, GrhData(GrhIndex).sX, GrhData(GrhIndex).sY, Alpha, 0
+
+    Call D3DDevice.EndScene
+    Call D3DDevice.Present(Picture, ByVal 0, pic.hWnd, ByVal 0)
+    
+    
+    Exit Sub
+
+Grh_Render_To_HdcSinBorrar_Err:
+    Call RegistrarError(Err.Number, Err.Description, "TileEngine.Grh_Render_To_HdcSinBorrar", Erl)
+    Resume Next
     
 End Sub
 
@@ -1060,7 +1049,7 @@ GenerarVista_Err:
     
 End Sub
 
-Function HayUserAbajo(X As Integer, y As Integer, grhindex) As Boolean
+Function HayUserAbajo(X As Integer, y As Integer, GrhIndex) As Boolean
     '*************************************************
     'Author: Unkwown
     'Last modified: 20/05/06
@@ -1068,7 +1057,7 @@ Function HayUserAbajo(X As Integer, y As Integer, grhindex) As Boolean
     
     On Error GoTo HayUserAbajo_Err
     
-    HayUserAbajo = CharList(UserCharIndex).Pos.X >= X - (GrhData(grhindex).TileWidth \ 2) And CharList(UserCharIndex).Pos.X <= X + (GrhData(grhindex).TileWidth \ 2) And CharList(UserCharIndex).Pos.y >= y - (GrhData(grhindex).TileHeight - 1) And CharList(UserCharIndex).Pos.y <= y
+    HayUserAbajo = CharList(UserCharIndex).Pos.X >= X - (GrhData(GrhIndex).TileWidth \ 2) And CharList(UserCharIndex).Pos.X <= X + (GrhData(GrhIndex).TileWidth \ 2) And CharList(UserCharIndex).Pos.y >= y - (GrhData(GrhIndex).TileHeight - 1) And CharList(UserCharIndex).Pos.y <= y
 
     
     Exit Function

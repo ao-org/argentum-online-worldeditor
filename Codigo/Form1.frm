@@ -77,8 +77,8 @@ Private Sub ListGraficosind_Click()
     On Error GoTo ListGraficosind_Click_Err
     
     picture1.Refresh
-    Call Grh_Render_To_Hdc(Form1.picture1.hdc, str$(ListGraficosind.ListIndex And &HFFFF&) + 1, 0, 0, False)
-    frmConfigSup.MOSAICO.value = vbUnchecked
+    Call Grh_Render_To_Hdc(Form1.picture1, str$(ListGraficosind.ListIndex And &HFFFF&) + 1, 0, 0, False)
+    frmConfigSup.MOSAICO.Value = vbUnchecked
     frmConfigSup.mAncho.Text = "0"
     frmConfigSup.mLargo.Text = "0"
     HotKeysAllow = False
