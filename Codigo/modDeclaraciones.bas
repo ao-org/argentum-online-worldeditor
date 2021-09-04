@@ -264,6 +264,7 @@ Public Type ObjData
     WeaponAnim As Integer ' Apunta a una anim de armas
     ShieldAnim As Integer ' Apunta a una anim de escudo
     Texto As String
+    Cerrada As Byte
 
 End Type
 

@@ -213,19 +213,19 @@ Sub ResetCharInfo(ByVal CharIndex As Integer)
 
 End Sub
 
-Public Sub InitGrh(ByRef Grh As Grh, ByVal GrhIndex As Long, Optional ByVal Started As Byte = 2)
+Public Sub InitGrh(ByRef Grh As Grh, ByVal grhindex As Long, Optional ByVal Started As Byte = 2)
 
     '*****************************************************************
     'Sets up a grh. MUST be done before rendering
     '*****************************************************************
     On Error Resume Next
 
-    Grh.GrhIndex = GrhIndex
+    Grh.grhindex = grhindex
 
-    If Grh.GrhIndex = 0 Then Exit Sub
+    If Grh.grhindex = 0 Then Exit Sub
     
     If Started = 2 Then
-        If GrhData(Grh.GrhIndex).NumFrames > 1 Then
+        If GrhData(Grh.grhindex).NumFrames > 1 Then
             Grh.Started = 1
         Else
             Grh.Started = 0
@@ -235,7 +235,7 @@ Public Sub InitGrh(ByRef Grh As Grh, ByVal GrhIndex As Long, Optional ByVal Star
     Else
 
         'Make sure the graphic can be started
-        If GrhData(Grh.GrhIndex).NumFrames = 1 Then Started = 0
+        If GrhData(Grh.grhindex).NumFrames = 1 Then Started = 0
         Grh.Started = Started
 
     End If
@@ -248,7 +248,7 @@ Public Sub InitGrh(ByRef Grh As Grh, ByVal GrhIndex As Long, Optional ByVal Star
     End If
     
     Grh.FrameCounter = 1
-    Grh.speed = GrhData(Grh.GrhIndex).speed
+    Grh.speed = GrhData(Grh.grhindex).speed
 
 End Sub
 
@@ -345,10 +345,7 @@ Sub MoveCharbyPos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As I
         .Pos.X = nX
         .Pos.y = nY
         MapData(X, y).CharIndex = 0
-        
-        .MoveOffsetX = -1 * (TilePixelWidth * addx)
-        .MoveOffsetY = -1 * (TilePixelHeight * addy)
-        
+
         .Moving = 1
         .Heading = nHeading
         
@@ -481,12 +478,12 @@ InMapBounds_Err:
     
 End Function
 
-Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal GrhIndex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
+Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal grhindex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
     
     On Error GoTo Grh_Render_To_Hdcok_Err
     
 
-    If GrhIndex = 0 Then Exit Sub
+    If grhindex = 0 Then Exit Sub
 
     'Public Sub Draw_Grh_Picture(ByVal grh As Long, ByVal pic As PictureBox, _
      ByVal X As Integer, ByVal Y As Integer, _
@@ -512,7 +509,7 @@ Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal GrhIndex As Long, 
 
     D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
     D3DDevice.BeginScene
-    engine.Device_Box_Textured_Render GrhIndex, screen_x, screen_y, GrhData(GrhIndex).pixelWidth, GrhData(GrhIndex).pixelHeight, s, GrhData(GrhIndex).sX, GrhData(GrhIndex).sY, Alpha, 0
+    engine.Device_Box_Textured_Render grhindex, screen_x, screen_y, GrhData(grhindex).pixelWidth, GrhData(grhindex).pixelHeight, s, GrhData(grhindex).sX, GrhData(grhindex).sY, Alpha, 0
                            
     D3DDevice.EndScene
     D3DDevice.Present Piture, ByVal 0, pic.hWnd, ByVal 0
@@ -526,12 +523,12 @@ Grh_Render_To_Hdcok_Err:
     
 End Sub
 
-Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal GrhIndex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
+Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal grhindex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
     
     On Error GoTo Grh_Render_To_HdcPNG_Err
     
 
-    If GrhIndex = 0 Then Exit Sub
+    If grhindex = 0 Then Exit Sub
 
     'Public Sub Draw_Grh_Picture(ByVal grh As Long, ByVal pic As PictureBox, _
      ByVal X As Integer, ByVal Y As Integer, _
@@ -557,7 +554,7 @@ Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal GrhIndex As Long,
 
     ' D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
     D3DDevice.BeginScene
-    engine.Device_Box_Textured_Render GrhIndex, screen_x, screen_y, GrhData(GrhIndex).pixelWidth, GrhData(GrhIndex).pixelHeight, s, GrhData(GrhIndex).sX, GrhData(GrhIndex).sY, Alpha, 0
+    engine.Device_Box_Textured_Render grhindex, screen_x, screen_y, GrhData(grhindex).pixelWidth, GrhData(grhindex).pixelHeight, s, GrhData(grhindex).sX, GrhData(grhindex).sY, Alpha, 0
                            
     D3DDevice.EndScene
     D3DDevice.Present Piture, ByVal 0, pic.hWnd, ByVal 0
@@ -571,12 +568,12 @@ Grh_Render_To_HdcPNG_Err:
     
 End Sub
 
-Public Sub Grh_Render_To_Hdc(ByRef pic As PictureBox, ByVal GrhIndex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False, Optional ByVal ClearColor As Long = &O0)
+Public Sub Grh_Render_To_Hdc(ByRef pic As PictureBox, ByVal grhindex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False, Optional ByVal ClearColor As Long = &O0)
     
     On Error GoTo Grh_Render_To_Hdc_Err
     
 
-    If GrhIndex = 0 Then Exit Sub
+    If grhindex = 0 Then Exit Sub
 
     Static Picture As RECT
 
@@ -588,11 +585,15 @@ Public Sub Grh_Render_To_Hdc(ByRef pic As PictureBox, ByVal GrhIndex As Long, By
         .Right = pic.ScaleWidth
 
     End With
+    
+    If GrhData(grhindex).NumFrames > 1 Then
+        grhindex = GrhData(grhindex).Frames(1)
+    End If
 
     Call D3DDevice.BeginScene
     Call D3DDevice.Clear(0, ByVal 0, D3DCLEAR_TARGET, ClearColor, 1#, 0)
     
-    engine.Device_Box_Textured_Render GrhIndex, screen_x, screen_y, GrhData(GrhIndex).pixelWidth, GrhData(GrhIndex).pixelHeight, COLOR_WHITE, GrhData(GrhIndex).sX, GrhData(GrhIndex).sY, Alpha, 0
+    engine.Device_Box_Textured_Render grhindex, screen_x, screen_y, GrhData(grhindex).pixelWidth, GrhData(grhindex).pixelHeight, COLOR_WHITE, GrhData(grhindex).sX, GrhData(grhindex).sY, Alpha, 0
 
     Call D3DDevice.EndScene
     Call D3DDevice.Present(Picture, ByVal 0, pic.hWnd, ByVal 0)
@@ -606,12 +607,12 @@ Grh_Render_To_Hdc_Err:
 
 End Sub
 
-Public Sub Grh_Render_To_HdcSinBorrar(ByRef pic As PictureBox, ByVal GrhIndex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
+Public Sub Grh_Render_To_HdcSinBorrar(ByRef pic As PictureBox, ByVal grhindex As Long, ByVal screen_x As Integer, ByVal screen_y As Integer, Optional ByVal Alpha As Integer = False)
     
     On Error GoTo Grh_Render_To_HdcSinBorrar_Err
     
 
-    If GrhIndex = 0 Then Exit Sub
+    If grhindex = 0 Then Exit Sub
 
     Static Picture As RECT
 
@@ -626,7 +627,7 @@ Public Sub Grh_Render_To_HdcSinBorrar(ByRef pic As PictureBox, ByVal GrhIndex As
 
     Call D3DDevice.BeginScene
     
-    engine.Device_Box_Textured_Render GrhIndex, screen_x, screen_y, GrhData(GrhIndex).pixelWidth, GrhData(GrhIndex).pixelHeight, COLOR_WHITE, GrhData(GrhIndex).sX, GrhData(GrhIndex).sY, Alpha, 0
+    engine.Device_Box_Textured_Render grhindex, screen_x, screen_y, GrhData(grhindex).pixelWidth, GrhData(grhindex).pixelHeight, COLOR_WHITE, GrhData(grhindex).sX, GrhData(grhindex).sY, Alpha, 0
 
     Call D3DDevice.EndScene
     Call D3DDevice.Present(Picture, ByVal 0, pic.hWnd, ByVal 0)
@@ -1049,7 +1050,7 @@ GenerarVista_Err:
     
 End Sub
 
-Function HayUserAbajo(X As Integer, y As Integer, GrhIndex) As Boolean
+Function HayUserAbajo(X As Integer, y As Integer, grhindex) As Boolean
     '*************************************************
     'Author: Unkwown
     'Last modified: 20/05/06
@@ -1057,7 +1058,7 @@ Function HayUserAbajo(X As Integer, y As Integer, GrhIndex) As Boolean
     
     On Error GoTo HayUserAbajo_Err
     
-    HayUserAbajo = CharList(UserCharIndex).Pos.X >= X - (GrhData(GrhIndex).TileWidth \ 2) And CharList(UserCharIndex).Pos.X <= X + (GrhData(GrhIndex).TileWidth \ 2) And CharList(UserCharIndex).Pos.y >= y - (GrhData(GrhIndex).TileHeight - 1) And CharList(UserCharIndex).Pos.y <= y
+    HayUserAbajo = CharList(UserCharIndex).Pos.X >= X - (GrhData(grhindex).TileWidth \ 2) And CharList(UserCharIndex).Pos.X <= X + (GrhData(grhindex).TileWidth \ 2) And CharList(UserCharIndex).Pos.y >= y - (GrhData(grhindex).TileHeight - 1) And CharList(UserCharIndex).Pos.y <= y
 
     
     Exit Function
