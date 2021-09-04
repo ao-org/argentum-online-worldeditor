@@ -14,11 +14,34 @@ Begin VB.Form FrmRender
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   833
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CommandButton cmdBuscarErrores 
+      Caption         =   "Buscar Errores"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   360
+      Left            =   8760
+      TabIndex        =   5
+      Top             =   120
+      Width           =   2130
+   End
+   Begin VB.Timer SaveAllErrores 
+      Enabled         =   0   'False
+      Interval        =   1
+      Left            =   11280
+      Top             =   480
+   End
    Begin VB.Timer SaveAll 
       Enabled         =   0   'False
       Interval        =   1
-      Left            =   8520
-      Top             =   120
+      Left            =   11880
+      Top             =   480
    End
    Begin VB.CommandButton Command3 
       Caption         =   "Renderizar todos los mapas"
@@ -31,11 +54,11 @@ Begin VB.Form FrmRender
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   315
-      Left            =   9000
+      Height          =   360
+      Left            =   5640
       TabIndex        =   4
       Top             =   120
-      Width           =   3135
+      Width           =   2895
    End
    Begin VB.CommandButton Command2 
       Caption         =   "Renderizar sin bordes"
@@ -48,11 +71,11 @@ Begin VB.Form FrmRender
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   315
-      Left            =   3480
+      Height          =   360
+      Left            =   3000
       TabIndex        =   3
       Top             =   120
-      Width           =   3135
+      Width           =   2535
    End
    Begin VB.PictureBox picMap 
       Appearance      =   0  'Flat
@@ -80,25 +103,25 @@ Begin VB.Form FrmRender
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   315
+      Height          =   360
       Left            =   240
       TabIndex        =   1
       Top             =   120
-      Width           =   3135
+      Width           =   2655
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Salir"
       BeginProperty Font 
          Name            =   "Arial"
-         Size            =   12
+         Size            =   9.75
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   315
-      Left            =   7080
+      Height          =   360
+      Left            =   11040
       TabIndex        =   0
       Top             =   120
       Width           =   1215
@@ -214,6 +237,27 @@ Public Sub Capturar_Imagen(Control As Control, Destino As Object)
           
 End Sub
 
+Private Sub cmdBuscarErrores_Click()
+
+    Dim FileName As String
+    FileName = PATH_Save & NameMap_Save & "1.csm"
+
+    If FileExist(FileName, vbArchive) = False Then
+        Unload Me
+        MsgBox "Primero abre algún mapa de la carpeta a convertir.", vbOKOnly, "Error"
+        Exit Sub
+    End If
+    
+    Call AbrirMapa(FileName)
+
+    SaveAllErrores.Enabled = True
+    
+    handle = FreeFile
+
+    Open "C:\bloqueos.txt" For Append As #handle
+    
+End Sub
+
 Private Sub Command1_Click()
     
     On Error GoTo Command1_Click_Err
@@ -234,8 +278,20 @@ Private Sub Command2_Click()
 End Sub
 
 Private Sub Command3_Click()
+
     Dim FileName As String
+    
+    FrmMain.cVerBloqueos.Value = (FrmMain.cVerBloqueos.Value = False)
+    FrmMain.mnuVerBloqueos.Checked = FrmMain.cVerBloqueos.Value
+    
+    FrmMain.mnuVerTranslados.Checked = (FrmMain.mnuVerTranslados.Checked = False)
+    
+    FrmMain.cVerTriggers.Value = (FrmMain.cVerTriggers.Value = False)
+    FrmMain.mnuVerTriggers.Checked = FrmMain.cVerTriggers.Value
+            
     FileName = PATH_Save & NameMap_Save & "1.csm"
+
+
 
     If FileExist(FileName, vbArchive) = False Then
         Unload Me
@@ -244,15 +300,13 @@ Private Sub Command3_Click()
     End If
     
     Call AbrirMapa(FileName)
-
-    SaveAll.Enabled = True
     
-    handle = FreeFile
+    SaveAll.Enabled = True
 
-    Open "A:\bloqueos.txt" For Append As #handle
 End Sub
 
 Private Function IsBlock(ByVal X As Integer, ByVal y As Integer) As Boolean
+
     If X - 1 < XMinMapSize Or X + 1 > XMaxMapSize Then
         IsBlock = True
         Exit Function
@@ -268,18 +322,35 @@ Private Function IsBlock(ByVal X As Integer, ByVal y As Integer) As Boolean
 End Function
 
 Private Sub SaveAll_Timer()
-    'Call engine.MapCapture(False, False)
-    
-    
+
+    Call engine.MapCapture(False, False)
+        
+    If Not FrmMain.MapPest(5).Visible Then
+        SaveAll.Enabled = False
+        Exit Sub
+    End If
+
+    Call FrmMain.NextMap
+End Sub
+
+Private Sub SaveAllErrores_Timer()
+     
     Dim X As Integer, y As Integer
     
     For y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
+        
+            If Not IsBlock(X, y) Then
+                If IsBlock(X - 1, y) And IsBlock(X + 1, y) And IsBlock(X, y + 1) And IsBlock(X, y - 1) Then
+                    Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: "
+                End If
+            End If
 
             If MapData(X, y).NPCIndex Then
                 If NpcData(MapData(X, y).NPCIndex).Body = 0 Then
                     Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: NPC BODY 0 "; MapData(X, y).NPCIndex
                 Else
+
                     If BodyData(NpcData(MapData(X, y).NPCIndex).Body).Walk(1).grhindex = 0 Then
                         Print #handle, FrmMain.MapPest(4).Caption & " :::::::: Posición: " & X & ", " & y & " ::::::::::::::::::: NPC BODY SIN GRH "; MapData(X, y).NPCIndex
                     End If
@@ -290,10 +361,11 @@ Private Sub SaveAll_Timer()
     Next
 
     If Not FrmMain.MapPest(5).Visible Then
-        SaveAll.Enabled = False
+        SaveAllErrores.Enabled = False
         Close #handle
         Exit Sub
     End If
 
     Call FrmMain.NextMap
+    
 End Sub
