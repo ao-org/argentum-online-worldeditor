@@ -1,0 +1,152 @@
+                        '***************************************************************************************
+                        'Carteles de casas
+                        '***************************************************************************************
+            
+                        If (MapData(X, y).Graphic(3).grhindex >= 50815 And MapData(X, y).Graphic(3).grhindex <= 50876) Or (MapData(X, y).Graphic(3).grhindex >= 47629 And MapData(X, y).Graphic(3).grhindex <= 47692) Then
+                                  
+                            If X > (XMinMapSize + BordeX) And X < (XMaxMapSize - BordeX) And y > (YMinMapSize + BordeY) And y < (YMaxMapSize - BordeY) Then
+                        
+                                If chkCarteles.Value = 1 Then
+                    
+                                    If (MapData(X, y).Blocked <> 1) <> 0 Then
+                                        If MapData(X, y).Blocked >= 15 Then
+                                            ar = 14
+                                        Else
+                                            ar = MapData(X, y).Blocked
+                                        End If
+                            
+                                        If MapData(X, y).Blocked = 1 Or MapData(X, y).Blocked = 3 Or MapData(X, y).Blocked = 5 Or MapData(X, y).Blocked = 7 Or MapData(X, y).Blocked = 9 Or MapData(X, y).Blocked = 11 Or MapData(X, y).Blocked = 13 Then
+                                            ar = MapData(X, y).Blocked - 1
+                                        End If
+                            
+                                        Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Cartel: " & X & ", " & y & " :::: Faltaba Bloqueo " & MapData(X, y).Graphic(3).grhindex & " ya fue puesto."
+                                        MapData(X, y).Blocked = (ar + 1)
+                                    End If
+
+                                    If (MapData(X, y + 1).Blocked <> 4) <> 0 Then
+                        
+                                        If MapData(X, y + 1).Blocked >= 15 Then
+                                            ab = 11
+                                        Else
+                                            ab = MapData(X, y + 1).Blocked
+                                        End If
+                            
+                                        If MapData(X, y + 1).Blocked = 4 Or MapData(X, y + 1).Blocked = 5 Or MapData(X, y + 1).Blocked = 6 Or MapData(X, y + 1).Blocked = 7 Or MapData(X, y + 1).Blocked = 12 Or MapData(X, y + 1).Blocked = 13 Or MapData(X, y + 1).Blocked = 14 Then
+                                            ab = MapData(X, y + 1).Blocked - 4
+                                        End If
+                            
+                                        Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Cartel: " & X & ", " & y - 1 & " :::: Faltaba Bloqueo " & MapData(X, y + 1).Graphic(3).grhindex & " ya fue puesto."
+                                        MapData(X, y + 1).Blocked = (ab + 4)
+                                    End If
+                            
+                                Else
+
+                                    If (MapData(X, y).Blocked <> 1) <> 0 Then
+                                        Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Cartel: " & X & ", " & y & " :::: FALTA Bloqueo " & MapData(X, y).Graphic(3).grhindex
+                                    End If
+                            
+                                    If ((MapData(X, y + 1).Blocked <> 4) <> 0) Then  'And Not IsBlock(X + 2, y + 1) And Not IsBlock(X - 1, y + 1) Then
+                                        Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Cartel: " & X & ", " & y + 1&; " :::: FALTA Bloqueo " & MapData(X, y).Graphic(3).grhindex
+                                    End If
+                                End If
+
+                            End If
+                        End If
+                        
+                    Else
+
+                        'aca va lo de arriba sin arreglar ejemplo no va
+                        ' MapData(X - 3, y - 2).particle_Index = 180
+                        
+                        'grafico 5624
+                        If (MapData(X, y).Graphic(3).grhindex = 5624) And (MapData(X, y).Blocked <> 8) <> 0 Then
+                            If MapData(X, y).Blocked >= 15 Then
+                                iz = 7
+                            Else
+                                iz = MapData(X, y).Blocked
+                            End If
+                            Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Farol: " & X & ", " & y & " :::: FALTA Bloqueo o diferente a Bloq Oeste y Este  .Grafico;" & MapData(X, y).Graphic(3).grhindex & " Se inserto Bloq : " & (8 + iz)
+                        End If
+
+                        If (MapData(X, y).Graphic(3).grhindex = 5624) And (MapData(X + 1, y).Blocked <> 2) <> 0 Then
+                            If MapData(X + 1, y).Blocked >= 15 Then
+                                de = 13
+                            Else
+                                de = MapData(X, y + 1).Blocked
+                            End If
+                            Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Farol: " & X + 1 & ", " & y & " :::: FALTA Bloqueo o diferente a Bloq Oeste y Este  .Grafico;" & MapData(X, y).Graphic(3).grhindex & " Se inserto Bloq : " & (2 + de)
+
+
+                        End If
+                        
+                        If (MapData(X, y).Graphic(3).grhindex = 5624) Then
+                            If MapData(X - 1, y - 2).particle_Index <> 235 Then
+                                Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Particula: " & X - 1 & ", " & y - 2 & " :::: Se puso la Particula = 235"
+                            End If
+                            
+                        End If
+                        'grafico 5624 final
+                        
+                        'grafico 5625
+                        If (MapData(X, y).Graphic(3).grhindex = 5625) And (MapData(X, y).Blocked <> 2) <> 0 Then
+                            If MapData(X, y).Blocked >= 15 Then
+                                iz = 13
+                            Else
+                                iz = MapData(X, y).Blocked
+                            End If
+                            Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Farol: " & X & ", " & y & " :::: FALTA Bloqueo o diferente a Bloq Oeste y Este  .Grafico;" & MapData(X, y).Graphic(3).grhindex & " Se inserto Bloq : " & (2 + iz)
+                        End If
+
+                        If (MapData(X, y).Graphic(3).grhindex = 5625) And (MapData(X - 1, y).Blocked <> 8) <> 0 Then
+                            If MapData(X - 1, y).Blocked >= 15 Then
+                                de = 7
+                            Else
+                                de = MapData(X - 1, y).Blocked
+                            End If
+                            Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Farol: " & X - 1 & ", " & y & " :::: FALTA Bloqueo o diferente a Bloq Oeste y Este  .Grafico;" & MapData(X, y).Graphic(3).grhindex & " Se inserto Bloq : " & (8 + de)
+                            
+                        End If
+
+                        If (MapData(X, y).Graphic(3).grhindex = 5625) Then
+                            If MapData(X + 1, y - 2).particle_Index <> 234 Then
+                                If chkFaroles.Value = 1 Then
+                                    Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Particula: " & X + 1 & ", " & y - 2 & " :::: Se puso la Particula = 234"
+                                Else
+                                    Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Particula: " & X + 1 & ", " & y - 2 & " :::: FALTA la Particula = 234"
+                                End If
+                            End If
+                        End If
+                        'grafico 5625 final
+                        
+                        'grafico 5627
+                        If (MapData(X, y).Graphic(3).grhindex = 5627) And (MapData(X, y).Blocked <> 15) <> 0 Then
+                            Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Farol: " & X & ", " & y & " :::: FALTA Bloqueo o diferente a Bloq Total  .Grafico;" & MapData(X, y).Graphic(3).grhindex & " Se inserto Bloq : 15 "
+                        End If
+
+                        If (MapData(X, y).Graphic(3).grhindex = 5627) Then
+                            If MapData(X, y - 1).particle_Index <> 236 Then
+                                If chkFaroles.Value = 1 Then
+                                    Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Particula: " & X & ", " & y - 1 & " :::: Se puso la Particula = 236 " & MapData(X, y - 1).particle_Index
+                                Else
+                                    Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Particula: " & X & ", " & y - 1 & " :::: FALTA la Particula = 236 " & MapData(X, y - 1).particle_Index
+                                End If
+                            End If
+                        End If
+                        'grafico 5627 final
+
+                        'grafico 5626
+                        If (MapData(X, y).Graphic(3).grhindex = 5626) And (MapData(X, y).Blocked <> 15) <> 0 Then
+                            Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Farol: " & X & ", " & y & " :::: FALTA Bloqueo o diferente a Bloq Total  .Grafico;" & MapData(X, y).Graphic(3).grhindex & " Se inserto Bloq : 15 "
+                        End If
+
+                        If (MapData(X, y).Graphic(3).grhindex = 5626) Then
+                            If chkFaroles.Value = 1 Then
+                                If MapData(X, y - 2).particle_Index <> 237 Then
+                                    Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Particula: " & X & ", " & y - 2 & " :::: Se puso la Particula = 237  -" & MapData(X, y - 2).particle_Index
+                                End If
+                            Else
+                                    Print #handle, FrmMain.MapPest(4).Caption & " ::: Posición del Particula: " & X & ", " & y - 2 & " :::: FALTA la Particula = 237   " & MapData(X, y - 2).particle_Index
+                            End If
+                        End If
+                        
+                        'grafico 5626 final
