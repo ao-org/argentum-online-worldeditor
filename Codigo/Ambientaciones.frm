@@ -701,25 +701,25 @@ Private Sub Command1_Click()
     Dim bloquear As Byte
     Dim objeto   As Long
     Dim X        As Byte
-    Dim y        As Byte
+    Dim Y        As Byte
     Dim i        As Long
 
     cantidad = Text1.Text
 
     If cantidad <= 0 Then Exit Sub
-    bloquear = Check1
+    bloquear = check1
 
     D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
 
     For i = 1 To cantidad
         X = RandomNumber(13, 87)
-        y = RandomNumber(11, 90)
+        Y = RandomNumber(11, 90)
 
-        If MapData(X, y).Graphic(1).grhindex < 1505 Or MapData(X, y).Graphic(1).grhindex > 1520 Then
+        If MapData(X, Y).Graphic(1).grhindex < 1505 Or MapData(X, Y).Graphic(1).grhindex > 1520 Then
 
-            MapData(X, y).Blocked = bloquear
-            MapData(X, y).Graphic(cCapas).grhindex = 1
-            InitGrh MapData(X, y).Graphic(cCapas), Ambientaciones(ReadField(2, List1.List(List1.ListIndex), Asc("#"))).grhindex
+            MapData(X, Y).Blocked = bloquear
+            MapData(X, Y).Graphic(cCapas).grhindex = 1
+            InitGrh MapData(X, Y).Graphic(cCapas), Ambientaciones(ReadField(2, List1.List(List1.ListIndex), Asc("#"))).grhindex
         Else
             i = i - 1
 
@@ -769,7 +769,7 @@ Private Sub List1_Click()
     D3DDevice.Clear 0, ByVal 0, D3DCLEAR_TARGET, 0, 0, 0
     Dim Index As Long
     Index = ReadField(2, List1.List(List1.ListIndex), Asc("#"))
-    Call Grh_Render_To_HdcPNG(AmbientacionesForm.Picture1, Ambientaciones(Index).grhindex, 0, 0, False)
+    Call Grh_Render_To_HdcPNG(AmbientacionesForm.picture1, Ambientaciones(Index).grhindex, 0, 0, False)
     frmConfigSup.MOSAICO.Value = vbUnchecked
     frmConfigSup.mAncho.Text = "0"
     frmConfigSup.mLargo.Text = "0"

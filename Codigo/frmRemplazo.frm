@@ -503,6 +503,9 @@ Private Sub ReplaceOnMap(ByVal Index As Integer)
                         If .Graphic(LayerFrom).grhindex = ValueFrom Then
                             .Graphic(LayerFrom).grhindex = 0
                             Call InitGrh(.Graphic(LayerTo), ValueTo)
+                            If ValueTo = 0 Then
+                            .Blocked = 16
+                            End If
                         End If
                     End With
 
@@ -522,6 +525,7 @@ Private Sub ReplaceOnMap(ByVal Index As Integer)
                                 Call InitGrh(.ObjGrh, ObjData(ValueTo).grhindex)
                             Else
                                 .ObjGrh.grhindex = 0
+                                .Blocked = 16
                             End If
                             .OBJInfo.objindex = ValueTo
                         End If

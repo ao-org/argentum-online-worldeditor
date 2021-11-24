@@ -22,7 +22,7 @@ Begin VB.Form FrmMain
       Height          =   375
       Index           =   23
       Left            =   22320
-      TabIndex        =   193
+      TabIndex        =   194
       Top             =   2760
       Width           =   1815
       _ExtentX        =   3201
@@ -54,7 +54,7 @@ Begin VB.Form FrmMain
       ScaleHeight     =   865
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   1145
-      TabIndex        =   190
+      TabIndex        =   191
       Top             =   1560
       Width           =   17175
    End
@@ -62,7 +62,7 @@ Begin VB.Form FrmMain
       Caption         =   "X"
       Height          =   255
       Left            =   2040
-      TabIndex        =   176
+      TabIndex        =   177
       Top             =   5040
       Visible         =   0   'False
       Width           =   255
@@ -73,7 +73,7 @@ Begin VB.Form FrmMain
       Height          =   255
       Index           =   2
       Left            =   2040
-      TabIndex        =   175
+      TabIndex        =   176
       Top             =   4680
       Value           =   1  'Checked
       Visible         =   0   'False
@@ -86,7 +86,7 @@ Begin VB.Form FrmMain
       Height          =   255
       Index           =   1
       Left            =   1440
-      TabIndex        =   174
+      TabIndex        =   175
       Top             =   5040
       Value           =   1  'Checked
       Visible         =   0   'False
@@ -98,7 +98,7 @@ Begin VB.Form FrmMain
       Height          =   255
       Index           =   0
       Left            =   2040
-      TabIndex        =   173
+      TabIndex        =   174
       Top             =   5400
       Value           =   1  'Checked
       Visible         =   0   'False
@@ -110,7 +110,7 @@ Begin VB.Form FrmMain
       Height          =   255
       Index           =   3
       Left            =   2400
-      TabIndex        =   172
+      TabIndex        =   173
       Top             =   5040
       Value           =   1  'Checked
       Visible         =   0   'False
@@ -118,17 +118,17 @@ Begin VB.Form FrmMain
    End
    Begin VB.Frame Frame1 
       BackColor       =   &H80000000&
-      Caption         =   "OpciÃ³n Grh"
+      Caption         =   "Opción Grh"
       Height          =   1095
       Left            =   16200
-      TabIndex        =   167
+      TabIndex        =   168
       Top             =   0
       Width           =   5775
       Begin WorldEditor.lvButtons_H LvBOpcion 
          Height          =   375
          Index           =   18
          Left            =   240
-         TabIndex        =   168
+         TabIndex        =   169
          Top             =   240
          Width           =   1815
          _ExtentX        =   3201
@@ -154,7 +154,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   19
          Left            =   240
-         TabIndex        =   169
+         TabIndex        =   170
          Top             =   600
          Width           =   1815
          _ExtentX        =   3201
@@ -179,11 +179,11 @@ Begin VB.Form FrmMain
       Begin WorldEditor.lvButtons_H LvBOpcion 
          Height          =   375
          Index           =   21
-         Left            =   2160
-         TabIndex        =   171
+         Left            =   2400
+         TabIndex        =   172
          Top             =   600
-         Width           =   1695
-         _ExtentX        =   2990
+         Width           =   1815
+         _ExtentX        =   3201
          _ExtentY        =   661
          Caption         =   "Remplazo Grh"
          CapAlign        =   2
@@ -205,39 +205,13 @@ Begin VB.Form FrmMain
       Begin WorldEditor.lvButtons_H LvBOpcion 
          Height          =   375
          Index           =   22
-         Left            =   2160
-         TabIndex        =   191
+         Left            =   2400
+         TabIndex        =   192
          Top             =   240
-         Width           =   3495
-         _ExtentX        =   6165
+         Width           =   3255
+         _ExtentX        =   5741
          _ExtentY        =   661
          Caption         =   "Limpiar Luz,Particula,Trigger's"
-         CapAlign        =   2
-         BackStyle       =   2
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Tahoma"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         cGradient       =   0
-         Mode            =   0
-         Value           =   0   'False
-         cBack           =   -2147483633
-      End
-      Begin WorldEditor.lvButtons_H LvBToolsHaracin 
-         Height          =   375
-         Index           =   23
-         Left            =   3840
-         TabIndex        =   194
-         Top             =   600
-         Width           =   1815
-         _ExtentX        =   3201
-         _ExtentY        =   661
-         Caption         =   "Tools Haracin"
          CapAlign        =   2
          BackStyle       =   2
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -269,7 +243,7 @@ Begin VB.Form FrmMain
       EndProperty
       Height          =   6375
       Left            =   22080
-      TabIndex        =   143
+      TabIndex        =   144
       Top             =   120
       Width           =   2175
       Begin VB.CommandButton cmdDM 
@@ -287,7 +261,7 @@ Begin VB.Form FrmMain
          Index           =   4
          Left            =   600
          Style           =   1  'Graphical
-         TabIndex        =   148
+         TabIndex        =   149
          Top             =   480
          Width           =   240
       End
@@ -306,7 +280,7 @@ Begin VB.Form FrmMain
          Left            =   600
          Picture         =   "frmMain.frx":6ECC
          Style           =   1  'Graphical
-         TabIndex        =   147
+         TabIndex        =   148
          Top             =   720
          Width           =   240
       End
@@ -325,7 +299,7 @@ Begin VB.Form FrmMain
          Left            =   840
          Picture         =   "frmMain.frx":71B3
          Style           =   1  'Graphical
-         TabIndex        =   146
+         TabIndex        =   147
          Top             =   480
          Width           =   240
       End
@@ -344,7 +318,7 @@ Begin VB.Form FrmMain
          Left            =   360
          Picture         =   "frmMain.frx":74A2
          Style           =   1  'Graphical
-         TabIndex        =   145
+         TabIndex        =   146
          Top             =   480
          Width           =   240
       End
@@ -363,7 +337,7 @@ Begin VB.Form FrmMain
          Left            =   600
          Picture         =   "frmMain.frx":7792
          Style           =   1  'Graphical
-         TabIndex        =   144
+         TabIndex        =   145
          Top             =   240
          Width           =   240
       End
@@ -371,7 +345,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   0
          Left            =   240
-         TabIndex        =   149
+         TabIndex        =   150
          Top             =   1080
          Width           =   375
          _ExtentX        =   661
@@ -397,7 +371,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   1
          Left            =   720
-         TabIndex        =   150
+         TabIndex        =   151
          Top             =   1080
          Width           =   375
          _ExtentX        =   661
@@ -423,7 +397,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   2
          Left            =   240
-         TabIndex        =   151
+         TabIndex        =   152
          Top             =   1440
          Width           =   375
          _ExtentX        =   661
@@ -449,7 +423,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   3
          Left            =   720
-         TabIndex        =   152
+         TabIndex        =   153
          Top             =   1440
          Width           =   375
          _ExtentX        =   661
@@ -475,7 +449,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   4
          Left            =   1200
-         TabIndex        =   153
+         TabIndex        =   154
          Top             =   1080
          Width           =   375
          _ExtentX        =   661
@@ -501,7 +475,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   5
          Left            =   1680
-         TabIndex        =   154
+         TabIndex        =   155
          Top             =   1080
          Width           =   375
          _ExtentX        =   661
@@ -527,7 +501,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   6
          Left            =   1200
-         TabIndex        =   155
+         TabIndex        =   156
          Top             =   1440
          Width           =   375
          _ExtentX        =   661
@@ -553,7 +527,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   7
          Left            =   1680
-         TabIndex        =   156
+         TabIndex        =   157
          Top             =   1440
          Width           =   375
          _ExtentX        =   661
@@ -579,7 +553,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   8
          Left            =   240
-         TabIndex        =   157
+         TabIndex        =   158
          Top             =   3720
          Width           =   1815
          _ExtentX        =   3201
@@ -605,7 +579,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   9
          Left            =   240
-         TabIndex        =   158
+         TabIndex        =   159
          Top             =   3000
          Width           =   1815
          _ExtentX        =   3201
@@ -631,7 +605,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   10
          Left            =   240
-         TabIndex        =   159
+         TabIndex        =   160
          Top             =   3360
          Visible         =   0   'False
          Width           =   1815
@@ -658,7 +632,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   11
          Left            =   1200
-         TabIndex        =   160
+         TabIndex        =   161
          Top             =   240
          Width           =   855
          _ExtentX        =   1508
@@ -684,7 +658,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   12
          Left            =   240
-         TabIndex        =   161
+         TabIndex        =   162
          Top             =   1920
          Width           =   1815
          _ExtentX        =   3201
@@ -710,7 +684,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   13
          Left            =   240
-         TabIndex        =   162
+         TabIndex        =   163
          Top             =   4440
          Width           =   1815
          _ExtentX        =   3201
@@ -736,7 +710,7 @@ Begin VB.Form FrmMain
          Height          =   855
          Index           =   14
          Left            =   240
-         TabIndex        =   163
+         TabIndex        =   164
          Top             =   4920
          Width           =   855
          _ExtentX        =   1508
@@ -762,7 +736,7 @@ Begin VB.Form FrmMain
          Height          =   855
          Index           =   15
          Left            =   1200
-         TabIndex        =   164
+         TabIndex        =   165
          Top             =   4920
          Width           =   855
          _ExtentX        =   1508
@@ -788,7 +762,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   16
          Left            =   240
-         TabIndex        =   165
+         TabIndex        =   166
          Top             =   5880
          Width           =   1815
          _ExtentX        =   3201
@@ -814,7 +788,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   17
          Left            =   1200
-         TabIndex        =   166
+         TabIndex        =   167
          Top             =   600
          Width           =   855
          _ExtentX        =   1508
@@ -840,7 +814,7 @@ Begin VB.Form FrmMain
          Height          =   375
          Index           =   20
          Left            =   240
-         TabIndex        =   170
+         TabIndex        =   171
          Top             =   2280
          Width           =   1815
          _ExtentX        =   3201
@@ -862,6 +836,15 @@ Begin VB.Form FrmMain
          Value           =   0   'False
          cBack           =   -2147483633
       End
+   End
+   Begin VB.CommandButton cmdCovertitMap 
+      Caption         =   "Convertir Mapa"
+      Height          =   375
+      Left            =   18720
+      TabIndex        =   143
+      Top             =   1200
+      Visible         =   0   'False
+      Width           =   1455
    End
    Begin VB.CheckBox Check6 
       BackColor       =   &H00C0C0C0&
@@ -923,6 +906,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":ABCC
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -936,7 +920,7 @@ Begin VB.Form FrmMain
    End
    Begin VB.Frame Frame2 
       BackColor       =   &H80000000&
-      Caption         =   "InformaciÃ³n del Mapa"
+      Caption         =   "Información del Mapa"
       BeginProperty Font 
          Name            =   "Verdana"
          Size            =   8.25
@@ -966,7 +950,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   6
          Left            =   120
-         TabIndex        =   192
+         TabIndex        =   193
          Top             =   5880
          Width           =   1935
       End
@@ -974,7 +958,7 @@ Begin VB.Form FrmMain
          Alignment       =   2  'Center
          Height          =   285
          Left            =   1080
-         TabIndex        =   189
+         TabIndex        =   190
          Text            =   "0"
          Top             =   7155
          Width           =   495
@@ -983,7 +967,7 @@ Begin VB.Form FrmMain
          Alignment       =   2  'Center
          Height          =   285
          Left            =   600
-         TabIndex        =   188
+         TabIndex        =   189
          Text            =   "0"
          Top             =   7155
          Width           =   495
@@ -992,7 +976,7 @@ Begin VB.Form FrmMain
          Alignment       =   2  'Center
          Height          =   285
          Left            =   120
-         TabIndex        =   187
+         TabIndex        =   188
          Text            =   "0"
          Top             =   7155
          Width           =   495
@@ -1001,7 +985,7 @@ Begin VB.Form FrmMain
          Alignment       =   2  'Center
          Height          =   285
          Left            =   600
-         TabIndex        =   184
+         TabIndex        =   185
          Text            =   "0"
          Top             =   6600
          Width           =   495
@@ -1010,7 +994,7 @@ Begin VB.Form FrmMain
          Alignment       =   2  'Center
          Height          =   285
          Left            =   120
-         TabIndex        =   183
+         TabIndex        =   184
          Text            =   "0"
          Top             =   6600
          Width           =   495
@@ -1030,7 +1014,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   5
          Left            =   120
-         TabIndex        =   182
+         TabIndex        =   183
          Top             =   5640
          Width           =   1815
       End
@@ -1049,7 +1033,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   4
          Left            =   120
-         TabIndex        =   181
+         TabIndex        =   182
          Top             =   5400
          Width           =   1815
       End
@@ -1068,7 +1052,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   3
          Left            =   1200
-         TabIndex        =   180
+         TabIndex        =   181
          Top             =   5160
          Width           =   855
       End
@@ -1087,7 +1071,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   2
          Left            =   1200
-         TabIndex        =   179
+         TabIndex        =   180
          Top             =   4920
          Width           =   825
       End
@@ -1106,7 +1090,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   0
          Left            =   120
-         TabIndex        =   178
+         TabIndex        =   179
          Top             =   4920
          Width           =   1095
       End
@@ -1125,7 +1109,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Index           =   1
          Left            =   120
-         TabIndex        =   177
+         TabIndex        =   178
          Top             =   5160
          Width           =   1095
       End
@@ -1550,7 +1534,7 @@ Begin VB.Form FrmMain
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   186
+         TabIndex        =   187
          Top             =   6960
          Width           =   1215
       End
@@ -1568,7 +1552,7 @@ Begin VB.Form FrmMain
          EndProperty
          Height          =   375
          Left            =   120
-         TabIndex        =   185
+         TabIndex        =   186
          Top             =   6150
          Width           =   1815
       End
@@ -3778,7 +3762,7 @@ Begin VB.Form FrmMain
       Width           =   2055
       _ExtentX        =   3625
       _ExtentY        =   661
-      Caption         =   "&InformaciÃ³n del Mapa"
+      Caption         =   "&Información del Mapa"
       CapAlign        =   2
       BackStyle       =   2
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -4195,17 +4179,17 @@ Begin VB.Form FrmMain
       End
    End
    Begin VB.Menu mnuEdicion 
-      Caption         =   "&EdiciÃ³n"
+      Caption         =   "&Edición"
       Begin VB.Menu mnuCortar 
-         Caption         =   "C&ortar SelecciÃ³n"
+         Caption         =   "C&ortar Selección"
          Shortcut        =   ^X
       End
       Begin VB.Menu mnuCopiar 
-         Caption         =   "&Copiar SelecciÃ³n"
+         Caption         =   "&Copiar Selección"
          Shortcut        =   ^C
       End
       Begin VB.Menu mnuPegar 
-         Caption         =   "&Pegar SelecciÃ³n"
+         Caption         =   "&Pegar Selección"
          Shortcut        =   ^V
       End
       Begin VB.Menu mnuPegarCasa 
@@ -4213,15 +4197,15 @@ Begin VB.Form FrmMain
          Shortcut        =   ^H
       End
       Begin VB.Menu mnuBloquearS 
-         Caption         =   "&Bloquear SelecciÃ³n"
+         Caption         =   "&Bloquear Selección"
          Shortcut        =   ^B
       End
       Begin VB.Menu mnuRealizarOperacion 
-         Caption         =   "&Realizar OperaciÃ³n en SelecciÃ³n"
+         Caption         =   "&Realizar Operación en Selección"
          Shortcut        =   ^D
       End
       Begin VB.Menu mnuDeshacerPegado 
-         Caption         =   "Deshacer P&egado de SelecciÃ³n"
+         Caption         =   "Deshacer P&egado de Selección"
          Shortcut        =   ^S
       End
       Begin VB.Menu mnuLineEdicion0 
@@ -4236,7 +4220,7 @@ Begin VB.Form FrmMain
          Checked         =   -1  'True
       End
       Begin VB.Menu mnuInfoMap 
-         Caption         =   "&InformaciÃ³n del Mapa"
+         Caption         =   "&Información del Mapa"
       End
       Begin VB.Menu mnuLineEdicion1 
          Caption         =   "-"
@@ -4328,15 +4312,15 @@ Begin VB.Form FrmMain
          Caption         =   "Auto-Completar &Superficies"
       End
       Begin VB.Menu mnuAutoCapturarSuperficie 
-         Caption         =   "Auto-C&apturar informaciÃ³n de la Superficie"
+         Caption         =   "Auto-C&apturar información de la Superficie"
          Checked         =   -1  'True
       End
       Begin VB.Menu mnuAutoCapturarTranslados 
-         Caption         =   "Auto-&Capturar informaciÃ³n de los Translados"
+         Caption         =   "Auto-&Capturar información de los Translados"
          Checked         =   -1  'True
       End
       Begin VB.Menu mnuAutoGuardarMapas 
-         Caption         =   "ConfiguraciÃ³n de Auto-&Guardar Mapas"
+         Caption         =   "Configuración de Auto-&Guardar Mapas"
       End
    End
    Begin VB.Menu mnuVer 
@@ -4471,7 +4455,7 @@ Begin VB.Form FrmMain
          Caption         =   "Editar Indices.ini"
       End
       Begin VB.Menu mnuActualizarIndices 
-         Caption         =   "Actualizar Ã­ndices..."
+         Caption         =   "Actualizar índices..."
       End
    End
    Begin VB.Menu mnuObjSc 
@@ -4499,7 +4483,7 @@ Begin VB.Form FrmMain
          Caption         =   "Borrar bordes negros"
       End
       Begin VB.Menu abrirmapn 
-         Caption         =   "Abrir mapa NÂ°"
+         Caption         =   "Abrir mapa N°"
       End
       Begin VB.Menu vergraficoslistado 
          Caption         =   "Ver Graficos"
@@ -4516,25 +4500,23 @@ Begin VB.Form FrmMain
       Begin VB.Menu desptranslados 
          Caption         =   "Desplazar Translados"
       End
-      Begin VB.Menu mnuCapa1 
-         Caption         =   "Pegar solo capa 1"
-         Shortcut        =   ^{F1}
-      End
-      Begin VB.Menu mnuCapa2 
-         Caption         =   "Pegar solo capa 2"
-         Shortcut        =   ^{F2}
-      End
-      Begin VB.Menu mnuCapa3 
-         Caption         =   "Pegar solo capa 3"
-         Shortcut        =   ^{F3}
-      End
-      Begin VB.Menu mnuCapa4 
-         Caption         =   "Pegar solo capa 4"
-         Shortcut        =   ^{F4}
-      End
    End
    Begin VB.Menu MiniMap_ 
       Caption         =   "MiniMap"
+      Begin VB.Menu MiniMap_capa1 
+         Caption         =   "Capa 1"
+         Checked         =   -1  'True
+      End
+      Begin VB.Menu MiniMap_capa2 
+         Caption         =   "Capa 2"
+         Checked         =   -1  'True
+      End
+      Begin VB.Menu MiniMap_capa3 
+         Caption         =   "Capa 3"
+      End
+      Begin VB.Menu MiniMap_capa4 
+         Caption         =   "Capa 4"
+      End
       Begin VB.Menu MiniMap_Npcs 
          Caption         =   "Npcs"
       End
@@ -4548,7 +4530,7 @@ Begin VB.Form FrmMain
          Caption         =   "Particulas"
       End
       Begin VB.Menu MiniMap_ndemapa 
-         Caption         =   "NÂ° de mapa"
+         Caption         =   "N° de mapa"
       End
       Begin VB.Menu Dibujarmini 
          Caption         =   "Dibujar"
@@ -4778,8 +4760,7 @@ Private Sub abrirmapn_Click()
     If Mapa <> 0 Then
         If MapInfo.Changed = 1 Then
             If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
-                'modMapIO.GuardarMapa Dialog.FileName
-                Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+                modMapIO.GuardarMapa Dialog.FileName
             End If
         End If
 
@@ -5355,15 +5336,6 @@ Private Sub LvBMundo_Click(Index As Integer)
     Call FrmMundo.Show
 End Sub
 
-Private Sub LvBToolsHaracin_Click(Index As Integer)
-    Radio = 1
-    
-    If Radio = 0 Then Radio = 1
-    If Radio >= 5 Then Radio = 5
-
-    FrmRender.Show
-End Sub
-
 Private Sub lvlMax_Change()
     If LoadingMap Then Exit Sub
     
@@ -5390,22 +5362,6 @@ Private Sub lvlMin_Change()
     MapDat.level = (MapDat.level And &HFFFFFF00) Or Val(lvlMin.Text)
     
     MapInfo.Changed = 1
-End Sub
-
-Private Sub mnuCapa1_Click()
-    Call PegarSeleccionCapa1
-End Sub
-
-Private Sub mnuCapa2_Click()
-    Call PegarSeleccionCapa2
-End Sub
-
-Private Sub mnuCapa3_Click()
-    Call PegarSeleccionCapa3
-End Sub
-
-Private Sub mnuCapa4_Click()
-    Call PegarSeleccionCapa4
 End Sub
 
 Private Sub mnuVerMarco_Click()
@@ -5520,6 +5476,50 @@ Check6_Click_Err:
     
 End Sub
 
+Private Sub Check7_Click()
+    
+    On Error GoTo Check7_Click_Err
+    
+    MiniMap_capa2 = Not MiniMap_capa2
+
+    
+    Exit Sub
+
+Check7_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check7_Click", Erl)
+    Resume Next
+    
+End Sub
+
+Private Sub Check8_Click()
+    
+    On Error GoTo Check8_Click_Err
+    
+    MiniMap_capa3 = Not MiniMap_capa3
+
+    
+    Exit Sub
+
+Check8_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check8_Click", Erl)
+    Resume Next
+    
+End Sub
+
+Private Sub Check9_Click()
+    
+    On Error GoTo Check9_Click_Err
+    
+    MiniMap_capa4 = Not MiniMap_capa4
+
+    
+    Exit Sub
+
+Check9_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Check9_Click", Erl)
+    Resume Next
+    
+End Sub
 
 Private Sub Command14_Click()
     
@@ -5563,8 +5563,7 @@ Private Sub Command15_Click()
         Next X
     Next y
 
-    'modMapIO.GuardarMapa Dialog.FileName
-    Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+    modMapIO.GuardarMapa Dialog.FileName
 
     
     Exit Sub
@@ -5581,8 +5580,7 @@ Private Sub Command4_Click()
     
     SavePicture MiniMapas2.image, App.Path & "\recursos\minimapas\" & MapPest(4).Caption & ".png"
     Debug.Print Dialog.FileName
-    'modMapIO.GuardarMapa Dialog.FileName
-    Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+    modMapIO.GuardarMapa Dialog.FileName
 
     
     Exit Sub
@@ -5840,7 +5838,7 @@ Private Sub Label16_Click()
     
     On Error GoTo Label16_Click_Err
     
-   ' Timer4.Enabled = True
+    Timer4.Enabled = True
 
     
     Exit Sub
@@ -6088,7 +6086,73 @@ MiniMap_Bloqueos_Click_Err:
     
 End Sub
 
+Private Sub MiniMap_capa1_Click()
+    
+    On Error GoTo MiniMap_capa1_Click_Err
+    
+    MiniMap_capa1.Checked = (MiniMap_capa1.Checked = False)
+    MMiniMap_capa1 = Not MMiniMap_capa1
+    Call DibujarMiniMapa
 
+    
+    Exit Sub
+
+MiniMap_capa1_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_capa1_Click", Erl)
+    Resume Next
+    
+End Sub
+
+Private Sub MiniMap_capa2_Click()
+    
+    On Error GoTo MiniMap_capa2_Click_Err
+    
+    MiniMap_capa2.Checked = (MiniMap_capa2.Checked = False)
+    MMiniMap_capa2 = Not MMiniMap_capa2
+    Call DibujarMiniMapa
+
+    
+    Exit Sub
+
+MiniMap_capa2_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_capa2_Click", Erl)
+    Resume Next
+    
+End Sub
+
+Private Sub MiniMap_capa3_Click()
+    
+    On Error GoTo MiniMap_capa3_Click_Err
+    
+    MiniMap_capa3.Checked = (MiniMap_capa3.Checked = False)
+    MMiniMap_capa3 = Not MMiniMap_capa3
+    Call DibujarMiniMapa
+
+    
+    Exit Sub
+
+MiniMap_capa3_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_capa3_Click", Erl)
+    Resume Next
+    
+End Sub
+
+Private Sub MiniMap_capa4_Click()
+    
+    On Error GoTo MiniMap_capa4_Click_Err
+    
+    MiniMap_capa4.Checked = (MiniMap_capa4.Checked = False)
+    MMiniMap_capa4 = Not MMiniMap_capa4
+    Call DibujarMiniMapa
+
+    
+    Exit Sub
+
+MiniMap_capa4_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.MiniMap_capa4_Click", Erl)
+    Resume Next
+    
+End Sub
 
 Private Sub MiniMap_ndemapa_Click()
     
@@ -6234,7 +6298,7 @@ Call CopiarSeleccionCasa
 Dialog.FileName = PATH_Save & NameMap_Save & MapaOld & ".csm"
 modMapIO.AbrirMapa Dialog.FileName
 
-Call modEdicion.Deshacer_Add("Pegar SelecciÃ³n")
+Call modEdicion.Deshacer_Add("Pegar Selección")
 Call PegarSeleccionCasa
 End Sub
 
@@ -6357,22 +6421,11 @@ Private Sub cmdInformacionDelMapa_Click()
     '*************************************************
     
     On Error GoTo cmdInformacionDelMapa_Click_Err
-    UserMap = Label16.Caption
-    Call CargarZonas
-    
-    If SeleccionIX > 0 And NumZonas > 0 Then
-        AgregarZona = 3
-        frmMapInfo.txtIrZona.Text = NumZonas + 1
-        frmMapInfo.tZX1.Text = SeleccionIX
-        frmMapInfo.tZX2.Text = SeleccionFX
-        frmMapInfo.tZY1.Text = SeleccionIY
-        frmMapInfo.tZY2.Text = SeleccionFY
-    End If
     
     frmMapInfo.Show
     frmMapInfo.Visible = True
-    MapaActual = FrmMain.Label16.Caption
-    Call frmMapInfo.cmdIraZona_Click
+
+    
     Exit Sub
 
 cmdInformacionDelMapa_Click_Err:
@@ -7034,14 +7087,14 @@ Private Sub lListado_Click(Index As Integer)
 
             Case 1
                 cNumFunc(0).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Call Grh_Render_To_Hdc(picture1, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(Picture1, BodyData(NpcData(cNumFunc(0).Text).Body).Walk(3).grhindex, 0, 0, False)
 
             Case 2
                 cNumFunc(1).Text = ReadField(2, lListado(Index).Text, Asc("#"))
 
             Case 3
                 cNumFunc(2).Text = ReadField(2, lListado(Index).Text, Asc("#"))
-                Call Grh_Render_To_Hdc(picture1, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
+                Call Grh_Render_To_Hdc(Picture1, ObjData(cNumFunc(2).Text).grhindex, 0, 0, False)
 
             Case 4
                 TriggerBox = FrmMain.lListado(4).ListIndex
@@ -7165,8 +7218,7 @@ Private Sub MapPest_Click(Index As Integer)
 
     If MapInfo.Changed = 1 Then
         If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
-            'modMapIO.GuardarMapa Dialog.FileName
-            Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+            modMapIO.GuardarMapa Dialog.FileName
 
         End If
 
@@ -7457,7 +7509,7 @@ Private Sub mnuBloquearS_Click()
     
     On Error GoTo mnuBloquearS_Click_Err
     
-    Call modEdicion.Deshacer_Add("Bloquear SelecciÃ³n")
+    Call modEdicion.Deshacer_Add("Bloquear Selección")
     Call BlockearSeleccion
 
     
@@ -7534,7 +7586,7 @@ Private Sub mnuCortar_Click()
     
     On Error GoTo mnuCortar_Click_Err
     
-    Call modEdicion.Deshacer_Add("Cortar SelecciÃ³n")
+    Call modEdicion.Deshacer_Add("Cortar Selección")
     Call CortarSeleccion
 
     
@@ -7573,7 +7625,7 @@ Private Sub mnuDeshacerPegado_Click()
     
     On Error GoTo mnuDeshacerPegado_Click_Err
     
-    Call modEdicion.Deshacer_Add("Deshacer Pegado de SelecciÃ³n")
+    Call modEdicion.Deshacer_Add("Deshacer Pegado de Selección")
     Call DePegar
 
     
@@ -7663,8 +7715,7 @@ Public Sub mnuGuardarMapa_Click()
     On Error GoTo mnuGuardarMapa_Click_Err
     
     SavePicture MiniMapas2.image, App.Path & "\recursos\minimapas\" & MapPest(4).Caption & ".png"
-    'modMapIO.GuardarMapa Dialog.FileName
-    Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+    modMapIO.GuardarMapa Dialog.FileName
 
     
     Exit Sub
@@ -8000,7 +8051,7 @@ Private Sub mnuPegar_Click()
     
     On Error GoTo mnuPegar_Click_Err
     
-    Call modEdicion.Deshacer_Add("Pegar SelecciÃ³n")
+    Call modEdicion.Deshacer_Add("Pegar Selección")
     Call PegarSeleccion
 
     
@@ -8375,8 +8426,7 @@ Private Sub mnuReAbrirMapa_Click()
     If FileExist(Dialog.FileName, vbArchive) = False Then Exit Sub
     If MapInfo.Changed = 1 Then
         If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
-            'modMapIO.GuardarMapa Dialog.FileName
-            Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+            modMapIO.GuardarMapa Dialog.FileName
 
         End If
 
@@ -8401,7 +8451,7 @@ Private Sub mnuRealizarOperacion_Click()
     On Error GoTo mnuRealizarOperacion_Click_Err
     
 
-    Call modEdicion.Deshacer_Add("Realizar OperaciÃ³n en SelecciÃ³n")
+    Call modEdicion.Deshacer_Add("Realizar Operación en Selección")
     mnuAutoCompletarSuperficies.Checked = False
 
     Call AccionSeleccion
@@ -8661,10 +8711,9 @@ Private Sub mnuVerGrilla_Click()
     '*************************************************
     
     On Error GoTo mnuVerGrilla_Click_Err
-   
+    
     VerGrilla = (VerGrilla = False)
     mnuVerGrilla.Checked = VerGrilla
-
 
     
     Exit Sub
@@ -8838,7 +8887,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     On Error GoTo Form_QueryUnload_Err
     
 
-    ' Guardar configuraciÃ³n
+    ' Guardar configuración
     Rem WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "GuardarConfig", IIf(FrmMain.mnuGuardarUltimaConfig.Checked = True, "1", "0")
 
     WriteVar IniPath & "WorldEditor.ini", "PATH", "UltimoMapa", Dialog.FileName
@@ -8885,7 +8934,7 @@ Private Sub Npcalazarpormapa_Click()
     Dim y        As Byte
     Dim i        As Byte
 
-    tmp = InputBox("Â¿Cuantos npcs?", "Ingresar npcs al azar por todo el mapa.")
+    tmp = InputBox("¿Cuantos npcs?", "Ingresar npcs al azar por todo el mapa.")
 
     If tmp = "" Then Exit Sub
 
@@ -8934,7 +8983,7 @@ Private Sub objalazar_Click()
     cantidad = InputBox("Ingrese la cantidad de objetos a mapear")
 
     If cantidad <= 0 Then Exit Sub
-    bloquear = InputBox("Â¿Desea bloquear los obejtos? (1= SI | 0 = NO")
+    bloquear = InputBox("¿Desea bloquear los obejtos? (1= SI | 0 = NO")
 
     If bloquear > 1 Then Exit Sub
     objeto = FrmMain.cNumFunc(2).Text
@@ -9278,7 +9327,7 @@ Private Sub SaveAllMiniMap_Click()
     On Error GoTo SaveAllMiniMap_Click_Err
     
 
-    If MsgBox("Esta funcion generara todos los minimap de nuevo. Â¿Esta seguro que desea continuar?", vbExclamation + vbYesNo) = vbYes Then
+    If MsgBox("Esta funcion generara todos los minimap de nuevo. ¿Esta seguro que desea continuar?", vbExclamation + vbYesNo) = vbYes Then
         Timer4.Enabled = True
 
     End If
@@ -9369,8 +9418,7 @@ Private Sub TimAutoGuardarMapa_Timer()
 
         If bAutoGuardarMapaCount >= bAutoGuardarMapa Then
             If MapInfo.Changed = 1 Then ' Solo guardo si el mapa esta modificado
-                'modMapIO.GuardarMapa Dialog.FileName
-                Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+                modMapIO.GuardarMapa Dialog.FileName
 
             End If
 
@@ -9429,8 +9477,7 @@ Private Sub Timer1_Timer()
     On Error GoTo Timer1_Timer_Err
     
     Call MapPest_Click(5)
-    'modMapIO.GuardarMapa Dialog.FileName
-    Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+    modMapIO.GuardarMapa Dialog.FileName
 
     
     Exit Sub
@@ -9472,7 +9519,7 @@ Private Sub Timer4_Timer()
     'modMapIO.GuardarMapa Dialog.FileName
     'Call Form3.HacerTranslados
     'modMapIO.GuardarMapa Dialog.FileName
-   ' SavePicture MiniMapas2.image, App.Path & "\recursos\minimapas\" & MapPest(4).Caption & ".png"
+    SavePicture MiniMapas2.image, App.Path & "\recursos\minimapas\" & MapPest(4).Caption & ".png"
     'Call mnuGuardarMapa_Click
     'Call Command2_Click
     'modMapIO.GuardarMapa Dialog.FileName
@@ -9660,16 +9707,15 @@ vergraficoslistado_Click_Err:
     
 End Sub
 
-Public Function CopiarEspejado(ByVal IX As Integer, ByVal fX As Integer, ByVal IY As Integer, ByVal fY As Integer)
+Public Function CopiarEspejado(ByVal IX As Integer, ByVal FX As Integer, ByVal IY As Integer, ByVal FY As Integer)
 
     SeleccionIX = IX
-    SeleccionFX = fX
+    SeleccionFX = FX
     SeleccionIY = IY
-    SeleccionFY = fY
+    SeleccionFY = FY
     Call CopiarSeleccion
     MapInfo.Changed = 1
-    'modMapIO.GuardarMapa Dialog.FileName
-    Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+    modMapIO.GuardarMapa Dialog.FileName
     
 End Function
 
@@ -9752,31 +9798,3 @@ End Select
 
     
 End Function
-Sub DibujarAreas()
-Dim i As Integer
-MiniMap.Cls
-MiniMap.ForeColor = vbRed
-For i = 1 To NumAreas
-    If Areas(i).Mapa = UserMap Then
-        MiniMap.Line (Areas(i).X1, Areas(i).Y1)-(Areas(i).X2, Areas(i).Y1)
-        MiniMap.Line (Areas(i).X1, Areas(i).Y2)-(Areas(i).X2, Areas(i).Y2)
-        MiniMap.Line (Areas(i).X1, Areas(i).Y1)-(Areas(i).X1, Areas(i).Y2)
-        MiniMap.Line (Areas(i).X2, Areas(i).Y1)-(Areas(i).X2, Areas(i).Y2)
-    End If
-Next i
-End Sub
-Sub DibujarZonas()
-Dim i As Integer
-MiniMap.Cls
-MiniMap.ForeColor = vbYellow
-For i = 1 To NumZonas
-    If Zonas(i).Mapa = UserMap Then
-        MiniMap.Line (Zonas(i).X1, Zonas(i).Y1)-(Zonas(i).X2, Zonas(i).Y1)
-        MiniMap.Line (Zonas(i).X1, Zonas(i).Y2)-(Zonas(i).X2, Zonas(i).Y2)
-        MiniMap.Line (Zonas(i).X1, Zonas(i).Y1)-(Zonas(i).X1, Zonas(i).Y2)
-        MiniMap.Line (Zonas(i).X2, Zonas(i).Y1)-(Zonas(i).X2, Zonas(i).Y2)
-    End If
-Next i
-End Sub
-
-

@@ -31,10 +31,10 @@ Option Explicit
 Private MapTitulo As String     ' GS > Almacena el titulo del mapa para el .dat
 
 ''
-' Obtener el tamaño de un archivo
+' Obtener el tama�o de un archivo
 '
 ' @param FileName Especifica el path del archivo
-' @return   Nos devuelve el tamaño
+' @return   Nos devuelve el tama�o
 
 Public Function FileSize(ByVal FileName As String) As Long
     '*************************************************
@@ -167,7 +167,6 @@ Public Sub DeseaGuardarMapa(Optional Path As String)
     If MapInfo.Changed = 1 Then
         If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
             GuardarMapa Path
-            'Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
 
         End If
 
@@ -263,7 +262,7 @@ Public Sub NuevoMapa()
     MapInfo.NoEncriptarMP = 0
 
     Call MapInfo_Actualizar
-    Call DibujarMiniMapa
+    ''Call DibujarMiniMapa
 
     bRefreshRadar = True ' Radar
 
@@ -432,7 +431,7 @@ Public Sub MapaV2_Guardar(ByVal SaveAs As String)
     'Close .inf file
     Close FreeFileInf
 
-    Call Pestañas(SaveAs)
+    Call Pesta�as(SaveAs)
 
     'write .dat file
     SaveAs = Left$(SaveAs, Len(SaveAs) - 4) & ".dat"
@@ -647,7 +646,7 @@ Public Sub MapaV3_Cargar(ByVal Map As String)
         'Change mouse icon
         .MousePointer = 0
                 
-        Call DibujarMiniMapa
+        'Call DibujarMiniMapa
 
     End With
     
@@ -858,8 +857,8 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     'Close files
     Close FreeFileMap
     Close FreeFileInf
-    Call Pestañas(Map)
-    Call DibujarMiniMapa
+    Call Pesta�as(Map)
+    'Call DibujarMiniMapa
     engine.Light_Render_All
 
     bRefreshRadar = True ' Radar
@@ -1070,24 +1069,49 @@ Public Sub MapInfo_Actualizar()
     frmMapInfo.chkMapInviSinEfecto.Value = MapInfo.InviSinEfecto
     frmMapInfo.chkMapResuSinEfecto.Value = MapInfo.ResuSinEfecto
     frmMapInfo.chkMapNoEncriptarMP.Value = MapInfo.NoEncriptarMP
-    frmMapInfo.chkMapPK.Value = MapInfo.PK
+    frmMapInfo.chkMapPK.Value = IIf(MapInfo.PK = True, 1, 0)
     frmMapInfo.txtMapVersion = MapInfo.MapVersion
 
+    If MapInfo.Light <> vbNullString Then
+        frmMapInfo.r1.Enabled = True
+        frmMapInfo.G1.Enabled = True
+        frmMapInfo.b1.Enabled = True
+        frmMapInfo.Text1.Enabled = True
+        frmMapInfo.lvButtons_H1.Enabled = True
+        frmMapInfo.picture1.Enabled = True
+        frmMapInfo.check1.Value = 0
+        frmMapInfo.Text1 = MapInfo.Light
+        frmMapInfo.picture1.BackColor = frmMapInfo.Text1
+    Else
+        frmMapInfo.picture1.BackColor = &HFFFFFF
+        MapInfo.Light = 0
+        frmMapInfo.r1.Enabled = False
+        frmMapInfo.G1.Enabled = False
+        frmMapInfo.b1.Enabled = False
+        frmMapInfo.Text1.Enabled = False
+        frmMapInfo.Text1 = &HFFFFFF
+        frmMapInfo.lvButtons_H1.Enabled = False
+        frmMapInfo.picture1.Enabled = False
+        frmMapInfo.check1.Value = 1
+
+    End If
+
+    engine.Map_Base_Light_Set frmMapInfo.Text1
 
 End Sub
 
 ''
-' Calcula la orden de Pestañas
+' Calcula la orden de Pesta�as
 '
 ' @param Map Especifica path del mapa
 
-Public Sub Pestañas(ByVal Map As String)
+Public Sub Pesta�as(ByVal Map As String)
     '*************************************************
     'Author: ^[GS]^
     'Last modified: 28/05/06
     '*************************************************
     
-    On Error GoTo Pestañas_Err
+    On Error GoTo Pesta�as_Err
     
 
     Dim loopc As Integer
@@ -1171,8 +1195,8 @@ Public Sub Pestañas(ByVal Map As String)
     
     Exit Sub
 
-Pestañas_Err:
-    Call RegistrarError(Err.Number, Err.Description, "modMapIO.Pestañas", Erl)
+Pesta�as_Err:
+    Call RegistrarError(Err.Number, Err.Description, "modMapIO.Pesta�as", Erl)
     Resume Next
     
 End Sub

@@ -437,8 +437,8 @@ Public Function Load_Map_Data_CSM(ByVal MapRoute As String, Optional ByVal Clien
 
     Load_Map_Data_CSM = True
 
-    Call PestaÃ±as(MapRoute)
-    Call DibujarMiniMapa
+    Call Pestañas(MapRoute)
+    'Call DibujarMiniMapa
     engine.Light_Render_All
     
     bRefreshRadar = True ' Radar
@@ -724,8 +724,8 @@ Public Function Load_Map_Data_CSM_Fast(ByVal MapRoute As String, Optional ByVal 
 
     Load_Map_Data_CSM_Fast = True
 
-    'Call PestaÃ±as(MapRoute)
-    Call DibujarMiniMapa
+    'Call Pestañas(MapRoute)
+    ''Call DibujarMiniMapa
     engine.Light_Render_All
     
     bRefreshRadar = True ' Radar
@@ -1037,7 +1037,7 @@ Sub CompletarForms()
     ' Si es un string, es porque usa el sistema viejo.
     ' Lo pasamos al nuevo.
     If Not IsNumeric(MapDat.restrict_mode) Then
-        ' El Ãºnico que se usaba era "NEWBIE"
+        ' El único que se usaba era "NEWBIE"
         If UCase$(MapDat.restrict_mode) = "NEWBIE" Then
             MapDat.restrict_mode = "1"
         Else
@@ -1071,7 +1071,7 @@ Sub CompletarForms()
       
     'Call Obtener_RGB(ColorAmb, Rojo, Verde, Azul)
   
-    'Colocamos el color de fondo pasandole a la funciÃ³n de vb RGB los valores
+    'Colocamos el color de fondo pasandole a la función de vb RGB los valores
     If Val(ColorAmb) <> 0 Then
         Dim BackC As Long
     
@@ -1356,7 +1356,7 @@ Public Function Load_Map_Data_CSM_Fast_ConBloqueosViejos(ByVal MapRoute As Strin
     
     Load_Map_Data_CSM_Fast_ConBloqueosViejos = True
 
-    'Call PestaÃ±as(MapRoute)
+    'Call Pestañas(MapRoute)
     'Call DibujarMiniMapa
     'engine.Light_Render_All
     

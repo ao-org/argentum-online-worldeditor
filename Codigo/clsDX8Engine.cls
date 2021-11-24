@@ -825,7 +825,7 @@ Public Sub Draw_GrhIndexColor(ByVal grh_index As Integer, ByVal X As Integer, By
     If grh_index <= 0 Then Exit Sub
     Dim rgb_list(3) As Long
     
-    rgb_list(0) = D3DColorXRGB(255, 255, 255)
+    rgb_list(0) = D3DColorXRGB(120, 120, 120)
     rgb_list(1) = D3DColorXRGB(255, 255, 255)
     rgb_list(2) = D3DColorXRGB(255, 255, 255)
     rgb_list(3) = D3DColorXRGB(255, 255, 255)
@@ -841,14 +841,14 @@ Draw_GrhIndexColor_Err:
     
 End Sub
 
-Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, ByVal center As Byte, ByVal animate As Byte, ByRef rgb_list() As Long, Optional ByVal Alpha As Boolean, Optional ByVal map_x As Byte = 1, Optional ByVal map_y As Byte = 1, Optional ByVal angle As Single)
+Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, ByVal center As Byte, ByVal Animate As Byte, ByRef rgb_list() As Long, Optional ByVal Alpha As Boolean, Optional ByVal map_x As Byte = 1, Optional ByVal map_y As Byte = 1, Optional ByVal angle As Single)
 
     On Error Resume Next
 
     Dim CurrentGrhIndex As Long
 
     If Grh.grhindex = 0 Then Exit Sub
-    If animate Then
+    If Animate Then
         If Grh.Started = 1 Then
             Grh.FrameCounter = Grh.FrameCounter + (timerElapsedTime * GrhData(Grh.grhindex).NumFrames / Grh.speed)
 
@@ -881,38 +881,38 @@ Private Sub Draw_Grh(ByRef Grh As Grh, ByVal X As Integer, ByVal y As Integer, B
     CurrentGrhIndex = GrhData(Grh.grhindex).Frames(Grh.FrameCounter)
 
     If CurrentGrhIndex = 0 Then
-        Dim ix As Byte
-        Dim iy As Byte
+        Dim IX As Byte
+        Dim IY As Byte
     
-        For iy = 1 To 100
-            For ix = 1 To 100
+        For IY = 1 To 100
+            For IX = 1 To 100
 
-                If MapData(ix, iy).Graphic(1).grhindex = Grh.grhindex Then
+                If MapData(IX, IY).Graphic(1).grhindex = Grh.grhindex Then
                     '  Debug.Print "El tile que falla es: " & ix & "-" & iy
-                    MapData(ix, iy).Graphic(1).grhindex = 0
+                    MapData(IX, IY).Graphic(1).grhindex = 0
 
                 End If
 
-                If MapData(ix, iy).Graphic(2).grhindex = Grh.grhindex Then
+                If MapData(IX, IY).Graphic(2).grhindex = Grh.grhindex Then
                     '   Debug.Print "El tile que falla es: " & ix & "-" & iy
-                    MapData(ix, iy).Graphic(2).grhindex = 0
+                    MapData(IX, IY).Graphic(2).grhindex = 0
 
                 End If
 
-                If MapData(ix, iy).Graphic(3).grhindex = Grh.grhindex Then
+                If MapData(IX, IY).Graphic(3).grhindex = Grh.grhindex Then
                     '    Debug.Print "El tile que falla es: " & ix & "-" & iy
-                    MapData(ix, iy).Graphic(3).grhindex = 0
+                    MapData(IX, IY).Graphic(3).grhindex = 0
 
                 End If
         
-                If MapData(ix, iy).Graphic(4).grhindex = Grh.grhindex Then
+                If MapData(IX, IY).Graphic(4).grhindex = Grh.grhindex Then
                     '    Debug.Print "El tile que falla es: " & ix & "-" & iy
-                    MapData(ix, iy).Graphic(4).grhindex = 0
+                    MapData(IX, IY).Graphic(4).grhindex = 0
 
                 End If
 
-            Next ix
-        Next iy
+            Next IX
+        Next IY
 
     End If
 
@@ -1079,7 +1079,10 @@ ShowNextFrame_Err:
     
 End Sub
 
-Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffsetX As Integer, ByVal PixelOffsetY As Integer)
+Sub RenderScreen(ByVal TileX As Integer, _
+                 ByVal TileY As Integer, _
+                 ByVal PixelOffsetX As Integer, _
+                 ByVal PixelOffsetY As Integer)
     '**************************************************************
     'Author: Aaron Perkins
     'Last Modify Date: 8/14/2007
@@ -1177,7 +1180,6 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
         ScreenX = XMinMapSize - screenminX
         screenminX = XMinMapSize
     End If
-
 
     If screenminY < YMinMapSize Then
         ScreenY = YMinMapSize - screenminY
@@ -1400,7 +1402,6 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
 
     ScreenY = minYOffset - 5
     
-    
     ScreenY = minYOffset - TileBufferSize
 
     For y = miny To maxy
@@ -1423,7 +1424,6 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     Next y
 
     ScreenY = minYOffset - 5
-
     
     ScreenY = minYOffset - TileBufferSize
 
@@ -1433,12 +1433,12 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
         For X = minx To maxx
             PixelOffsetXTemp = ScreenX * 32 + PixelOffsetX
             PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
-    
+
             If MapData(X, y).particle_group > 0 And VerParticulas Then
                 Call Particle_Group_Render(MapData(X, y).particle_group, ScreenX * 32 + PixelOffsetX + 15, ScreenY * 32 + PixelOffsetY + 15)
 
             End If
-    
+
             ScreenX = ScreenX + 1
         Next X
 
@@ -1528,6 +1528,9 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                     Next jj
 
                 End If
+                
+
+
             End If
           
             If Seleccionando Then
@@ -1557,7 +1560,16 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
                 End If
 
             End If
-                    
+            
+            For i = 1 To NumZonas
+
+                If Zonas(i).Mapa = MapaActual Then
+                    If (Zonas(i).X1 <= X And Zonas(i).X2 >= X) And (Zonas(i).Y1 <= y And Zonas(i).Y2 >= y) Then
+                        Call Draw_GrhIndex(15798, ScreenX * 32, ScreenY * 32)
+                    End If
+                End If
+            Next i
+            
             ScreenX = ScreenX + 1
         Next X
 
@@ -1574,22 +1586,21 @@ Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal PixelOffs
     If VerGrilla Then
         Dim A As Byte
         Dim b As Byte
-
+    
         For A = 0 To 35
             For b = 0 To 26
-
 
                 Call Draw_GrhIndex(2, 32 * A, 32 * b)
                 '
                 'Engine_Draw_Box 32 * A, 32 * b, 30, 30, D3DColorARGB(10, 255, 255, 255)
             Next b
         Next A
+        
     End If
     
     If VerMarco Then
-                Call Draw_GrhIndex(2476, 212, 128)
+        Call Draw_GrhIndex(2476, 212, 128)
     End If
-
     
     Exit Sub
 
@@ -2157,7 +2168,7 @@ Public Sub Start()
 
         End If
 
-        DoEvents
+       DoEvents
         Rem Limitar FPS
 
         While GetTickCount - lFrameLimiter < 10
@@ -4044,9 +4055,21 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
     If ConBordes Then
         FrmRender.picMap.Width = 800
         FrmRender.picMap.Height = 800
+
     Else
+    If FrmRender.OptMapasMundo.Value = True Then
         FrmRender.picMap.Width = (100 - 26) * 8
         FrmRender.picMap.Height = (100 - 20) * 8
+    End If
+    If FrmRender.OptMinimapasWE.Value = True Then
+        FrmRender.picMap.Width = (100 - 26) * 0.36
+        FrmRender.picMap.Height = (100 - 20) * 0.34
+    End If
+    If FrmRender.OptMinimapas100.Value = True Then
+        FrmRender.picMap.Width = (100 - 26) * 1.35
+        FrmRender.picMap.Height = (100 - 20) * 1.25
+    End If
+
     End If
     
     Call D3DDevice.Present(srcRect, ByVal 0, FrmRender.picMap.hWnd, ByVal 0)
@@ -4060,19 +4083,36 @@ Public Sub MapCapture(ByRef Format As Boolean, ByVal ConBordes As Boolean)
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''Guardo la imagen''''''''''''''''''''''''''''
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    
-    Call FrmRender.Capturar_Imagen(FrmRender.picMap, FrmRender.picMap)
-    
+     Call FrmRender.Capturar_Imagen(FrmRender.picMap, FrmRender.picMap)
+     
     'Si no existe la carpeta de MiniMapas, la hacemos.
     If Not FileExist(App.Path & "\Render\", vbDirectory) Then
         Call MkDir(App.Path & "\Render\")
-
     End If
     
-    'SavePicture FrmRender.picMap, "C:\imagen.bmp"
-    SavePicture FrmRender.picMap.Picture, App.Path & "\Render\" & FrmMain.MapPest(4).Caption & ".bmp"
+    If Not FileExist(App.Path & "\Mapas\", vbDirectory) Then
+        Call MkDir(App.Path & "\Mapas\")
+    End If
     
-    'Call SavePicture(FrmRender.picMap, App.Path & "\Render\" & NumMap_Save & ".bmp")
+    If Not FileExist(App.Path & "\Recursos\", vbDirectory) Then
+        Call MkDir(App.Path & "\Recursos\")
+    End If
+    
+    If Not FileExist(App.Path & "\Recursos\minimapas\", vbDirectory) Then
+        Call MkDir(App.Path & "\Recursos\minimapas\")
+    End If
+    
+    If FrmRender.OptMinimapasWE.Value = True Then
+    SavePicture FrmRender.picMap.Picture, App.Path & "\Render\" & FrmMain.MapPest(4).Caption & ".bmp"
+    End If
+    
+    If FrmRender.OptMapasMundo.Value = True Then
+    SavePicture FrmRender.picMap.Picture, App.Path & "\Mapas\" & FrmMain.MapPest(4).Caption & ".bmp"
+    End If
+    
+    If FrmRender.OptMinimapas100.Value = True Then
+    SavePicture FrmRender.picMap.Picture, App.Path & "\recursos\minimapas\" & FrmMain.MapPest(4).Caption & ".png"
+    End If
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         
     

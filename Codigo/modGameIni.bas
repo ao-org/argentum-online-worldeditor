@@ -40,11 +40,11 @@ End Type
 Public Type tGameIni
 
     Puerto As Long
-    Musica As Byte
+    Musica As Integer
     fX As Byte
     tip As Byte
     Password As String
-    name As String
+    Name As String
     DirGraficos As String
     DirSonidos As String
     DirMusica As String

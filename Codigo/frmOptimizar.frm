@@ -198,15 +198,38 @@ Public Sub Optimizar()
 
                 Select Case ObjData(MapData(X, Y).OBJInfo.objindex).ObjType
 
-                    Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
+                    Case 4, 10, 22  ' Arboles,  Foros, Yacimientos
 
                         If MapData(X, Y).Graphic(3).grhindex <> MapData(X, Y).ObjGrh.grhindex And chkMapearArbolesEtc.Value = 1 Then
                             MapData(X, Y).Graphic(3) = MapData(X, Y).ObjGrh
                         End If
                         If chkBloquearArbolesEtc.Value = 1 And MapData(X, Y).Blocked = 0 Then
-                        MapData(X, Y).Blocked = 1
+                        MapData(X, Y).Blocked = 15
+                        End If
+
+                    Case 8 '  Carteles
+
+                        If MapData(X, Y).Graphic(3).grhindex <> MapData(X, Y).ObjGrh.grhindex And chkMapearArbolesEtc.Value = 1 Then
+                            MapData(X, Y).Graphic(3) = MapData(X, Y).ObjGrh
+                        End If
+                        If chkBloquearArbolesEtc.Value = 1 Then
+
+                            
+                            If (MapData(X, Y).Blocked <> 1) Then
+                                MapData(X, Y).Blocked = 1
+                                MapInfo.Changed = 1
+                            End If
+                            
+                            
+                           If (MapData(X, Y + 1).Blocked <> 4) Then
+                                MapData(X, Y + 1).Blocked = 4
+                                MapInfo.Changed = 1
+                            End If
+                        
+                        
                         End If
                 End Select
+
 
             End If
 
@@ -254,7 +277,7 @@ Public Sub cOptimizar_Click()
     On Error GoTo cOptimizar_Click_Err
     
     Call Optimizar
-    'MapInfo.Changed = 1
+    MapInfo.Changed = 1
 
     
     Exit Sub

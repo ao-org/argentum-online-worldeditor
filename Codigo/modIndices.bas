@@ -876,6 +876,7 @@ Public Sub CargarIndicesNPC()
         NpcData(NPC).Body = Val(Leer.GetValue("NPC" & NPC, "Body"))
         NpcData(NPC).Head = Val(Leer.GetValue("NPC" & NPC, "Head"))
         NpcData(NPC).Heading = Val(Leer.GetValue("NPC" & NPC, "Heading"))
+        
 
         If LenB(NpcData(NPC).Name) <> 0 Then FrmMain.lListado(1).AddItem NpcData(NPC).Name & " - #" & NPC
     Next

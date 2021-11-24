@@ -29,24 +29,6 @@ Attribute VB_Name = "modEdicion"
 
 Option Explicit
 
-Public PRect As RECT
-Public CopyRect As RECT
-Public ZonaR As RECT
-Public AreaR As RECT
-Public offx As Integer
-Public offy As Integer
-Public mCopyX As Integer
-Public mCopyY As Integer
-Public CopyState As Byte
-Public AgregarZona As Byte
-Public AgregarArea As Byte
-Public SelArea As Integer
-Public AddMY As Integer
-Public AddMX As Integer
-Public LastX As Integer
-Public LastY As Integer
-Public MapCopy() As MapBlock
-
 Public maskBloqueo As Byte
 
 Public Sub General_Var_Write(ByVal File As String, ByVal Main As String, ByVal var As String, ByVal Value As String)
@@ -252,7 +234,7 @@ Public Sub Deshacer_Recover()
 
     End If
 
-    Call DibujarMiniMapa
+    'Call DibujarMiniMapa
 
     
     Exit Sub
@@ -364,7 +346,7 @@ Public Sub Bloquear_Bordes()
 '    MapData(88, 91).TileExit.X = 0
 '    MapData(88, 91).TileExit.y = 0
 
-    Call DibujarMiniMapa
+    'Call DibujarMiniMapa
 
     'Set changed flag
     
@@ -1084,8 +1066,7 @@ Sub DobleClick(tX As Integer, tY As Integer)
 
         If MapInfo.Changed = 1 Then
             If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
-                'modMapIO.GuardarMapa FrmMain.Dialog.FileName
-                Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
+                modMapIO.GuardarMapa FrmMain.Dialog.FileName
 
             End If
 
@@ -1110,34 +1091,7 @@ Sub DobleClick(tX As Integer, tY As Integer)
             End If
 
         End If
-    Else
-    'Para Harthaos
-    Dim i As Integer
-    
-        For i = 1 To NumZonas
-            If Zonas(i).Mapa = MapaActual Then
-                If (Zonas(i).X1 <= tX And Zonas(i).X2 >= tX) And (Zonas(i).Y1 <= tY And Zonas(i).Y2 >= tY) Then
-                    frmMapInfo.Show
-                    frmMapInfo.txtIrZona = i
-                    
-                    frmMapInfo.tZX1.Text = Zonas(i).X1
-                    frmMapInfo.tZY1.Text = Zonas(i).Y1
-                    frmMapInfo.tZX2.Text = Zonas(i).X2
-                    frmMapInfo.tZY2.Text = Zonas(i).Y2
 
-                    frmMapInfo.txtMapNombre.Text = Zonas(i).Nombre
-                    frmMapInfo.txtMapMusica.Text = Zonas(i).Musica
-                    frmMapInfo.txtMapTerreno.Text = Zonas(i).Terreno
-
-
-                    frmMapInfo.chkMapMagiaSinEfecto.Value = Zonas(i).MagiaSinEfecto
-                    frmMapInfo.chkMapInviSinEfecto.Value = Zonas(i).InviSinEfecto
-                    frmMapInfo.chkMapResuSinEfecto.Value = Zonas(i).ResuSinEfecto
-
-                End If
-            End If
-        Next i
-    
     End If
 
     
@@ -1177,8 +1131,8 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
     
     If Button = 0 Then
         ' Pasando sobre :P
-        SobreY = tY
-        SobreX = tX
+        sobreY = tY
+        sobreX = tX
         
         Exit Sub
 
@@ -1188,7 +1142,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
     
     If Button = vbRightButton Then
         ' Posicion
-        FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & ENDL & ENDL & "PosiciÃ³n " & tX & "," & tY
+        FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & ENDL & ENDL & "Posición " & tX & "," & tY
         
         ' Bloqueos
         If MapData(tX, tY).Blocked > 0 Then FrmMain.StatTxt.Text = FrmMain.StatTxt.Text & " (BLOQ)"
@@ -1268,7 +1222,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
                 MapData(tX, tY).Graphic(loopc).grhindex = 0
             Next loopc
 
-            Call DibujarMiniMapa
+            'Call DibujarMiniMapa
             Exit Sub
 
         End If
@@ -1288,7 +1242,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
                 If Deshacer Then modEdicion.Deshacer_Add "Quitar Capa " & FrmMain.cCapas.Text  ' Hago deshacer
                 MapInfo.Changed = 1 'Set changed flag
                 MapData(tX, tY).Graphic(Val(FrmMain.cCapas.Text)).grhindex = 0
-                Call DibujarMiniMapa
+                'Call DibujarMiniMapa
                 Exit Sub
 
             End If
@@ -1363,7 +1317,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
 
             End If
 
-            Call DibujarMiniMapa
+            'Call DibujarMiniMapa
             
         End If
 
@@ -1582,13 +1536,13 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
             General_Particle_Create CLng(particulaindex), tX, tY
             
             MapData(tX, tY).particle_Index = CLng(particulaindex)
-            MapInfo.Changed = 1
+
         End If
         
         If FrmMain.quitarparticula.Value = True Then
             MapData(tX, tY).particle_group = 0
             MapData(tX, tY).particle_Index = 0
-            MapInfo.Changed = 1
+
         End If
         
         If FrmMain.insertarLuz.Value = True Then
@@ -1607,7 +1561,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
                 LightA.LightRenderAll
 
             End If
-        MapInfo.Changed = 1
+    
         End If
         
         If FrmMain.QuitarLuz.Value = True Then
@@ -1618,7 +1572,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
         
             MapData(tX, tY).luz.Rango = 0
             MapData(tX, tY).luz.color = 0
-            MapInfo.Changed = 1
+             
             Dim id As Integer
 
             If rangoS < 100 Then
@@ -1629,7 +1583,7 @@ Sub ClickEdit(Button As Integer, tX As Byte, tY As Byte, Optional ByVal Deshacer
                 LightA.Delete_Light_To_Map tX, tY
 
             End If
-        MapInfo.Changed = 1
+             
         End If
 
     End If

@@ -582,7 +582,8 @@ Public Sub Main()
     
     If MapInfo.Changed = 1 Then
         If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
-            modMapIO.GuardarMapa FrmMain.Dialog.FileName
+            'modMapIO.GuardarMapa FrmMain.Dialog.FileName
+            Call modMapIO.GuardarMapa(PATH_Save & FrmMain.MapPest(4).Caption)
 
         End If
 
@@ -823,3 +824,57 @@ LoadClientSetup_Err:
     Resume Next
     
 End Sub
+Sub CargarZonas()
+    On Error Resume Next
+    Dim archivoC As String
+    
+    archivoC = App.Path & "\..\Recursos\Dat\zonas.dat"
+    
+    If Not FileExist(archivoC, vbArchive) Then
+        'TODO : Si hay que reinstalar, porque no cierra???
+        Call MsgBox("ERROR: no se ha podido cargar las zonas. Falta el archivo zonas.dat, reinstale el juego", vbCritical + vbOKOnly)
+        Exit Sub
+    End If
+    
+    Dim i As Integer
+    Dim e As Integer
+    NumZonas = GetVar(archivoC, "Config", "Cantidad")
+    
+    ReDim Zonas(1 To NumZonas)
+
+    For i = 1 To NumZonas
+        Zonas(i).Nombre = GetVar(archivoC, "Zona" & CStr(i), "Nombre")
+        Zonas(i).Mapa = CInt(GetVar(archivoC, "Zona" & CStr(i), "Mapa"))
+        Zonas(i).X1 = CInt(GetVar(archivoC, "Zona" & CStr(i), "X1"))
+        Zonas(i).Y1 = CInt(GetVar(archivoC, "Zona" & CStr(i), "Y1"))
+        Zonas(i).X2 = CInt(GetVar(archivoC, "Zona" & CStr(i), "X2"))
+        Zonas(i).Y2 = CInt(GetVar(archivoC, "Zona" & CStr(i), "Y2"))
+        Zonas(i).Terreno = CByte(Val(GetVar(archivoC, "Zona" & CStr(i), "Terreno")))
+        Zonas(i).Segura = CByte(GetVar(archivoC, "Zona" & CStr(i), "Segura"))
+        Zonas(i).MagiaSinEfecto = CByte(GetVar(archivoC, "Zona" & CStr(i), "MagiaSinEfecto"))
+        Zonas(i).InviSinEfecto = CByte(GetVar(archivoC, "Zona" & CStr(i), "InviSinEfecto"))
+        Zonas(i).TieneNpcInvocacion = CByte(GetVar(archivoC, "Zona" & CStr(i), "TieneNpcInvocacion"))
+        Zonas(i).niebla = CByte(GetVar(archivoC, "Zona" & CStr(i), "Niebla"))
+        Zonas(i).NieblaR = CByte(GetVar(archivoC, "Zona" & CStr(i), "NieblaR"))
+        Zonas(i).NieblaG = CByte(GetVar(archivoC, "Zona" & CStr(i), "NieblaG"))
+        Zonas(i).NieblaB = CByte(GetVar(archivoC, "Zona" & CStr(i), "NieblaB"))
+        Zonas(i).Restringir = GetVar(archivoC, "Zona" & CStr(i), "Restringir")
+        Zonas(i).NivelMaximo = GetVar(archivoC, "Zona" & CStr(i), "NivelMaximo")
+        Zonas(i).NivelMinimo = GetVar(archivoC, "Zona" & CStr(i), "NivelMinimo")
+        Zonas(i).ResuSinEfecto = GetVar(archivoC, "Zona" & CStr(i), "ResuSinEfecto")
+        Zonas(i).OcultarNombre = CByte(Val(GetVar(archivoC, "Zona" & CStr(i), "OcultarNombre")))
+        Zonas(i).Musica = CByte(Val(GetVar(archivoC, "Zona" & CStr(i), "Musica")))
+
+        For e = 1 To 5
+            Zonas(i).Musicas(e) = Val(GetVar(archivoC, "Zona" & CStr(i), "Musica" & e))
+        Next e
+
+        For e = 1 To 5
+            Zonas(i).Sonido(e) = Val(GetVar(archivoC, "Zona" & CStr(i), "Sonido" & e))
+        Next e
+
+    Next i
+    
+    Call FrmMain.DibujarZonas 'Ver Reyarb
+End Sub
+

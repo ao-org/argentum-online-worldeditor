@@ -171,14 +171,6 @@ Public Sub Command1_Click()
     SeleccionFX = 100
     SeleccionIY = 11
     SeleccionFY = 22
-    Command1.Visible = False
-    Command2.Visible = False
-    Command3.Visible = False
-    Command4.Visible = False
-    Command5.Visible = True
-    Command6.Visible = False
-    Command7.Visible = False
-    Command8.Visible = False
     Call CopiarSeleccion
     MapInfo.Changed = 1
     FrmMain.mnuGuardarMapa_Click
@@ -191,7 +183,6 @@ Command1_Click_Err:
     Resume Next
     
 End Sub
-
 Public Sub Command2_Click()
     'copiar izquierdo
     
@@ -201,14 +192,6 @@ Public Sub Command2_Click()
     SeleccionFX = 27
     SeleccionIY = 1
     SeleccionFY = 100
-    Command1.Visible = False
-    Command2.Visible = False
-    Command3.Visible = False
-    Command4.Visible = False
-    Command5.Visible = False
-    Command6.Visible = False
-    Command7.Visible = True
-    Command8.Visible = False
     Call CopiarSeleccion
     MapInfo.Changed = 1
     FrmMain.mnuGuardarMapa_Click
@@ -231,14 +214,6 @@ Public Sub Command3_Click()
     SeleccionFX = 87
     SeleccionIY = 1
     SeleccionFY = 100
-    Command1.Visible = False
-    Command2.Visible = False
-    Command3.Visible = False
-    Command4.Visible = False
-    Command5.Visible = False
-    Command6.Visible = False
-    Command7.Visible = False
-    Command8.Visible = True
     Call CopiarSeleccion
     MapInfo.Changed = 1
     FrmMain.mnuGuardarMapa_Click
@@ -261,14 +236,6 @@ Public Sub Command4_Click()
     SeleccionFX = 100
     SeleccionIY = 81
     SeleccionFY = 90
-    Command1.Visible = False
-    Command2.Visible = False
-    Command3.Visible = False
-    Command4.Visible = False
-    Command5.Visible = False
-    Command6.Visible = True
-    Command7.Visible = False
-    Command8.Visible = False
     Call CopiarSeleccion
     MapInfo.Changed = 1
     FrmMain.mnuGuardarMapa_Click
@@ -373,7 +340,7 @@ Public Sub Command7_Click()
         Call PegarSeleccion
         Call modEdicion.Bloquear_Bordes
         MapInfo.Changed = 1
-        UserPos.X = 83
+        UserPos.x = 83
         Unload Me
 
     End If
@@ -408,7 +375,7 @@ Public Sub Command8_Click()
         Call PegarSeleccion
         Call modEdicion.Bloquear_Bordes
         MapInfo.Changed = 1
-        UserPos.X = 19
+        UserPos.x = 19
         Unload Me
 
     End If
@@ -422,21 +389,23 @@ Command8_Click_Err:
     
 End Sub
 
-Private Sub VerMapaTraslado()
+Public Sub VerMapaTraslado()
     
     On Error GoTo VerMapaTraslado_Err
     
-    Dim X As Integer
+    Dim x As Integer
     Dim y As Integer
-
+    
     'Izquierda
-    X = 13
+    x = 13
 
     For y = (11) To (90)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            lblMapaOeste.Caption = MapData(X, y).TileExit.Map
+        If MapData(x, y).TileExit.Map <> 0 Then
+            lblMapaOeste.Caption = MapData(x, y).TileExit.Map
             Exit For
+        Else
+        'Debug.Print "NO hay traslados"
         End If
 
     Next
@@ -444,23 +413,27 @@ Private Sub VerMapaTraslado()
     'arriba
     y = 10
 
-    For X = (14) To (87)
+    For x = (14) To (87)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            lblMapaNorte.Caption = MapData(X, y).TileExit.Map
+        If MapData(x, y).TileExit.Map <> 0 Then
+            lblMapaNorte.Caption = MapData(x, y).TileExit.Map
             Exit For
+        Else
+        'Debug.Print "NO hay traslados"
         End If
 
     Next
     
     'Derecha
-    X = 88
+    x = 88
 
     For y = (11) To (90)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            lblMapaEste.Caption = MapData(X, y).TileExit.Map
+        If MapData(x, y).TileExit.Map <> 0 Then
+            lblMapaEste.Caption = MapData(x, y).TileExit.Map
             Exit For
+        Else
+        'Debug.Print "NO hay traslados"
         End If
 
     Next
@@ -468,11 +441,13 @@ Private Sub VerMapaTraslado()
     'Abajo
     y = 91
 
-    For X = (14) To (87)
+    For x = (14) To (87)
 
-        If MapData(X, y).TileExit.Map <> 0 Then
-            lblMapaSur.Caption = MapData(X, y).TileExit.Map
+        If MapData(x, y).TileExit.Map <> 0 Then
+            lblMapaSur.Caption = MapData(x, y).TileExit.Map
             Exit For
+        Else
+        'Debug.Print "NO hay traslados"
         End If
 
     Next

@@ -102,6 +102,8 @@ Public DirMidi               As String
 Public DirIndex              As String
 Public DirDats               As String
 
+Public IsPlaying             As Boolean
+
 Public bAutoGuardarMapa      As Byte
 Public bAutoGuardarMapaCount As Byte
 Public HotKeysAllow          As Boolean  ' Control Automatico de HotKeys
@@ -301,6 +303,53 @@ Public Type MapInfo
 
 End Type
 
+Private Type tZona
+    Nombre As String
+    Mapa As Integer
+    X1 As Integer
+    Y1 As Integer
+    X2 As Integer
+    Y2 As Integer
+    Segura As Byte
+    MagiaSinEfecto As Byte
+    InviSinEfecto As Byte
+    TieneNpcInvocacion As Byte
+    OcultarNombre As Byte
+    Musica As Integer
+    Terreno As Byte
+    Musicas(1 To 5) As Byte
+    Sonido(1 To 5) As Byte
+    niebla As Integer
+    NieblaR As Integer
+    NieblaG As Integer
+    NieblaB As Integer
+    NivelMaximo As Integer
+    NivelMinimo As Integer
+    Restringir As String
+    ResuSinEfecto As Byte
+End Type
+Private Type tNpcs
+    NPCIndex As Integer
+    cantidad As Integer
+End Type
+Private Type tArea
+    Mapa As Byte
+    X1 As Integer
+    Y1 As Integer
+    X2 As Integer
+    Y2 As Integer
+    NPCs As Byte
+    NPC() As tNpcs
+End Type
+
+Public UserMap As Integer
+
+Public Zonas()  As tZona
+Public Areas()  As tArea
+Public NumZonas As Integer
+Public NumAreas As Integer
+
+Public SelZona As Integer
 '********** CONSTANTS ***********
 'Heading Constants
 
