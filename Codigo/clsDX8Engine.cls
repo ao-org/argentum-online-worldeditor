@@ -1366,10 +1366,31 @@ Sub RenderScreen(ByVal TileX As Integer, _
                         
                 End If
 
+
+           
+            End With
+
+            ScreenX = ScreenX + 1
+        Next X
+
+        ScreenY = ScreenY + 1
+    Next y
+       ScreenY = minYOffset - TileBufferSize
+      For y = miny To maxy
+        ScreenX = minXOffset - TileBufferSize
+
+        For X = minx To maxx
+            PixelOffsetXTemp = ScreenX * 32 + PixelOffsetX
+            PixelOffsetYTemp = ScreenY * 32 + PixelOffsetY
+
+            With MapData(X, y)
+
                 'Object Layer **********************************
                 If .OBJInfo.objindex <> 0 And VerObjetos Then
                     Call Draw_Grh(.ObjGrh, PixelOffsetXTemp, PixelOffsetYTemp, 1, 1, MapData(X, y).light_value, , X, y)
-
+                    If .OBJInfo.objindex = 1 Then
+                        Debug.Print "soy una manzana"
+                    End If
                 End If
 
                 '***********************************************
@@ -1382,16 +1403,7 @@ Sub RenderScreen(ByVal TileX As Integer, _
           
                 End If
                 
-                'If MapData(X, Y).Graphic(7).grhindex <> 1 Then
-                            
-                'Call Draw_Grh(MapData(X, Y).Graphic(7), _
-                 (ScreenX - 1) * 32 + PixelOffsetX, _
-                 (ScreenY - 1) * 32 + PixelOffsetY, _
-                 0, 1, MapData(X, Y).light_value, False, X, Y)
-                        
-                ' End If
-      
-                '************************************************
+           
             End With
 
             ScreenX = ScreenX + 1
