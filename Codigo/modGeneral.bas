@@ -403,6 +403,7 @@ Private Sub CargarMapIni()
     Exit Sub
 Fallo:
     MsgBox "ERROR " & Err.Number & " en WorldEditor.ini" & vbCrLf & Err.Description, vbCritical
+    If Err.Number = 7 Then End
 
     Resume Next
 
@@ -421,6 +422,8 @@ Public Function TomarBPP() As Integer
 
 TomarBPP_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.TomarBPP", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Function
@@ -465,6 +468,8 @@ Public Sub CambioDeVideo()
 
 CambioDeVideo_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.CambioDeVideo", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -487,7 +492,7 @@ Public Sub Main()
     ColorAmb = 0 'Luz Base por defecto
     FormatoIAO = True
 
-    If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
+    If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.Picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
     frmCargando.verX = "v" & App.Major & "." & App.Minor & "." & App.Revision
     frmCargando.Show
     frmCargando.SetFocus
@@ -622,6 +627,8 @@ Public Function GetVar(File As String, Main As String, var As String) As String
 
 GetVar_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.GetVar", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Function
@@ -641,6 +648,8 @@ Public Sub WriteVar(File As String, Main As String, var As String, Value As Stri
 
 WriteVar_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.WriteVar", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -700,6 +709,8 @@ Public Sub FixCoasts(ByVal grhindex As Long, ByVal X As Integer, ByVal y As Inte
 
 FixCoasts_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.FixCoasts", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -720,6 +731,8 @@ Public Function RandomNumber(ByVal LowerBound As Variant, ByVal UpperBound As Va
 
 RandomNumber_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.RandomNumber", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Function
@@ -740,6 +753,8 @@ Public Function RandomNumber2(ByVal LowerBound As Variant, ByVal UpperBound As V
 
 RandomNumber2_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.RandomNumber2", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Function
@@ -795,6 +810,8 @@ Public Sub CaptionWorldEditor(ByVal Trabajando As String, ByVal Editado As Boole
 
 CaptionWorldEditor_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.CaptionWorldEditor", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -820,6 +837,8 @@ Private Sub LoadClientSetup()
 
 LoadClientSetup_Err:
     Call RegistrarError(Err.Number, Err.Description, "modGeneral.LoadClientSetup", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
