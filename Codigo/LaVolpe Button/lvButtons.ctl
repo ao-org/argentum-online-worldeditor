@@ -470,7 +470,7 @@ Attribute Mode.VB_Description = "Command button, check box or option button mode
 
     End If
 
-    If nMode = lv_CommandButton And myProps.bMode > lv_CommandButton Then Me.value = False
+    If nMode = lv_CommandButton And myProps.bMode > lv_CommandButton Then Me.Value = False
     myProps.bMode = nMode
     RedrawButton
     PropertyChanged "Mode"
@@ -952,9 +952,9 @@ ShowFocusRect_Err:
     
 End Property
 
-Public Property Let value(bValue As Boolean)
-Attribute value.VB_Description = "Applicable to only check box or option button modes: True or False"
-Attribute value.VB_UserMemId = 0
+Public Property Let Value(bValue As Boolean)
+Attribute Value.VB_Description = "Applicable to only check box or option button modes: True or False"
+Attribute Value.VB_UserMemId = 0
     
     On Error GoTo value_Err
     
@@ -989,11 +989,11 @@ value_Err:
     
 End Property
 
-Public Property Get value() As Boolean
+Public Property Get Value() As Boolean
     
     On Error GoTo value_Err
     
-    value = myProps.bValue
+    Value = myProps.bValue
 
     
     Exit Property
@@ -1849,7 +1849,7 @@ Private Function ToggleOptionButtons(nMode As Integer) As Boolean
 
             If tgtObjRef <> myObjRef Then
                 CopyMemory optControl, tgtObjRef, &H4
-                optControl.value = False
+                optControl.Value = False
                 CopyMemory optControl, 0&, &H4
 
             End If
@@ -1898,7 +1898,7 @@ Private Function ToggleOptionButtons(nMode As Integer) As Boolean
                 tgtObjRef = GetProp(CLng(Tag), "lv_Obj" & i)
                 CopyMemory optControl, tgtObjRef, &H4
 
-                If optControl.value = True Then
+                If optControl.Value = True Then
                     i = NrCtrls + 1
                     ToggleOptionButtons = True
 
@@ -2982,7 +2982,7 @@ Private Sub GetGDIMetrics(sObject As String)
             ' called when font is changed or control is initialized
             Dim newFont As LOGFONT
             newFont.lfCharSet = 1
-            newFont.lfFaceName = UserControl.font.name & Chr$(0)
+            newFont.lfFaceName = UserControl.font.Name & Chr$(0)
             newFont.lfHeight = (UserControl.font.Size * -20) / Screen.TwipsPerPixelY
             newFont.lfWeight = UserControl.font.Weight
             newFont.lfItalic = Abs(CInt(UserControl.font.italic))
@@ -4068,7 +4068,7 @@ Private Sub UserControl_Click()
     If mButton = vbLeftButton Then
         If myProps.bMode > lv_CommandButton Then
             If myProps.bValue = True And myProps.bMode = lv_OptionButton Then Exit Sub
-            Me.value = Not myProps.bValue
+            Me.Value = Not myProps.bValue
 
         End If
 

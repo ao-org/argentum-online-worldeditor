@@ -2852,6 +2852,17 @@ Public Function Light_Remove_All() As Boolean
     
     On Error GoTo Light_Remove_All_Err
     
+    'Dim loop_counter As Long
+            
+    'For loop_counter = 1 To light_count
+        
+    '    If light_list(loop_counter).active Then
+    '        Light_Erase loop_counter
+
+    '    End If
+    
+    'Next loop_counter
+    
     Dim Index As Long
     
     For Index = 1 To light_last

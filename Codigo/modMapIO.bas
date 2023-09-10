@@ -181,6 +181,65 @@ DeseaGuardarMapa_Err:
     
 End Sub
 
+
+Public Sub Todas_las_luces_Click()
+    
+    On Error GoTo Todas_las_luces_Click_Err
+    
+    Dim X As Byte
+    Dim y As Byte
+    Dim i As Long
+
+    For X = 1 To 100
+        For y = 1 To 100
+            MapData(X, y).luz.color = 0
+            MapData(X, y).luz.Rango = 0
+            MapData(X, y).light_value(0) = 0
+            MapData(X, y).light_value(1) = 0
+            MapData(X, y).light_value(2) = 0
+            MapData(X, y).light_value(3) = 0
+            Call LightA.Delete_Light_To_Map(X, y)
+        Next y
+    Next X
+
+    engine.Light_Remove_All
+    MapInfo.Changed = 1
+
+    
+    Exit Sub
+
+Todas_las_luces_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Todas_las_luces_Click", Erl)
+    Resume Next
+    
+End Sub
+
+Public Sub Todas_las_Particulas_Click()
+    
+    On Error GoTo Todas_las_Particulas_Click_Err
+    
+    Dim X As Byte
+    Dim y As Byte
+    Dim i As Long
+
+    For X = 1 To 100
+        For y = 1 To 100
+            MapData(X, y).particle_Index = 0
+        Next y
+    Next X
+
+    engine.Particle_Group_Remove_All
+    MapInfo.Changed = 1
+
+    
+    Exit Sub
+
+Todas_las_Particulas_Click_Err:
+    Call RegistrarError(Err.Number, Err.Description, "FrmMain.Todas_las_Particulas_Click", Erl)
+    Resume Next
+    
+End Sub
+
 ''
 ' Limpia todo el mapa a uno nuevo
 '
@@ -210,6 +269,11 @@ Public Sub NuevoMapa()
     Next
 
     FrmMain.MousePointer = 11
+    
+    Call Todas_las_Particulas_Click
+    Call Todas_las_luces_Click
+    
+    FrmMain.mnuVerParticulas.Checked = True
 
     For y = YMinMapSize To YMaxMapSize
         For X = XMinMapSize To XMaxMapSize
@@ -677,7 +741,7 @@ Public Sub MapaV2_Cargar(ByVal Map As String)
     
         ObtenerMapa = FrmMain.MapPest(4).Caption
     
-        FrmMain.Label16.Caption = ReadField(3, ObtenerMapa, Asc("a"))
+        FrmMain.lblMapaActivo.Caption = ReadField(3, ObtenerMapa, Asc("a"))
         Exit Sub
 
     End If

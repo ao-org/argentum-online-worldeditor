@@ -1301,7 +1301,7 @@ Private Sub Form_Load()
     On Error GoTo Form_Load_Err
     
     Call mnuBasica_Click
-    frmUnionAdyacente.lblMapaAct.Caption = FrmMain.Label16.Caption
+    frmUnionAdyacente.lblMapaAct.Caption = FrmMain.lblMapaActivo.Caption
 
     
     Exit Sub

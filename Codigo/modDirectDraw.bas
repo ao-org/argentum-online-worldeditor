@@ -49,7 +49,7 @@ Sub ConvertCPtoTP(ByVal viewPortX As Integer, ByVal viewPortY As Integer, ByRef 
     tX = UserPos.X + viewPortX \ 32 - FrmMain.renderer.ScaleWidth \ 64
     tY = UserPos.y + viewPortY \ 32 - FrmMain.renderer.ScaleHeight \ 64
     tX = tX - 1
-    Debug.Print tX; tY
+    'Debug.Print tX; tY
 
 End Sub
 
@@ -109,6 +109,8 @@ Sub ConvertCPtoTPa(StartPixelLeft As Integer, StartPixelTop As Integer, ByVal cx
 
 ConvertCPtoTPa_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.ConvertCPtoTPa", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -186,6 +188,8 @@ Sub EraseChar(CharIndex As Integer)
 
 EraseChar_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.EraseChar", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -303,6 +307,8 @@ Sub MoveCharbyHead(CharIndex As Integer, nHeading As Byte)
 
 MoveCharbyHead_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.MoveCharbyHead", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -379,6 +385,8 @@ Function NextOpenChar() As Integer
 
 NextOpenChar_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.NextOpenChar", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Function
@@ -422,6 +430,8 @@ Function LegalPos(X As Integer, y As Integer) As Boolean
 
 LegalPos_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.LegalPos", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Function
@@ -448,6 +458,8 @@ Function InMapLegalBounds(X As Integer, y As Integer) As Boolean
 
 InMapLegalBounds_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.InMapLegalBounds", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Function
@@ -474,6 +486,8 @@ Function InMapBounds(X As Integer, y As Integer) As Boolean
 
 InMapBounds_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.InMapBounds", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Function
@@ -519,6 +533,8 @@ Public Sub Grh_Render_To_Hdcok(ByRef pic As PictureBox, ByVal grhindex As Long, 
 
 Grh_Render_To_Hdcok_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.Grh_Render_To_Hdcok", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -564,6 +580,8 @@ Public Sub Grh_Render_To_HdcPNG(ByRef pic As PictureBox, ByVal grhindex As Long,
 
 Grh_Render_To_HdcPNG_Err:
     Call RegistrarError(Err.Number, Err.Description, "modDirectDraw.Grh_Render_To_HdcPNG", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
@@ -603,6 +621,8 @@ Public Sub Grh_Render_To_Hdc(ByRef pic As PictureBox, ByVal grhindex As Long, By
 
 Grh_Render_To_Hdc_Err:
     Call RegistrarError(Err.Number, Err.Description, "Grh_Render_To_Hdc", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
 
 End Sub
@@ -637,6 +657,8 @@ Public Sub Grh_Render_To_HdcSinBorrar(ByRef pic As PictureBox, ByVal grhindex As
 
 Grh_Render_To_HdcSinBorrar_Err:
     Call RegistrarError(Err.Number, Err.Description, "TileEngine.Grh_Render_To_HdcSinBorrar", Erl)
+    If Err.Number = 7 Then End
+    
     Resume Next
     
 End Sub
