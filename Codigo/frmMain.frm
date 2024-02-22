@@ -4,14 +4,14 @@ Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form FrmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H8000000C&
-   ClientHeight    =   14610
+   ClientHeight    =   14685
    ClientLeft      =   2085
    ClientTop       =   750
    ClientWidth     =   24330
    Icon            =   "frmMain.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   ScaleHeight     =   974
+   ScaleHeight     =   979
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   1622
    StartUpPosition =   2  'CenterScreen
@@ -887,7 +887,6 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
-      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":9F8A
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -911,11 +910,30 @@ Begin VB.Form FrmMain
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   8055
+      Height          =   8145
       Left            =   22080
       TabIndex        =   107
       Top             =   6480
       Width           =   2175
+      Begin VB.CheckBox MapFlags 
+         BackColor       =   &H80000000&
+         Caption         =   "Solo grupos"
+         BeginProperty Font 
+            Name            =   "Arial"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   -1  'True
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Index           =   7
+         Left            =   120
+         TabIndex        =   194
+         Top             =   6120
+         Width           =   1935
+      End
       Begin VB.CheckBox MapFlags 
          BackColor       =   &H80000000&
          Caption         =   "Sin mascotas/invocar"
@@ -941,7 +959,7 @@ Begin VB.Form FrmMain
          Left            =   1080
          TabIndex        =   190
          Text            =   "0"
-         Top             =   7155
+         Top             =   7320
          Width           =   495
       End
       Begin VB.TextBox OutX 
@@ -950,7 +968,7 @@ Begin VB.Form FrmMain
          Left            =   600
          TabIndex        =   189
          Text            =   "0"
-         Top             =   7155
+         Top             =   7320
          Width           =   495
       End
       Begin VB.TextBox OutMap 
@@ -959,16 +977,16 @@ Begin VB.Form FrmMain
          Left            =   120
          TabIndex        =   188
          Text            =   "0"
-         Top             =   7155
+         Top             =   7320
          Width           =   495
       End
       Begin VB.TextBox lvlMax 
          Alignment       =   2  'Center
          Height          =   285
-         Left            =   600
+         Left            =   630
          TabIndex        =   185
          Text            =   "0"
-         Top             =   6600
+         Top             =   6840
          Width           =   495
       End
       Begin VB.TextBox lvlMin 
@@ -977,7 +995,7 @@ Begin VB.Form FrmMain
          Left            =   120
          TabIndex        =   184
          Text            =   "0"
-         Top             =   6600
+         Top             =   6840
          Width           =   495
       End
       Begin VB.CheckBox MapFlags 
@@ -1144,7 +1162,7 @@ Begin VB.Form FrmMain
          Height          =   285
          Left            =   120
          TabIndex        =   133
-         Top             =   7680
+         Top             =   7770
          Width           =   1935
       End
       Begin VB.ComboBox txtMapZona 
@@ -1498,7 +1516,7 @@ Begin VB.Form FrmMain
             MaskColor       =   &H00404040&
             TabIndex        =   109
             Top             =   360
-            Width           =   855
+            Width           =   775
          End
       End
       Begin VB.Label Lbl_fuera_del_mapa 
@@ -1516,7 +1534,7 @@ Begin VB.Form FrmMain
          Height          =   255
          Left            =   120
          TabIndex        =   187
-         Top             =   6960
+         Top             =   7140
          Width           =   1215
       End
       Begin VB.Label Lbl_maplvl 
@@ -1532,9 +1550,9 @@ Begin VB.Form FrmMain
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   120
+         Left            =   90
          TabIndex        =   186
-         Top             =   6150
+         Top             =   6390
          Width           =   1815
       End
       Begin VB.Label Label12 
@@ -1550,9 +1568,9 @@ Begin VB.Form FrmMain
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   360
+         Left            =   300
          TabIndex        =   132
-         Top             =   7500
+         Top             =   7590
          Width           =   1575
       End
       Begin VB.Label Label11 
