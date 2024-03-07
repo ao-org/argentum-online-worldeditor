@@ -26,7 +26,7 @@ Begin VB.Form frmCargando
       Width           =   6120
       Begin VB.Label Label1 
          BackStyle       =   0  'Transparent
-         Caption         =   "RevoluciónAo Map editor"
+         Caption         =   "WorldEditor Argentum Online"
          BeginProperty Font 
             Name            =   "Tahoma"
             Size            =   15.75
@@ -41,7 +41,7 @@ Begin VB.Form frmCargando
          Left            =   1080
          TabIndex        =   9
          Top             =   120
-         Width           =   3855
+         Width           =   4455
       End
       Begin VB.Label verX 
          Alignment       =   2  'Center

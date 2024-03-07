@@ -887,6 +887,7 @@ Begin VB.Form FrmMain
       _Version        =   393217
       BackColor       =   0
       BorderStyle     =   0
+      Enabled         =   -1  'True
       TextRTF         =   $"frmMain.frx":9F8A
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Arial"
@@ -6938,7 +6939,7 @@ Private Sub Form_Load()
     
     On Error GoTo Form_Load_Err
     
-    Me.Caption = "WorldEditor DX8 por Ladder"
+    Me.Caption = "WorldEditor Argentum Online"
 
     
     Exit Sub

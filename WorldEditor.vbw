@@ -1,6 +1,6 @@
 FrmMain = 0, 0, 576, 901, , 359, 109, 1557, 772, C
 modGeneral = 52, 52, 1312, 593, 
-modDeclaraciones = 78, 78, 1338, 619, C
+modDeclaraciones = 78, 78, 1338, 619, 
 modDirectDraw = 200, 200, 1540, 677, 
 frmGrafico = 0, 0, 0, 0, C, 175, 175, 1373, 838, C
 frmCargando = 200, 200, 1398, 863, C, 200, 200, 1398, 863, C
@@ -46,7 +46,7 @@ ModBLoques = 275, 275, 1473, 938, C
 DesplazarTranslados = 0, 0, 0, 0, C, 225, 225, 1423, 888, C
 WavAmbiental = 0, 0, 0, 0, C, 250, 250, 1448, 913, C
 FrmRender = 200, 200, 1498, 656, C, 275, 275, 1473, 938, C
-clsLight = 0, 0, 1298, 456, Z
+clsLight = 0, 0, 1298, 456, 
 frmActualizarIndices = 150, 150, 1348, 813, C, 25, 25, 1223, 688, C
 Logs = 175, 175, 1515, 626, C
 clsIniManager = 0, 0, 0, 0, C
