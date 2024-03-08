@@ -1,3 +1,5 @@
+![image](https://github.com/ao-org/argentum-online-worldeditor/assets/5874806/cbdee8a3-9d6f-4f2b-bed0-11e098916791)
+
 To install the Argentum Online WorldEditor and set it up correctly, you'll need to follow a few steps. These instructions involve downloading necessary files from GitHub and organizing them on your local system. Here's a simplified and clear guide to do just that:
 
 ### Step 1: Download the Resources
