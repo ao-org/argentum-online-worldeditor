@@ -276,9 +276,9 @@ Private Sub CargarMapIni()
 
     If FileExist(IniPath & "WorldEditor.ini", vbArchive) = False Then
         Rem  FrmMain.mnuGuardarUltimaConfig.Checked = True
-        DirGraficos = IniPath & "Graficos\"
-        DirIndex = IniPath & "INIT\"
-        DirMidi = IniPath & "MIDI\"
+        DirGraficos = IniPath & "..\Recursos\Graficos\"
+        DirIndex = IniPath & "..\Recursos\INIT\"
+        DirMidi = IniPath & "..\Recursos\MIDI\"
         frmMusica.fleMusicas.Path = DirMidi
         DirDats = IniPath & "..\Recursos\DAT\"
         UserPos.X = 50
@@ -501,6 +501,11 @@ Public Sub Main()
     Call InitTileEngine(FrmMain.hWnd, FrmMain.MainViewShp.Top + 47, FrmMain.MainViewShp.Left + 4, 32, 32, PantallaX, PantallaY, 9)
     'Display form handle, View window offset from 0,0 of display form, Tile Size, Display size in tiles, Screen buffer
     
+    If Not FileExist("../Recursos/", vbDirectory) Then
+        MsgBox "No existe la carpeta ../Recursos/, es necesaria para funcionar.", vbCritical + vbOKOnly
+        End
+    End If
+    
     Call modIndices.CargarMoldes
     
     Call modIndices.CargarIndicesDeGraficos
@@ -547,10 +552,6 @@ Public Sub Main()
     'frmCargando.SetFocus
     frmCargando.X.Caption = "Iniciando Ventana de Edición..."
     DoEvents
-
-    If LenB(Dir(App.Path & "\manual\index.html", vbArchive)) = 0 Then
-   
-    End If
 
     MMiniMap_capa2 = True
     MMiniMap_capa1 = True
